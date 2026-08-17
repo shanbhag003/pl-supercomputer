@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-17T11:55:34",
+  "updated": "2026-08-17T12:05:31",
   "gameweek": 0,
   "matches_played": 0,
   "drift": 0.16,
@@ -9,34 +9,34 @@
   "validation": null,
   "biggest_moves": [
     {
-      "team": "Arsenal",
+      "team": "Ipswich",
       "d_xPts": 0.0,
       "d_title": 0.0,
-      "d_releg": 0.0
-    },
-    {
-      "team": "Manchester City",
-      "d_xPts": 0.0,
-      "d_title": 0.0,
-      "d_releg": 0.0
+      "d_releg": -0.03
     },
     {
       "team": "Liverpool",
       "d_xPts": 0.0,
-      "d_title": 0.0,
+      "d_title": 0.01,
       "d_releg": 0.0
     },
     {
-      "team": "Manchester United",
-      "d_xPts": 0.0,
+      "team": "Hull",
+      "d_xPts": -0.0,
       "d_title": 0.0,
-      "d_releg": 0.0
+      "d_releg": 0.01
     },
     {
-      "team": "Bournemouth",
+      "team": "Fulham",
       "d_xPts": 0.0,
       "d_title": 0.0,
-      "d_releg": 0.0
+      "d_releg": 0.01
+    },
+    {
+      "team": "Tottenham",
+      "d_xPts": -0.0,
+      "d_title": 0.0,
+      "d_releg": 0.01
     }
   ]
 }

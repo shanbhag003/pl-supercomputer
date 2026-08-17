@@ -12,9 +12,9 @@ TITLE RACE
 
 RELEGATION
 ----------------------------------------------------
-  Ipswich               70.3%
+  Ipswich               70.2%
   Coventry              56.4%
-  Hull                  52.2%
+  Hull                  52.3%
 
 WHY THE MODEL CHANGED
 ----------------------------------------------------
