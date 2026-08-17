@@ -1,0 +1,50 @@
+name: PL Supercomputer
+
+on:
+  schedule:
+    - cron: '17 */2 * * *'    # poll every 2h; exits in seconds unless a GW has settled
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Publish even if no gameweek has settled'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pl-supercomputer
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Run model
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          FORCE_RUN: ${{ inputs.force }}
+        run: python src/update.py
+
+      - name: Commit results
+        run: |
+          git config user.name  "pl-supercomputer"
+          git config user.email "actions@github.com"
+          git add outputs/ data/understat/ data/raw/ || true
+          git diff --staged --quiet && echo "nothing to commit" || {
+            git commit -m "Update $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase && git push
+          }
