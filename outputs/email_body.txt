@@ -18,7 +18,12 @@ RELEGATION
 
 WHY THE MODEL CHANGED
 ----------------------------------------------------
-  First published run — no previous forecast to compare against.
+  No team moved by more than 0.1 expected points.
+
+  Movement comes from three things: results (a win shifts points
+  directly), underlying xG performance (a team can win and still
+  have its rating fall), and shrinking uncertainty as the season
+  goes on.
 
 MODEL ACCURACY SO FAR
 ----------------------------------------------------

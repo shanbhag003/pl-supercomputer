@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-17T11:16:52",
+  "updated": "2026-08-17T11:45:17",
   "gameweek": 0,
   "matches_played": 0,
   "drift": 0.16,
@@ -7,5 +7,36 @@
   "gate": "no completed gameweek is settled yet; next kickoff 2026-08-21 19:00 UTC",
   "xg_source": "understat",
   "validation": null,
-  "biggest_moves": []
+  "biggest_moves": [
+    {
+      "team": "Arsenal",
+      "d_xPts": 0.0,
+      "d_title": 0.0,
+      "d_releg": 0.0
+    },
+    {
+      "team": "Manchester City",
+      "d_xPts": 0.0,
+      "d_title": 0.0,
+      "d_releg": 0.0
+    },
+    {
+      "team": "Liverpool",
+      "d_xPts": 0.0,
+      "d_title": 0.0,
+      "d_releg": 0.0
+    },
+    {
+      "team": "Manchester United",
+      "d_xPts": 0.0,
+      "d_title": 0.0,
+      "d_releg": 0.0
+    },
+    {
+      "team": "Bournemouth",
+      "d_xPts": 0.0,
+      "d_title": 0.0,
+      "d_releg": 0.0
+    }
+  ]
 }
