@@ -62,10 +62,7 @@ def render(pred, out_path, gw_label, n_sims=20000,
     ax.axis('off')
 
     # background gradient
-    g = np.linspace(0, 1, 512).reshape(-1, 1)
-    ax.imshow(g, extent=[0, 1, 0, 1], aspect='auto', zorder=0,
-              cmap=matplotlib.colors.LinearSegmentedColormap.from_list(
-                  'pl', [PURPLE_D, PURPLE, '#4A0050']))
+    backdrop(ax)
 
     def Y(px):
         return 1 - px / fig_h
@@ -74,9 +71,9 @@ def render(pred, out_path, gw_label, n_sims=20000,
     ax.add_patch(Rectangle((0, Y(H_TOP - 0.16)), 1, 0.16 / fig_h,
                            color=PINK, zorder=2))
     ax.text(0.045, Y(0.72), '2026-27 PREMIER LEAGUE',
-            fontproperties=ANTON, fontsize=41, color=WHITE, va='center', zorder=3)
+            fontproperties=ANTON, fontsize=41, color=WHITE, va='center_baseline', zorder=3)
     ax.text(0.045, Y(1.22), subtitle,
-            fontproperties=ANTON, fontsize=25, color=PINK, va='center', zorder=3)
+            fontproperties=ANTON, fontsize=25, color=PINK, va='center_baseline', zorder=3)
     ax.text(0.045, Y(1.66), gw_label.upper(),
             fontproperties=BC_M, fontsize=15.5, color=CYAN, va='center',
             zorder=3, alpha=.95)
@@ -111,7 +108,7 @@ def render(pred, out_path, gw_label, n_sims=20000,
         zone = GREEN if i < 4 else (CYAN if i < 6 else (PINK if i >= T - 3 else None))
         ax.add_patch(FancyBboxPatch((0.037, yc - h / 2), 0.928, h,
                                     boxstyle='round,pad=0,rounding_size=0.009',
-                                    fc='#FFFFFF', ec='none', alpha=.055, zorder=2))
+                                    fc='#FFFFFF', ec='none', alpha=.075, zorder=2))
         if zone:
             ax.add_patch(Rectangle((0.037, yc - h / 2), 0.0055, h,
                                    color=zone, zorder=3))
@@ -122,7 +119,7 @@ def render(pred, out_path, gw_label, n_sims=20000,
                                color=CLUB.get(r.team, '#888888'), zorder=3))
         ax.text(0.112, yc, SHORT.get(r.team, r.team.upper()),
                 fontproperties=BC_B, fontsize=19.5, color=WHITE,
-                va='center', zorder=3)
+                va='center_baseline', zorder=3)
 
         # range bar
         x0, x1 = 0.340, 0.492
@@ -133,18 +130,18 @@ def render(pred, out_path, gw_label, n_sims=20000,
         ax.plot([sx(r.xPts)], [yc], marker='o', ms=6.0,
                 color=CLUB.get(r.team, WHITE), mec=WHITE, mew=1.3, zorder=4)
         ax.text(x0 - 0.013, yc, f'{r.lo:.0f}', fontproperties=BC_M, fontsize=12.5,
-                color=WHITE, alpha=.5, ha='right', va='center', zorder=3)
+                color=WHITE, alpha=.5, ha='right', va='center_baseline', zorder=3)
         ax.text(x1 + 0.013, yc, f'{r.hi:.0f}', fontproperties=BC_M, fontsize=12.5,
-                color=WHITE, alpha=.5, ha='left', va='center', zorder=3)
+                color=WHITE, alpha=.5, ha='left', va='center_baseline', zorder=3)
 
         ax.text(.592, yc, f'{r.xPts:.1f}', fontproperties=BC_B, fontsize=18.5,
-                color=WHITE, ha='center', va='center', zorder=3)
+                color=WHITE, ha='center', va='center_baseline', zorder=3)
         for val, x, bad in [(r.title, .676, False), (r.top4, .759, False),
                             (r.top6, .841, False), (r.releg, .928, True)]:
             v = 100 * val
             s = '—' if v < 0.05 else (f'{v:.1f}%' if v < 99.9 else '>99%')
             ax.text(x, yc, s, fontproperties=BC_B, fontsize=17,
-                    color=pct_col(v, bad), ha='center', va='center', zorder=3)
+                    color=pct_col(v, bad), ha='center', va='center_baseline', zorder=3)
 
     # ---------- footer ----------
     yf = Y(fig_h - H_BOT + 0.26)
@@ -153,15 +150,15 @@ def render(pred, out_path, gw_label, n_sims=20000,
         ax.add_patch(Rectangle((x, yf - 0.006), 0.0045, 0.013,
                                color=col, zorder=3))
         ax.text(x + 0.011, yf, lbl, fontproperties=BC_M, fontsize=11.5,
-                color=WHITE, alpha=.7, va='center', zorder=3)
+                color=WHITE, alpha=.7, va='center_baseline', zorder=3)
     ax.text(.965, yf, f'{n_sims:,} MONTE CARLO SIMULATIONS',
             fontproperties=BC_B, fontsize=12, color=PINK, ha='right',
-            va='center', zorder=3)
+            va='center_baseline', zorder=3)
     ax.text(.045, Y(fig_h - 0.22),
             'Dixon-Coles xG model  ·  data: Understat + football-data.co.uk  ·  '
             'range = middle 80% of simulated seasons',
             fontproperties=BC_M, fontsize=10.5, color=WHITE, alpha=.42,
-            va='center', zorder=3)
+            va='center_baseline', zorder=3)
 
     fig.savefig(out_path, facecolor=PURPLE_D)
     plt.close(fig)
@@ -179,6 +176,37 @@ if __name__ == '__main__':
 BRAND = 'MY PREDICTIONS'      # change this line to rename the graphic
 
 
+def backdrop(ax, glow_x=.30, glow_y=.02):
+    """Shared background: gradient, corner glow, stripes, vignette, chevrons."""
+    g = np.linspace(0, 1, 600).reshape(-1, 1)
+    ax.imshow(g, extent=[0, 1, 0, 1], aspect='auto', zorder=0,
+              cmap=matplotlib.colors.LinearSegmentedColormap.from_list(
+                  'pl', ['#1A0020', PURPLE, '#4E0055']))
+
+    ny, nx = 520, 420
+    Xg, Yg = np.meshgrid(np.linspace(0, 1, nx), np.linspace(0, 1, ny))
+    d = np.sqrt(((Xg - glow_x) / .80) ** 2 + ((Yg - glow_y) / .46) ** 2)
+    rgba = np.zeros((ny, nx, 4))
+    rgba[..., 0], rgba[..., 1], rgba[..., 2] = .48, .05, .55
+    rgba[..., 3] = np.clip(1 - d, 0, 1) ** 2 * .62
+    ax.imshow(rgba, extent=[0, 1, 0, 1], aspect='auto', zorder=0,
+              interpolation='bilinear')
+
+    for x in np.arange(-.02, 1.02, .1042):          # faint vertical bands
+        ax.add_patch(Rectangle((x, 0), .052, 1, color=WHITE, alpha=.013,
+                               lw=0, zorder=0))
+
+    for i in range(7):                               # corner chevrons
+        x = .70 + i * .052
+        ax.plot([x, x + .105], [1.005, .90], lw=2.2, solid_capstyle='round',
+                color=PINK if i % 2 else CYAN, alpha=.10, zorder=0)
+
+    v = np.linspace(0, 1, 300).reshape(-1, 1)
+    vg = np.zeros((300, 2, 4)); vg[..., 3] = (v ** 3) * .55
+    ax.imshow(vg, extent=[0, 1, 0, 1], aspect='auto', zorder=0,
+              interpolation='bilinear')
+
+
 def render_mobile(pred, out_path, gw_label, n_sims=20000, brand=None):
     """Portrait 4:5 graphic for phone / LinkedIn feed. No range column."""
     d = pred.reset_index(drop=True)
@@ -190,10 +218,7 @@ def render_mobile(pred, out_path, gw_label, n_sims=20000, brand=None):
 
     fig = plt.figure(figsize=(W, H), dpi=150)
     ax = fig.add_axes([0, 0, 1, 1]); ax.set_xlim(0, 1); ax.set_ylim(0, 1); ax.axis('off')
-    g = np.linspace(0, 1, 512).reshape(-1, 1)
-    ax.imshow(g, extent=[0, 1, 0, 1], aspect='auto', zorder=0,
-              cmap=matplotlib.colors.LinearSegmentedColormap.from_list(
-                  'pl', [PURPLE_D, PURPLE, '#4A0050']))
+    backdrop(ax)
 
     def Y(px):
         return 1 - px / H
@@ -201,11 +226,11 @@ def render_mobile(pred, out_path, gw_label, n_sims=20000, brand=None):
     ax.text(.06, Y(0.58), '2026-27', fontproperties=ANTON, fontsize=43,
             color=WHITE, va='center', zorder=3)
     ax.text(.06, Y(1.02), 'PREMIER LEAGUE', fontproperties=ANTON, fontsize=26,
-            color=WHITE, va='center', zorder=3)
+            color=WHITE, va='center_baseline', zorder=3)
     ax.text(.06, Y(1.42), brand, fontproperties=ANTON, fontsize=26,
-            color=PINK, va='center', zorder=3)
+            color=PINK, va='center_baseline', zorder=3)
     ax.text(.945, Y(0.58), gw_label.upper(), fontproperties=BC_B, fontsize=15.5,
-            color=CYAN, ha='right', va='center', zorder=3)
+            color=CYAN, ha='right', va='center_baseline', zorder=3)
 
     C = {'x': .620, 't': .762, 'r': .905}
     ax.add_patch(Rectangle((0, Y(H_TOP - .19)), 1, .075 / H, color=PINK, zorder=2))
@@ -220,17 +245,17 @@ def render_mobile(pred, out_path, gw_label, n_sims=20000, brand=None):
         zone = GREEN if i < 4 else (CYAN if i < 6 else (PINK if i >= T - 3 else None))
         ax.add_patch(FancyBboxPatch((.045, yc - h / 2), .915, h,
                                     boxstyle='round,pad=0,rounding_size=.012',
-                                    fc='#FFFFFF', ec='none', alpha=.055, zorder=2))
+                                    fc='#FFFFFF', ec='none', alpha=.075, zorder=2))
         if zone:
             ax.add_patch(Rectangle((.045, yc - h / 2), .008, h, color=zone, zorder=3))
         ax.text(.088, yc, str(i + 1), fontproperties=ANTON, fontsize=17,
-                color=WHITE, alpha=.5, ha='center', va='center', zorder=3)
+                color=WHITE, alpha=.5, ha='center', va='center_baseline', zorder=3)
         ax.add_patch(Rectangle((.116, yc - h / 2), .011, h,
                                color=CLUB.get(r.team, '#888'), zorder=3))
         ax.text(.148, yc, SHORT.get(r.team, r.team.upper()), fontproperties=BC_B,
-                fontsize=20, color=WHITE, va='center', zorder=3)
+                fontsize=20, color=WHITE, va='center_baseline', zorder=3)
         ax.text(C['x'], yc, f'{r.xPts:.1f}', fontproperties=BC_B, fontsize=20,
-                color=WHITE, ha='center', va='center', zorder=3)
+                color=WHITE, ha='center', va='center_baseline', zorder=3)
         for val, x, bad in [(r.title, C['t'], False), (r.releg, C['r'], True)]:
             v = 100 * val
             s = '—' if v < .05 else (f'{v:.1f}%' if v < 99.9 else '>99%')
@@ -239,19 +264,19 @@ def render_mobile(pred, out_path, gw_label, n_sims=20000, brand=None):
                    (GREEN if v >= 25 else CYAN if v >= 8 else WHITE if v >= 1
                     else '#9C7FA6'))
             ax.text(x, yc, s, fontproperties=BC_B, fontsize=19, color=col,
-                    ha='center', va='center', zorder=3)
+                    ha='center', va='center_baseline', zorder=3)
 
     yf = Y(H - H_BOT + .30)
     for lbl, col, x in [('TOP 4', GREEN, .06), ('TOP 6', CYAN, .215),
                         ('RELEGATION', PINK, .37)]:
         ax.add_patch(Rectangle((x, yf - .0055), .006, .011, color=col, zorder=3))
         ax.text(x + .014, yf, lbl, fontproperties=BC_M, fontsize=12.5,
-                color=WHITE, alpha=.72, va='center', zorder=3)
+                color=WHITE, alpha=.72, va='center_baseline', zorder=3)
     ax.text(.945, yf, f'{n_sims:,} SIMULATIONS', fontproperties=BC_B,
-            fontsize=13, color=PINK, ha='right', va='center', zorder=3)
+            fontsize=13, color=PINK, ha='right', va='center_baseline', zorder=3)
     ax.text(.06, Y(H - .28), 'Dixon-Coles xG model  ·  Understat + football-data.co.uk',
             fontproperties=BC_M, fontsize=11, color=WHITE, alpha=.42,
-            va='center', zorder=3)
+            va='center_baseline', zorder=3)
     fig.savefig(out_path, facecolor=PURPLE_D)
     plt.close(fig)
     return out_path
