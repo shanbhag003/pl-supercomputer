@@ -10,7 +10,7 @@ redistributed to its new signings in proportion to FPL price. So a club that
 sells a key player and buys nobody loses that value, and one that reinvests
 gets it partly back.
 """
-import json, glob, re, sys, unicodedata
+import json, glob, os, re, sys, unicodedata
 import numpy as np
 import pandas as pd
 import requests
@@ -50,6 +50,8 @@ def fpl_squads():
 
 
 def understat_last(season=2025):
+    if os.path.exists(CACHE_LAST):
+        return pd.DataFrame(json.load(open(CACHE_LAST)))
     f = f'/home/claude/pl/data/understat/EPL_{season}.json'
     out = []
     for p in json.load(open(f))['players']:
@@ -60,7 +62,18 @@ def understat_last(season=2025):
     return pd.DataFrame(out)
 
 
+CACHE_EU = '/home/claude/pl/data/processed/eu_name_index.json'
+CACHE_LAST = '/home/claude/pl/data/processed/last_season_players.json'
+
+
 def european_index():
+    """Prefer the precomputed index; fall back to reading the raw league files."""
+    if os.path.exists(CACHE_EU):
+        return json.load(open(CACHE_EU))
+    return _european_index_from_raw()
+
+
+def _european_index_from_raw():
     """name -> pid for players in the other four leagues, most recent first.
 
     Without this, a signing who has never played in England has no id at all,

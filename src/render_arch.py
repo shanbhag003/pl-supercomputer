@@ -1,4 +1,4 @@
-"""Architecture graphic — vertical pipeline, same theme as the standings image."""
+"""Architecture graphic — plain English, vertical flow, same theme."""
 import os, sys
 import matplotlib
 matplotlib.use('Agg')
@@ -6,124 +6,100 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, Circle, Polygon
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from render import backdrop, ANTON, BC_B, BC_M, PURPLE_D, PINK, CYAN, GREEN, WHITE
+from render import (backdrop, Centred, ANTON, BC_B, BC_M,
+                    PURPLE_D, PINK, CYAN, GREEN, WHITE, LAV)
 
-LAV = '#C4AECC'
 W, H = 7.2, 9.0
 L, R = .058, .942
 
-STAGES = [
-    ('01', 'RATING MODEL',   'Dixon-Coles  ·  70% non-penalty xG  ·  154-day half-life'),
-    ('02', 'PROMOTED PRIOR', 'Championship points predict nothing  ·  r = +0.04'),
-    ('03', 'DRIFT',          'Summer squad change  ·  0.16 SD, decays with matches'),
-    ('04', 'BOOTSTRAP',      '80 refits  ·  what we do not know about the ratings'),
-    ('05', 'MONTE CARLO',    '20,000 seasons  ·  real Premier League tiebreaks'),
-    ('06', 'SELF-SCORING',   "Grades last week's calls against bookmaker odds"),
+STEPS = [
+    ('1', 'IT LEARNS FROM THE PAST',
+     'Twelve seasons of results — and how good the chances were,',
+     'not just who got lucky'),
+    ('2', 'IT SCORES EVERY CLUB',
+     'How well each one attacks, how well it defends,',
+     'with recent form counting most'),
+    ('3', 'IT ADMITS WHAT IT CANNOT KNOW',
+     'New signings, new managers, a whole summer of change —',
+     'so nothing is treated as certain'),
+    ('4', 'IT PLAYS THE SEASON 20,000 TIMES',
+     'Every remaining match, over and over,',
+     'letting the luck fall differently each time'),
+    ('5', 'IT COUNTS WHAT HAPPENED',
+     'Won the league in 6,220 of them? That is a 31% title chance.',
+     'Same for top four and relegation'),
+    ('6', 'IT MARKS ITS OWN HOMEWORK',
+     'Every week it checks last week\'s predictions against reality,',
+     'and against the bookmakers'),
 ]
 
 fig = plt.figure(figsize=(W, H), dpi=150)
 ax = fig.add_axes([0, 0, 1, 1]); ax.set_xlim(0, 1); ax.set_ylim(0, 1); ax.axis('off')
 backdrop(ax, glow_x=.32, glow_y=.03)
+C = Centred(fig, ax)
 
 
 def Y(p):
     return 1 - p / H
 
 
-def panel(top, h, x0, x1, accent=None, fill=.075, lw=1.1, edge=None):
+def panel(top, h, x0, x1, accent=None, fill=.075, lw=1.1):
     ax.add_patch(FancyBboxPatch((x0, Y(top + h)), x1 - x0, h / H,
                                 boxstyle='round,pad=0,rounding_size=.013',
                                 fc=accent or WHITE, ec='none', alpha=fill, zorder=2))
     ax.add_patch(FancyBboxPatch((x0, Y(top + h)), x1 - x0, h / H,
                                 boxstyle='round,pad=0,rounding_size=.013',
-                                fc='none', ec=edge or accent or WHITE,
-                                alpha=.5 if (accent or edge) else .16, lw=lw, zorder=3))
+                                fc='none', ec=accent or WHITE,
+                                alpha=.5 if accent else .16, lw=lw, zorder=3))
 
 
-def arrow(top, col):
-    ax.plot([.5, .5], [Y(top), Y(top + .17)], lw=1.6, color=col, alpha=.4, zorder=3)
-    ax.add_patch(Polygon([[.5, Y(top + .28)], [.485, Y(top + .16)],
-                          [.515, Y(top + .16)]], closed=True, fc=col, alpha=.55,
-                         ec='none', zorder=3))
-
-
-def kicker(top, text):
-    ax.text(L, Y(top), text, fontproperties=BC_M, fontsize=10.5, color=LAV,
-            alpha=.85, va='center_baseline', zorder=4)
-
-
-# ---------------------------------------------------------------- header
-ax.text(L, Y(.54), 'AUTONOMOUS  ·  SELF-VALIDATING  ·  FREE TO RUN',
-        fontproperties=BC_M, fontsize=11, color=GREEN, va='center_baseline', zorder=4)
-ax.text(L, Y(1.10), 'PL SUPERCOMPUTER', fontproperties=ANTON, fontsize=36,
+# ------------------------------------------------------------------ header
+C.text(L, Y(.56), 'IT RUNS ITSELF  ·  IT CHECKS ITSELF  ·  IT COSTS NOTHING',
+       fontproperties=BC_M, fontsize=11.5, color=GREEN, zorder=4)
+ax.text(L, Y(1.14), 'PREDICTING THE', fontproperties=ANTON, fontsize=33,
         color=WHITE, va='center', zorder=4)
-ax.text(L, Y(1.54), 'HOW IT WORKS', fontproperties=ANTON, fontsize=23,
+ax.text(L, Y(1.62), 'PREMIER LEAGUE', fontproperties=ANTON, fontsize=33,
         color=PINK, va='center', zorder=4)
-ax.text(L, Y(1.94), 'Wakes every 2 hours. Publishes 12 hours after a gameweek',
-        fontproperties=BC_M, fontsize=12.5, color=LAV, va='center_baseline', zorder=4)
-ax.text(L, Y(2.14), 'settles — midweek rounds included.',
-        fontproperties=BC_M, fontsize=12.5, color=LAV, va='center_baseline', zorder=4)
+C.text(L, Y(2.12), 'A computer plays out the whole season, thousands of times over,',
+       fontproperties=BC_M, fontsize=13, color=LAV, zorder=4)
+C.text(L, Y(2.34), 'then counts how often each club came first — and how often it went down.',
+       fontproperties=BC_M, fontsize=13, color=LAV, zorder=4)
 
-# ---------------------------------------------------------------- inputs
-kicker(2.40, 'INPUTS')
-for x0, x1, title, lines in [
-        (L, .492, 'FROZEN HISTORY',
-         ['4,560 matches  ·  12 seasons', 'xG and non-penalty xG']),
-        (.508, R, 'PULLED EACH RUN',
-         ['Understat  ·  football-data', 'Fixtures with kickoff times'])]:
-    panel(2.52, .74, x0, x1)
-    ax.text(x0 + .026, Y(2.75), title, fontproperties=BC_B, fontsize=13,
-            color=WHITE, va='center_baseline', zorder=4)
-    for i, ln in enumerate(lines):
-        ax.text(x0 + .026, Y(2.96 + i * .17), ln, fontproperties=BC_M,
-                fontsize=10.6, color=LAV, va='center_baseline', zorder=4)
-
-panel(3.36, .42, L, R, accent=PINK, fill=.10)
-ax.text(L + .026, Y(3.58), 'GUARD   the feed once served National League fixtures',
-        fontproperties=BC_M, fontsize=11.2, color='#FFA9C8',
-        va='center_baseline', zorder=4)
-
-arrow(3.80, CYAN)
-
-# ---------------------------------------------------------------- engine
-ETOP, CH, PITCH = 4.10, .44, .50
-EH = .56 + (len(STAGES) - 1) * PITCH + CH + .14
-panel(ETOP, EH, L - .014, R + .014, accent=GREEN, fill=.05, lw=1.4)
-ax.text(.5, Y(ETOP + .34), 'THE ENGINE', fontproperties=ANTON, fontsize=17,
-        color=GREEN, ha='center', va='center', zorder=4)
-
-for i, (n, title, desc) in enumerate(STAGES):
-    t = ETOP + .56 + i * PITCH
-    last = i == len(STAGES) - 1
+# ------------------------------------------------------------------- steps
+TOP, CH, PITCH = 2.70, .78, .845
+for i, (n, title, l1, l2) in enumerate(STEPS):
+    t = TOP + i * PITCH
+    last = i == len(STEPS) - 1
     col = CYAN if last else GREEN
-    panel(t, CH, L + .014, R - .014, accent=col if last else None,
-          fill=.075 if last else .05, lw=1.0)
-    ax.add_patch(Circle((L + .056, Y(t + CH / 2)), .0178, fc=PURPLE_D, ec=col,
-                        lw=1.4, zorder=4))
-    ax.text(L + .056, Y(t + CH / 2), n, fontproperties=BC_B, fontsize=8.4,
-            color=col, ha='center', va='center', zorder=5)
-    ax.text(L + .098, Y(t + .165), title, fontproperties=BC_B, fontsize=13.5,
-            color=col if last else WHITE, va='center_baseline', zorder=4)
-    ax.text(L + .098, Y(t + .335), desc, fontproperties=BC_M, fontsize=10.6,
-            color=LAV, va='center_baseline', zorder=4)
+    panel(t, CH, L, R, accent=col if last else None, fill=.085 if last else .055)
+    ax.add_patch(Circle((L + .055, Y(t + CH / 2)), .0235, fc=PURPLE_D, ec=col,
+                        lw=1.6, zorder=4))
+    C.text(L + .055, Y(t + CH / 2), n, fontproperties=ANTON, fontsize=14,
+           color=col, ha='center', zorder=5)
+    C.text(L + .105, Y(t + .215), title, fontproperties=BC_B, fontsize=15.5,
+           color=col if last else WHITE, zorder=4)
+    C.text(L + .105, Y(t + .455), l1, fontproperties=BC_M, fontsize=11.4,
+           color=LAV, zorder=4)
+    C.text(L + .105, Y(t + .625), l2, fontproperties=BC_M, fontsize=11.4,
+           color=LAV, zorder=4)
+    if not last:
+        ax.add_patch(Polygon([[.5, Y(t + CH + .075)], [.489, Y(t + CH + .012)],
+                              [.511, Y(t + CH + .012)]], closed=True,
+                             fc=GREEN, alpha=.4, ec='none', zorder=3))
 
-arrow(ETOP + EH + .02, GREEN)
+# ------------------------------------------------------------------ footer
+BOT = TOP + (len(STEPS) - 1) * PITCH + CH
+panel(BOT + .24, .56, L, R, accent=PINK, fill=.09)
+C.text(L + .028, Y(BOT + .44), 'THEN IT EMAILS YOU THE ANSWER',
+       fontproperties=BC_B, fontsize=14.5, color=PINK, zorder=4)
+C.text(L + .028, Y(BOT + .66), 'A fresh table twelve hours after every gameweek ends. No buttons pressed.',
+       fontproperties=BC_M, fontsize=11.2, color=LAV, zorder=4)
 
-# ---------------------------------------------------------------- output
-OTOP = ETOP + EH + .44
-kicker(OTOP - .14, 'OUTPUT')
-panel(OTOP, .60, L, R, accent=GREEN, fill=.09)
-ax.text(L + .026, Y(OTOP + .22), 'EMAILED TO YOU, COMMITTED TO THE REPO',
-        fontproperties=BC_B, fontsize=13.5, color=GREEN, va='center_baseline', zorder=4)
-ax.text(L + .026, Y(OTOP + .44), 'Graphic  ·  full CSV  ·  what moved and why  ·  accuracy log',
-        fontproperties=BC_M, fontsize=10.8, color=LAV, va='center_baseline', zorder=4)
+C.text(.5, Y(H - .26), 'Dixon-Coles expected-goals model  ·  Monte Carlo simulation  ·  Python + GitHub Actions',
+       fontproperties=BC_M, fontsize=10.5, color=LAV, alpha=.6, ha='center', zorder=4)
 
-ax.plot([L, R], [Y(8.70)] * 2, color=WHITE, alpha=.15, lw=1, zorder=3)
-ax.text(.5, Y(8.86), 'PYTHON  ·  NUMPY  ·  SCIPY  ·  GITHUB ACTIONS  ·  ZERO COST',
-        fontproperties=BC_M, fontsize=11, color=LAV, alpha=.75,
-        ha='center', va='center', zorder=4)
-
+C.apply()
 out = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                    'outputs', 'architecture.png')
 fig.savefig(out, facecolor=PURPLE_D)
-print(f'{out}  (engine ends {ETOP + EH:.2f}, output ends {OTOP + .60:.2f} of {H})')
+print(f'{out}   last panel ends {BOT + .78:.2f} of {H}')
