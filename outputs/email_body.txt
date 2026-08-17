@@ -1,0 +1,31 @@
+PREMIER LEAGUE SUPERCOMPUTER — PRE-SEASON
+====================================================
+
+20,000 Monte Carlo simulations of every remaining fixture.
+Data through: 0 matches played.
+
+TITLE RACE
+----------------------------------------------------
+  1. Arsenal               72.7 xPts    31.1% title
+  2. Manchester City       72.0 xPts    30.5% title
+  3. Liverpool             62.7 xPts     8.7% title
+
+RELEGATION
+----------------------------------------------------
+  Ipswich               70.3%
+  Coventry              56.4%
+  Hull                  52.2%
+
+WHY THE MODEL CHANGED
+----------------------------------------------------
+  First published run — no previous forecast to compare against.
+
+MODEL ACCURACY SO FAR
+----------------------------------------------------
+  No scored predictions yet — accuracy tracking starts once the
+  model has forecast a gameweek that has since been played.
+
+----------------------------------------------------
+Dixon-Coles xG model, 80 bootstrap refits for parameter uncertainty.
+Data: Understat (xG) + football-data.co.uk (results, odds).
+No injury, transfer or manager data is used.

@@ -1,0 +1,11 @@
+{
+  "updated": "2026-08-17T11:16:52",
+  "gameweek": 0,
+  "matches_played": 0,
+  "drift": 0.16,
+  "n_sims": 20000,
+  "gate": "no completed gameweek is settled yet; next kickoff 2026-08-21 19:00 UTC",
+  "xg_source": "understat",
+  "validation": null,
+  "biggest_moves": []
+}
