@@ -187,7 +187,7 @@ def render_mobile(pred, out_path, gw_label, n_sims=20000, brand=None):
     C.text(.945, yf, f'{n_sims:,} SIMULATIONS', fontproperties=BC_B, fontsize=13,
            color=PINK, ha='right', zorder=4)
     C.text(.06, Y(H - .28),
-           'Dixon-Coles xG model  ·  Understat + football-data.co.uk',
+           'Dixon-Coles xG + squad model  ·  Understat · football-data · FPL',
            fontproperties=BC_M, fontsize=11, color=WHITE, alpha=.42, zorder=4)
 
     C.apply()
@@ -278,7 +278,7 @@ def render(pred, out_path, gw_label, n_sims=20000, subtitle=None):
     C.text(.965, yf, f'{n_sims:,} MONTE CARLO SIMULATIONS', fontproperties=BC_B,
            fontsize=12, color=PINK, ha='right', zorder=4)
     C.text(.045, Y(H - 0.22),
-           'Dixon-Coles xG model  ·  data: Understat + football-data.co.uk  ·  '
+           'Dixon-Coles xG + squad model  ·  Understat · football-data · FPL  ·  '
            'range = middle 80% of simulated seasons',
            fontproperties=BC_M, fontsize=10.5, color=WHITE, alpha=.42, zorder=4)
 

@@ -84,8 +84,12 @@ def build_body(pred, status, gw_label, results_note=''):
 
     L.append('-' * 52)
     L.append('Dixon-Coles xG model, 80 bootstrap refits for parameter uncertainty.')
-    L.append('Data: Understat (xG) + football-data.co.uk (results, odds).')
-    L.append('No injury, transfer or manager data is used.')
+    L.append('Squad layer: player values from a regularised plus-minus model over')
+    L.append('12 seasons, applied to current rosters and availability (FPL).')
+    L.append('Data: Understat (xG) + football-data.co.uk (results, odds) + FPL.')
+    L.append('')
+    L.append('Not modelled: manager changes (tested, made forecasts worse, so it')
+    L.append('is switched off), European fixture congestion, per-club home advantage.')
     return '\n'.join(L)
 
 

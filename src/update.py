@@ -21,11 +21,14 @@ from ratings import fit_ratings
 from simulate import bootstrap_models, fixture_grids, simulate, positions
 import render as R
 import gate, mailer
+import pickle
 
 SEASON = 2026                     # Understat label for 2026/27
 FD_CODE = '2627'
 CFG = dict(xi=0.0045, w_xg=0.7, ridge=2.0)
 BASE_DRIFT, B, N = 0.16, 80, 20000
+SQUAD_W = 0.5          # backtested on 7 seasons; see VALIDATION.md
+MGR_W = 0.25           # half the tested optimum; within-PL moves only
 UA = {'User-Agent': 'Mozilla/5.0', 'X-Requested-With': 'XMLHttpRequest'}
 
 DATA = os.path.join(ROOT, 'data')
@@ -33,6 +36,7 @@ OUT = os.path.join(ROOT, 'outputs')
 os.makedirs(f'{DATA}/raw', exist_ok=True)
 os.makedirs(f'{DATA}/understat', exist_ok=True)
 os.makedirs(OUT, exist_ok=True)
+os.makedirs(f'{OUT}/history', exist_ok=True)
 
 FIX2US = {'Man Utd': 'Manchester United', 'Man City': 'Manchester City',
           'Newcastle': 'Newcastle United', 'Spurs': 'Tottenham',
@@ -208,6 +212,75 @@ def main():
     drift = max(0.04, BASE_DRIFT * (1 - gpt / 12))
     log(f'avg games played {gpt:.1f} -> drift {drift:.3f}')
 
+    # ---- squad layer: RAPM player values x current FPL rosters ----
+    squad_delta, squad_note = {}, 'off'
+    try:
+        import squad_live
+        rl = pickle.load(open(f'{DATA}/processed/rapm_live.pkl', 'rb'))
+        base = float(hist[hist.season == 2025].hnpxg.mean())
+        att_x, dfn_x, known_x = dict(rl['att']), dict(rl['dfn']), set(rl['known'])
+        eu_idx, n_eu = None, 0
+        try:    # European values for players with no Premier League record
+            euv = pickle.load(open(f'{DATA}/processed/eu_values.pkl', 'rb'))
+            eu_idx = squad_live.european_index()
+            for pid_, v in euv.items():
+                if pid_ not in known_x:
+                    att_x[pid_] = v / 2; dfn_x[pid_] = v / 2; known_x.add(pid_)
+                    n_eu += 1
+        except Exception as e:
+            log(f'  european values unavailable: {e}')
+        sd, _, _, sq = squad_live.build(att_x, dfn_x, known_x, base,
+                                        remaining=max(38 - int(gpt), 1),
+                                        eu_index=eu_idx)
+        squad_delta = dict(sd)   # club names already normalised in squad_live
+        unmatched = int(((sq.how == 'none') & (sq.last_mins.notna())).sum())
+        squad_note = (f'on (weight {SQUAD_W}, {len(squad_delta)} clubs, '
+                      f'{unmatched} unmatched with PL minutes, '
+                      f'{n_eu} players valued from European leagues)')
+        if unmatched > 10:
+            log(f'  WARNING: {unmatched} players with PL minutes did not match')
+    except Exception as e:
+        log(f'  squad layer unavailable: {e}')
+    log(f'squad layer: {squad_note}')
+
+    # ---- manager layer: only scored when BOTH managers have a PL record ----
+    mgr_delta, mgr_note, mgr_changes = {}, 'off', []
+    try:
+        import managers as mgr_mod
+        mf = pickle.load(open(f'{DATA}/processed/manager_fit.pkl', 'rb'))
+        net = {m: mf['mgr_att'][m] + mf['mgr_dfn'][m] for m in mf['managers']}
+        try:
+            spells = mgr_mod.scrape()          # refresh: catches in-season sackings
+            spells.to_csv(f'{DATA}/processed/managers.csv', index=False)
+            src = 'live'
+        except Exception:
+            spells = pd.read_csv(f'{DATA}/processed/managers.csv',
+                                 parse_dates=['start', 'end'])
+            src = 'cached'
+
+        def boss(club, when):
+            g = spells[(spells.club == club) & (spells.start <= when)
+                       & (spells.end >= when)]
+            if len(g):
+                return g.sort_values('start').iloc[-1].manager
+            g = spells[(spells.club == club) & (spells.start <= when)]
+            return g.sort_values('start').iloc[-1].manager if len(g) else None
+
+        now = pd.Timestamp(dt.date.today())
+        last_end = hist[hist.season == 2025].date.max()
+        base_x = float(hist[hist.season == 2025].hnpxg.mean())
+        for t in teams:
+            new, old = boss(t, now), boss(t, last_end)
+            if new and old and new != old and new in net and old in net:
+                mgr_delta[t] = (net[new] - net[old]) / base_x
+                mgr_changes.append(f'{t}: {old} -> {new} ({mgr_delta[t]:+.2f})')
+        mgr_note = f'on (weight {MGR_W}, spells {src}, {len(mgr_delta)} scored)'
+    except Exception as e:
+        log(f'  manager layer unavailable: {e}')
+    log(f'manager layer: {mgr_note}')
+    for c in mgr_changes:
+        log(f'    {c}')
+
     prev_pl = set(hist[hist.season == 2025].home)
     pa = {t: 0.0 for t in prev_pl}; pdf = {t: 0.0 for t in prev_pl}
 
@@ -215,11 +288,12 @@ def main():
     ref = dt.date.today().isoformat()
     mods = bootstrap_models(full, ref, teams, pa, pdf, B=B, seed=7, **CFG)
     rng = np.random.default_rng(99)
-    if drift > 0:
-        for m in mods:
-            for t in m['teams']:
-                m['att'][t] += rng.normal(0, drift)
-                m['dfn'][t] += rng.normal(0, drift)
+    for m in mods:
+        for t in m['teams']:
+            shift = (squad_delta.get(t, 0.0) * SQUAD_W
+                     + mgr_delta.get(t, 0.0) * MGR_W)
+            m['att'][t] += shift / 2 + rng.normal(0, drift)
+            m['dfn'][t] += shift / 2 + rng.normal(0, drift)
 
     if fixtures:
         cum = fixture_grids(mods, fixtures, teams)
@@ -301,6 +375,10 @@ def main():
                   gameweek=gw, matches_played=n_played, drift=round(drift, 3),
                   n_sims=N, gate=why,
                   xg_source='understat' if us_ok else 'goals-only fallback',
+                  squad_layer=squad_note, manager_layer=mgr_note,
+                  manager_changes=mgr_changes,
+                  squad_delta={k: round(v, 3) for k, v in
+                               sorted(squad_delta.items(), key=lambda kv: kv[1])},
                   validation=scorecard, biggest_moves=changes)
     json.dump(status, open(f'{OUT}/status.json', 'w'), indent=2)
 
