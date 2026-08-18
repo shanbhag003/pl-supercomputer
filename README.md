@@ -1,4 +1,4 @@
-# Premier League Standings Predictor
+# Premier League Supercomputer
 
 An expected-goals model that simulates the rest of the 2026/27 Premier League
 season 20,000 times, refits itself twelve hours after every gameweek, grades its
@@ -184,6 +184,12 @@ A match still unplayed five days after its scheduled kickoff is treated as
 postponed so the round can settle without it.
 
 ---
+
+## Documentation
+
+[**HOW-IT-WORKS.md**](HOW-IT-WORKS.md) — a plain-English walkthrough of every
+file, with worked examples and the bugs found along the way. No statistics
+background needed.
 
 ## Layout
 
