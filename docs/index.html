@@ -144,7 +144,22 @@
           font-weight:600;padding:11px 13px 8px;list-style:none}
   summary::-webkit-details-marker{display:none}
   summary:hover{color:#fff}
-  .hm{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  /* Desktop gets the numeric grid; phones get a distribution bar per club,
+     which needs no horizontal scroll and no sticky column. */
+  .hm{overflow-x:auto;-webkit-overflow-scrolling:touch;display:none}
+  .hmbars{display:block}
+  @media(min-width:760px){ .hm{display:block} .hmbars{display:none} }
+  .hmrow{margin-bottom:9px}
+  .hmtop{display:flex;justify-content:space-between;align-items:baseline;
+         font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;
+         margin-bottom:3px}
+  .hmtop b{font-weight:700}
+  .hmtop span{color:var(--lav);font-size:11.5px;letter-spacing:.4px}
+  .hmbar{display:flex;gap:1px;height:16px}
+  .hmbar i{flex:1;border-radius:1px;background:rgba(255,255,255,.05)}
+  .hmaxis{display:flex;justify-content:space-between;color:var(--lav);
+          font-size:10px;font-family:'Barlow Condensed',sans-serif;
+          letter-spacing:.6px;margin:2px 0 10px}
   .hm table{min-width:820px;border-collapse:separate;border-spacing:0}
   .hm td{padding:4px 1px;font-size:10px;text-align:center;border-radius:0;
          font-family:'Barlow Condensed',sans-serif;font-weight:600;
@@ -224,6 +239,7 @@ let DATA = null;
 let TAB = 'pred';
 
 const pct = v => v*100 < 0.05 ? '—' : (v*100).toFixed(1) + '%';
+const ord = n => n + (['th','st','nd','rd'][(n%100-n%10!=10)*(n%10<4)*(n%10)] || 'th');
 const esc = s => String(s).replace(/[&<>"]/g, c =>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const nm = t => esc(SHORT[t] || t);
@@ -342,7 +358,7 @@ function tableActual(){
 }
 
 function heat(v){
-  if (v < 0.005) return 'transparent';
+  if (v < 0.005) return 'rgba(255,255,255,.05)';
   return `rgba(255,40,130,${Math.min(0.92, 0.10 + v*2.6).toFixed(3)})`;
 }
 
@@ -413,7 +429,25 @@ function render(){
   }
   h += '</div></details>';
 
+  // phones: one bar per club instead of a 400-cell grid
+  let bars = '<div class="card hmbars">'
+    + '<div class="hmaxis"><span>1st</span><span>10th</span><span>20th</span></div>';
+  d.teams.forEach(t => {
+    const row = d.position_matrix[t.team] || [];
+    let best = 0;
+    row.forEach((v, i) => { if (v > row[best]) best = i; });
+    bars += `<div class="hmrow"><div class="hmtop"><b>${nm(t.team)}</b>`
+      + `<span>most likely ${ord(best+1)} &middot; ${(row[best]*100).toFixed(1)}%</span></div>`
+      + '<div class="hmbar">'
+      + row.map((v,i) => `<i style="background:${heat(v)}" title="${ord(i+1)}: `
+          + `${(v*100).toFixed(1)}%"></i>`).join('')
+      + '</div></div>';
+  });
+  bars += '<div style="color:var(--lav);font-size:11.5px;margin-top:4px">'
+    + 'Each bar runs 1st to 20th. Brighter means more likely.</div></div>';
+
   h += '<details><summary>▸ Chance of finishing in each position</summary>'
+    + bars
     + '<div class="card hm"><table><thead><tr><th class="l"></th>';
   for (let i = 1; i <= T; i++) h += `<th>${i}</th>`;
   h += '</tr></thead><tbody>';
