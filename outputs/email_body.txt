@@ -6,23 +6,23 @@ Data through: 0 matches played.
 
 TITLE RACE
 ----------------------------------------------------
-  1. Arsenal               72.6 xPts    31.0% title
-  2. Manchester City       71.1 xPts    27.9% title
-  3. Liverpool             64.5 xPts    11.3% title
+  1. Arsenal               72.3 xPts    32.9% title
+  2. Manchester City       69.5 xPts    24.7% title
+  3. Liverpool             62.7 xPts     9.8% title
 
 RELEGATION
 ----------------------------------------------------
-  Ipswich               67.3%
-  Coventry              57.0%
-  Hull                  52.8%
+  Ipswich               66.1%
+  Coventry              55.6%
+  Hull                  51.3%
 
 WHY THE MODEL CHANGED
 ----------------------------------------------------
-  Liverpool            +1.8 xPts, title +2.6pp, relegation -0.3pp
-  Manchester City      -0.9 xPts, title -2.6pp
-  Ipswich              +0.8 xPts, relegation -2.9pp
-  Nottingham Forest    +0.3 xPts, relegation -0.2pp
-  Bournemouth          -0.1 xPts, title -0.1pp
+  Liverpool            -1.9 xPts, title -1.6pp, relegation +0.4pp
+  Manchester City      -1.7 xPts, title -3.2pp, relegation +0.2pp
+  Fulham               +1.2 xPts, title +0.2pp, relegation -1.7pp
+  Tottenham            +1.2 xPts, title +0.3pp, relegation -1.1pp
+  Newcastle United     -1.1 xPts, title -0.3pp, relegation +1.4pp
 
   Movement comes from three things: results (a win shifts points
   directly), underlying xG performance (a team can win and still
