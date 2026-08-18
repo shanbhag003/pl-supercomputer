@@ -178,6 +178,16 @@
   .legend i{display:inline-block;width:8px;height:8px;border-radius:2px;
             margin-right:5px;margin-left:4px;vertical-align:0}
   .fxkey{width:100%;margin-top:2px}
+  .defs{margin-top:9px;padding:10px 12px;background:rgba(255,255,255,.04);
+        border:1px solid var(--line);border-radius:10px;
+        font-size:12px;color:var(--lav);line-height:1.85}
+  .defs b{color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;
+          letter-spacing:.5px;text-transform:uppercase;font-size:11.5px}
+  .defs span{display:inline-block;margin-right:16px;white-space:nowrap}
+  @media(max-width:759px){
+    .defs span{display:block;margin-right:0;white-space:normal}
+    .defs{line-height:1.6}
+  }
   footer{margin-top:20px;font-size:11.5px;color:var(--lav);line-height:1.7;
          opacity:.8;border-top:1px solid var(--line);padding-top:14px}
   footer a{color:var(--cyan);text-decoration:none}
@@ -390,6 +400,24 @@ function render(){
             : 'Shaded by the official FPL difficulty rating, 1 to 5.')
         + '</span>'
     + `<span style="margin-left:auto;color:var(--pink)">${d.n_sims.toLocaleString()} simulations</span>`
+    + '</div>';
+
+  const DEFS = TAB === 'pred' ? [
+    ['xPts', 'expected points by the end of the season'],
+    ['Title', 'chance of winning the league'],
+    ['Top 4', 'chance of a Champions League place'],
+    ['Top 6', 'chance of finishing in the top six'],
+    ['Releg', 'chance of being relegated'],
+    ['Next 3', 'the next three opponents']
+  ] : [
+    ['P W D L', 'played, won, drawn, lost'],
+    ['GF GA GD', 'goals for, against, and the difference'],
+    ['Pts', 'points won so far'],
+    ['Proj', 'where this model expects them to finish'],
+    ['Next 3', 'the next three opponents']
+  ];
+  h += '<div class="defs">'
+    + DEFS.map(x => `<span><b>${x[0]}</b> &nbsp;${x[1]}</span>`).join('')
     + '</div>';
 
   const v = d.validation;
