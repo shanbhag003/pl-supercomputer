@@ -1,44 +1,49 @@
-PREMIER LEAGUE SUPERCOMPUTER — PRE-SEASON
-====================================================
+PREMIER LEAGUE PREDICTIONS — PRE-SEASON
+==========================================================
 
-20,000 Monte Carlo simulations of every remaining fixture.
-Data through: 0 matches played.
+Arsenal are favourites for the title, with a 32.9% chance.
 
-TITLE RACE
-----------------------------------------------------
-  1. Arsenal               72.3 xPts    32.9% title
-  2. Manchester City       69.5 xPts    24.7% title
-  3. Liverpool             62.7 xPts     9.8% title
+We simulated the rest of the season 20,000 times. These are the
+percentages of those runs in which each thing happened.
 
-RELEGATION
-----------------------------------------------------
-  Ipswich               66.1%
-  Coventry              55.6%
-  Hull                  51.3%
+TOP OF THE TABLE
+----------------------------------------------------------
+   TEAM                  POINTS    TITLE    TOP 4
+1  Arsenal                   72    32.9%    75.2%
+2  Manchester City           69    24.7%    66.7%
+3  Liverpool                 63     9.8%    41.7%
+4  Manchester United         60     6.7%    34.0%
+5  Bournemouth               59     4.5%    28.1%
+6  Brighton                  55     1.6%    17.3%
 
-WHY THE MODEL CHANGED
-----------------------------------------------------
-  Liverpool            -1.9 xPts, title -1.6pp, relegation +0.4pp
-  Manchester City      -1.7 xPts, title -3.2pp, relegation +0.2pp
-  Fulham               +1.2 xPts, title +0.2pp, relegation -1.7pp
-  Tottenham            +1.2 xPts, title +0.3pp, relegation -1.1pp
-  Newcastle United     -1.1 xPts, title -0.3pp, relegation +1.4pp
+MOST LIKELY TO GO DOWN
+----------------------------------------------------------
+   Ipswich                 66.1%
+   Coventry                55.6%
+   Hull                    51.3%
 
-  Movement comes from three things: results (a win shifts points
-  directly), underlying xG performance (a team can win and still
-  have its rating fall), and shrinking uncertainty as the season
-  goes on.
+WHAT CHANGED SINCE LAST WEEK
+----------------------------------------------------------
+  Nothing moved by more than a rounding error this week.
 
-MODEL ACCURACY SO FAR
-----------------------------------------------------
-  No scored predictions yet — accuracy tracking starts once the
-  model has forecast a gameweek that has since been played.
+  Numbers move for three reasons: results, how well teams
+  actually played underneath those results, and any change
+  in squad or manager.
 
-----------------------------------------------------
-Dixon-Coles xG model, 80 bootstrap refits for parameter uncertainty.
-Squad layer: player values from a regularised plus-minus model over
-12 seasons, applied to current rosters and availability (FPL).
-Data: Understat (xG) + football-data.co.uk (results, odds) + FPL.
+HOW ACCURATE HAS THIS BEEN?
+----------------------------------------------------------
+  No score yet. We grade only predictions made BEFORE a match was
+  played, so the first scores appear once a forecast gameweek has
+  actually happened.
 
-Not modelled: manager changes (tested, made forecasts worse, so it
-is switched off), European fixture congestion, per-club home advantage.
+HOW IT WORKS
+----------------------------------------------------------
+  1. Every club gets an attack and a defence score, based on twelve
+     seasons of results and the quality of chances created.
+  2. Those scores are adjusted for who has arrived, who has left,
+     who is injured or suspended, and who is now in charge.
+  3. Every remaining match is then played out 20,000 times, and we
+     count how often each club finished where.
+
+Not included: European fixture congestion, and manager changes where
+the new manager has never worked in the Premier League.
