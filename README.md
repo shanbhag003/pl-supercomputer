@@ -1,4 +1,4 @@
-# Premier League Supercomputer
+# Premier League Standings Predictor
 
 An expected-goals model that simulates the rest of the 2026/27 Premier League
 season 20,000 times, refits itself twelve hours after every gameweek, grades its
