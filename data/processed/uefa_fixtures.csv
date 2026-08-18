@@ -1,0 +1,736 @@
+season,comp,stage,date,home,away,eng_home,eng_away
+2014,UCL,KO,2015-02-17,Paris Saint-Germain,Chelsea,False,True
+2014,UCL,KO,2015-03-11,Chelsea,Paris Saint-Germain,True,False
+2014,UCL,KO,2015-02-24,Manchester City,Barcelona,True,False
+2014,UCL,KO,2015-03-18,Barcelona,Manchester City,False,True
+2014,UCL,KO,2015-02-25,Arsenal,Monaco,True,False
+2014,UCL,KO,2015-03-17,Monaco,Arsenal,False,True
+2014,UCL,group,2014-09-16,Liverpool,Ludogorets Razgrad,True,False
+2014,UCL,group,2014-10-01,Basel,Liverpool,False,True
+2014,UCL,group,2014-10-22,Liverpool,Real Madrid,True,False
+2014,UCL,group,2014-11-04,Real Madrid,Liverpool,False,True
+2014,UCL,group,2014-11-26,Ludogorets Razgrad,Liverpool,False,True
+2014,UCL,group,2014-12-09,Liverpool,Basel,True,False
+2014,UCL,group,2014-09-16,Borussia Dortmund,Arsenal,False,True
+2014,UCL,group,2014-10-01,Arsenal,Galatasaray,True,False
+2014,UCL,group,2014-10-22,Anderlecht,Arsenal,False,True
+2014,UCL,group,2014-11-04,Arsenal,Anderlecht,True,False
+2014,UCL,group,2014-11-26,Arsenal,Borussia Dortmund,True,False
+2014,UCL,group,2014-12-09,Galatasaray,Arsenal,False,True
+2014,UCL,group,2014-09-17,Bayern Munich,Manchester City,False,True
+2014,UCL,group,2014-09-30,Manchester City,Roma,True,False
+2014,UCL,group,2014-10-21,CSKA Moscow,Manchester City,False,True
+2014,UCL,group,2014-11-05,Manchester City,CSKA Moscow,True,False
+2014,UCL,group,2014-11-25,Manchester City,Bayern Munich,True,False
+2014,UCL,group,2014-12-10,Roma,Manchester City,False,True
+2014,UCL,group,2014-09-17,Chelsea,Schalke 04,True,False
+2014,UCL,group,2014-09-30,Sporting CP,Chelsea,False,True
+2014,UCL,group,2014-10-21,Chelsea,Maribor,True,False
+2014,UCL,group,2014-11-05,Maribor,Chelsea,False,True
+2014,UCL,group,2014-11-25,Schalke 04,Chelsea,False,True
+2014,UCL,group,2014-12-10,Chelsea,Sporting CP,True,False
+2014,UEL,KO,2015-02-19,Young Boys,Everton,False,True
+2014,UEL,KO,2015-02-26,Everton,Young Boys,True,False
+2014,UEL,KO,2015-02-19,Liverpool,Beşiktaş,True,False
+2014,UEL,KO,2015-02-26,Beşiktaş,Liverpool,False,True
+2014,UEL,KO,2015-02-19,Tottenham,Fiorentina,True,False
+2014,UEL,KO,2015-02-26,Fiorentina,Tottenham,False,True
+2014,UEL,KO,2015-03-12,Everton,Dynamo Kyiv,True,False
+2014,UEL,KO,2015-03-19,Dynamo Kyiv,Everton,False,True
+2014,UEL,group,2014-09-18,Partizan,Tottenham,False,True
+2014,UEL,group,2014-10-02,Tottenham,Beşiktaş,True,False
+2014,UEL,group,2014-10-23,Tottenham,Asteras Tripolis,True,False
+2014,UEL,group,2014-11-06,Asteras Tripolis,Tottenham,False,True
+2014,UEL,group,2014-11-27,Tottenham,Partizan,True,False
+2014,UEL,group,2014-12-11,Beşiktaş,Tottenham,False,True
+2014,UEL,group,2014-09-18,Everton,VfL Wolfsburg,True,False
+2014,UEL,group,2014-10-02,Krasnodar,Everton,False,True
+2014,UEL,group,2014-10-23,Lille,Everton,False,True
+2014,UEL,group,2014-11-06,Everton,Lille,True,False
+2014,UEL,group,2014-11-27,VfL Wolfsburg,Everton,False,True
+2014,UEL,group,2014-12-11,Everton,Krasnodar,True,False
+2015,UCL,KO,2016-02-16,Paris Saint-Germain,Chelsea,False,True
+2015,UCL,KO,2016-03-09,Chelsea,Paris Saint-Germain,True,False
+2015,UCL,KO,2016-02-23,Arsenal,Barcelona,True,False
+2015,UCL,KO,2016-03-16,Barcelona,Arsenal,False,True
+2015,UCL,KO,2016-02-24,Dynamo Kyiv,Manchester City,False,True
+2015,UCL,KO,2016-03-15,Manchester City,Dynamo Kyiv,True,False
+2015,UCL,KO,2016-04-06,Paris Saint-Germain,Manchester City,False,True
+2015,UCL,KO,2016-04-12,Manchester City,Paris Saint-Germain,True,False
+2015,UCL,KO,2016-04-26,Manchester City,Real Madrid,True,False
+2015,UCL,KO,2016-05-04,Real Madrid,Manchester City,False,True
+2015,UCL,group,2015-09-15,PSV Eindhoven,Manchester United,False,True
+2015,UCL,group,2015-09-30,Manchester United,VfL Wolfsburg,True,False
+2015,UCL,group,2015-10-21,CSKA Moscow,Manchester United,False,True
+2015,UCL,group,2015-11-03,Manchester United,CSKA Moscow,True,False
+2015,UCL,group,2015-11-25,Manchester United,PSV Eindhoven,True,False
+2015,UCL,group,2015-12-08,VfL Wolfsburg,Manchester United,False,True
+2015,UCL,group,2015-09-15,Manchester City,Juventus,True,False
+2015,UCL,group,2015-09-30,Borussia Mönchengladbach,Manchester City,False,True
+2015,UCL,group,2015-10-21,Manchester City,Sevilla,True,False
+2015,UCL,group,2015-11-03,Sevilla,Manchester City,False,True
+2015,UCL,group,2015-11-25,Juventus,Manchester City,False,True
+2015,UCL,group,2015-12-08,Manchester City,Borussia Mönchengladbach,True,False
+2015,UCL,group,2015-09-16,Dinamo Zagreb,Arsenal,False,True
+2015,UCL,group,2015-09-29,Arsenal,Olympiacos,True,False
+2015,UCL,group,2015-10-20,Arsenal,Bayern Munich,True,False
+2015,UCL,group,2015-11-04,Bayern Munich,Arsenal,False,True
+2015,UCL,group,2015-11-24,Arsenal,Dinamo Zagreb,True,False
+2015,UCL,group,2015-12-09,Olympiacos,Arsenal,False,True
+2015,UCL,group,2015-09-16,Chelsea,Maccabi Tel Aviv,True,False
+2015,UCL,group,2015-09-29,Porto,Chelsea,False,True
+2015,UCL,group,2015-10-20,Dynamo Kyiv,Chelsea,False,True
+2015,UCL,group,2015-11-04,Chelsea,Dynamo Kyiv,True,False
+2015,UCL,group,2015-11-24,Maccabi Tel Aviv,Chelsea,False,True
+2015,UCL,group,2015-12-09,Chelsea,Porto,True,False
+2015,UEL,KO,2016-02-18,Fiorentina,Tottenham,False,True
+2015,UEL,KO,2016-02-25,Tottenham,Fiorentina,True,False
+2015,UEL,KO,2016-02-18,Midtjylland,Manchester United,False,True
+2015,UEL,KO,2016-02-25,Manchester United,Midtjylland,True,False
+2015,UEL,KO,2016-02-18,FC Augsburg,Liverpool,False,True
+2015,UEL,KO,2016-02-25,Liverpool,FC Augsburg,True,False
+2015,UEL,KO,2016-03-10,Liverpool,Manchester United,True,True
+2015,UEL,KO,2016-03-17,Manchester United,Liverpool,True,True
+2015,UEL,KO,2016-03-10,Borussia Dortmund,Tottenham,False,True
+2015,UEL,KO,2016-03-17,Tottenham,Borussia Dortmund,True,False
+2015,UEL,KO,2016-04-07,Borussia Dortmund,Liverpool,False,True
+2015,UEL,KO,2016-04-14,Liverpool,Borussia Dortmund,True,False
+2015,UEL,KO,2016-04-28,Villarreal,Liverpool,False,True
+2015,UEL,KO,2016-05-05,Liverpool,Villarreal,True,False
+2015,UEL,group,2015-09-17,Bordeaux,Liverpool,False,True
+2015,UEL,group,2015-10-01,Liverpool,Sion,True,False
+2015,UEL,group,2015-10-22,Liverpool,Rubin Kazan,True,False
+2015,UEL,group,2015-11-05,Rubin Kazan,Liverpool,False,True
+2015,UEL,group,2015-11-26,Liverpool,Bordeaux,True,False
+2015,UEL,group,2015-12-10,Sion,Liverpool,False,True
+2015,UEL,group,2015-09-17,Tottenham,Qarabağ,True,False
+2015,UEL,group,2015-10-01,Monaco,Tottenham,False,True
+2015,UEL,group,2015-10-22,Anderlecht,Tottenham,False,True
+2015,UEL,group,2015-11-05,Tottenham,Anderlecht,True,False
+2015,UEL,group,2015-11-26,Qarabağ,Tottenham,False,True
+2015,UEL,group,2015-12-10,Tottenham,Monaco,True,False
+2016,UCL,KO,2017-02-21,Manchester City,Monaco,True,False
+2016,UCL,KO,2017-03-15,Monaco,Manchester City,False,True
+2016,UCL,KO,2017-02-15,Bayern Munich,Arsenal,False,True
+2016,UCL,KO,2017-03-07,Arsenal,Bayern Munich,True,False
+2016,UCL,KO,2017-02-22,Sevilla,Leicester,False,True
+2016,UCL,KO,2017-03-14,Leicester,Sevilla,True,False
+2016,UCL,KO,2017-04-12,Atlético Madrid,Leicester,False,True
+2016,UCL,KO,2017-04-18,Leicester,Atlético Madrid,True,False
+2016,UCL,group,2016-09-13,Paris Saint-Germain,Arsenal,False,True
+2016,UCL,group,2016-09-28,Arsenal,Basel,True,False
+2016,UCL,group,2016-10-19,Arsenal,Ludogorets Razgrad,True,False
+2016,UCL,group,2016-11-01,Ludogorets Razgrad,Arsenal,False,True
+2016,UCL,group,2016-11-23,Arsenal,Paris Saint-Germain,True,False
+2016,UCL,group,2016-12-06,Basel,Arsenal,False,True
+2016,UCL,group,2016-09-14,Manchester City,Borussia Mönchengladbach,True,False
+2016,UCL,group,2016-09-28,Celtic,Manchester City,False,True
+2016,UCL,group,2016-10-19,Barcelona,Manchester City,False,True
+2016,UCL,group,2016-11-01,Manchester City,Barcelona,True,False
+2016,UCL,group,2016-11-23,Borussia Mönchengladbach,Manchester City,False,True
+2016,UCL,group,2016-12-06,Manchester City,Celtic,True,False
+2016,UCL,group,2016-09-14,Tottenham,Monaco,True,False
+2016,UCL,group,2016-09-27,CSKA Moscow,Tottenham,False,True
+2016,UCL,group,2016-10-18,Bayer Leverkusen,Tottenham,False,True
+2016,UCL,group,2016-11-02,Tottenham,Bayer Leverkusen,True,False
+2016,UCL,group,2016-11-22,Monaco,Tottenham,False,True
+2016,UCL,group,2016-12-07,Tottenham,CSKA Moscow,True,False
+2016,UCL,group,2016-09-14,Club Brugge,Leicester,False,True
+2016,UCL,group,2016-09-27,Leicester,Porto,True,False
+2016,UCL,group,2016-10-18,Leicester,Copenhagen,True,False
+2016,UCL,group,2016-11-02,Copenhagen,Leicester,False,True
+2016,UCL,group,2016-11-22,Leicester,Club Brugge,True,False
+2016,UCL,group,2016-12-07,Porto,Leicester,False,True
+2016,UEL,KO,2017-02-16,Manchester United,Saint-Étienne,True,False
+2016,UEL,KO,2017-02-22,Saint-Étienne,Manchester United,False,True
+2016,UEL,KO,2017-02-16,Gent,Tottenham,False,True
+2016,UEL,KO,2017-02-23,Tottenham,Gent,True,False
+2016,UEL,KO,2017-03-09,Rostov,Manchester United,False,True
+2016,UEL,KO,2017-03-16,Manchester United,Rostov,True,False
+2016,UEL,KO,2017-04-13,Anderlecht,Manchester United,False,True
+2016,UEL,KO,2017-04-20,Manchester United,Anderlecht,True,False
+2016,UEL,KO,2017-05-04,Celta Vigo,Manchester United,False,True
+2016,UEL,KO,2017-05-11,Manchester United,Celta Vigo,True,False
+2016,UEL,group,2016-09-15,Feyenoord,Manchester United,False,True
+2016,UEL,group,2016-09-29,Manchester United,Zorya Luhansk,True,False
+2016,UEL,group,2016-10-20,Manchester United,Fenerbahçe,True,False
+2016,UEL,group,2016-11-03,Fenerbahçe,Manchester United,False,True
+2016,UEL,group,2016-11-24,Manchester United,Feyenoord,True,False
+2016,UEL,group,2016-12-08,Zorya Luhansk,Manchester United,False,True
+2016,UEL,group,2016-09-15,Southampton,Sparta Prague,True,False
+2016,UEL,group,2016-09-29,Hapoel Be'er Sheva,Southampton,False,True
+2016,UEL,group,2016-10-20,Internazionale,Southampton,False,True
+2016,UEL,group,2016-11-03,Southampton,Internazionale,True,False
+2016,UEL,group,2016-11-24,Sparta Prague,Southampton,False,True
+2016,UEL,group,2016-12-08,Southampton,Hapoel Be'er Sheva,True,False
+2017,UCL,KO,2018-02-13,Juventus,Tottenham,False,True
+2017,UCL,KO,2018-03-07,Tottenham,Juventus,True,False
+2017,UCL,KO,2018-02-13,Basel,Manchester City,False,True
+2017,UCL,KO,2018-03-07,Manchester City,Basel,True,False
+2017,UCL,KO,2018-02-14,Porto,Liverpool,False,True
+2017,UCL,KO,2018-03-06,Liverpool,Porto,True,False
+2017,UCL,KO,2018-02-21,Sevilla,Manchester United,False,True
+2017,UCL,KO,2018-03-13,Manchester United,Sevilla,True,False
+2017,UCL,KO,2018-02-20,Chelsea,Barcelona,True,False
+2017,UCL,KO,2018-03-14,Barcelona,Chelsea,False,True
+2017,UCL,KO,2018-04-04,Liverpool,Manchester City,True,True
+2017,UCL,KO,2018-04-10,Manchester City,Liverpool,True,True
+2017,UCL,KO,2018-04-24,Liverpool,Roma,True,False
+2017,UCL,KO,2018-05-02,Roma,Liverpool,False,True
+2017,UCL,group,2017-09-12,Manchester United,Basel,True,False
+2017,UCL,group,2017-09-27,CSKA Moscow,Manchester United,False,True
+2017,UCL,group,2017-10-18,Benfica,Manchester United,False,True
+2017,UCL,group,2017-10-31,Manchester United,Benfica,True,False
+2017,UCL,group,2017-11-22,Basel,Manchester United,False,True
+2017,UCL,group,2017-12-05,Manchester United,CSKA Moscow,True,False
+2017,UCL,group,2017-09-12,Chelsea,Qarabağ,True,False
+2017,UCL,group,2017-09-27,Atlético Madrid,Chelsea,False,True
+2017,UCL,group,2017-10-18,Chelsea,Roma,True,False
+2017,UCL,group,2017-10-31,Roma,Chelsea,False,True
+2017,UCL,group,2017-11-22,Qarabağ,Chelsea,False,True
+2017,UCL,group,2017-12-05,Chelsea,Atlético Madrid,True,False
+2017,UCL,group,2017-09-13,Liverpool,Sevilla,True,False
+2017,UCL,group,2017-09-26,Spartak Moscow,Liverpool,False,True
+2017,UCL,group,2017-10-17,Maribor,Liverpool,False,True
+2017,UCL,group,2017-11-01,Liverpool,Maribor,True,False
+2017,UCL,group,2017-11-21,Sevilla,Liverpool,False,True
+2017,UCL,group,2017-12-06,Liverpool,Spartak Moscow,True,False
+2017,UCL,group,2017-09-13,Feyenoord,Manchester City,False,True
+2017,UCL,group,2017-09-26,Manchester City,Shakhtar Donetsk,True,False
+2017,UCL,group,2017-10-17,Manchester City,Napoli,True,False
+2017,UCL,group,2017-11-01,Napoli,Manchester City,False,True
+2017,UCL,group,2017-11-21,Manchester City,Feyenoord,True,False
+2017,UCL,group,2017-12-06,Shakhtar Donetsk,Manchester City,False,True
+2017,UCL,group,2017-09-13,Tottenham,Borussia Dortmund,True,False
+2017,UCL,group,2017-09-26,APOEL,Tottenham,False,True
+2017,UCL,group,2017-10-17,Real Madrid,Tottenham,False,True
+2017,UCL,group,2017-11-01,Tottenham,Real Madrid,True,False
+2017,UCL,group,2017-11-21,Borussia Dortmund,Tottenham,False,True
+2017,UCL,group,2017-12-06,Tottenham,APOEL,True,False
+2017,UEL,KO,2018-02-15,Östersunds FK,Arsenal,False,True
+2017,UEL,KO,2018-02-22,Arsenal,Östersunds FK,True,False
+2017,UEL,KO,2018-03-08,Milan,Arsenal,False,True
+2017,UEL,KO,2018-03-15,Arsenal,Milan,True,False
+2017,UEL,KO,2018-04-05,Arsenal,CSKA Moscow,True,False
+2017,UEL,KO,2018-04-12,CSKA Moscow,Arsenal,False,True
+2017,UEL,KO,2018-04-26,Arsenal,Atlético Madrid,True,False
+2017,UEL,KO,2018-05-03,Atlético Madrid,Arsenal,False,True
+2017,UEL,group,2017-09-14,Atalanta,Everton,False,True
+2017,UEL,group,2017-09-28,Everton,Apollon Limassol,True,False
+2017,UEL,group,2017-10-19,Everton,Lyon,True,False
+2017,UEL,group,2017-11-02,Lyon,Everton,False,True
+2017,UEL,group,2017-11-23,Everton,Atalanta,True,False
+2017,UEL,group,2017-12-07,Apollon Limassol,Everton,False,True
+2017,UEL,group,2017-09-14,Arsenal,1. FC Köln,True,False
+2017,UEL,group,2017-09-28,BATE Borisov,Arsenal,False,True
+2017,UEL,group,2017-10-19,Red Star Belgrade,Arsenal,False,True
+2017,UEL,group,2017-11-02,Arsenal,Red Star Belgrade,True,False
+2017,UEL,group,2017-11-23,1. FC Köln,Arsenal,False,True
+2017,UEL,group,2017-12-07,Arsenal,BATE Borisov,True,False
+2018,UCL,KO,2019-02-20,Schalke 04,Manchester City,False,True
+2018,UCL,KO,2019-03-12,Manchester City,Schalke 04,True,False
+2018,UCL,KO,2019-02-12,Manchester United,Paris Saint-Germain,True,False
+2018,UCL,KO,2019-03-06,Paris Saint-Germain,Manchester United,False,True
+2018,UCL,KO,2019-02-13,Tottenham,Borussia Dortmund,True,False
+2018,UCL,KO,2019-03-05,Borussia Dortmund,Tottenham,False,True
+2018,UCL,KO,2019-02-19,Liverpool,Bayern Munich,True,False
+2018,UCL,KO,2019-03-13,Bayern Munich,Liverpool,False,True
+2018,UCL,KO,2019-04-09,Liverpool,Porto,True,False
+2018,UCL,KO,2019-04-17,Porto,Liverpool,False,True
+2018,UCL,KO,2019-04-09,Tottenham,Manchester City,True,True
+2018,UCL,KO,2019-04-17,Manchester City,Tottenham,True,True
+2018,UCL,KO,2019-04-10,Manchester United,Barcelona,True,False
+2018,UCL,KO,2019-04-16,Barcelona,Manchester United,False,True
+2018,UCL,KO,2019-04-30,Tottenham,Ajax,True,False
+2018,UCL,KO,2019-05-08,Ajax,Tottenham,False,True
+2018,UCL,KO,2019-05-01,Barcelona,Liverpool,False,True
+2018,UCL,KO,2019-05-07,Liverpool,Barcelona,True,False
+2018,UCL,group,2018-09-18,Inter Milan,Tottenham,False,True
+2018,UCL,group,2018-10-03,Tottenham,Barcelona,True,False
+2018,UCL,group,2018-10-24,PSV Eindhoven,Tottenham,False,True
+2018,UCL,group,2018-11-06,Tottenham,PSV Eindhoven,True,False
+2018,UCL,group,2018-11-28,Tottenham,Inter Milan,True,False
+2018,UCL,group,2018-12-11,Barcelona,Tottenham,False,True
+2018,UCL,group,2018-09-18,Liverpool,Paris Saint-Germain,True,False
+2018,UCL,group,2018-10-03,Napoli,Liverpool,False,True
+2018,UCL,group,2018-10-24,Liverpool,Red Star Belgrade,True,False
+2018,UCL,group,2018-11-06,Red Star Belgrade,Liverpool,False,True
+2018,UCL,group,2018-11-28,Paris Saint-Germain,Liverpool,False,True
+2018,UCL,group,2018-12-11,Liverpool,Napoli,True,False
+2018,UCL,group,2018-09-19,Manchester City,Lyon,True,False
+2018,UCL,group,2018-10-02,TSG Hoffenheim,Manchester City,False,True
+2018,UCL,group,2018-10-23,Shakhtar Donetsk,Manchester City,False,True
+2018,UCL,group,2018-11-07,Manchester City,Shakhtar Donetsk,True,False
+2018,UCL,group,2018-11-27,Lyon,Manchester City,False,True
+2018,UCL,group,2018-12-12,Manchester City,TSG Hoffenheim,True,False
+2018,UCL,group,2018-09-19,Young Boys,Manchester United,False,True
+2018,UCL,group,2018-10-02,Manchester United,Valencia,True,False
+2018,UCL,group,2018-10-23,Manchester United,Juventus,True,False
+2018,UCL,group,2018-11-07,Juventus,Manchester United,False,True
+2018,UCL,group,2018-11-27,Manchester United,Young Boys,True,False
+2018,UCL,group,2018-12-12,Valencia,Manchester United,False,True
+2018,UEL,KO,2019-02-14,Malmö FF,Chelsea,False,True
+2018,UEL,KO,2019-02-21,Chelsea,Malmö FF,True,False
+2018,UEL,KO,2019-02-14,BATE Borisov,Arsenal,False,True
+2018,UEL,KO,2019-02-21,Arsenal,BATE Borisov,True,False
+2018,UEL,KO,2019-03-07,Chelsea,Dynamo Kyiv,True,False
+2018,UEL,KO,2019-03-14,Dynamo Kyiv,Chelsea,False,True
+2018,UEL,KO,2019-03-07,Rennes,Arsenal,False,True
+2018,UEL,KO,2019-03-14,Arsenal,Rennes,True,False
+2018,UEL,KO,2019-04-11,Arsenal,Napoli,True,False
+2018,UEL,KO,2019-04-18,Napoli,Arsenal,False,True
+2018,UEL,KO,2019-04-11,Slavia Prague,Chelsea,False,True
+2018,UEL,KO,2019-04-18,Chelsea,Slavia Prague,True,False
+2018,UEL,KO,2019-05-02,Arsenal,Valencia,True,False
+2018,UEL,KO,2019-05-09,Valencia,Arsenal,False,True
+2018,UEL,KO,2019-05-02,Eintracht Frankfurt,Chelsea,False,True
+2018,UEL,KO,2019-05-09,Chelsea,Eintracht Frankfurt,True,False
+2018,UEL,group,2018-09-20,Arsenal,Vorskla Poltava,True,False
+2018,UEL,group,2018-10-04,Qarabağ,Arsenal,False,True
+2018,UEL,group,2018-10-25,Sporting CP,Arsenal,False,True
+2018,UEL,group,2018-11-08,Arsenal,Sporting CP,True,False
+2018,UEL,group,2018-11-29,Vorskla Poltava,Arsenal,False,True
+2018,UEL,group,2018-12-13,Arsenal,Qarabağ,True,False
+2018,UEL,group,2018-09-20,PAOK,Chelsea,False,True
+2018,UEL,group,2018-10-04,Chelsea,Vidi,True,False
+2018,UEL,group,2018-10-25,Chelsea,BATE Borisov,True,False
+2018,UEL,group,2018-11-08,BATE Borisov,Chelsea,False,True
+2018,UEL,group,2018-11-29,Chelsea,PAOK,True,False
+2018,UEL,group,2018-12-13,Vidi,Chelsea,False,True
+2019,UCL,KO,2020-02-26,Real Madrid,Manchester City,False,True
+2019,UCL,KO,2020-08-07,Manchester City,Real Madrid,True,False
+2019,UCL,KO,2020-02-18,Atlético Madrid,Liverpool,False,True
+2019,UCL,KO,2020-03-11,Liverpool,Atlético Madrid,True,False
+2019,UCL,KO,2020-02-25,Chelsea,Bayern Munich,True,False
+2019,UCL,KO,2020-08-08,Bayern Munich,Chelsea,False,True
+2019,UCL,KO,2020-02-19,Tottenham,RB Leipzig,True,False
+2019,UCL,KO,2020-03-10,RB Leipzig,Tottenham,False,True
+2019,UCL,KO,2020-08-15,Manchester City,Lyon,True,False
+2019,UCL,group,2019-09-18,Olympiacos,Tottenham,False,True
+2019,UCL,group,2019-10-01,Tottenham,Bayern Munich,True,False
+2019,UCL,group,2019-10-22,Tottenham,Red Star Belgrade,True,False
+2019,UCL,group,2019-11-06,Red Star Belgrade,Tottenham,False,True
+2019,UCL,group,2019-11-26,Tottenham,Olympiacos,True,False
+2019,UCL,group,2019-12-11,Bayern Munich,Tottenham,False,True
+2019,UCL,group,2019-09-18,Shakhtar Donetsk,Manchester City,False,True
+2019,UCL,group,2019-10-01,Manchester City,Dinamo Zagreb,True,False
+2019,UCL,group,2019-10-22,Manchester City,Atalanta,True,False
+2019,UCL,group,2019-11-06,Atalanta,Manchester City,False,True
+2019,UCL,group,2019-11-26,Manchester City,Shakhtar Donetsk,True,False
+2019,UCL,group,2019-12-11,Dinamo Zagreb,Manchester City,False,True
+2019,UCL,group,2019-09-17,Napoli,Liverpool,False,True
+2019,UCL,group,2019-10-02,Liverpool,Red Bull Salzburg,True,False
+2019,UCL,group,2019-10-23,Genk,Liverpool,False,True
+2019,UCL,group,2019-11-05,Liverpool,Genk,True,False
+2019,UCL,group,2019-11-27,Liverpool,Napoli,True,False
+2019,UCL,group,2019-12-10,Red Bull Salzburg,Liverpool,False,True
+2019,UCL,group,2019-09-17,Chelsea,Valencia,True,False
+2019,UCL,group,2019-10-02,Lille,Chelsea,False,True
+2019,UCL,group,2019-10-23,Ajax,Chelsea,False,True
+2019,UCL,group,2019-11-05,Chelsea,Ajax,True,False
+2019,UCL,group,2019-11-27,Valencia,Chelsea,False,True
+2019,UCL,group,2019-12-10,Chelsea,Lille,True,False
+2019,UEL,KO,2020-02-20,Wolverhampton Wanderers,Espanyol,True,False
+2019,UEL,KO,2020-02-27,Espanyol,Wolverhampton Wanderers,False,True
+2019,UEL,KO,2020-02-20,Olympiacos,Arsenal,False,True
+2019,UEL,KO,2020-02-27,Arsenal,Olympiacos,True,False
+2019,UEL,KO,2020-02-20,Club Brugge,Manchester United,False,True
+2019,UEL,KO,2020-02-27,Manchester United,Club Brugge,True,False
+2019,UEL,KO,2020-03-12,Olympiacos,Wolverhampton Wanderers,False,True
+2019,UEL,KO,2020-08-06,Wolverhampton Wanderers,Olympiacos,True,False
+2019,UEL,KO,2020-03-12,LASK,Manchester United,False,True
+2019,UEL,KO,2020-08-05,Manchester United,LASK,True,False
+2019,UEL,KO,2020-08-10,Manchester United,Copenhagen,True,False
+2019,UEL,KO,2020-08-11,Wolverhampton Wanderers,Sevilla,True,False
+2019,UEL,KO,2020-08-16,Sevilla,Manchester United,False,True
+2019,UEL,group,2019-09-19,Eintracht Frankfurt,Arsenal,False,True
+2019,UEL,group,2019-10-03,Arsenal,Standard Liège,True,False
+2019,UEL,group,2019-10-24,Arsenal,Vitória de Guimarães,True,False
+2019,UEL,group,2019-11-06,Vitória de Guimarães,Arsenal,False,True
+2019,UEL,group,2019-11-28,Arsenal,Eintracht Frankfurt,True,False
+2019,UEL,group,2019-12-12,Standard Liège,Arsenal,False,True
+2019,UEL,group,2019-09-19,Wolverhampton Wanderers,Braga,True,False
+2019,UEL,group,2019-10-03,Beşiktaş,Wolverhampton Wanderers,False,True
+2019,UEL,group,2019-10-24,Slovan Bratislava,Wolverhampton Wanderers,False,True
+2019,UEL,group,2019-11-07,Wolverhampton Wanderers,Slovan Bratislava,True,False
+2019,UEL,group,2019-11-28,Braga,Wolverhampton Wanderers,False,True
+2019,UEL,group,2019-12-12,Wolverhampton Wanderers,Beşiktaş,True,False
+2019,UEL,group,2019-09-19,Manchester United,Astana,True,False
+2019,UEL,group,2019-10-03,AZ,Manchester United,False,True
+2019,UEL,group,2019-10-24,Partizan,Manchester United,False,True
+2019,UEL,group,2019-11-07,Manchester United,Partizan,True,False
+2019,UEL,group,2019-11-28,Astana,Manchester United,False,True
+2019,UEL,group,2019-12-12,Manchester United,AZ,True,False
+2020,UCL,KO,2021-02-24,Borussia Mönchengladbach,Manchester City,False,True
+2020,UCL,KO,2021-03-16,Manchester City,Borussia Mönchengladbach,True,False
+2020,UCL,KO,2021-02-23,Atlético Madrid,Chelsea,False,True
+2020,UCL,KO,2021-03-17,Chelsea,Atlético Madrid,True,False
+2020,UCL,KO,2021-02-16,RB Leipzig,Liverpool,False,True
+2020,UCL,KO,2021-03-10,Liverpool,RB Leipzig,True,False
+2020,UCL,KO,2021-04-06,Manchester City,Borussia Dortmund,True,False
+2020,UCL,KO,2021-04-14,Borussia Dortmund,Manchester City,False,True
+2020,UCL,KO,2021-04-07,Porto,Chelsea,False,True
+2020,UCL,KO,2021-04-13,Chelsea,Porto,True,False
+2020,UCL,KO,2021-04-06,Real Madrid,Liverpool,False,True
+2020,UCL,KO,2021-04-14,Liverpool,Real Madrid,True,False
+2020,UCL,KO,2021-04-28,Paris Saint-Germain,Manchester City,False,True
+2020,UCL,KO,2021-05-04,Manchester City,Paris Saint-Germain,True,False
+2020,UCL,KO,2021-04-27,Real Madrid,Chelsea,False,True
+2020,UCL,KO,2021-05-05,Chelsea,Real Madrid,True,False
+2020,UCL,group,2020-10-21,Manchester City,Porto,True,False
+2020,UCL,group,2020-10-27,Marseille,Manchester City,False,True
+2020,UCL,group,2020-11-03,Manchester City,Olympiacos,True,False
+2020,UCL,group,2020-11-25,Olympiacos,Manchester City,False,True
+2020,UCL,group,2020-12-01,Porto,Manchester City,False,True
+2020,UCL,group,2020-12-09,Manchester City,Marseille,True,False
+2020,UCL,group,2020-10-21,Ajax,Liverpool,False,True
+2020,UCL,group,2020-10-27,Liverpool,Midtjylland,True,False
+2020,UCL,group,2020-11-03,Atalanta,Liverpool,False,True
+2020,UCL,group,2020-11-25,Liverpool,Atalanta,True,False
+2020,UCL,group,2020-12-01,Liverpool,Ajax,True,False
+2020,UCL,group,2020-12-09,Midtjylland,Liverpool,False,True
+2020,UCL,group,2020-10-20,Chelsea,Sevilla,True,False
+2020,UCL,group,2020-10-28,Krasnodar,Chelsea,False,True
+2020,UCL,group,2020-11-04,Chelsea,Rennes,True,False
+2020,UCL,group,2020-11-24,Rennes,Chelsea,False,True
+2020,UCL,group,2020-12-02,Sevilla,Chelsea,False,True
+2020,UCL,group,2020-12-08,Chelsea,Krasnodar,True,False
+2020,UCL,group,2020-10-20,Paris Saint-Germain,Manchester United,False,True
+2020,UCL,group,2020-10-28,Manchester United,RB Leipzig,True,False
+2020,UCL,group,2020-11-04,İstanbul Başakşehir,Manchester United,False,True
+2020,UCL,group,2020-11-24,Manchester United,İstanbul Başakşehir,True,False
+2020,UCL,group,2020-12-02,Manchester United,Paris Saint-Germain,True,False
+2020,UCL,group,2020-12-08,RB Leipzig,Manchester United,False,True
+2020,UEL,KO,2021-02-18,Wolfsberger AC,Tottenham,False,True
+2020,UEL,KO,2021-02-24,Tottenham,Wolfsberger AC,True,False
+2020,UEL,KO,2021-02-18,Real Sociedad,Manchester United,False,True
+2020,UEL,KO,2021-02-25,Manchester United,Real Sociedad,True,False
+2020,UEL,KO,2021-02-18,Benfica,Arsenal,False,True
+2020,UEL,KO,2021-02-25,Arsenal,Benfica,True,False
+2020,UEL,KO,2021-02-18,Slavia Prague,Leicester,False,True
+2020,UEL,KO,2021-02-25,Leicester,Slavia Prague,True,False
+2020,UEL,KO,2021-03-11,Olympiacos,Arsenal,False,True
+2020,UEL,KO,2021-03-18,Arsenal,Olympiacos,True,False
+2020,UEL,KO,2021-03-11,Tottenham,Dinamo Zagreb,True,False
+2020,UEL,KO,2021-03-18,Dinamo Zagreb,Tottenham,False,True
+2020,UEL,KO,2021-03-11,Manchester United,Milan,True,False
+2020,UEL,KO,2021-03-18,Milan,Manchester United,False,True
+2020,UEL,KO,2021-04-08,Granada,Manchester United,False,True
+2020,UEL,KO,2021-04-15,Manchester United,Granada,True,False
+2020,UEL,KO,2021-04-08,Arsenal,Slavia Prague,True,False
+2020,UEL,KO,2021-04-15,Slavia Prague,Arsenal,False,True
+2020,UEL,KO,2021-04-29,Manchester United,Roma,True,False
+2020,UEL,KO,2021-05-06,Roma,Manchester United,False,True
+2020,UEL,KO,2021-04-29,Villarreal,Arsenal,False,True
+2020,UEL,KO,2021-05-06,Arsenal,Villarreal,True,False
+2020,UEL,group,2020-10-22,Rapid Wien,Arsenal,False,True
+2020,UEL,group,2020-10-29,Arsenal,Dundalk,True,False
+2020,UEL,group,2020-11-05,Arsenal,Molde,True,False
+2020,UEL,group,2020-11-26,Molde,Arsenal,False,True
+2020,UEL,group,2020-12-03,Arsenal,Rapid Wien,True,False
+2020,UEL,group,2020-12-10,Dundalk,Arsenal,False,True
+2020,UEL,group,2020-10-22,Leicester,Zorya Luhansk,True,False
+2020,UEL,group,2020-10-29,AEK Athens,Leicester,False,True
+2020,UEL,group,2020-11-05,Leicester,Braga,True,False
+2020,UEL,group,2020-11-26,Braga,Leicester,False,True
+2020,UEL,group,2020-12-03,Zorya Luhansk,Leicester,False,True
+2020,UEL,group,2020-12-10,Leicester,AEK Athens,True,False
+2020,UEL,group,2020-10-22,Tottenham,LASK,True,False
+2020,UEL,group,2020-10-29,Antwerp,Tottenham,False,True
+2020,UEL,group,2020-11-05,Ludogorets Razgrad,Tottenham,False,True
+2020,UEL,group,2020-11-26,Tottenham,Ludogorets Razgrad,True,False
+2020,UEL,group,2020-12-03,LASK,Tottenham,False,True
+2020,UEL,group,2020-12-10,Tottenham,Antwerp,True,False
+2021,UCL,KO,2022-02-15,Sporting CP,Manchester City,False,True
+2021,UCL,KO,2022-03-09,Manchester City,Sporting CP,True,False
+2021,UCL,KO,2022-02-22,Chelsea,Lille,True,False
+2021,UCL,KO,2022-03-16,Lille,Chelsea,False,True
+2021,UCL,KO,2022-02-23,Atlético Madrid,Manchester United,False,True
+2021,UCL,KO,2022-03-15,Manchester United,Atlético Madrid,True,False
+2021,UCL,KO,2022-02-16,Inter Milan,Liverpool,False,True
+2021,UCL,KO,2022-03-08,Liverpool,Inter Milan,True,False
+2021,UCL,KO,2022-04-06,Chelsea,Real Madrid,True,False
+2021,UCL,KO,2022-04-12,Real Madrid,Chelsea,False,True
+2021,UCL,KO,2022-04-05,Manchester City,Atlético Madrid,True,False
+2021,UCL,KO,2022-04-13,Atlético Madrid,Manchester City,False,True
+2021,UCL,KO,2022-04-05,Benfica,Liverpool,False,True
+2021,UCL,KO,2022-04-13,Liverpool,Benfica,True,False
+2021,UCL,KO,2022-04-26,Manchester City,Real Madrid,True,False
+2021,UCL,KO,2022-05-04,Real Madrid,Manchester City,False,True
+2021,UCL,KO,2022-04-27,Liverpool,Villarreal,True,False
+2021,UCL,KO,2022-05-03,Villarreal,Liverpool,False,True
+2021,UCL,group,2021-09-15,Manchester City,RB Leipzig,True,False
+2021,UCL,group,2021-09-28,Paris Saint-Germain,Manchester City,False,True
+2021,UCL,group,2021-10-19,Club Brugge,Manchester City,False,True
+2021,UCL,group,2021-11-03,Manchester City,Club Brugge,True,False
+2021,UCL,group,2021-11-24,Manchester City,Paris Saint-Germain,True,False
+2021,UCL,group,2021-12-07,RB Leipzig,Manchester City,False,True
+2021,UCL,group,2021-09-15,Liverpool,Milan,True,False
+2021,UCL,group,2021-09-28,Porto,Liverpool,False,True
+2021,UCL,group,2021-10-19,Atlético Madrid,Liverpool,False,True
+2021,UCL,group,2021-11-03,Liverpool,Atlético Madrid,True,False
+2021,UCL,group,2021-11-24,Liverpool,Porto,True,False
+2021,UCL,group,2021-12-07,Milan,Liverpool,False,True
+2021,UCL,group,2021-09-14,Young Boys,Manchester United,False,True
+2021,UCL,group,2021-09-29,Manchester United,Villarreal,True,False
+2021,UCL,group,2021-10-20,Manchester United,Atalanta,True,False
+2021,UCL,group,2021-11-02,Atalanta,Manchester United,False,True
+2021,UCL,group,2021-11-23,Villarreal,Manchester United,False,True
+2021,UCL,group,2021-12-08,Manchester United,Young Boys,True,False
+2021,UCL,group,2021-09-14,Chelsea,Zenit Saint Petersburg,True,False
+2021,UCL,group,2021-09-29,Juventus,Chelsea,False,True
+2021,UCL,group,2021-10-20,Chelsea,Malmö FF,True,False
+2021,UCL,group,2021-11-02,Malmö FF,Chelsea,False,True
+2021,UCL,group,2021-11-23,Chelsea,Juventus,True,False
+2021,UCL,group,2021-12-08,Zenit Saint Petersburg,Chelsea,False,True
+2021,UEL,KO,2022-03-10,Sevilla,West Ham,False,True
+2021,UEL,KO,2022-03-17,West Ham,Sevilla,True,False
+2021,UEL,KO,2022-04-07,West Ham,Lyon,True,False
+2021,UEL,KO,2022-04-14,Lyon,West Ham,False,True
+2021,UEL,KO,2022-04-28,West Ham,Eintracht Frankfurt,True,False
+2021,UEL,KO,2022-05-05,Eintracht Frankfurt,West Ham,False,True
+2021,UEL,group,2021-09-16,Leicester,Napoli,True,False
+2021,UEL,group,2021-09-30,Legia Warsaw,Leicester,False,True
+2021,UEL,group,2021-10-20,Spartak Moscow,Leicester,False,True
+2021,UEL,group,2021-11-04,Leicester,Spartak Moscow,True,False
+2021,UEL,group,2021-11-25,Leicester,Legia Warsaw,True,False
+2021,UEL,group,2021-12-09,Napoli,Leicester,False,True
+2021,UEL,group,2021-09-16,Dinamo Zagreb,West Ham,False,True
+2021,UEL,group,2021-09-30,West Ham,Rapid Wien,True,False
+2021,UEL,group,2021-10-21,West Ham,Genk,True,False
+2021,UEL,group,2021-11-04,Genk,West Ham,False,True
+2021,UEL,group,2021-11-25,Rapid Wien,West Ham,False,True
+2021,UEL,group,2021-12-09,West Ham,Dinamo Zagreb,True,False
+2021,UECL,KO,2022-02-17,Leicester,Randers,True,False
+2021,UECL,KO,2022-02-24,Randers,Leicester,False,True
+2021,UECL,KO,2022-03-10,Leicester,Rennes,True,False
+2021,UECL,KO,2022-03-17,Rennes,Leicester,False,True
+2021,UECL,KO,2022-04-07,Leicester,PSV Eindhoven,True,False
+2021,UECL,KO,2022-04-14,PSV Eindhoven,Leicester,False,True
+2021,UECL,KO,2022-04-28,Leicester,Roma,True,False
+2021,UECL,KO,2022-05-05,Roma,Leicester,False,True
+2021,UECL,group,2021-09-16,Rennes,Tottenham,False,True
+2021,UECL,group,2021-09-30,Tottenham,Mura,True,False
+2021,UECL,group,2021-10-21,Vitesse,Tottenham,False,True
+2021,UECL,group,2021-11-04,Tottenham,Vitesse,True,False
+2021,UECL,group,2021-11-25,Mura,Tottenham,False,True
+2021,UECL,group,2021-12-09,Tottenham,Rennes,True,False
+2022,UCL,KO,2023-02-22,RB Leipzig,Manchester City,False,True
+2022,UCL,KO,2023-03-14,Manchester City,RB Leipzig,True,False
+2022,UCL,KO,2023-02-21,Liverpool,Real Madrid,True,False
+2022,UCL,KO,2023-03-15,Real Madrid,Liverpool,False,True
+2022,UCL,KO,2023-02-14,Milan,Tottenham,False,True
+2022,UCL,KO,2023-03-08,Tottenham,Milan,True,False
+2022,UCL,KO,2023-02-15,Borussia Dortmund,Chelsea,False,True
+2022,UCL,KO,2023-03-07,Chelsea,Borussia Dortmund,True,False
+2022,UCL,KO,2023-04-12,Real Madrid,Chelsea,False,True
+2022,UCL,KO,2023-04-18,Chelsea,Real Madrid,True,False
+2022,UCL,KO,2023-04-11,Manchester City,Bayern Munich,True,False
+2022,UCL,KO,2023-04-19,Bayern Munich,Manchester City,False,True
+2022,UCL,KO,2023-05-09,Real Madrid,Manchester City,False,True
+2022,UCL,KO,2023-05-17,Manchester City,Real Madrid,True,False
+2022,UCL,group,2022-09-07,Napoli,Liverpool,False,True
+2022,UCL,group,2022-09-13,Liverpool,Ajax,True,False
+2022,UCL,group,2022-10-04,Liverpool,Rangers,True,False
+2022,UCL,group,2022-10-12,Rangers,Liverpool,False,True
+2022,UCL,group,2022-10-26,Ajax,Liverpool,False,True
+2022,UCL,group,2022-11-01,Liverpool,Napoli,True,False
+2022,UCL,group,2022-09-07,Tottenham,Marseille,True,False
+2022,UCL,group,2022-09-13,Sporting CP,Tottenham,False,True
+2022,UCL,group,2022-10-04,Eintracht Frankfurt,Tottenham,False,True
+2022,UCL,group,2022-10-12,Tottenham,Eintracht Frankfurt,True,False
+2022,UCL,group,2022-10-26,Tottenham,Sporting CP,True,False
+2022,UCL,group,2022-11-01,Marseille,Tottenham,False,True
+2022,UCL,group,2022-09-06,Dinamo Zagreb,Chelsea,False,True
+2022,UCL,group,2022-09-14,Chelsea,Red Bull Salzburg,True,False
+2022,UCL,group,2022-10-05,Chelsea,Milan,True,False
+2022,UCL,group,2022-10-11,Milan,Chelsea,False,True
+2022,UCL,group,2022-10-25,Red Bull Salzburg,Chelsea,False,True
+2022,UCL,group,2022-11-02,Chelsea,Dinamo Zagreb,True,False
+2022,UCL,group,2022-09-06,Sevilla,Manchester City,False,True
+2022,UCL,group,2022-09-14,Manchester City,Borussia Dortmund,True,False
+2022,UCL,group,2022-10-05,Manchester City,Copenhagen,True,False
+2022,UCL,group,2022-10-11,Copenhagen,Manchester City,False,True
+2022,UCL,group,2022-10-25,Borussia Dortmund,Manchester City,False,True
+2022,UCL,group,2022-11-02,Manchester City,Sevilla,True,False
+2022,UEL,KO,2023-02-16,Barcelona,Manchester United,False,True
+2022,UEL,KO,2023-02-23,Manchester United,Barcelona,True,False
+2022,UEL,KO,2023-03-09,Sporting CP,Arsenal,False,True
+2022,UEL,KO,2023-03-16,Arsenal,Sporting CP,True,False
+2022,UEL,KO,2023-03-09,Manchester United,Real Betis,True,False
+2022,UEL,KO,2023-03-16,Real Betis,Manchester United,False,True
+2022,UEL,KO,2023-04-13,Manchester United,Sevilla,True,False
+2022,UEL,KO,2023-04-20,Sevilla,Manchester United,False,True
+2022,UEL,group,2022-09-08,Zürich,Arsenal,False,True
+2022,UEL,group,2022-10-06,Arsenal,Bodø/Glimt,True,False
+2022,UEL,group,2022-10-13,Bodø/Glimt,Arsenal,False,True
+2022,UEL,group,2022-10-20,Arsenal,PSV Eindhoven,True,False
+2022,UEL,group,2022-10-27,PSV Eindhoven,Arsenal,False,True
+2022,UEL,group,2022-11-03,Arsenal,Zürich,True,False
+2022,UEL,group,2022-09-08,Manchester United,Real Sociedad,True,False
+2022,UEL,group,2022-09-15,Sheriff Tiraspol,Manchester United,False,True
+2022,UEL,group,2022-10-06,Omonia,Manchester United,False,True
+2022,UEL,group,2022-10-13,Manchester United,Omonia,True,False
+2022,UEL,group,2022-10-27,Manchester United,Sheriff Tiraspol,True,False
+2022,UEL,group,2022-11-03,Real Sociedad,Manchester United,False,True
+2022,UECL,KO,2023-03-09,AEK Larnaca,West Ham,False,True
+2022,UECL,KO,2023-03-16,West Ham,AEK Larnaca,True,False
+2022,UECL,KO,2023-04-13,Gent,West Ham,False,True
+2022,UECL,KO,2023-04-20,West Ham,Gent,True,False
+2022,UECL,KO,2023-05-11,West Ham,AZ,True,False
+2022,UECL,KO,2023-05-18,AZ,West Ham,False,True
+2022,UECL,group,2022-09-08,West Ham,FCSB,True,False
+2022,UECL,group,2022-09-15,Silkeborg,West Ham,False,True
+2022,UECL,group,2022-10-06,Anderlecht,West Ham,False,True
+2022,UECL,group,2022-10-13,West Ham,Anderlecht,True,False
+2022,UECL,group,2022-10-27,West Ham,Silkeborg,True,False
+2022,UECL,group,2022-11-03,FCSB,West Ham,False,True
+2023,UCL,KO,2024-02-21,Porto,Arsenal,False,True
+2023,UCL,KO,2024-03-12,Arsenal,Porto,True,False
+2023,UCL,KO,2024-02-13,Copenhagen,Manchester City,False,True
+2023,UCL,KO,2024-03-06,Manchester City,Copenhagen,True,False
+2023,UCL,KO,2024-04-09,Arsenal,Bayern Munich,True,False
+2023,UCL,KO,2024-04-17,Bayern Munich,Arsenal,False,True
+2023,UCL,KO,2024-04-09,Real Madrid,Manchester City,False,True
+2023,UCL,KO,2024-04-17,Manchester City,Real Madrid,True,False
+2023,UCL,group,2023-09-20,Bayern Munich,Manchester United,False,True
+2023,UCL,group,2023-10-03,Manchester United,Galatasaray,True,False
+2023,UCL,group,2023-10-24,Manchester United,Copenhagen,True,False
+2023,UCL,group,2023-11-08,Copenhagen,Manchester United,False,True
+2023,UCL,group,2023-11-29,Galatasaray,Manchester United,False,True
+2023,UCL,group,2023-12-12,Manchester United,Bayern Munich,True,False
+2023,UCL,group,2023-09-20,Arsenal,PSV Eindhoven,True,False
+2023,UCL,group,2023-10-03,Lens,Arsenal,False,True
+2023,UCL,group,2023-10-24,Sevilla,Arsenal,False,True
+2023,UCL,group,2023-11-08,Arsenal,Sevilla,True,False
+2023,UCL,group,2023-11-29,Arsenal,Lens,True,False
+2023,UCL,group,2023-12-12,PSV Eindhoven,Arsenal,False,True
+2023,UCL,group,2023-09-19,Milan,Newcastle United,False,True
+2023,UCL,group,2023-10-04,Newcastle United,Paris Saint-Germain,True,False
+2023,UCL,group,2023-10-25,Newcastle United,Borussia Dortmund,True,False
+2023,UCL,group,2023-11-07,Borussia Dortmund,Newcastle United,False,True
+2023,UCL,group,2023-11-28,Paris Saint-Germain,Newcastle United,False,True
+2023,UCL,group,2023-12-13,Newcastle United,Milan,True,False
+2023,UCL,group,2023-09-19,Manchester City,Red Star Belgrade,True,False
+2023,UCL,group,2023-10-04,RB Leipzig,Manchester City,False,True
+2023,UCL,group,2023-10-25,Young Boys,Manchester City,False,True
+2023,UCL,group,2023-11-07,Manchester City,Young Boys,True,False
+2023,UCL,group,2023-11-28,Manchester City,RB Leipzig,True,False
+2023,UCL,group,2023-12-13,Red Star Belgrade,Manchester City,False,True
+2023,UEL,KO,2024-03-07,Sparta Prague,Liverpool,False,True
+2023,UEL,KO,2024-03-14,Liverpool,Sparta Prague,True,False
+2023,UEL,KO,2024-03-07,Roma,Brighton,False,True
+2023,UEL,KO,2024-03-14,Brighton,Roma,True,False
+2023,UEL,KO,2024-03-07,SC Freiburg,West Ham,False,True
+2023,UEL,KO,2024-03-14,West Ham,SC Freiburg,True,False
+2023,UEL,KO,2024-04-11,Liverpool,Atalanta,True,False
+2023,UEL,KO,2024-04-18,Atalanta,Liverpool,False,True
+2023,UEL,KO,2024-04-11,Bayer Leverkusen,West Ham,False,True
+2023,UEL,KO,2024-04-18,West Ham,Bayer Leverkusen,True,False
+2023,UEL,group,2023-09-21,West Ham,TSC,True,False
+2023,UEL,group,2023-10-05,SC Freiburg,West Ham,False,True
+2023,UEL,group,2023-10-26,Olympiacos,West Ham,False,True
+2023,UEL,group,2023-11-09,West Ham,Olympiacos,True,False
+2023,UEL,group,2023-11-30,TSC,West Ham,False,True
+2023,UEL,group,2023-12-14,West Ham,SC Freiburg,True,False
+2023,UEL,group,2023-09-21,Brighton,AEK Athens,True,False
+2023,UEL,group,2023-10-05,Marseille,Brighton,False,True
+2023,UEL,group,2023-10-26,Brighton,Ajax,True,False
+2023,UEL,group,2023-11-09,Ajax,Brighton,False,True
+2023,UEL,group,2023-11-30,AEK Athens,Brighton,False,True
+2023,UEL,group,2023-12-14,Brighton,Marseille,True,False
+2023,UEL,group,2023-09-21,LASK,Liverpool,False,True
+2023,UEL,group,2023-10-05,Liverpool,Union Saint-Gilloise,True,False
+2023,UEL,group,2023-10-26,Liverpool,Toulouse,True,False
+2023,UEL,group,2023-11-09,Toulouse,Liverpool,False,True
+2023,UEL,group,2023-11-30,Liverpool,LASK,True,False
+2023,UEL,group,2023-12-14,Union Saint-Gilloise,Liverpool,False,True
+2023,UECL,KO,2024-03-07,Ajax,Aston Villa,False,True
+2023,UECL,KO,2024-03-14,Aston Villa,Ajax,True,False
+2023,UECL,KO,2024-04-11,Aston Villa,Lille,True,False
+2023,UECL,KO,2024-04-18,Lille,Aston Villa,False,True
+2023,UECL,KO,2024-05-02,Aston Villa,Olympiacos,True,False
+2023,UECL,KO,2024-05-09,Olympiacos,Aston Villa,False,True
+2023,UECL,group,2023-09-21,Legia Warsaw,Aston Villa,False,True
+2023,UECL,group,2023-10-05,Aston Villa,Zrinjski Mostar,True,False
+2023,UECL,group,2023-10-26,AZ,Aston Villa,False,True
+2023,UECL,group,2023-11-09,Aston Villa,AZ,True,False
+2023,UECL,group,2023-11-30,Aston Villa,Legia Warsaw,True,False
+2023,UECL,group,2023-12-14,Zrinjski Mostar,Aston Villa,False,True
+2024,UCL,KO,2025-02-11,Manchester City,Real Madrid,True,False
+2024,UCL,KO,2025-02-19,Real Madrid,Manchester City,False,True
+2024,UCL,KO,2025-03-05,Paris Saint-Germain,Liverpool,False,True
+2024,UCL,KO,2025-03-11,Liverpool,Paris Saint-Germain,True,False
+2024,UCL,KO,2025-03-04,Club Brugge,Aston Villa,False,True
+2024,UCL,KO,2025-03-12,Aston Villa,Club Brugge,True,False
+2024,UCL,KO,2025-03-04,PSV Eindhoven,Arsenal,False,True
+2024,UCL,KO,2025-03-12,Arsenal,PSV Eindhoven,True,False
+2024,UCL,KO,2025-04-09,Paris Saint-Germain,Aston Villa,False,True
+2024,UCL,KO,2025-04-15,Aston Villa,Paris Saint-Germain,True,False
+2024,UCL,KO,2025-04-08,Arsenal,Real Madrid,True,False
+2024,UCL,KO,2025-04-16,Real Madrid,Arsenal,False,True
+2024,UCL,KO,2025-04-29,Arsenal,Paris Saint-Germain,True,False
+2024,UCL,KO,2025-05-07,Paris Saint-Germain,Arsenal,False,True
+2024,UEL,KO,2025-03-06,AZ,Tottenham,False,True
+2024,UEL,KO,2025-03-13,Tottenham,AZ,True,False
+2024,UEL,KO,2025-03-06,Real Sociedad,Manchester United,False,True
+2024,UEL,KO,2025-03-13,Manchester United,Real Sociedad,True,False
+2024,UEL,KO,2025-04-10,Tottenham,Eintracht Frankfurt,True,False
+2024,UEL,KO,2025-04-17,Eintracht Frankfurt,Tottenham,False,True
+2024,UEL,KO,2025-04-10,Lyon,Manchester United,False,True
+2024,UEL,KO,2025-04-17,Manchester United,Lyon,True,False
+2024,UEL,KO,2025-05-01,Tottenham,Bodø/Glimt,True,False
+2024,UEL,KO,2025-05-08,Bodø/Glimt,Tottenham,False,True
+2024,UEL,KO,2025-05-01,Athletic Bilbao,Manchester United,False,True
+2024,UEL,KO,2025-05-08,Manchester United,Athletic Bilbao,True,False
+2024,UEL,group,2024-09-25,Tottenham,Qarabağ,True,False
+2024,UEL,group,2024-10-23,Tottenham,AZ,True,False
+2024,UEL,group,2024-11-28,Tottenham,Roma,True,False
+2024,UEL,group,2025-01-30,Tottenham,IF Elfsborg,True,False
+2024,UECL,KO,2025-03-06,Copenhagen,Chelsea,False,True
+2024,UECL,KO,2025-03-13,Chelsea,Copenhagen,True,False
+2024,UECL,KO,2025-04-10,Legia Warsaw,Chelsea,False,True
+2024,UECL,KO,2025-04-17,Chelsea,Legia Warsaw,True,False
+2024,UECL,KO,2025-05-01,Djurgårdens IF,Chelsea,False,True
+2024,UECL,KO,2025-05-08,Chelsea,Djurgårdens IF,True,False
+2025,UCL,KO,2026-02-18,Qarabağ,Newcastle United,False,True
+2025,UCL,KO,2026-02-24,Newcastle United,Qarabağ,True,False
+2025,UCL,KO,2026-03-11,Paris Saint-Germain,Chelsea,False,True
+2025,UCL,KO,2026-03-17,Chelsea,Paris Saint-Germain,True,False
+2025,UCL,KO,2026-03-10,Galatasaray,Liverpool,False,True
+2025,UCL,KO,2026-03-18,Liverpool,Galatasaray,True,False
+2025,UCL,KO,2026-03-11,Real Madrid,Manchester City,False,True
+2025,UCL,KO,2026-03-17,Manchester City,Real Madrid,True,False
+2025,UCL,KO,2026-03-10,Newcastle United,Barcelona,True,False
+2025,UCL,KO,2026-03-18,Barcelona,Newcastle United,False,True
+2025,UCL,KO,2026-03-10,Atlético Madrid,Tottenham,False,True
+2025,UCL,KO,2026-03-18,Tottenham,Atlético Madrid,True,False
+2025,UCL,KO,2026-03-11,Bayer Leverkusen,Arsenal,False,True
+2025,UCL,KO,2026-03-17,Arsenal,Bayer Leverkusen,True,False
+2025,UCL,KO,2026-04-08,Paris Saint-Germain,Liverpool,False,True
+2025,UCL,KO,2026-04-14,Liverpool,Paris Saint-Germain,True,False
+2025,UCL,KO,2026-04-07,Sporting CP,Arsenal,False,True
+2025,UCL,KO,2026-04-15,Arsenal,Sporting CP,True,False
+2025,UCL,KO,2026-04-29,Atlético Madrid,Arsenal,False,True
+2025,UCL,KO,2026-05-05,Arsenal,Atlético Madrid,True,False
+2025,UCL,group,2026-01-28,Napoli,Chelsea,False,True
+2025,UEL,KO,2026-02-19,Fenerbahçe,Nottingham Forest,False,True
+2025,UEL,KO,2026-02-26,Nottingham Forest,Fenerbahçe,True,False
+2025,UEL,KO,2026-03-12,Nottingham Forest,Midtjylland,True,False
+2025,UEL,KO,2026-03-19,Midtjylland,Nottingham Forest,False,True
+2025,UEL,KO,2026-03-12,Lille,Aston Villa,False,True
+2025,UEL,KO,2026-03-19,Aston Villa,Lille,True,False
+2025,UEL,KO,2026-04-09,Porto,Nottingham Forest,False,True
+2025,UEL,KO,2026-04-16,Nottingham Forest,Porto,True,False
+2025,UEL,KO,2026-04-09,Bologna,Aston Villa,False,True
+2025,UEL,KO,2026-04-16,Aston Villa,Bologna,True,False
+2025,UEL,KO,2026-04-30,Nottingham Forest,Aston Villa,True,True
+2025,UEL,KO,2026-05-07,Aston Villa,Nottingham Forest,True,True
+2025,UECL,KO,2026-02-19,Zrinjski Mostar,Crystal Palace,False,True
+2025,UECL,KO,2026-02-26,Crystal Palace,Zrinjski Mostar,True,False
+2025,UECL,KO,2026-03-12,Crystal Palace,AEK Larnaca,True,False
+2025,UECL,KO,2026-03-19,AEK Larnaca,Crystal Palace,False,True
+2025,UECL,KO,2026-04-09,Crystal Palace,Fiorentina,True,False
+2025,UECL,KO,2026-04-16,Fiorentina,Crystal Palace,False,True
+2025,UECL,KO,2026-04-30,Shakhtar Donetsk,Crystal Palace,False,True
+2025,UECL,KO,2026-05-07,Crystal Palace,Shakhtar Donetsk,True,False
