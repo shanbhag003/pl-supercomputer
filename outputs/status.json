@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-18T10:50:09",
+  "updated": "2026-08-18T16:01:43",
   "gameweek": 0,
   "matches_played": 0,
   "drift": 0.16,
@@ -15,8 +15,8 @@
     "Nottingham Forest: V\u00edtor Pereira -> Oliver Glasner (+0.05)"
   ],
   "squad_delta": {
-    "Liverpool": -0.139,
-    "Manchester City": -0.138,
+    "Liverpool": -0.136,
+    "Manchester City": -0.134,
     "Newcastle United": -0.1,
     "Brentford": -0.098,
     "Manchester United": -0.092,
@@ -25,48 +25,48 @@
     "Everton": -0.071,
     "Arsenal": -0.064,
     "Crystal Palace": -0.027,
-    "Nottingham Forest": -0.012,
+    "Nottingham Forest": -0.009,
     "Brighton": -0.008,
     "Bournemouth": -0.006,
-    "Coventry City": 0.0,
-    "Hull City": 0.0,
-    "Ipswich Town": 0.0,
+    "Coventry": 0.0,
+    "Hull": 0.0,
+    "Ipswich": 0.0,
     "Sunderland": 0.004,
     "Chelsea": 0.008,
-    "Tottenham": 0.024,
-    "Fulham": 0.03
+    "Fulham": 0.03,
+    "Tottenham": 0.04
   },
   "validation": null,
   "biggest_moves": [
     {
-      "team": "Arsenal",
-      "d_xPts": 0.0,
-      "d_title": 0.0,
-      "d_releg": 0.0
+      "team": "Tottenham",
+      "d_xPts": 0.27,
+      "d_title": 0.04,
+      "d_releg": -0.4
     },
     {
       "team": "Manchester City",
-      "d_xPts": 0.0,
+      "d_xPts": 0.05,
+      "d_title": 0.17,
+      "d_releg": 0.01
+    },
+    {
+      "team": "Nottingham Forest",
+      "d_xPts": 0.04,
       "d_title": 0.0,
-      "d_releg": 0.0
+      "d_releg": 0.08
     },
     {
       "team": "Liverpool",
-      "d_xPts": 0.0,
-      "d_title": 0.0,
+      "d_xPts": 0.03,
+      "d_title": -0.01,
       "d_releg": 0.0
     },
     {
-      "team": "Manchester United",
-      "d_xPts": 0.0,
-      "d_title": 0.0,
-      "d_releg": 0.0
-    },
-    {
-      "team": "Bournemouth",
-      "d_xPts": 0.0,
-      "d_title": 0.0,
-      "d_releg": 0.0
+      "team": "Newcastle United",
+      "d_xPts": -0.03,
+      "d_title": -0.01,
+      "d_releg": -0.05
     }
   ]
 }
