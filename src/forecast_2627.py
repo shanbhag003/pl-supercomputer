@@ -1,8 +1,14 @@
 """2026/27 pre-season forecast."""
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import sys, warnings
 import numpy as np
 import pandas as pd
-sys.path.insert(0, '/home/claude/pl/src')
+sys.path.insert(0, f'{ROOT}/src')
 from simulate import bootstrap_models, fixture_grids, simulate, positions
 warnings.filterwarnings('ignore')
 
@@ -14,8 +20,8 @@ FIX2US = {'Man Utd': 'Manchester United', 'Man City': 'Manchester City',
           'Newcastle': 'Newcastle United', 'Spurs': 'Tottenham',
           "Nott'm Forest": 'Nottingham Forest'}
 
-df = pd.read_parquet('/home/claude/pl/data/processed/matches.parquet')
-fx = pd.read_csv('/home/claude/pl/data/raw/fixtures_2627.csv')
+df = pd.read_parquet(f'{ROOT}/data/processed/matches.parquet')
+fx = pd.read_csv(f'{ROOT}/data/raw/fixtures_2627.csv')
 fx['home'] = fx['Home Team'].map(lambda x: FIX2US.get(x, x))
 fx['away'] = fx['Away Team'].map(lambda x: FIX2US.get(x, x))
 teams = sorted(set(fx.home))
@@ -48,13 +54,13 @@ for i, t in enumerate(teams):
                      top6=(p <= 6).mean(), releg=(p >= 18).mean()))
 out = pd.DataFrame(rows).sort_values('xPts', ascending=False).reset_index(drop=True)
 out.insert(0, 'pos', np.arange(1, 21))
-out.to_csv('/home/claude/pl/data/processed/pred_2627.csv', index=False)
+out.to_csv(f'{ROOT}/data/processed/pred_2627.csv', index=False)
 
 # full position matrix
 pm = pd.DataFrame({t: np.bincount(pos[:, i], minlength=22)[1:21] / N
                    for i, t in enumerate(teams)}).T
 pm.columns = range(1, 21)
-pm.loc[out.team].to_csv('/home/claude/pl/data/processed/posmatrix_2627.csv')
+pm.loc[out.team].to_csv(f'{ROOT}/data/processed/posmatrix_2627.csv')
 
 pr = out.copy()
 for c in ['title', 'top4', 'top6', 'releg']:

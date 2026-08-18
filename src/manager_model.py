@@ -7,16 +7,22 @@ quality.
 
   team xG = club FE + manager + Σ player shares + home + season
 """
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import glob, json, sys
 import numpy as np
 import pandas as pd
 from scipy import sparse
 from scipy.sparse.linalg import lsqr
 
-sys.path.insert(0, '/home/claude/pl/src')
+sys.path.insert(0, f'{ROOT}/src')
 
-PMC = '/home/claude/pl/data/processed/pm_merged.parquet'
-MGR = '/home/claude/pl/data/processed/managers.csv'
+PMC = f'{ROOT}/data/processed/pm_merged.parquet'
+MGR = f'{ROOT}/data/processed/managers.csv'
 
 
 def match_managers(mt):
@@ -39,7 +45,7 @@ def match_managers(mt):
 
 def build_and_fit(cutoff=None, lam_p=1.0, lam_m=2.0, min_mgr_matches=15,
                   verbose=True):
-    mt = pd.read_parquet('/home/claude/pl/data/processed/matches.parquet')
+    mt = pd.read_parquet(f'{ROOT}/data/processed/matches.parquet')
     mt = mt[mt.season >= 2014].reset_index(drop=True)
     mt['mid'] = np.arange(len(mt))
     if cutoff is not None:

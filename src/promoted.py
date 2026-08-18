@@ -4,14 +4,20 @@ For each season, fit single-season ratings (no decay) and record what promoted
 teams actually turned out to be. Then test whether Championship performance
 adds signal on top of the flat average.
 """
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import sys, glob
 import numpy as np
 import pandas as pd
-sys.path.insert(0, '/home/claude/pl/src')
+sys.path.insert(0, f'{ROOT}/src')
 from ratings import fit_ratings
 
-RAW = '/home/claude/pl/data/raw'
-df = pd.read_parquet('/home/claude/pl/data/processed/matches.parquet')
+RAW = f'{ROOT}/data/raw'
+df = pd.read_parquet(f'{ROOT}/data/processed/matches.parquet')
 
 # ---- who was promoted each season ----
 seasons = sorted(df.season.unique())
@@ -96,7 +102,7 @@ q['pred'] = np.polyval(b, q.c_pts)
 print(f'\nregression: net = {b[0]:+.5f} * champ_pts {b[1]:+.3f}')
 print(f'MAE flat-average prior : {np.abs(q.net - q.net.mean()).mean():.3f}')
 print(f'MAE regression prior   : {np.abs(q.net - q.pred).mean():.3f}')
-q.to_csv('/home/claude/pl/data/processed/promoted_prior.csv', index=False)
+q.to_csv(f'{ROOT}/data/processed/promoted_prior.csv', index=False)
 print()
 print(q.sort_values('net', ascending=False).head(5).round(3).to_string(index=False))
 print(q.sort_values('net').head(3).round(3).to_string(index=False))

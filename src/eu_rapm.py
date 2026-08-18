@@ -5,16 +5,22 @@ Each league gets its own RAPM fit. A league's coefficients are only comparable
 to ours after conversion, so we regress PL value on foreign value across the
 movers and use that mapping for players who have never played in England.
 """
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import glob, json, os, sys
 import numpy as np
 import pandas as pd
 from scipy import sparse
 from scipy.sparse.linalg import lsqr
 
-sys.path.insert(0, '/home/claude/pl/src')
-EU_JSON = '/home/claude/pl/data/understat_eu'
-EU_PM = '/home/claude/pl/data/processed/eu_player_matches'
-PL_PM = '/home/claude/pl/data/processed/player_matches'
+sys.path.insert(0, f'{ROOT}/src')
+EU_JSON = f'{ROOT}/data/understat_eu'
+EU_PM = f'{ROOT}/data/processed/eu_player_matches'
+PL_PM = f'{ROOT}/data/processed/player_matches'
 LEAGUES = ['La_liga', 'Serie_A', 'Bundesliga', 'Ligue_1']
 
 

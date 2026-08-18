@@ -3,10 +3,16 @@
 Baseline here is squad-on (weight 0.5), matching what is live. We then add the
 manager change delta at several weights.
 """
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import sys, os, copy, warnings
 import numpy as np
 import pandas as pd
-sys.path.insert(0, '/home/claude/pl/src')
+sys.path.insert(0, f'{ROOT}/src')
 warnings.filterwarnings('ignore')
 
 from simulate import bootstrap_models, fixture_grids, simulate, positions, summarise
@@ -17,7 +23,7 @@ import backtest_squad as bs
 CFG = dict(xi=0.0045, w_xg=0.7, ridge=2.0)
 DRIFT, B, N, SQUAD_W = 0.16, 60, 20000, 0.5
 WEIGHTS = [0.0, 0.25, 0.5, 1.0]
-OUT = '/home/claude/pl/data/processed/mgr_bt_within.csv'
+OUT = f'{ROOT}/data/processed/mgr_bt_within.csv'
 
 
 def manager_delta(season, ref):
@@ -25,7 +31,7 @@ def manager_delta(season, ref):
     fitr = build_and_fit(cutoff=ref, verbose=False)
     net = {m: fitr['mgr_att'][m] + fitr['mgr_dfn'][m] for m in fitr['managers']}
 
-    mt = pd.read_parquet('/home/claude/pl/data/processed/matches.parquet')
+    mt = pd.read_parquet(f'{ROOT}/data/processed/matches.parquet')
     prev = mt[mt.season == season - 1]
     cur = mt[mt.season == season]
     # manager at the END of last season vs at the START of this one

@@ -7,12 +7,18 @@ This is the optimistic version: squad minute-shares come from the season being
 forecast, i.e. perfect knowledge of who actually played. If that doesn't help,
 a realistic lineup forecast certainly won't.
 """
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import sys, os, json, glob, copy, warnings
 import numpy as np
 import pandas as pd
 from scipy import sparse
 from scipy.sparse.linalg import lsqr
-sys.path.insert(0, '/home/claude/pl/src')
+sys.path.insert(0, f'{ROOT}/src')
 warnings.filterwarnings('ignore')
 
 from simulate import bootstrap_models, fixture_grids, simulate, positions, summarise
@@ -21,10 +27,10 @@ from preseason_bt import actual_table
 CFG = dict(xi=0.0045, w_xg=0.7, ridge=2.0)
 DRIFT, B, N, LAM = 0.16, 60, 20000, 1.0
 WEIGHTS = [0.0, 0.25, 0.5, 1.0]
-OUT = '/home/claude/pl/data/processed/squad_bt2.csv'
-CACHE = '/home/claude/pl/data/processed/pm_merged.parquet'
+OUT = f'{ROOT}/data/processed/squad_bt2.csv'
+CACHE = f'{ROOT}/data/processed/pm_merged.parquet'
 
-mt = pd.read_parquet('/home/claude/pl/data/processed/matches.parquet')
+mt = pd.read_parquet(f'{ROOT}/data/processed/matches.parquet')
 mt = mt[mt.season >= 2014].reset_index(drop=True)
 mt['mid'] = np.arange(len(mt))
 
@@ -32,12 +38,12 @@ mt['mid'] = np.arange(len(mt))
 def merged():
     if os.path.exists(CACHE):
         return pd.read_parquet(CACHE)
-    pm = pd.read_parquet('/home/claude/pl/data/processed/player_matches.parquet')
+    pm = pd.read_parquet(f'{ROOT}/data/processed/player_matches.parquet')
     pm = pm.merge(mt[['date', 'home', 'away', 'mid', 'season']],
                   left_on=['date', 'h_team', 'a_team'],
                   right_on=['date', 'home', 'away'], how='inner', suffixes=('', '_m'))
     pcl = {}
-    for f in sorted(glob.glob('/home/claude/pl/data/understat/EPL_*.json')):
+    for f in sorted(glob.glob(f'{ROOT}/data/understat/EPL_*.json')):
         s = int(f.split('_')[-1].split('.')[0])
         for p in json.load(open(f))['players']:
             pcl[(p['id'], s)] = p['team_title']

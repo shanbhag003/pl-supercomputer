@@ -10,13 +10,19 @@ average, so five appearances buys you a coefficient near zero rather than noise.
 Players below the minutes threshold are pooled into a per-club residual bucket
 so their minutes are still controlled for.
 """
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import numpy as np
 import pandas as pd
 from scipy import sparse
 from scipy.sparse.linalg import lsqr
 
-PM = '/home/claude/pl/data/processed/player_matches.parquet'
-MT = '/home/claude/pl/data/processed/matches.parquet'
+PM = f'{ROOT}/data/processed/player_matches.parquet'
+MT = f'{ROOT}/data/processed/matches.parquet'
 
 
 def build(min_total_minutes=900):
@@ -60,7 +66,7 @@ def fit(alpha=None, min_total_minutes=900, verbose=True):
     # instead use per season-club majority from the league files
     import json, glob
     pcl = {}
-    for f in sorted(glob.glob('/home/claude/pl/data/understat/EPL_*.json')):
+    for f in sorted(glob.glob(f'{ROOT}/data/understat/EPL_*.json')):
         s = int(f.split('_')[-1].split('.')[0])
         for p in json.load(open(f))['players']:
             pcl[(p['id'], s)] = p['team_title']

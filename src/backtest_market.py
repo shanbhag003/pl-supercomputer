@@ -4,10 +4,16 @@ For each season: fit the model as of the day before it started, extract the
 market adjustment from opening-day odds, apply it at several weights, simulate,
 and score against what really happened. Resumable — writes after each season.
 """
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import sys, os, copy, warnings
 import numpy as np
 import pandas as pd
-sys.path.insert(0, '/home/claude/pl/src')
+sys.path.insert(0, f'{ROOT}/src')
 warnings.filterwarnings('ignore')
 
 from ratings import fit_ratings
@@ -19,9 +25,9 @@ CFG = dict(xi=0.0045, w_xg=0.7, ridge=2.0)
 DRIFT, B, N = 0.16, 60, 20000
 MKT_RIDGE = 0.10
 WEIGHTS = [0.0, 0.25, 0.5, 0.75, 1.0]
-OUT = '/home/claude/pl/data/processed/market_bt.csv'
+OUT = f'{ROOT}/data/processed/market_bt.csv'
 
-df = pd.read_parquet('/home/claude/pl/data/processed/matches.parquet')
+df = pd.read_parquet(f'{ROOT}/data/processed/matches.parquet')
 
 
 def season_code(s):
@@ -38,7 +44,7 @@ def run_season(season):
 
     base = fit_ratings(df, ref, prior_att=pa, prior_dfn=pdf,
                        extra_teams=teams, **CFG)
-    odds = opening_odds(f'/home/claude/pl/data/raw/E0_{season_code(season)}.csv')
+    odds = opening_odds(f'{ROOT}/data/raw/E0_{season_code(season)}.csv')
     delta, info = fit_market_delta(base, odds, teams, ridge=MKT_RIDGE)
 
     mods0 = bootstrap_models(df, ref, teams, pa, pdf, B=B, seed=7, **CFG)

@@ -5,10 +5,16 @@ Two sources of randomness, both required:
   2. parameter uncertainty - bootstrap the ratings fit, resample which ratings apply
 Skipping (2) makes title probabilities far too confident.
 """
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import sys, warnings
 import numpy as np
 import pandas as pd
-sys.path.insert(0, '/home/claude/pl/src')
+sys.path.insert(0, f'{ROOT}/src')
 from ratings import fit_ratings, score_matrix
 warnings.filterwarnings('ignore')
 

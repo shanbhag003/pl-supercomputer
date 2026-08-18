@@ -3,15 +3,21 @@
 Resumable and threaded. Each record is one player-match: who played, for whom,
 for how long, plus their attacking contribution in that match.
 """
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import json, os, sys, time, threading
 import pandas as pd
 import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import os as _o
-STORE = _o.environ.get('STORE', '/home/claude/pl/data/processed/player_matches')
+STORE = _o.environ.get('STORE', f'{ROOT}/data/processed/player_matches')
 os.makedirs(STORE, exist_ok=True)
-IDS = '/home/claude/pl/data/processed/player_ids.json'
+IDS = f'{ROOT}/data/processed/player_ids.json'
 HDR = {'User-Agent': 'Mozilla/5.0', 'X-Requested-With': 'XMLHttpRequest'}
 MIN_MINUTES = 270           # below this a player is folded into a residual bucket
 KEEP = ['date', 'season', 'time', 'position', 'h_team', 'a_team', 'id',
@@ -52,7 +58,7 @@ def fetch(pid, session):
 def main(budget=210, workers=8):
     import os as _os
     if _os.environ.get('EU'):
-        todo = json.load(open('/home/claude/pl/data/processed/eu_todo.json'))
+        todo = json.load(open(f'{ROOT}/data/processed/eu_todo.json'))
         ids = {p: {'name': ''} for p in todo}
     else:
         ids = json.load(open(IDS))

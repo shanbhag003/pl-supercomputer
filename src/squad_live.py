@@ -10,12 +10,18 @@ redistributed to its new signings in proportion to FPL price. So a club that
 sells a key player and buys nobody loses that value, and one that reinvests
 gets it partly back.
 """
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import json, glob, os, re, sys, unicodedata
 import numpy as np
 import pandas as pd
 import requests
 
-sys.path.insert(0, '/home/claude/pl/src')
+sys.path.insert(0, f'{ROOT}/src')
 
 TOTAL_MIN = 38 * 11 * 90
 FPL2US = {
@@ -52,7 +58,7 @@ def fpl_squads():
 def understat_last(season=2025):
     if os.path.exists(CACHE_LAST):
         return pd.DataFrame(json.load(open(CACHE_LAST)))
-    f = f'/home/claude/pl/data/understat/EPL_{season}.json'
+    f = f'{ROOT}/data/understat/EPL_{season}.json'
     out = []
     for p in json.load(open(f))['players']:
         out.append(dict(pid=p['id'], name=p['player_name'],
@@ -62,8 +68,8 @@ def understat_last(season=2025):
     return pd.DataFrame(out)
 
 
-CACHE_EU = '/home/claude/pl/data/processed/eu_name_index.json'
-CACHE_LAST = '/home/claude/pl/data/processed/last_season_players.json'
+CACHE_EU = f'{ROOT}/data/processed/eu_name_index.json'
+CACHE_LAST = f'{ROOT}/data/processed/last_season_players.json'
 
 
 def european_index():
@@ -81,7 +87,7 @@ def _european_index_from_raw():
     """
     import glob
     out = {}
-    for f in sorted(glob.glob('/home/claude/pl/data/understat_eu/*_*.json')):
+    for f in sorted(glob.glob(f'{ROOT}/data/understat_eu/*_*.json')):
         try:
             j = json.load(open(f))
         except Exception:

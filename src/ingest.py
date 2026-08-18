@@ -1,11 +1,17 @@
 """Build a single clean match-level dataset: goals, xG, npxG, odds."""
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import json, glob, os
 import pandas as pd
 import numpy as np
 
-RAW = '/home/claude/pl/data/raw'
-US = '/home/claude/pl/data/understat'
-OUT = '/home/claude/pl/data/processed'
+RAW = f'{ROOT}/data/raw'
+US = f'{ROOT}/data/understat'
+OUT = f'{ROOT}/data/processed'
 os.makedirs(OUT, exist_ok=True)
 
 # ---- Understat: match-level xG ----

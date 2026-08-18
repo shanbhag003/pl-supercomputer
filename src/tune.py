@@ -1,12 +1,18 @@
 """Resumable grid search. Saves after every combo so it can run in chunks."""
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import sys, os, json, time, itertools, warnings
 import numpy as np
 import pandas as pd
-sys.path.insert(0, '/home/claude/pl/src')
+sys.path.insert(0, f'{ROOT}/src')
 from backtest import run_season
 warnings.filterwarnings('ignore')
 
-OUT = '/home/claude/pl/data/processed/tuning.csv'
+OUT = f'{ROOT}/data/processed/tuning.csv'
 TUNE = [2022, 2023, 2024]          # tuning seasons
 BUDGET = int(sys.argv[1]) if len(sys.argv) > 1 else 200   # seconds
 

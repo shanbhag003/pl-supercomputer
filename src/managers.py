@@ -3,12 +3,18 @@
 Source: Wikipedia's List of Premier League managers (519 rows, with exact
 appointment and departure dates).
 """
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import io, re, sys
 import numpy as np
 import pandas as pd
 import requests
 
-OUT = '/home/claude/pl/data/processed/managers.csv'
+OUT = f'{ROOT}/data/processed/managers.csv'
 URL = 'https://en.wikipedia.org/wiki/List_of_Premier_League_managers'
 
 WIKI2US = {

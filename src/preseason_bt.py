@@ -1,13 +1,19 @@
 """Pre-season backtest across many seasons + measure true season-to-season drift."""
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import sys, warnings, pickle
 import numpy as np
 import pandas as pd
-sys.path.insert(0, '/home/claude/pl/src')
+sys.path.insert(0, f'{ROOT}/src')
 from ratings import fit_ratings
 from simulate import bootstrap_models, fixture_grids, simulate, positions, summarise
 warnings.filterwarnings('ignore')
 
-df = pd.read_parquet('/home/claude/pl/data/processed/matches.parquet')
+df = pd.read_parquet(f'{ROOT}/data/processed/matches.parquet')
 CFG = dict(xi=0.0045, w_xg=0.7, ridge=2.0)
 
 
@@ -82,7 +88,7 @@ if __name__ == '__main__':
         print(f'n={len(dr)} team-seasons')
         print(f'SD of att change: {dr.d_att.std():.3f}   '
               f'SD of def change: {dr.d_dfn.std():.3f}')
-        dr.to_csv('/home/claude/pl/data/processed/drift.csv', index=False)
+        dr.to_csv(f'{ROOT}/data/processed/drift.csv', index=False)
     else:
         season, drift = int(sys.argv[2]), float(sys.argv[3])
         s, pts, teams = preseason_forecast(season, drift=drift)
@@ -91,5 +97,5 @@ if __name__ == '__main__':
         print(f'{season} drift={drift}: MAE={p.err.abs().mean():.2f}  '
               f'cover80={cov:.0%}  '
               f'rankcorr={p[["rank","act_pos"]].corr(method="spearman").iloc[0,1]:.3f}')
-        p.to_csv(f'/home/claude/pl/data/processed/eval_{season}_{drift}.csv',
+        p.to_csv(f'{ROOT}/data/processed/eval_{season}_{drift}.csv',
                  index=False)

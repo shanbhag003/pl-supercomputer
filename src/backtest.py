@@ -1,12 +1,18 @@
 """Walk-forward match-level backtest. Refits weekly, never sees the future."""
+import os as _os
+# Repo root, resolved from this file. Never hardcode absolute paths:
+# they differ between a laptop, a container and a GitHub runner.
+ROOT = _os.environ.get(
+    "PL_ROOT",
+    _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import sys, itertools, warnings
 import numpy as np
 import pandas as pd
-sys.path.insert(0, '/home/claude/pl/src')
+sys.path.insert(0, f'{ROOT}/src')
 from ratings import fit_ratings, outcome_probs, PROMOTED_ATT, PROMOTED_DEF
 warnings.filterwarnings('ignore')
 
-df = pd.read_parquet('/home/claude/pl/data/processed/matches.parquet')
+df = pd.read_parquet(f'{ROOT}/data/processed/matches.parquet')
 df['res'] = np.where(df.hg > df.ag, 0, np.where(df.hg == df.ag, 1, 2))
 
 
@@ -69,7 +75,7 @@ if __name__ == '__main__':
                             ll=r.ll.mean(), n=len(r)))
             print(f'xi={xi:<7} w_xg={w:<4} ridge={rg:<5} '
                   f'RPS={r.rps.mean():.5f} LL={r.ll.mean():.5f}', flush=True)
-        pd.DataFrame(res).to_csv('/home/claude/pl/data/processed/tuning.csv',
+        pd.DataFrame(res).to_csv(f'{ROOT}/data/processed/tuning.csv',
                                  index=False)
         best = pd.DataFrame(res).sort_values('rps').iloc[0]
         print('\nBEST:', dict(best.round(5)))
