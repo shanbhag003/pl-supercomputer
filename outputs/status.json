@@ -1,42 +1,51 @@
 {
-  "updated": "2026-08-17T12:05:31",
+  "updated": "2026-08-18T02:58:27",
   "gameweek": 0,
   "matches_played": 0,
   "drift": 0.16,
   "n_sims": 20000,
   "gate": "no completed gameweek is settled yet; next kickoff 2026-08-21 19:00 UTC",
   "xg_source": "understat",
+  "squad_layer": "off",
+  "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
+  "manager_changes": [
+    "Ipswich: Kieran McKenna -> Gary O'Neil (+0.12)",
+    "Liverpool: Arne Slot -> Andoni Iraola (+0.20)",
+    "Manchester City: Pep Guardiola -> Enzo Maresca (-0.09)",
+    "Nottingham Forest: V\u00edtor Pereira -> Oliver Glasner (+0.05)"
+  ],
+  "squad_delta": {},
   "validation": null,
   "biggest_moves": [
     {
-      "team": "Ipswich",
-      "d_xPts": 0.0,
-      "d_title": 0.0,
-      "d_releg": -0.03
-    },
-    {
       "team": "Liverpool",
-      "d_xPts": 0.0,
-      "d_title": 0.01,
+      "d_xPts": 1.77,
+      "d_title": 2.62,
+      "d_releg": -0.29
+    },
+    {
+      "team": "Manchester City",
+      "d_xPts": -0.88,
+      "d_title": -2.61,
+      "d_releg": 0.09
+    },
+    {
+      "team": "Ipswich",
+      "d_xPts": 0.81,
+      "d_title": 0.0,
+      "d_releg": -2.91
+    },
+    {
+      "team": "Nottingham Forest",
+      "d_xPts": 0.28,
+      "d_title": 0.07,
+      "d_releg": -0.23
+    },
+    {
+      "team": "Bournemouth",
+      "d_xPts": -0.15,
+      "d_title": -0.13,
       "d_releg": 0.0
-    },
-    {
-      "team": "Hull",
-      "d_xPts": -0.0,
-      "d_title": 0.0,
-      "d_releg": 0.01
-    },
-    {
-      "team": "Fulham",
-      "d_xPts": 0.0,
-      "d_title": 0.0,
-      "d_releg": 0.01
-    },
-    {
-      "team": "Tottenham",
-      "d_xPts": -0.0,
-      "d_title": 0.0,
-      "d_releg": 0.01
     }
   ]
 }
