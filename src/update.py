@@ -388,6 +388,12 @@ def main():
     R.render(pred, f'{OUT}/table_wide.png',
              f'{label}  ·  {dt.date.today():%d %b %Y}', n_sims=N)
     R.render_mobile(pred, f'{OUT}/table.png', label, n_sims=N)
+    story = None
+    try:                      # 9:16 version for Instagram / WhatsApp Status
+        import render_story
+        story = render_story.render_story(pred, f'{OUT}/story.png', label, n_sims=N)
+    except Exception as e:
+        log(f'  story image skipped: {e}')
 
     status = dict(updated=dt.datetime.now().isoformat(timespec='seconds'),
                   gameweek=gw, matches_played=n_played, drift=round(drift, 3),
@@ -500,8 +506,10 @@ def main():
     subj = (f'{label.title()} — {lead.team} favourites '
             f'({100 * lead.title:.0f}%)')
     try:
-        mailer.send(subj, body, f'{OUT}/table.png',
-                    [f'{OUT}/prediction_latest.csv'], html=html)
+        extras = [f'{OUT}/prediction_latest.csv']
+        if story:
+            extras.insert(0, story)          # attached alongside the main table
+        mailer.send(subj, body, f'{OUT}/table.png', extras, html=html)
     except Exception as e:
         log(f'email failed: {e}')
     log('done -> outputs/table.png')
