@@ -58,8 +58,17 @@ def refresh():
                 r = requests.get(
                     f'https://www.football-data.co.uk/mmz4281/{code}/{div}.csv',
                     timeout=40)
-                if r.ok and len(r.content) > 200:
+                # This host answers a missing file with HTTP 300 and an HTML
+                # "Multiple Choices" page rather than a 404, so status alone is
+                # not enough - check it actually looks like the CSV we expect.
+                body = r.content[:400].lstrip()
+                looks_html = body[:1] == b'<' or b'<html' in body.lower()
+                header_ok = body.lstrip(b'\xef\xbb\xbf').startswith(b'Div,')
+                if r.status_code == 200 and not looks_html and header_ok:
                     open(f'{DATA}/raw/{div}_{code}.csv', 'wb').write(r.content)
+                else:
+                    log(f'  {div}_{code}: not a valid CSV yet '
+                        f'(HTTP {r.status_code}) - skipping')
             except Exception as e:
                 log(f'  {div}_{code} fetch failed: {e}')
     ok = False
@@ -98,10 +107,18 @@ def current_season_matches():
     if not rows:   # fallback: goals only, no xG yet
         f = f'{DATA}/raw/E0_{FD_CODE}.csv'
         if os.path.exists(f):
-            o = pd.read_csv(f, encoding='latin-1')
-            if 'Div' in o.columns:              # guard: file can contain other divisions
-                o = o[o['Div'] == 'E0']
-            o = o.dropna(subset=['FTHG'])
+            try:
+                o = pd.read_csv(f, encoding='latin-1')
+            except Exception as e:
+                log(f'  {f} is not parseable ({e}) - treating as no matches yet')
+                o = pd.DataFrame()
+            # Reject anything that is not the CSV we expect. A stale or
+            # HTML-ish file can still parse into a junk DataFrame.
+            need = {'Div', 'Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG'}
+            if not need.issubset(set(o.columns)):
+                log(f'  {f} lacks the expected columns - ignoring it')
+                o = pd.DataFrame(columns=sorted(need))
+            o = o[o['Div'] == 'E0'].dropna(subset=['FTHG'])
             for _, r in o.iterrows():
                 h = FD2US.get(r.HomeTeam, r.HomeTeam); a = FD2US.get(r.AwayTeam, r.AwayTeam)
                 rows.append(dict(season=SEASON,
