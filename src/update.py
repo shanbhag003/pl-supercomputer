@@ -400,6 +400,51 @@ def main():
                   validation=scorecard, biggest_moves=changes)
     json.dump(status, open(f'{OUT}/status.json', 'w'), indent=2)
 
+    # ---- next three fixtures per club, with our own win probability ----
+    nextfx = {t: [] for t in teams}
+    try:
+        from ratings import score_matrix as _sm
+        sub = mods[:24]
+        for _, r in remaining.sort_values(
+                pd.to_datetime(remaining['Date'], dayfirst=True).name
+                if False else 'Round Number').iterrows():
+            for side, team, opp in [('H', r.home, r.away), ('A', r.away, r.home)]:
+                if len(nextfx[team]) >= 3:
+                    continue
+                ps = []
+                for mm in sub:
+                    lh = np.clip(np.exp(mm['mu'] + mm['gamma']
+                                        + mm['att'][r.home] - mm['dfn'][r.away]), .05, 8)
+                    la = np.clip(np.exp(mm['mu'] + mm['att'][r.away]
+                                        - mm['dfn'][r.home]), .05, 8)
+                    M = _sm(lh, la, mm['rho'], 10)
+                    hw, dr = np.tril(M, -1).sum(), np.trace(M)
+                    ps.append(hw if side == 'H' else 1 - hw - dr)
+                nextfx[team].append(dict(opp=opp, side=side,
+                                         win=round(float(np.mean(ps)), 3)))
+    except Exception as e:
+        log(f'  next fixtures failed: {e}')
+
+    # ---- official FPL fixture difficulty, for the Actual tab ----
+    fdr = {t: [] for t in teams}
+    try:
+        import squad_live as _sl
+        b = requests.get('https://fantasy.premierleague.com/api/bootstrap-static/',
+                         headers={'User-Agent': 'Mozilla/5.0'}, timeout=40).json()
+        fl = requests.get('https://fantasy.premierleague.com/api/fixtures/',
+                          headers={'User-Agent': 'Mozilla/5.0'}, timeout=40).json()
+        fid = {t['id']: _sl.FPL2US.get(t['name'], t['name']) for t in b['teams']}
+        for f in sorted([x for x in fl if not x['finished'] and x['event']],
+                        key=lambda x: (x['event'], x['id'])):
+            h_, a_ = fid.get(f['team_h']), fid.get(f['team_a'])
+            for me, opp, side, dif in [(h_, a_, 'H', f['team_h_difficulty']),
+                                       (a_, h_, 'A', f['team_a_difficulty'])]:
+                if me in fdr and opp and len(fdr[me]) < 3:
+                    fdr[me].append(dict(opp=opp, side=side, fdr=int(dif)))
+        log(f'  FPL difficulty ratings loaded for {sum(1 for v in fdr.values() if v)} clubs')
+    except Exception as e:
+        log(f'  FPL fixture difficulty unavailable: {e}')
+
     # ---- data for the public web page ----
     try:
         web = os.path.join(ROOT, 'docs')
@@ -434,7 +479,9 @@ def main():
                         pts_now=int(r.pts_now), played=int(r.played),
                         lo=int(r.lo), hi=int(r.hi),
                         title=round(r.title, 4), top4=round(r.top4, 4),
-                        top6=round(r.top6, 4), releg=round(r.releg, 4))
+                        top6=round(r.top6, 4), releg=round(r.releg, 4),
+                        next3=nextfx.get(r.team, []),
+                        next3_fdr=fdr.get(r.team, []))
                    for _, r in pred.iterrows()],
             position_matrix={t: [round(v, 4) for v in pm_web.loc[t].tolist()]
                              for t in pm_web.index},

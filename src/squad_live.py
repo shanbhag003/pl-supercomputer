@@ -25,6 +25,11 @@ sys.path.insert(0, f'{ROOT}/src')
 
 TOTAL_MIN = 38 * 11 * 90
 FPL2US = {
+    'Hull City': 'Hull', 'Ipswich Town': 'Ipswich', 'Coventry City': 'Coventry',
+    'Leeds United': 'Leeds', 'Leicester City': 'Leicester',
+    'Norwich City': 'Norwich', 'Stoke City': 'Stoke', 'Swansea City': 'Swansea',
+    'Cardiff City': 'Cardiff', 'Luton Town': 'Luton',
+
     'Man City': 'Manchester City', 'Man Utd': 'Manchester United',
     'Spurs': 'Tottenham', 'Newcastle': 'Newcastle United',
     "Nott'm Forest": 'Nottingham Forest', 'Wolves': 'Wolverhampton Wanderers',
