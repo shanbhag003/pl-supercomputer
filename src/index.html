@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Premier League Predictions 2026-27</title>
+<meta name="description" content="A self-updating Premier League forecast. 20,000 simulations, refreshed after every gameweek.">
+<meta name="theme-color" content="#1A0020">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#37003C; --deep:#1A0020; --pink:#FF2882;
+    --cyan:#04F5FF; --green:#00FF85; --lav:#C4AECC; --dim:#9C7FA6;
+    --line:rgba(255,255,255,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--deep);
+    color:#fff;font-family:Inter,-apple-system,Segoe UI,Roboto,sans-serif;
+    min-height:100vh;padding-bottom:30px;position:relative;overflow-x:hidden;
+  }
+  /* ---- backdrop, same language as the graphic ---- */
+  .bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .bg .grad{position:absolute;inset:0;
+    background:
+      radial-gradient(78% 44% at 30% -4%, #6E1080 0%, rgba(110,16,128,0) 62%),
+      linear-gradient(170deg,#1A0020 0%,var(--purple) 48%,#4E0055 100%)}
+  .bg .bands{position:absolute;inset:0;
+    background:repeating-linear-gradient(90deg,
+      rgba(255,255,255,.014) 0 26px, transparent 26px 78px)}
+  .bg .chev{position:absolute;top:-30px;right:-40px;width:340px;height:190px;
+    background:repeating-linear-gradient(115deg,
+      var(--cyan) 0 2px, transparent 2px 26px);
+    opacity:.14;transform:skewX(-8deg)}
+  .bg .chev2{position:absolute;top:-30px;right:-70px;width:300px;height:190px;
+    background:repeating-linear-gradient(115deg,
+      var(--pink) 0 2px, transparent 2px 40px);
+    opacity:.13;transform:skewX(-8deg)}
+  .bg .vig{position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.5) 100%)}
+
+  .wrap{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding:0 18px}
+
+  header{padding:22px 0 8px}
+  h1{font-family:Anton,sans-serif;letter-spacing:.6px;line-height:1.02;
+     margin-left:-2px}
+  /* one line for the competition, one for the label, at every width */
+  h1 .yr,h1 .lg{display:inline;font-size:clamp(22px,6.4vw,40px);color:#fff}
+  h1 .lg{margin-left:.32em;opacity:.95}
+  h1 .p{display:block;font-size:clamp(19px,5.4vw,28px);color:var(--pink);
+        margin-top:3px}
+  .gw{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;
+      color:var(--cyan);letter-spacing:1.1px;margin-top:9px;text-transform:uppercase}
+  .stamp{font-size:12px;color:var(--lav);margin-top:6px;display:flex;
+         flex-wrap:wrap;gap:8px;align-items:center}
+  .tz{background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--lav);
+      border-radius:99px;padding:3px 11px;font-size:11px;cursor:pointer;
+      font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.6px;
+      text-transform:uppercase;transition:.15s}
+  .tz:hover{background:var(--pink);border-color:var(--pink);color:#fff}
+  .next{font-size:12px;color:var(--lav);margin-top:4px;opacity:.8}
+
+  .tabs{display:flex;gap:4px;margin-top:14px;background:rgba(255,255,255,.06);
+        border:1px solid var(--line);border-radius:99px;padding:4px;width:max-content}
+  .tab{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;
+       letter-spacing:1px;text-transform:uppercase;color:var(--lav);background:none;
+       border:0;border-radius:99px;padding:6px 18px;cursor:pointer;transition:.15s}
+  .tab[aria-selected="true"]{background:var(--pink);color:#fff;
+       box-shadow:0 2px 14px rgba(255,40,130,.45)}
+  .tab:disabled{opacity:.35;cursor:not-allowed}
+  .hint{font-size:12px;color:var(--lav);margin-top:8px;line-height:1.5}
+
+  .panel{margin-top:14px}
+  .rule{height:3px;background:var(--pink);border-radius:2px;
+        box-shadow:0 0 16px rgba(255,40,130,.5)}
+  table{width:100%;border-collapse:collapse}
+  th{font-family:'Barlow Condensed',sans-serif;font-size:10.5px;letter-spacing:1px;
+     color:var(--lav);text-transform:uppercase;font-weight:600;
+     padding:0 3px 8px;text-align:right}
+  th.l{text-align:left;padding-left:0}
+  tbody tr{background:rgba(255,255,255,.05)}
+  tbody tr:nth-child(even){background:rgba(255,255,255,.025)}
+  tbody tr:hover{background:rgba(255,255,255,.10)}
+  td{padding:6px 3px;font-size:14px;text-align:right;
+     font-family:'Barlow Condensed',sans-serif;font-weight:600}
+  td:first-child{border-radius:6px 0 0 6px} td:last-child{border-radius:0 6px 6px 0}
+  .rk{font-family:Anton,sans-serif;font-size:14px;color:rgba(255,255,255,.5);
+      width:34px;text-align:center;position:relative}
+  .zone{position:absolute;left:3px;top:4px;bottom:4px;width:3px;border-radius:2px}
+  .tm{text-align:left;font-size:15px;font-weight:700;letter-spacing:.2px;
+      text-transform:uppercase;white-space:nowrap}
+  .bar{display:inline-block;width:3px;height:13px;border-radius:2px;
+       margin-right:8px;vertical-align:-1px}
+  .g{color:var(--green)} .c{color:var(--cyan)} .pk{color:var(--pink)}
+  .d{color:var(--dim);font-weight:500}
+  .big{font-size:15px;color:#fff}
+
+  .wide{display:none}
+  @media(min-width:760px){
+    .wide{display:table-cell}
+    td{padding:7px 6px;font-size:15px}
+    th{padding:0 6px 8px;font-size:11px}
+    .tm{font-size:16px}
+    .rk{font-size:15px;width:42px}
+  }
+  .fx{display:inline-block;min-width:44px;padding:2px 5px;margin-left:3px;
+      border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;
+      font-size:11px;letter-spacing:.4px;color:#fff;text-align:center}
+  .fx em{font-style:normal;opacity:.65;font-size:9px;margin-left:2px}
+  td.nx,th.nx{text-align:right;white-space:nowrap}
+  @media(max-width:759px){
+    .fx{min-width:33px;font-size:10px;padding:2px 3px;margin-left:2px;
+        letter-spacing:.2px}
+    .fx em{font-size:8px;margin-left:1px}
+    .tm{font-size:13.5px}
+    .rk{width:26px;font-size:13px}
+    td{padding:6px 2px;font-size:13px}
+    th{padding:0 2px 7px;font-size:9.5px}
+    .panel{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    header{padding:16px 0 6px}
+    .hm td.l,.hm th.l{font-size:11px;padding-right:8px;max-width:92px;
+                      overflow:hidden;text-overflow:ellipsis}
+    summary{padding:10px 11px 7px}
+    .card{padding:11px}
+  }
+  .card{background:rgba(255,255,255,.05);border:1px solid var(--line);
+        border-radius:12px;padding:12px 13px;margin-top:10px}
+  details .card{margin-top:0;border-top-left-radius:0;border-top-right-radius:0}
+  details[open] summary{padding-bottom:6px}
+  details[open] summary{color:#fff}
+  .kv,.mv{display:flex;justify-content:space-between;padding:6px 0;font-size:14px;
+          border-top:1px solid rgba(255,255,255,.07)}
+  .kv:first-child,.mv:first-child{border-top:0}
+  .kv span:first-child,.mv span:first-child{color:var(--lav)}
+  .kv span:last-child{font-weight:600}
+  .up{color:var(--green);font-weight:600} .dn{color:var(--pink);font-weight:600}
+
+  details{margin-top:8px;border-top:1px solid rgba(255,255,255,.09)}
+  summary{cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;
+          letter-spacing:1.2px;color:var(--lav);text-transform:uppercase;
+          font-weight:600;padding:11px 13px 8px;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary:hover{color:#fff}
+  /* Desktop gets the numeric grid; phones get a distribution bar per club,
+     which needs no horizontal scroll and no sticky column. */
+  .hm{overflow-x:auto;-webkit-overflow-scrolling:touch;display:none}
+  .hmbars{display:block}
+  @media(min-width:760px){ .hm{display:block} .hmbars{display:none} }
+  .hmrow{margin-bottom:9px}
+  .hmtop{display:flex;justify-content:space-between;align-items:baseline;
+         font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;
+         margin-bottom:3px}
+  .hmtop b{font-weight:700}
+  .hmtop span{color:var(--lav);font-size:11.5px;letter-spacing:.4px}
+  .hmbar{display:flex;gap:1px;height:16px}
+  .hmbar i{flex:1;border-radius:1px;background:rgba(255,255,255,.05)}
+  .hmaxis{display:flex;justify-content:space-between;color:var(--lav);
+          font-size:10px;font-family:'Barlow Condensed',sans-serif;
+          letter-spacing:.6px;margin:2px 0 10px}
+  .hm table{min-width:820px;border-collapse:separate;border-spacing:0}
+  .hm td{padding:4px 1px;font-size:10px;text-align:center;border-radius:0;
+         font-family:'Barlow Condensed',sans-serif;font-weight:600;
+         color:rgba(255,255,255,.9)}
+  .hm tbody tr{background:none}
+  .hm td.l,.hm th.l{position:sticky;left:0;z-index:3;background:#2C0733;
+           text-align:left;font-size:11.5px;padding-right:10px;white-space:nowrap;
+           font-family:'Barlow Condensed',sans-serif;font-weight:600;
+           box-shadow:6px 0 8px -4px rgba(0,0,0,.55)}
+  .hm th.l{z-index:4}
+  .hm th{padding:0 1px 5px;font-size:9px;text-align:center}
+
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:11px;padding:0 3px;font-size:11px;
+          color:var(--lav);font-family:'Barlow Condensed',sans-serif;
+          letter-spacing:.8px;text-transform:uppercase;font-weight:600}
+  .legend i{display:inline-block;width:8px;height:8px;border-radius:2px;
+            margin-right:5px;margin-left:4px;vertical-align:0}
+  .legend .lgl{color:#fff;opacity:.55;margin-right:2px}
+  .legend .lgl::after{content:' \2014'}
+  .fxkey{width:100%;margin-top:2px}
+  .defs{margin-top:9px;padding:10px 12px;background:rgba(255,255,255,.04);
+        border:1px solid var(--line);border-radius:10px;
+        font-size:12px;color:var(--lav);line-height:1.85}
+  .defs b{color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;
+          letter-spacing:.5px;text-transform:uppercase;font-size:11.5px}
+  .defs span{display:inline-block;margin-right:16px;white-space:nowrap}
+  .defs .dwide{display:none}          /* columns that only exist on desktop */
+  .defs .dmob{display:inline-block}   /* the mobile stand-in for those */
+  @media(min-width:760px){
+    .defs .dwide{display:inline-block}
+    .defs .dmob{display:none}
+  }
+  @media(max-width:759px){
+    .defs span{display:block;margin-right:0;white-space:normal}
+    .defs .dwide{display:none}
+    .defs .dmob{display:block}
+    .defs{line-height:1.6}
+  }
+  footer{margin-top:20px;font-size:11.5px;color:var(--lav);line-height:1.7;
+         opacity:.8;border-top:1px solid var(--line);padding-top:14px}
+  footer a{color:var(--cyan);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .err{padding:24px;text-align:center;color:var(--lav);font-size:14px}
+</style>
+</head>
+<body>
+<div class="bg"><div class="grad"></div><div class="bands"></div>
+  <div class="chev"></div><div class="chev2"></div><div class="vig"></div></div>
+
+<div class="wrap">
+  <header>
+    <h1><span class="yr">2026-27</span><span class="lg">Premier League</span><span class="p">My Predictions</span></h1>
+    <div class="gw" id="gw">Loading…</div>
+    <div class="stamp">
+      <span id="stamp"></span>
+      <button class="tz" id="tzbtn" type="button"></button>
+    </div>
+    <div class="next" id="next"></div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" id="t-pred" role="tab" aria-selected="true">Predicted</button>
+    <button class="tab" id="t-act"  role="tab" aria-selected="false">Actual</button>
+  </div>
+  <div class="hint" id="hint"></div>
+
+  <div id="app"></div>
+
+  <footer>
+    <b style="color:#fff">What this is.</b> A Premier League forecast that runs
+    itself. Every club is rated on twelve seasons of results and chance quality,
+    then adjusted for who has signed, who has left, who is injured or suspended
+    and who is now in charge. The remaining fixtures are played out 20,000 times
+    and the finishing positions counted. Nobody presses anything: it republishes
+    twelve hours after each gameweek ends.
+    <br><br><b style="color:#fff">Where the data comes from.</b> Expected goals
+    from Understat, results and odds from football-data.co.uk, squads and
+    availability from the official Fantasy Premier League API.
+    <br><br><a href="https://github.com/shanbhag003/pl-supercomputer">Code, method and every test that failed &rarr;</a>
+  </footer>
+</div>
+
+<script>
+const CLUB={"Arsenal":"#EF0107","Manchester City":"#6CABDD","Liverpool":"#C8102E",
+"Manchester United":"#DA291C","Bournemouth":"#DA291C","Aston Villa":"#95BFE5",
+"Newcastle United":"#5B6B77","Brighton":"#0057B8","Chelsea":"#034694",
+"Leeds":"#FFCD00","Brentford":"#E30613","Crystal Palace":"#1B458F",
+"Nottingham Forest":"#DD0000","Tottenham":"#4A5D8F","Everton":"#003399",
+"Fulham":"#CC0000","Sunderland":"#EB172B","Hull":"#F5A12D","Coventry":"#78D0F3",
+"Ipswich":"#0044A9"};
+const SHORT={"Manchester City":"Man City","Manchester United":"Man United",
+"Newcastle United":"Newcastle","Nottingham Forest":"Nott'm Forest"};
+
+const localZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local';
+let useUTC = localStorage.getItem('plzone') === 'utc';
+let DATA = null;
+let TAB = 'pred';
+
+const pct = v => v*100 < 0.05 ? '—' : (v*100).toFixed(1) + '%';
+const ord = n => n + (['th','st','nd','rd'][(n%100-n%10!=10)*(n%10<4)*(n%10)] || 'th');
+const esc = s => String(s).replace(/[&<>"]/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nm = t => esc(SHORT[t] || t);
+
+function fmt(iso){
+  const d = new Date(iso);
+  if (isNaN(d)) return '—';
+  const p = new Intl.DateTimeFormat('en-GB', {day:'numeric', month:'short',
+    year:'numeric', hour:'2-digit', minute:'2-digit', hour12:false,
+    timeZone: useUTC ? 'UTC' : undefined}).formatToParts(d);
+  const g = t => (p.find(x => x.type === t) || {}).value;
+  return `${g('day')} ${g('month')} ${g('year')}, ${g('hour')}:${g('minute')}`;
+}
+const zoneLabel = () => useUTC ? 'UTC'
+  : (localZone.split('/').pop() || 'local').replace('_',' ');
+
+function paintStamp(){
+  document.getElementById('stamp').textContent =
+    'Updated ' + fmt(DATA.updated_utc) + ' ' + zoneLabel();
+  document.getElementById('tzbtn').textContent = useUTC ? 'My time' : 'UTC';
+  document.getElementById('next').textContent = DATA.next_update_utc
+    ? `Next update after Gameweek ${DATA.next_gameweek} — expected ${fmt(DATA.next_update_utc)} ${zoneLabel()}`
+    : 'Season complete.';
+}
+
+const zoneOf = (pos, T) => pos <= 4 ? 'var(--green)' : pos <= 6 ? 'var(--cyan)'
+  : pos > T-3 ? 'var(--pink)' : 'transparent';
+const tier = (v,bad) => bad
+  ? (v>=.40?'pk':v>=.15?'pk':v>=.03?'':'d')
+  : (v>=.25?'g':v>=.08?'c':v>=.01?'':'d');
+
+function rowHead(t, T){
+  return `<td class="rk"><span class="zone" style="background:${zoneOf(t.pos,T)}"></span>${t.pos}</td>`
+    + `<td class="tm"><span class="bar" style="background:${CLUB[t.team]||'#888'}"></span>${nm(t.team)}</td>`;
+}
+
+// Three-letter codes so the fixture chips stay narrow.
+const CODE={"Arsenal":"ARS","Aston Villa":"AVL","Bournemouth":"BOU","Brentford":"BRE",
+"Brighton":"BHA","Chelsea":"CHE","Coventry":"COV","Crystal Palace":"CRY",
+"Everton":"EVE","Fulham":"FUL","Hull":"HUL","Ipswich":"IPS","Leeds":"LEE",
+"Liverpool":"LIV","Manchester City":"MCI","Manchester United":"MUN",
+"Newcastle United":"NEW","Nottingham Forest":"NFO","Sunderland":"SUN",
+"Tottenham":"TOT"};
+
+// Familiar FPL-style colours, but driven by this model's own win probability
+// rather than FPL's static pre-season 1-5 scale.
+function fdr(w){
+  if (w >= .62) return '#1F9E4A';
+  if (w >= .48) return '#3FBF6B';
+  if (w >= .36) return '#7A6E86';
+  if (w >= .24) return '#C4456B';
+  return '#8E1140';
+}
+// FPL's own 1-5 scale, in FPL's own colours. Used on the Actual tab because
+// that tab shows official data rather than this model's view.
+const FDRCOL={1:'#1F9E4A',2:'#4FD07C',3:'#7A6E86',4:'#E0295C',5:'#8E1140'};
+function next3fdr(list){
+  if (!list || !list.length) return '';
+  return list.map(f =>
+    `<span class="fx" style="background:${FDRCOL[f.fdr]||'#7A6E86'}" `
+    + `title="${esc(f.opp)} (${f.side === 'H' ? 'home' : 'away'}) — FPL difficulty ${f.fdr}">`
+    + `${CODE[f.opp] || esc(f.opp).slice(0,3).toUpperCase()}`
+    + `<em>${f.side}</em></span>`).join('');
+}
+function next3(list){
+  if (!list || !list.length) return '';
+  return list.map(f =>
+    `<span class="fx" style="background:${fdr(f.win)}" title="${esc(f.opp)} `
+    + `(${f.side === 'H' ? 'home' : 'away'}) — ${Math.round(f.win*100)}% win">`
+    + `${CODE[f.opp] || esc(f.opp).slice(0,3).toUpperCase()}`
+    + `<em>${f.side}</em></span>`).join('');
+}
+
+function tablePredicted(){
+  const d = DATA, T = d.teams.length;
+  let h = '<div class="panel"><table><thead><tr><th></th><th class="l">Team</th>'
+    + '<th>xPts</th><th>Title</th><th class="wide">Top 4</th>'
+    + '<th class="wide">Top 6</th><th>Releg</th>'
+    + '<th class="nx">Next 3</th></tr></thead>'
+    + '<tbody>';
+  d.teams.forEach(t => {
+    h += '<tr>' + rowHead(t, T)
+      + `<td class="big">${t.xPts.toFixed(1)}</td>`
+      + `<td class="${tier(t.title)}">${pct(t.title)}</td>`
+      + `<td class="wide ${tier(t.top4)}">${pct(t.top4)}</td>`
+      + `<td class="wide ${tier(t.top6)}">${pct(t.top6)}</td>`
+      + `<td class="${tier(t.releg,1)}">${pct(t.releg)}</td>`
+      + `<td class="nx">${next3(t.next3)}</td></tr>`;
+  });
+  return h + '</tbody></table></div>';
+}
+
+function tableActual(){
+  const d = DATA, T = d.teams.length;
+  const proj = {}, fdrOf = {};
+  d.teams.forEach(t => { proj[t.team] = t.pos; fdrOf[t.team] = t.next3_fdr || []; });
+  let h = '<div class="panel"><table><thead><tr><th></th><th class="l">Team</th>'
+    + '<th>P</th><th>W</th><th>D</th><th class="wide">L</th>'
+    + '<th class="wide">GF</th><th class="wide">GA</th><th>GD</th><th>Pts</th>'
+    + '<th>Proj</th><th class="nx">Next 3</th></tr></thead><tbody>';
+  d.actual.forEach(t => {
+    const pj = proj[t.team], diff = t.pos - pj;
+    const cls = diff > 0 ? 'up' : diff < 0 ? 'dn' : 'd';
+    const arrow = diff > 0 ? '▲' : diff < 0 ? '▼' : '–';
+    h += '<tr>' + rowHead(t, T)
+      + `<td>${t.P}</td><td>${t.W}</td><td>${t.D}</td><td class="wide">${t.L}</td>`
+      + `<td class="wide">${t.GF}</td><td class="wide">${t.GA}</td>`
+      + `<td>${t.GD > 0 ? '+' : ''}${t.GD}</td>`
+      + `<td class="big">${t.Pts}</td>`
+      + `<td class="${cls}">${pj} ${arrow}</td>`
+      + `<td class="nx">${next3fdr(fdrOf[t.team])}</td></tr>`;
+  });
+  return h + '</tbody></table>'
+    + '<div class="hint"><b>Proj</b> is where the model expects each club to '
+    + 'finish. Green means it expects them to climb, pink to fall.</div></div>';
+}
+
+function heat(v){
+  if (v < 0.005) return 'rgba(255,255,255,.05)';
+  return `rgba(255,40,130,${Math.min(0.92, 0.10 + v*2.6).toFixed(3)})`;
+}
+
+function render(){
+  const d = DATA, T = d.teams.length;
+  document.getElementById('gw').textContent = d.label;
+  paintStamp();
+
+  const started = d.matches_played > 0;
+  const actBtn = document.getElementById('t-act');
+  actBtn.disabled = !started;
+  if (!started) TAB = 'pred';
+  document.getElementById('hint').textContent = started ? ''
+    : 'The season has not started, so there are no actual standings yet.';
+
+  let h = '<div class="rule"></div>'
+    + (TAB === 'act' ? tableActual() : tablePredicted());
+
+  // this key explains the coloured bar down the left of each row, not a column,
+  // so it stays on mobile - but it has to say so
+  h += '<div class="legend">'
+    + '<span class="lgl">Row colour</span>'
+    + '<span><i style="background:var(--green)"></i>Top 4</span>'
+    + '<span><i style="background:var(--cyan)"></i>Top 6</span>'
+    + '<span><i style="background:var(--pink)"></i>Relegation</span>'
+    + '<span class="fxkey">Next 3 opponents &mdash; '
+        + '<i style="background:#1F9E4A"></i>easier '
+        + '<i style="background:#7A6E86"></i>even '
+        + '<i style="background:#8E1140"></i>harder. H = home, A = away. '
+        + (TAB === 'pred'
+            ? 'Shaded by this model\'s own win probability.'
+            : 'Shaded by the official FPL difficulty rating, 1 to 5.')
+        + '</span>'
+    + `<span style="margin-left:auto;color:var(--pink)">${d.n_sims.toLocaleString()} simulations</span>`
+    + '</div>';
+
+  // third value: '' always shown, 'dwide' desktop-only, 'dmob' mobile-only —
+  // matching exactly which columns each screen size renders
+  const DEFS = TAB === 'pred' ? [
+    ['xPts', 'expected points by the end of the season', ''],
+    ['Title', 'chance of winning the league', ''],
+    ['Top 4', 'chance of a Champions League place', 'dwide'],
+    ['Top 6', 'chance of finishing in the top six', 'dwide'],
+    ['Releg', 'chance of being relegated', ''],
+    ['Next 3', 'the next three opponents', '']
+  ] : [
+    ['P W D L', 'played, won, drawn, lost', 'dwide'],
+    ['P W D', 'played, won, drawn', 'dmob'],
+    ['GF GA GD', 'goals for, against, and the difference', 'dwide'],
+    ['GD', 'goal difference', 'dmob'],
+    ['Pts', 'points won so far', ''],
+    ['Proj', 'where this model expects them to finish', ''],
+    ['Next 3', 'the next three opponents', '']
+  ];
+  h += '<div class="defs">'
+    + DEFS.map(x => `<span class="${x[2]}"><b>${x[0]}</b> &nbsp;${x[1]}</span>`).join('')
+    + '</div>';
+
+  const v = d.validation;
+  h += '<details><summary>▸ How accurate has this been?</summary><div class="card">';
+  if (!v || !v.n){
+    h += '<div style="color:var(--lav);font-size:13.5px;line-height:1.6">'
+      + 'No score yet. Only predictions made <i>before</i> a match was played are '
+      + 'graded, so the first scores appear once a forecast gameweek has been played.'
+      + '</div>';
+  } else {
+    const rows = [['Matches predicted', v.n],
+      ['Results called correctly', (v.hit*100).toFixed(0) + '%'],
+      ['Sharpness score (lower is better)', v.rps.toFixed(3)]];
+    if (v.bookie_rps){
+      const gap = 100*(v.rps/v.bookie_rps - 1);
+      rows.push(['Bookmakers, same matches', v.bookie_rps.toFixed(3)]);
+      rows.push(['Versus the market',
+        Math.abs(gap).toFixed(1) + '% ' + (gap > 0 ? 'behind' : 'ahead')]);
+    }
+    rows.forEach(r => h += `<div class="kv"><span>${r[0]}</span><span>${r[1]}</span></div>`);
+    h += '<div style="color:var(--lav);font-size:11.5px;margin-top:9px">'
+      + 'Nothing here is graded with hindsight.</div>';
+  }
+  h += '</div></details>';
+
+  const mv = (d.moves||[]).filter(m => Math.abs(m.d_xPts) >= 0.05);
+  h += '<details><summary>▸ What changed since last gameweek</summary><div class="card">';
+  if (!mv.length){
+    h += '<div style="color:var(--lav);font-size:13.5px">Nothing moved by more '
+      + 'than a rounding error.</div>';
+  } else {
+    mv.forEach(m => {
+      h += `<div class="mv"><span>${nm(m.team)}</span>`
+        + `<span class="${m.d_xPts > 0 ? 'up' : 'dn'}">`
+        + `${m.d_xPts > 0 ? '+' : ''}${m.d_xPts.toFixed(1)} pts</span></div>`;
+    });
+  }
+  h += '</div></details>';
+
+  // phones: one bar per club instead of a 400-cell grid
+  let bars = '<div class="card hmbars">'
+    + '<div class="hmaxis"><span>1st</span><span>10th</span><span>20th</span></div>';
+  d.teams.forEach(t => {
+    const row = d.position_matrix[t.team] || [];
+    let best = 0;
+    row.forEach((v, i) => { if (v > row[best]) best = i; });
+    bars += `<div class="hmrow"><div class="hmtop"><b>${nm(t.team)}</b>`
+      + `<span>most likely ${ord(best+1)} &middot; ${(row[best]*100).toFixed(1)}%</span></div>`
+      + '<div class="hmbar">'
+      + row.map((v,i) => `<i style="background:${heat(v)}" title="${ord(i+1)}: `
+          + `${(v*100).toFixed(1)}%"></i>`).join('')
+      + '</div></div>';
+  });
+  bars += '<div style="color:var(--lav);font-size:11.5px;margin-top:4px">'
+    + 'Each bar runs 1st to 20th. Brighter means more likely.</div></div>';
+
+  h += '<details><summary>▸ Chance of finishing in each position</summary>'
+    + bars
+    + '<div class="card hm"><table><thead><tr><th class="l"></th>';
+  for (let i = 1; i <= T; i++) h += `<th>${i}</th>`;
+  h += '</tr></thead><tbody>';
+  d.teams.forEach(t => {
+    const row = d.position_matrix[t.team] || [];
+    h += `<tr><td class="l">${nm(t.team)}</td>`;
+    row.forEach(v => h += `<td style="background:${heat(v)}">`
+      + `${v >= 0.001 ? (v*100).toFixed(1) : ''}</td>`);
+    h += '</tr>';
+  });
+  h += '</tbody></table><div style="color:var(--lav);font-size:11.5px;margin-top:9px">'
+    + 'Percentage of simulated seasons in which each club finished in each '
+    + 'position. Blank means under 0.1%. Scroll sideways on mobile.'
+    + '</div></div></details>';
+
+  document.getElementById('app').innerHTML = h;
+}
+
+function setTab(t){
+  TAB = t;
+  document.getElementById('t-pred').setAttribute('aria-selected', t === 'pred');
+  document.getElementById('t-act').setAttribute('aria-selected', t === 'act');
+  if (DATA) render();
+}
+document.getElementById('t-pred').addEventListener('click', () => setTab('pred'));
+document.getElementById('t-act').addEventListener('click', () => setTab('act'));
+document.getElementById('tzbtn').addEventListener('click', () => {
+  useUTC = !useUTC;
+  localStorage.setItem('plzone', useUTC ? 'utc' : 'local');
+  paintStamp();
+});
+
+fetch('data.json?v=' + Date.now())
+  .then(r => r.ok ? r.json() : Promise.reject(r.status))
+  .then(j => { DATA = j; render(); })
+  .catch(e => {
+    document.getElementById('gw').textContent = '';
+    document.getElementById('app').innerHTML =
+      '<div class="err">Could not load the latest forecast. '
+      + 'If this persists the last run may have failed — check the Actions tab.</div>';
+    console.error(e);
+  });
+</script>
+</body>
+</html>
