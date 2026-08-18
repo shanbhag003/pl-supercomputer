@@ -110,8 +110,10 @@ def build_body(pred, status, gw_label, results_note=''):
     A('  3. Every remaining match is then played out 20,000 times, and we')
     A('     count how often each club finished where.')
     A('')
-    A('Not included: European fixture congestion, and manager changes where')
-    A('the new manager has never worked in the Premier League.')
+    A('Deliberately left out: fixture congestion (tested across twelve')
+    A('seasons - the effect was not consistent enough to trust), and manager')
+    A('changes where the incoming manager has no Premier League record, since')
+    A('there is nothing to measure them against.')
     return '\n'.join(L)
 
 
@@ -249,8 +251,10 @@ def build_html(pred, status, gw_label):
 
     A(f'<div style="padding:18px 22px 26px;font-size:12px;color:{GREY};'
       f'line-height:1.6;border-top:1px solid #E3DAE8;margin-top:18px;">'
-      f'Not included: European fixture congestion, and manager changes where '
-      f'the new manager has never worked in the Premier League.<br>'
+      f'Deliberately left out: fixture congestion (tested across twelve '
+      f'seasons — the effect was not consistent enough to trust), and manager '
+      f'changes where the incoming manager has no Premier League record, since '
+      f'there is nothing to measure them against.<br>'
       f'Data: Understat, football-data.co.uk and the official Fantasy '
       f'Premier League API.</div></div>')
     return ''.join(H)
