@@ -106,7 +106,7 @@ schedule handles badly.
 **The solution.** The job wakes every two hours and asks three questions:
 
 1. Has every match in this round been played?
-2. Has it been twelve hours since the last one finished?
+2. Has it been five hours since the last one finished?
 3. Have we already published this gameweek?
 
 If the answer isn't yes, no, no — it exits in about two seconds and costs
