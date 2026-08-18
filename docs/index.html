@@ -42,10 +42,11 @@
   .bg .vig{position:absolute;inset:0;
     background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.5) 100%)}
 
-  .wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 15px}
+  .wrap{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding:0 18px}
 
   header{padding:22px 0 8px}
-  h1{font-family:Anton,sans-serif;letter-spacing:.6px;line-height:.92}
+  h1{font-family:Anton,sans-serif;letter-spacing:.6px;line-height:.92;
+     margin-left:-2px}
   h1 .yr{display:block;font-size:clamp(30px,8vw,44px);color:#fff}
   h1 .lg{display:block;font-size:clamp(19px,5vw,27px);color:#fff;opacity:.95}
   h1 .p{display:block;font-size:clamp(19px,5vw,27px);color:var(--pink)}
@@ -95,6 +96,29 @@
   .d{color:var(--dim);font-weight:500}
   .big{font-size:15px;color:#fff}
 
+  .wide{display:none}
+  @media(min-width:760px){
+    .wide{display:table-cell}
+    td{padding:7px 6px;font-size:15px}
+    th{padding:0 6px 8px;font-size:11px}
+    .tm{font-size:16px}
+    .rk{font-size:15px;width:42px}
+  }
+  .fx{display:inline-block;min-width:44px;padding:2px 5px;margin-left:3px;
+      border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-weight:700;
+      font-size:11px;letter-spacing:.4px;color:#fff;text-align:center}
+  .fx em{font-style:normal;opacity:.65;font-size:9px;margin-left:2px}
+  td.nx,th.nx{text-align:right;white-space:nowrap}
+  @media(max-width:759px){
+    .fx{min-width:33px;font-size:10px;padding:2px 3px;margin-left:2px;
+        letter-spacing:.2px}
+    .fx em{font-size:8px;margin-left:1px}
+    .tm{font-size:13.5px}
+    .rk{width:26px;font-size:13px}
+    td{padding:6px 2px;font-size:13px}
+    th{padding:0 2px 7px;font-size:9.5px}
+    .panel{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  }
   .card{background:rgba(255,255,255,.05);border:1px solid var(--line);
         border-radius:12px;padding:12px 13px;margin-top:10px}
   .kv,.mv{display:flex;justify-content:space-between;padding:6px 0;font-size:14px;
@@ -107,24 +131,26 @@
   details{margin-top:8px;border-top:1px solid rgba(255,255,255,.09)}
   summary{cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;
           letter-spacing:1.2px;color:var(--lav);text-transform:uppercase;
-          font-weight:600;padding:11px 0;list-style:none}
+          font-weight:600;padding:11px 13px;list-style:none}
   summary::-webkit-details-marker{display:none}
   summary:hover{color:#fff}
   .hm{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .hm table{min-width:620px}
-  .hm td{padding:3px 1px;font-size:9px;text-align:center;border-radius:0;
-         font-family:Inter,sans-serif}
+  .hm table{min-width:820px}
+  .hm td{padding:4px 1px;font-size:10px;text-align:center;border-radius:0;
+         font-family:'Barlow Condensed',sans-serif;font-weight:600;
+         color:rgba(255,255,255,.9)}
   .hm tbody tr{background:none}
   .hm td.l{text-align:left;font-size:11px;padding-right:8px;white-space:nowrap;
            position:sticky;left:0;background:#2A0430;font-family:'Barlow Condensed',sans-serif;
            font-weight:600}
   .hm th{padding:0 1px 5px;font-size:9px;text-align:center}
 
-  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:11px;font-size:11px;
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:11px;padding:0 3px;font-size:11px;
           color:var(--lav);font-family:'Barlow Condensed',sans-serif;
           letter-spacing:.8px;text-transform:uppercase;font-weight:600}
   .legend i{display:inline-block;width:8px;height:8px;border-radius:2px;
-            margin-right:5px;vertical-align:0}
+            margin-right:5px;margin-left:4px;vertical-align:0}
+  .fxkey{width:100%;margin-top:2px}
   footer{margin-top:20px;font-size:11.5px;color:var(--lav);line-height:1.7;
          opacity:.8;border-top:1px solid var(--line);padding-top:14px}
   footer a{color:var(--cyan);text-decoration:none}
@@ -156,10 +182,16 @@
   <div id="app"></div>
 
   <footer>
-    Expected-goals ratings, plus-minus player values and 20,000 Monte Carlo
-    simulations. Squads, injuries and suspensions from the official FPL API.
-    Updates automatically twelve hours after every gameweek ends.
-    <br><a href="https://github.com/shanbhag003/pl-supercomputer">Code and full method on GitHub</a>
+    <b style="color:#fff">What this is.</b> A Premier League forecast that runs
+    itself. Every club is rated on twelve seasons of results and chance quality,
+    then adjusted for who has signed, who has left, who is injured or suspended
+    and who is now in charge. The remaining fixtures are played out 20,000 times
+    and the finishing positions counted. Nobody presses anything: it republishes
+    twelve hours after each gameweek ends.
+    <br><br><b style="color:#fff">Where the data comes from.</b> Expected goals
+    from Understat, results and odds from football-data.co.uk, squads and
+    availability from the official Fantasy Premier League API.
+    <br><br><a href="https://github.com/shanbhag003/pl-supercomputer">Code, method and every test that failed &rarr;</a>
   </footer>
 </div>
 
@@ -216,36 +248,81 @@ function rowHead(t, T){
     + `<td class="tm"><span class="bar" style="background:${CLUB[t.team]||'#888'}"></span>${nm(t.team)}</td>`;
 }
 
+// Three-letter codes so the fixture chips stay narrow.
+const CODE={"Arsenal":"ARS","Aston Villa":"AVL","Bournemouth":"BOU","Brentford":"BRE",
+"Brighton":"BHA","Chelsea":"CHE","Coventry":"COV","Crystal Palace":"CRY",
+"Everton":"EVE","Fulham":"FUL","Hull":"HUL","Ipswich":"IPS","Leeds":"LEE",
+"Liverpool":"LIV","Manchester City":"MCI","Manchester United":"MUN",
+"Newcastle United":"NEW","Nottingham Forest":"NFO","Sunderland":"SUN",
+"Tottenham":"TOT"};
+
+// Familiar FPL-style colours, but driven by this model's own win probability
+// rather than FPL's static pre-season 1-5 scale.
+function fdr(w){
+  if (w >= .62) return '#1F9E4A';
+  if (w >= .48) return '#3FBF6B';
+  if (w >= .36) return '#7A6E86';
+  if (w >= .24) return '#C4456B';
+  return '#8E1140';
+}
+// FPL's own 1-5 scale, in FPL's own colours. Used on the Actual tab because
+// that tab shows official data rather than this model's view.
+const FDRCOL={1:'#1F9E4A',2:'#4FD07C',3:'#7A6E86',4:'#E0295C',5:'#8E1140'};
+function next3fdr(list){
+  if (!list || !list.length) return '';
+  return list.map(f =>
+    `<span class="fx" style="background:${FDRCOL[f.fdr]||'#7A6E86'}" `
+    + `title="${esc(f.opp)} (${f.side === 'H' ? 'home' : 'away'}) — FPL difficulty ${f.fdr}">`
+    + `${CODE[f.opp] || esc(f.opp).slice(0,3).toUpperCase()}`
+    + `<em>${f.side}</em></span>`).join('');
+}
+function next3(list){
+  if (!list || !list.length) return '';
+  return list.map(f =>
+    `<span class="fx" style="background:${fdr(f.win)}" title="${esc(f.opp)} `
+    + `(${f.side === 'H' ? 'home' : 'away'}) — ${Math.round(f.win*100)}% win">`
+    + `${CODE[f.opp] || esc(f.opp).slice(0,3).toUpperCase()}`
+    + `<em>${f.side}</em></span>`).join('');
+}
+
 function tablePredicted(){
   const d = DATA, T = d.teams.length;
   let h = '<div class="panel"><table><thead><tr><th></th><th class="l">Team</th>'
-    + '<th>xPts</th><th>Title</th><th>Top 4</th><th>Releg</th></tr></thead>'
+    + '<th>xPts</th><th>Title</th><th class="wide">Top 4</th>'
+    + '<th class="wide">Top 6</th><th>Releg</th>'
+    + '<th class="nx">Next 3</th></tr></thead>'
     + '<tbody>';
   d.teams.forEach(t => {
     h += '<tr>' + rowHead(t, T)
       + `<td class="big">${t.xPts.toFixed(1)}</td>`
       + `<td class="${tier(t.title)}">${pct(t.title)}</td>`
-      + `<td class="${tier(t.top4)}">${pct(t.top4)}</td>`
-      + `<td class="${tier(t.releg,1)}">${pct(t.releg)}</td></tr>`;
+      + `<td class="wide ${tier(t.top4)}">${pct(t.top4)}</td>`
+      + `<td class="wide ${tier(t.top6)}">${pct(t.top6)}</td>`
+      + `<td class="${tier(t.releg,1)}">${pct(t.releg)}</td>`
+      + `<td class="nx">${next3(t.next3)}</td></tr>`;
   });
   return h + '</tbody></table></div>';
 }
 
 function tableActual(){
   const d = DATA, T = d.teams.length;
-  const proj = {}; d.teams.forEach(t => proj[t.team] = t.pos);
+  const proj = {}, fdrOf = {};
+  d.teams.forEach(t => { proj[t.team] = t.pos; fdrOf[t.team] = t.next3_fdr || []; });
   let h = '<div class="panel"><table><thead><tr><th></th><th class="l">Team</th>'
-    + '<th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th>'
-    + '<th>Proj</th></tr></thead><tbody>';
+    + '<th>P</th><th>W</th><th>D</th><th class="wide">L</th>'
+    + '<th class="wide">GF</th><th class="wide">GA</th><th>GD</th><th>Pts</th>'
+    + '<th>Proj</th><th class="nx">Next 3</th></tr></thead><tbody>';
   d.actual.forEach(t => {
     const pj = proj[t.team], diff = t.pos - pj;
     const cls = diff > 0 ? 'up' : diff < 0 ? 'dn' : 'd';
     const arrow = diff > 0 ? '▲' : diff < 0 ? '▼' : '–';
     h += '<tr>' + rowHead(t, T)
-      + `<td>${t.P}</td><td>${t.W}</td><td>${t.D}</td><td>${t.L}</td>`
+      + `<td>${t.P}</td><td>${t.W}</td><td>${t.D}</td><td class="wide">${t.L}</td>`
+      + `<td class="wide">${t.GF}</td><td class="wide">${t.GA}</td>`
       + `<td>${t.GD > 0 ? '+' : ''}${t.GD}</td>`
       + `<td class="big">${t.Pts}</td>`
-      + `<td class="${cls}">${pj} ${arrow}</td></tr>`;
+      + `<td class="${cls}">${pj} ${arrow}</td>`
+      + `<td class="nx">${next3fdr(fdrOf[t.team])}</td></tr>`;
   });
   return h + '</tbody></table>'
     + '<div class="hint"><b>Proj</b> is where the model expects each club to '
@@ -276,6 +353,14 @@ function render(){
     + '<span><i style="background:var(--green)"></i>Top 4</span>'
     + '<span><i style="background:var(--cyan)"></i>Top 6</span>'
     + '<span><i style="background:var(--pink)"></i>Relegation</span>'
+    + '<span class="fxkey">Next 3 opponents &mdash; '
+        + '<i style="background:#1F9E4A"></i>easier '
+        + '<i style="background:#7A6E86"></i>even '
+        + '<i style="background:#8E1140"></i>harder. H = home, A = away. '
+        + (TAB === 'pred'
+            ? 'Shaded by this model\'s own win probability.'
+            : 'Shaded by the official FPL difficulty rating, 1 to 5.')
+        + '</span>'
     + `<span style="margin-left:auto;color:var(--pink)">${d.n_sims.toLocaleString()} simulations</span>`
     + '</div>';
 
@@ -324,11 +409,12 @@ function render(){
     const row = d.position_matrix[t.team] || [];
     h += `<tr><td class="l">${nm(t.team)}</td>`;
     row.forEach(v => h += `<td style="background:${heat(v)}">`
-      + `${v >= 0.10 ? Math.round(v*100) : ''}</td>`);
+      + `${v >= 0.001 ? (v*100).toFixed(1) : ''}</td>`);
     h += '</tr>';
   });
   h += '</tbody></table><div style="color:var(--lav);font-size:11.5px;margin-top:9px">'
-    + 'Percentage of simulated seasons. Scroll sideways on mobile.'
+    + 'Percentage of simulated seasons in which each club finished in each '
+    + 'position. Blank means under 0.1%. Scroll sideways on mobile.'
     + '</div></div></details>';
 
   document.getElementById('app').innerHTML = h;
