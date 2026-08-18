@@ -43,7 +43,7 @@ jobs:
         run: |
           git config user.name  "pl-supercomputer"
           git config user.email "actions@github.com"
-          git add outputs/ data/understat/ data/raw/ || true
+          git add outputs/ docs/ data/understat/ data/raw/ || true
           git diff --staged --quiet && echo "nothing to commit" || {
             git commit -m "Update $(date -u +'%Y-%m-%d %H:%M UTC')"
             git pull --rebase && git push
