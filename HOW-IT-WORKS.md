@@ -329,6 +329,44 @@ weekly job existed. Superseded by `update.py`, kept for reference.
 `render_arch.py` draws the architecture diagram — the "how it works in seven
 steps" graphic. Run it by hand whenever the model changes.
 
+### `cup_fixtures.py` — when did clubs play outside the league?
+
+Scrapes every FA Cup and EFL Cup tie from Wikipedia, 2014 to 2026, to answer one
+question: does playing midweek hurt a club at the weekend?
+
+The scraping is fiddly. Wikipedia renders each cup tie as its own little table —
+144 of them on a single FA Cup page — with the date in the first cell and the two
+clubs either side of the score. The code walks every table on the page and keeps
+the ones that look like a fixture.
+
+Result: **1,488 cup ties involving Premier League clubs**, a median of five per
+club per season.
+
+**Why domestic cups and not just Europe?** Because only six or seven clubs play
+in Europe, and they're the good ones. Any comparison would really be measuring
+"are you a big club". Every club plays the domestic cups, so congestion cases
+show up right across the table, including at the bottom.
+
+**The finding.** For every league match, work out days since that club's last
+match of any kind. Then compare each club to its own season average:
+
+| | ≤3 days rest | ≥7 days rest | Difference |
+|---|---|---|---|
+| xG created | +0.022 | −0.004 | +0.025 |
+| xG conceded | −0.009 | +0.007 | −0.015 |
+| Points won | +0.061 | +0.003 | +0.058 |
+
+Nothing. And every sign points the *wrong* way — congested clubs created a bit
+more, conceded a bit less, won a few more points. None of it statistically
+meaningful, and the biggest effect is about a tenth the size of home advantage.
+
+The likeliest reason is that clubs rotate. That's what a 25-man squad is for, and
+the squad layer already tracks who actually plays. Fatigue and match rhythm may
+also roughly cancel each other out.
+
+So congestion isn't modelled. Not because it was hard — because it was measured
+and it wasn't there.
+
 ### `ingest.py`, `pull_players.py`, `promoted.py`
 
 `ingest.py` builds `matches.parquet` — 4,560 matches with expected goals.
@@ -361,6 +399,7 @@ at the time, predict, compare to what really happened, across seven seasons.
 | `backtest_squad.py` | Does squad accounting help? | **Yes — shipped** |
 | `backtest_manager.py` | Do manager effects help? | **Only for within-league moves — shipped that version** |
 | `backtest_market.py` | Does blending bookmaker odds help? | **No — rejected** |
+| `cup_fixtures.py` | Does fixture congestion matter? | **No measurable effect — not built** |
 
 ### The most instructive failure
 
@@ -391,6 +430,7 @@ strength because the evidence is thin.
 | `last_season_players.json` | Minutes played by every player in 2025/26 |
 | `eu_name_index.json` | Name lookup for foreign players |
 | `fixtures_2627.csv` | All 380 fixtures with kickoff times |
+| `cup_fixtures.csv` | 2,833 domestic cup ties, 2014–2026 |
 
 Two of these are precomputed summaries. Originally the model read 2.8 MB of raw
 data files; those were condensed to 415 KB, which is why the upload is small.
@@ -437,6 +477,13 @@ Because winning the league is a tail event, not an average one. Brentford's rang
 of outcomes is wider — 37 to 69 points, against Leeds' 39 to 67. They're more
 likely to finish very high *and* more likely to go down. From fourth place
 downward, Leeds overtake them. The crossover happens right at the top.
+
+**"Doesn't a midweek cup game hurt them at the weekend?"**
+Apparently not. Across 12 seasons and 1,488 cup ties, clubs playing on three days'
+rest or fewer performed no worse than the same clubs on a full week — and if
+anything marginally better. The effect is around a tenth the size of home
+advantage and points the opposite way to what most people assume. Squads rotate,
+and the model already knows who is actually playing.
 
 **"Why isn't Guardiola leaving a bigger deal?"**
 Because it can't be measured cleanly. Guardiola managed City for nearly the whole

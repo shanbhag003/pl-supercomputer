@@ -95,6 +95,7 @@ switched off. The code is still in the repository so the results can be checked.
 | Market odds blend | 9.322 | 0.753 | Marginal MAE gain, worse ranking and calibration |
 | Manager effects, all changes | 9.311 | 0.760 | Worse on every metric |
 | Manager values from foreign leagues | not built | — | Player conversion was already weak at n≈200; a dozen manager moves would be noise |
+| Fixture congestion | not built | — | No measurable effect. See below |
 
 **The manager failure is instructive.** Version one penalised Bournemouth for
 hiring Iraola and Liverpool for hiring Slot — who then won the league. It could
@@ -129,6 +130,27 @@ then comparing players who moved to England:
 A player's output abroad explains under 7% of what they do in the Premier League.
 The conversion correctly shrinks foreign values almost to league average.
 
+**Fixture congestion does not measurably affect performance.**
+1,488 FA Cup and EFL Cup ties involving Premier League clubs were scraped for
+2014–2026, giving every league match a "days since this club's last match of any
+kind" figure. Each club was then compared against its own season average, so
+squad quality cannot contaminate the result:
+
+| Measure | ≤3 days rest | ≥7 days rest | Difference | p |
+|---|---|---|---|---|
+| xG created | +0.022 | −0.004 | **+0.025** | 0.32 |
+| xG conceded | −0.009 | +0.007 | **−0.015** | 0.53 |
+| Points won | +0.061 | +0.003 | **+0.058** | 0.16 |
+
+1,208 short-rest team-matches against 3,457 long-rest. Every sign points the
+*opposite* way to the received wisdom: congested clubs created slightly more,
+conceded slightly less and won slightly more. None of it significant, and the
+largest effect is about a tenth the size of home advantage.
+
+The most likely explanation is that clubs rotate. A 25-man squad exists for
+exactly this, and the squad layer already sees who actually plays. So congestion
+is not modelled, and the reason is measurement rather than laziness.
+
 **A higher title chance does not require more expected points.**
 Title probability lives in the far right tail, not the mean. A club with a wider
 range of outcomes can have fewer expected points and a better chance of winning
@@ -150,7 +172,8 @@ Stated plainly, because a model that hides these is not worth reading.
   not scored at all.
 - Guardiola's decade at City cannot be separated from City itself with any
   confidence; his successor's own record is used instead.
-- No European or cup fixture congestion.
+- No fixture congestion adjustment — tested across 12 seasons and 1,488 cup
+  ties, no measurable effect found (see above).
 - Home advantage is one league-wide value, not per club.
 - The plus-minus model struggles to separate players who never rotate. Football
   has far less lineup variation than the sports these methods were built for.
@@ -205,6 +228,7 @@ src/managers.py       manager spells
 src/manager_model.py  manager effects
 src/render.py         graphics
 src/mailer.py         email
+src/cup_fixtures.py   FA Cup and EFL Cup dates, for the congestion test
 src/backtest*.py      every validation run behind the numbers above
 ```
 
@@ -215,7 +239,7 @@ src/backtest*.py      every validation run behind the numbers above
 - [Understat](https://understat.com) — expected goals, player and match level
 - [football-data.co.uk](https://www.football-data.co.uk) — results and closing odds
 - [Fantasy Premier League API](https://fantasy.premierleague.com) — squads, injuries, suspensions
-- Wikipedia — manager spells
+- Wikipedia — manager spells, domestic cup fixtures
 - Fixtures via fixturedownload.com
 
 Please respect these sources' terms and rate limits.
