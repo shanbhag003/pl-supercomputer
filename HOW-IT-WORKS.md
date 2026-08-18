@@ -357,15 +357,58 @@ match of any kind. Then compare each club to its own season average:
 | Points won | +0.061 | +0.003 | +0.058 |
 
 Nothing. And every sign points the *wrong* way — congested clubs created a bit
-more, conceded a bit less, won a few more points. None of it statistically
-meaningful, and the biggest effect is about a tenth the size of home advantage.
+more, conceded a bit less, won a few more points.
 
-The likeliest reason is that clubs rotate. That's what a 25-man squad is for, and
-the squad layer already tracks who actually plays. Fatigue and match rhythm may
-also roughly cancel each other out.
+**But this test was flawed**, and the flaw is worth understanding. The League Cup
+is exactly where a big club rests players. So it measures *rotation*, not
+congestion. Which led to the next file.
 
-So congestion isn't modelled. Not because it was hard — because it was measured
-and it wasn't there.
+### `uefa_fixtures.py` — the test that actually mattered
+
+The objection: clubs rotate for domestic cups, but nobody rotates for a Champions
+League last-16 second leg. That's the best XI, maximum intensity, often away
+travel, three days before a league game. If congestion exists anywhere, it's
+there.
+
+**Getting the data was harder.** The rendered Wikipedia pages use bracket layouts
+that don't parse. But the underlying wiki source stores every match as a
+`Football box` template with a machine-readable date and both team names. Reading
+that instead gives **735 UEFA matches involving English clubs**, of which 328 are
+knockout ties.
+
+**And the objection was right:**
+
+| Situation | xG conceded vs own average | p |
+|---|---|---|
+| After a UEFA **knockout** tie | **+0.094** (worse) | 0.067 |
+| After an **away** knockout tie | **+0.129** (worse) | 0.067 |
+| After a group / league-phase tie | −0.087 (better) | 0.024 |
+
+Knockout ties leave a defensive mark. Group matches don't — clubs come out
+slightly *better*, which is the rotation signature showing up exactly where you'd
+expect it.
+
+### `backtest_congestion.py` — and why it still didn't ship
+
+A promising residual is not a usable model. The adjustment was added to the
+ratings and tested walk-forward across seven seasons — refit weekly, never seeing
+a result before predicting it.
+
+| Period | Effect of the adjustment |
+|---|---|
+| 2019–2022 | +0.0038 — **worse** |
+| 2023–2025 | −0.0050 — **better** |
+| All seven seasons | +0.00002 — **nothing** |
+
+The two halves of the data disagree. Four seasons prefer no adjustment, three
+prefer the largest one. That's a coin flip.
+
+The effect was real in the sample it was measured on and doesn't generalise.
+Shipping it would have meant fitting three seasons of noise to 150 matches.
+
+**So congestion isn't modelled** — not because nobody looked, but because it was
+measured, found, tested, and failed. Both datasets stay in the repository. With
+more seasons of knockout data it's worth re-running.
 
 ### `ingest.py`, `pull_players.py`, `promoted.py`
 
@@ -399,7 +442,8 @@ at the time, predict, compare to what really happened, across seven seasons.
 | `backtest_squad.py` | Does squad accounting help? | **Yes — shipped** |
 | `backtest_manager.py` | Do manager effects help? | **Only for within-league moves — shipped that version** |
 | `backtest_market.py` | Does blending bookmaker odds help? | **No — rejected** |
-| `cup_fixtures.py` | Does fixture congestion matter? | **No measurable effect — not built** |
+| `cup_fixtures.py` | Does domestic cup congestion matter? | **No effect — rotation absorbs it** |
+| `backtest_congestion.py` | Does European knockout congestion matter? | **Suggestive, but fails out-of-sample — not built** |
 
 ### The most instructive failure
 
@@ -431,6 +475,7 @@ strength because the evidence is thin.
 | `eu_name_index.json` | Name lookup for foreign players |
 | `fixtures_2627.csv` | All 380 fixtures with kickoff times |
 | `cup_fixtures.csv` | 2,833 domestic cup ties, 2014–2026 |
+| `uefa_fixtures.csv` | 735 UEFA matches involving English clubs |
 
 Two of these are precomputed summaries. Originally the model read 2.8 MB of raw
 data files; those were condensed to 415 KB, which is why the upload is small.
@@ -478,12 +523,19 @@ of outcomes is wider — 37 to 69 points, against Leeds' 39 to 67. They're more
 likely to finish very high *and* more likely to go down. From fourth place
 downward, Leeds overtake them. The crossover happens right at the top.
 
-**"Doesn't a midweek cup game hurt them at the weekend?"**
-Apparently not. Across 12 seasons and 1,488 cup ties, clubs playing on three days'
-rest or fewer performed no worse than the same clubs on a full week — and if
-anything marginally better. The effect is around a tenth the size of home
-advantage and points the opposite way to what most people assume. Squads rotate,
-and the model already knows who is actually playing.
+**"Doesn't a midweek game hurt them at the weekend?"**
+It depends which midweek game, and the answer is more interesting than a flat no.
+
+Domestic cups: no effect at all. Clubs rotate for those, so there's nothing to
+detect.
+
+European knockout ties: clubs do concede about 0.09 more xG than their own
+average afterwards, rising to 0.13 after an away tie. Nobody rests players for a
+Champions League last 16.
+
+But when that adjustment was actually backtested, it helped in 2023–25 and hurt
+in 2019–22, netting out to nothing across seven seasons. 150 affected matches
+isn't enough to tell a real effect from a lucky one, so it isn't in the model.
 
 **"Why isn't Guardiola leaving a bigger deal?"**
 Because it can't be measured cleanly. Guardiola managed City for nearly the whole
