@@ -455,7 +455,9 @@ def main():
         if nxt is not None and len(nxt):
             ko = pd.to_datetime(nxt['Date'], dayfirst=True, utc=True)
             next_gw = int(nxt['Round Number'].iloc[0])
-            next_settle = (ko.max() + pd.Timedelta(hours=14)).isoformat()
+            # same window the gate uses, imported so the two cannot drift
+            next_settle = (ko.max() + pd.Timedelta(
+                hours=gate.MATCH_HOURS + gate.SETTLE_HOURS)).isoformat()
         pm_web = pd.DataFrame(
             {t: np.bincount(pos[:, i], minlength=22)[1:21] / N
              for i, t in enumerate(teams)}).T.loc[pred.team]

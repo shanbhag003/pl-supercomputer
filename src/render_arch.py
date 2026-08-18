@@ -16,19 +16,22 @@ STEPS = [
     ('1', 'IT LEARNS FROM THE PAST',
      'Twelve seasons of results — and how good the chances were,',
      'not just who got lucky'),
-    ('2', 'IT SCORES EVERY CLUB',
-     'How well each one attacks, how well it defends,',
-     'with recent form counting most'),
-    ('3', 'IT ADMITS WHAT IT CANNOT KNOW',
-     'New signings, new managers, a whole summer of change —',
+    ('2', 'IT RATES EVERY PLAYER',
+     'What a team actually creates and concedes with each player on',
+     'the pitch, across five European leagues'),
+    ('3', 'IT CHECKS WHO IS REALLY THERE',
+     'Every transfer in and out, who is injured or suspended,',
+     'and who is now the manager'),
+    ('4', 'IT ADMITS WHAT IT CANNOT KNOW',
+     'A whole summer of change, and a season still to play —',
      'so nothing is treated as certain'),
-    ('4', 'IT PLAYS THE SEASON 20,000 TIMES',
+    ('5', 'IT PLAYS THE SEASON 20,000 TIMES',
      'Every remaining match, over and over,',
      'letting the luck fall differently each time'),
-    ('5', 'IT COUNTS WHAT HAPPENED',
-     'Won the league in 6,220 of them? That is a 31% title chance.',
+    ('6', 'IT COUNTS WHAT HAPPENED',
+     'Won the league in 6,560 of them? That is a 33% title chance.',
      'Same for top four and relegation'),
-    ('6', 'IT MARKS ITS OWN HOMEWORK',
+    ('7', 'IT MARKS ITS OWN HOMEWORK',
      'Every week it checks last week\'s predictions against reality,',
      'and against the bookmakers'),
 ]
@@ -56,17 +59,15 @@ def panel(top, h, x0, x1, accent=None, fill=.075, lw=1.1):
 # ------------------------------------------------------------------ header
 C.text(L, Y(.56), 'IT RUNS ITSELF  ·  IT CHECKS ITSELF  ·  IT COSTS NOTHING',
        fontproperties=BC_M, fontsize=11.5, color=GREEN, zorder=4)
-ax.text(L, Y(1.14), 'PREDICTING THE', fontproperties=ANTON, fontsize=33,
+ax.text(L, Y(1.10), 'PREDICTING THE', fontproperties=ANTON, fontsize=33,
         color=WHITE, va='center', zorder=4)
-ax.text(L, Y(1.62), 'PREMIER LEAGUE', fontproperties=ANTON, fontsize=33,
+ax.text(L, Y(1.56), 'PREMIER LEAGUE', fontproperties=ANTON, fontsize=33,
         color=PINK, va='center', zorder=4)
-C.text(L, Y(2.12), 'A computer plays out the whole season, thousands of times over,',
-       fontproperties=BC_M, fontsize=13, color=LAV, zorder=4)
-C.text(L, Y(2.34), 'then counts how often each club came first — and how often it went down.',
-       fontproperties=BC_M, fontsize=13, color=LAV, zorder=4)
+C.text(L, Y(2.00), 'A computer plays the season out thousands of times, and counts who won.',
+       fontproperties=BC_M, fontsize=12.5, color=LAV, zorder=4)
 
 # ------------------------------------------------------------------- steps
-TOP, CH, PITCH = 2.70, .78, .845
+TOP, CH, PITCH = 2.28, .72, .775
 for i, (n, title, l1, l2) in enumerate(STEPS):
     t = TOP + i * PITCH
     last = i == len(STEPS) - 1
@@ -76,11 +77,11 @@ for i, (n, title, l1, l2) in enumerate(STEPS):
                         lw=1.6, zorder=4))
     C.text(L + .055, Y(t + CH / 2), n, fontproperties=ANTON, fontsize=14,
            color=col, ha='center', zorder=5)
-    C.text(L + .105, Y(t + .215), title, fontproperties=BC_B, fontsize=15.5,
+    C.text(L + .105, Y(t + .195), title, fontproperties=BC_B, fontsize=14.5,
            color=col if last else WHITE, zorder=4)
-    C.text(L + .105, Y(t + .455), l1, fontproperties=BC_M, fontsize=11.4,
+    C.text(L + .105, Y(t + .425), l1, fontproperties=BC_M, fontsize=10.9,
            color=LAV, zorder=4)
-    C.text(L + .105, Y(t + .625), l2, fontproperties=BC_M, fontsize=11.4,
+    C.text(L + .105, Y(t + .590), l2, fontproperties=BC_M, fontsize=10.9,
            color=LAV, zorder=4)
     if not last:
         ax.add_patch(Polygon([[.5, Y(t + CH + .075)], [.489, Y(t + CH + .012)],
@@ -90,12 +91,12 @@ for i, (n, title, l1, l2) in enumerate(STEPS):
 # ------------------------------------------------------------------ footer
 BOT = TOP + (len(STEPS) - 1) * PITCH + CH
 panel(BOT + .24, .56, L, R, accent=PINK, fill=.09)
-C.text(L + .028, Y(BOT + .44), 'THEN IT EMAILS YOU THE ANSWER',
+C.text(L + .028, Y(BOT + .44), 'THEN IT EMAILS ME THE ANSWER',
        fontproperties=BC_B, fontsize=14.5, color=PINK, zorder=4)
-C.text(L + .028, Y(BOT + .66), 'A fresh table twelve hours after every gameweek ends. No buttons pressed.',
+C.text(L + .028, Y(BOT + .66), 'A fresh table five hours after every gameweek ends. I press nothing.',
        fontproperties=BC_M, fontsize=11.2, color=LAV, zorder=4)
 
-C.text(.5, Y(H - .26), 'Dixon-Coles expected-goals model  ·  Monte Carlo simulation  ·  Python + GitHub Actions',
+C.text(.5, Y(H - .26), 'Expected-goals ratings  ·  plus-minus player values  ·  Monte Carlo simulation  ·  Python',
        fontproperties=BC_M, fontsize=10.5, color=LAV, alpha=.6, ha='center', zorder=4)
 
 C.apply()

@@ -5,7 +5,7 @@ exit in ~2 seconds unless a gameweek is genuinely complete.
 
 A gameweek R is ready when ALL of:
   - every fixture in R has been played (per the results feed), and
-  - 12 hours have passed since the last match in R finished
+  - 5 hours have passed since the last match in R finished
     (finish = scheduled kickoff + 2h)
   - we have not already published for R
 
@@ -16,7 +16,7 @@ import os, json, sys
 import datetime as dt
 import pandas as pd
 
-SETTLE_HOURS = 12
+SETTLE_HOURS = 5
 MATCH_HOURS = 2
 POSTPONE_DAYS = 5
 
