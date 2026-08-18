@@ -45,5 +45,7 @@ HOW IT WORKS
   3. Every remaining match is then played out 20,000 times, and we
      count how often each club finished where.
 
-Not included: European fixture congestion, and manager changes where
-the new manager has never worked in the Premier League.
+Deliberately left out: fixture congestion (tested across twelve
+seasons - the effect was not consistent enough to trust), and manager
+changes where the incoming manager has no Premier League record, since
+there is nothing to measure them against.
