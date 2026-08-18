@@ -177,6 +177,8 @@
           letter-spacing:.8px;text-transform:uppercase;font-weight:600}
   .legend i{display:inline-block;width:8px;height:8px;border-radius:2px;
             margin-right:5px;margin-left:4px;vertical-align:0}
+  .legend .lgl{color:#fff;opacity:.55;margin-right:2px}
+  .legend .lgl::after{content:' \2014'}
   .fxkey{width:100%;margin-top:2px}
   .defs{margin-top:9px;padding:10px 12px;background:rgba(255,255,255,.04);
         border:1px solid var(--line);border-radius:10px;
@@ -184,8 +186,16 @@
   .defs b{color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;
           letter-spacing:.5px;text-transform:uppercase;font-size:11.5px}
   .defs span{display:inline-block;margin-right:16px;white-space:nowrap}
+  .defs .dwide{display:none}          /* columns that only exist on desktop */
+  .defs .dmob{display:inline-block}   /* the mobile stand-in for those */
+  @media(min-width:760px){
+    .defs .dwide{display:inline-block}
+    .defs .dmob{display:none}
+  }
   @media(max-width:759px){
     .defs span{display:block;margin-right:0;white-space:normal}
+    .defs .dwide{display:none}
+    .defs .dmob{display:block}
     .defs{line-height:1.6}
   }
   footer{margin-top:20px;font-size:11.5px;color:var(--lav);line-height:1.7;
@@ -224,7 +234,7 @@
     then adjusted for who has signed, who has left, who is injured or suspended
     and who is now in charge. The remaining fixtures are played out 20,000 times
     and the finishing positions counted. Nobody presses anything: it republishes
-    twelve hours after each gameweek ends.
+    five hours after each gameweek ends.
     <br><br><b style="color:#fff">Where the data comes from.</b> Expected goals
     from Understat, results and odds from football-data.co.uk, squads and
     availability from the official Fantasy Premier League API.
@@ -387,7 +397,10 @@ function render(){
   let h = '<div class="rule"></div>'
     + (TAB === 'act' ? tableActual() : tablePredicted());
 
+  // this key explains the coloured bar down the left of each row, not a column,
+  // so it stays on mobile - but it has to say so
   h += '<div class="legend">'
+    + '<span class="lgl">Row colour</span>'
     + '<span><i style="background:var(--green)"></i>Top 4</span>'
     + '<span><i style="background:var(--cyan)"></i>Top 6</span>'
     + '<span><i style="background:var(--pink)"></i>Relegation</span>'
@@ -402,22 +415,26 @@ function render(){
     + `<span style="margin-left:auto;color:var(--pink)">${d.n_sims.toLocaleString()} simulations</span>`
     + '</div>';
 
+  // third value: '' always shown, 'dwide' desktop-only, 'dmob' mobile-only —
+  // matching exactly which columns each screen size renders
   const DEFS = TAB === 'pred' ? [
-    ['xPts', 'expected points by the end of the season'],
-    ['Title', 'chance of winning the league'],
-    ['Top 4', 'chance of a Champions League place'],
-    ['Top 6', 'chance of finishing in the top six'],
-    ['Releg', 'chance of being relegated'],
-    ['Next 3', 'the next three opponents']
+    ['xPts', 'expected points by the end of the season', ''],
+    ['Title', 'chance of winning the league', ''],
+    ['Top 4', 'chance of a Champions League place', 'dwide'],
+    ['Top 6', 'chance of finishing in the top six', 'dwide'],
+    ['Releg', 'chance of being relegated', ''],
+    ['Next 3', 'the next three opponents', '']
   ] : [
-    ['P W D L', 'played, won, drawn, lost'],
-    ['GF GA GD', 'goals for, against, and the difference'],
-    ['Pts', 'points won so far'],
-    ['Proj', 'where this model expects them to finish'],
-    ['Next 3', 'the next three opponents']
+    ['P W D L', 'played, won, drawn, lost', 'dwide'],
+    ['P W D', 'played, won, drawn', 'dmob'],
+    ['GF GA GD', 'goals for, against, and the difference', 'dwide'],
+    ['GD', 'goal difference', 'dmob'],
+    ['Pts', 'points won so far', ''],
+    ['Proj', 'where this model expects them to finish', ''],
+    ['Next 3', 'the next three opponents', '']
   ];
   h += '<div class="defs">'
-    + DEFS.map(x => `<span><b>${x[0]}</b> &nbsp;${x[1]}</span>`).join('')
+    + DEFS.map(x => `<span class="${x[2]}"><b>${x[0]}</b> &nbsp;${x[1]}</span>`).join('')
     + '</div>';
 
   const v = d.validation;
