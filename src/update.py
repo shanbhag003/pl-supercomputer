@@ -221,7 +221,8 @@ def main():
     fixtures = list(zip(remaining.home, remaining.away))
     log(f'gameweek {gw} complete, {len(fixtures)} fixtures remaining')
 
-    table = build_table(cur, teams) if n_played else {t: dict(P=0, GF=0, GA=0, Pts=0) for t in teams}
+    # one code path: build_table already returns zeros for an unplayed season
+    table = build_table(cur if n_played else cur.iloc[0:0], teams)
     start = {t: (v['Pts'], v['GF'], v['GA']) for t, v in table.items()}
 
     # drift shrinks as we learn what the summer actually did
@@ -398,6 +399,49 @@ def main():
                                sorted(squad_delta.items(), key=lambda kv: kv[1])},
                   validation=scorecard, biggest_moves=changes)
     json.dump(status, open(f'{OUT}/status.json', 'w'), indent=2)
+
+    # ---- data for the public web page ----
+    try:
+        web = os.path.join(ROOT, 'docs')
+        os.makedirs(web, exist_ok=True)
+        nxt = remaining[remaining['Round Number'] == remaining['Round Number'].min()] \
+            if len(remaining) else None
+        next_gw, next_settle = None, None
+        if nxt is not None and len(nxt):
+            ko = pd.to_datetime(nxt['Date'], dayfirst=True, utc=True)
+            next_gw = int(nxt['Round Number'].iloc[0])
+            next_settle = (ko.max() + pd.Timedelta(hours=14)).isoformat()
+        pm_web = pd.DataFrame(
+            {t: np.bincount(pos[:, i], minlength=22)[1:21] / N
+             for i, t in enumerate(teams)}).T.loc[pred.team]
+        json.dump(dict(
+            updated_utc=dt.datetime.now(dt.timezone.utc).isoformat(
+                timespec='seconds'),
+            gameweek=gw, label=label, n_sims=N,
+            matches_played=n_played,
+            next_gameweek=next_gw, next_update_utc=next_settle,
+            validation=scorecard, moves=changes,
+            actual=[dict(pos=i + 1, team=t,
+                         P=v['P'], W=v['W'], D=v['D'], L=v['L'],
+                         GF=int(v['GF']), GA=int(v['GA']),
+                         GD=int(v['GF'] - v['GA']), Pts=v['Pts'])
+                    for i, (t, v) in enumerate(sorted(
+                        table.items(),
+                        key=lambda kv: (-kv[1]['Pts'],
+                                        -(kv[1]['GF'] - kv[1]['GA']),
+                                        -kv[1]['GF'], kv[0])))],
+            teams=[dict(pos=int(r['pos']), team=r.team, xPts=round(r.xPts, 1),
+                        pts_now=int(r.pts_now), played=int(r.played),
+                        lo=int(r.lo), hi=int(r.hi),
+                        title=round(r.title, 4), top4=round(r.top4, 4),
+                        top6=round(r.top6, 4), releg=round(r.releg, 4))
+                   for _, r in pred.iterrows()],
+            position_matrix={t: [round(v, 4) for v in pm_web.loc[t].tolist()]
+                             for t in pm_web.index},
+        ), open(f'{web}/data.json', 'w'))
+        log(f'web data written -> docs/data.json')
+    except Exception as e:
+        log(f'  web data failed: {e}')
 
     body = mailer.build_body(pred, status, label)
     html = mailer.build_html(pred, status, label)
