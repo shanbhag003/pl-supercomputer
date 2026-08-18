@@ -400,10 +400,15 @@ def main():
     json.dump(status, open(f'{OUT}/status.json', 'w'), indent=2)
 
     body = mailer.build_body(pred, status, label)
+    html = mailer.build_html(pred, status, label)
     open(f'{OUT}/email_body.txt', 'w').write(body)
+    open(f'{OUT}/email_body.html', 'w').write(html)
+    lead = pred.iloc[0]
+    subj = (f'{label.title()} — {lead.team} favourites '
+            f'({100 * lead.title:.0f}%)')
     try:
-        mailer.send(f'PL Supercomputer — {label}', body,
-                    f'{OUT}/table.png', [f'{OUT}/prediction_latest.csv'])
+        mailer.send(subj, body, f'{OUT}/table.png',
+                    [f'{OUT}/prediction_latest.csv'], html=html)
     except Exception as e:
         log(f'email failed: {e}')
     log('done -> outputs/table.png')
