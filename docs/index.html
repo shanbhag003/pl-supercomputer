@@ -134,6 +134,7 @@
   .kv,.mv{display:flex;justify-content:space-between;padding:6px 0;font-size:14px;
           border-top:1px solid rgba(255,255,255,.07)}
   .kv:first-child,.mv:first-child{border-top:0}
+  .mv span:first-child{max-width:75%}
   .kv span:first-child,.mv span:first-child{color:var(--lav)}
   .kv span:last-child{font-weight:600}
   .up{color:var(--green);font-weight:600} .dn{color:var(--pink);font-weight:600}
@@ -460,17 +461,30 @@ function render(){
   }
   h += '</div></details>';
 
-  const mv = (d.moves||[]).filter(m => Math.abs(m.d_xPts) >= 0.05);
-  h += '<details><summary>▸ What changed since last gameweek</summary><div class="card">';
-  if (!mv.length){
-    h += '<div style="color:var(--lav);font-size:13.5px">Nothing moved by more '
-      + 'than a rounding error.</div>';
+  const mv = d.moves || [];
+  const started2 = d.matches_played > 0;
+  h += `<details><summary>▸ ${started2 ? 'What changed since last gameweek'
+        : 'What changed'}</summary><div class="card">`;
+  if (!started2){
+    h += '<div style="color:var(--lav);font-size:13.5px;line-height:1.6">'
+      + 'Nothing yet — no matches have been played. This will fill in once the '
+      + 'season starts.</div>';
+  } else if (!mv.length){
+    h += '<div style="color:var(--lav);font-size:13.5px;line-height:1.6">'
+      + 'No club moved by more than a few tenths of a point. Anything smaller '
+      + 'than that is just the randomness in the simulation, not real news.'
+      + '</div>';
   } else {
     mv.forEach(m => {
-      h += `<div class="mv"><span>${nm(m.team)}</span>`
-        + `<span class="${m.d_xPts > 0 ? 'up' : 'dn'}">`
+      h += `<div class="mv"><span><b style="color:#fff">${nm(m.team)}</b>`
+        + (m.reason ? `<em style="display:block;font-style:normal;font-size:12px;`
+            + `color:var(--lav);margin-top:1px">${esc(m.reason)}</em>` : '')
+        + `</span><span class="${m.d_xPts > 0 ? 'up' : 'dn'}">`
         + `${m.d_xPts > 0 ? '+' : ''}${m.d_xPts.toFixed(1)} pts</span></div>`;
     });
+    h += '<div style="color:var(--lav);font-size:11.5px;margin-top:8px;'
+      + 'line-height:1.5">Moves smaller than 0.4 points are left out — that is '
+      + 'within the simulation\'s own margin of error.</div>';
   }
   h += '</div></details>';
 
