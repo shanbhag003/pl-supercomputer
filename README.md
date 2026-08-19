@@ -6,6 +6,8 @@ own past predictions against the bookmakers, and emails the result.
 
 Runs on GitHub Actions' free tier. Costs nothing.
 
+Try it out - https://shanbhag003.github.io/pl-supercomputer/
+
 ![Current forecast](outputs/table.png)
 
 ---
