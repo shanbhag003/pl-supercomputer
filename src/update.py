@@ -244,10 +244,16 @@ def main():
     remaining = fx[~played_mask]
 
     force = os.environ.get('FORCE_RUN', '').lower() in ('1', 'true', 'yes')
+    # Team news lands Thursday/Friday, but a gameweek publish happens Tuesday.
+    # Refresh mode re-reads squads and rebuilds the site without emailing.
+    refresh_only = os.environ.get('REFRESH_ONLY', '').lower() in ('1', 'true', 'yes')
     lastgw = gate.last_published(f'{OUT}/status.json')
     ok, gw, why = gate.decide(fx, done, last_published_gw=lastgw)
     log(f'gate: {why}')
-    if not ok and not force:
+    if refresh_only:
+        gw = max(lastgw, 0)
+        log(f'REFRESH_ONLY - rebuilding site for GW{gw} with current squad data')
+    elif not ok and not force:
         log('nothing to publish - exiting')
         return
     if force and not ok:
@@ -421,15 +427,18 @@ def main():
 
     # ---- write everything ----
     pred.to_csv(f'{OUT}/prediction_latest.csv', index=False)
-    pred.to_csv(f'{OUT}/history/prediction_gw{gw:02d}.csv'
-                if os.path.isdir(f'{OUT}/history') else f'{OUT}/prediction_gw{gw:02d}.csv',
-                index=False)
+    if not refresh_only:      # history is the record of each gameweek, not each refresh
+        pred.to_csv(f'{OUT}/history/prediction_gw{gw:02d}.csv'
+                    if os.path.isdir(f'{OUT}/history')
+                    else f'{OUT}/prediction_gw{gw:02d}.csv', index=False)
     pm = pd.DataFrame({t: np.bincount(pos[:, i], minlength=22)[1:21] / N
                        for i, t in enumerate(teams)}).T
     pm.columns = range(1, 21)
     pm.loc[pred.team].to_csv(f'{OUT}/position_matrix.csv')
 
     label = ('PRE-SEASON' if gw == 0 else f'AFTER GAMEWEEK {gw}')
+    if refresh_only:
+        label += '  ·  TEAM NEWS UPDATE'
     R.render(pred, f'{OUT}/table_wide.png',
              f'{label}  ·  {dt.date.today():%d %b %Y}', n_sims=N)
     R.render_mobile(pred, f'{OUT}/table.png', label, n_sims=N)
@@ -515,7 +524,7 @@ def main():
         json.dump(dict(
             updated_utc=dt.datetime.now(dt.timezone.utc).isoformat(
                 timespec='seconds'),
-            gameweek=gw, label=label, n_sims=N,
+            gameweek=gw, label=label, n_sims=N, refresh_only=refresh_only,
             matches_played=n_played,
             next_gameweek=next_gw, next_update_utc=next_settle,
             validation=scorecard, moves=changes,
@@ -550,6 +559,9 @@ def main():
     lead = pred.iloc[0]
     subj = (f'{label.title()} — {lead.team} favourites '
             f'({100 * lead.title:.0f}%)')
+    if refresh_only:
+        log('refresh only - no email sent')
+        return
     try:
         extras = [f'{OUT}/prediction_latest.csv']
         if story:
