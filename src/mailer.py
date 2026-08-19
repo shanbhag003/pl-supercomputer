@@ -54,11 +54,12 @@ def build_body(pred, status, gw_label, results_note=''):
         A(f'   {r.team:<20}{_pct(r.releg):>9}')
     A('')
 
-    A('WHAT CHANGED SINCE LAST WEEK')
+    A('WHAT CHANGED SINCE LAST GAMEWEEK')
     A('-' * 58)
     if not moves:
-        A('  This is the first published forecast, so there is nothing to')
-        A('  compare it against yet.')
+        A('  No club moved by more than a few tenths of a point. Anything')
+        A('  smaller than that is the randomness in the simulation rather')
+        A('  than real news.')
     else:
         shown = False
         for m in moves:
@@ -73,6 +74,9 @@ def build_body(pred, status, gw_label, results_note=''):
             if abs(m.get('d_releg', 0)) >= 0.1:
                 bits.append(f'relegation risk {m["d_releg"]:+.1f} points')
             A(f'  {m["team"]}: ' + ', '.join(bits))
+            if m.get('reason'):
+                for ln in textwrap.wrap(m['reason'], 52):
+                    A(f'      {ln}')
         if not shown:
             A('  Nothing moved by more than a rounding error this week.')
         A('')
@@ -186,8 +190,8 @@ def build_html(pred, status, gw_label):
       f'What changed since last week</div><div style="padding:0 22px;'
       f'font-size:14px;line-height:1.6;color:#2C1F33;">')
     if not moves:
-        A('This is the first published forecast, so there is nothing to '
-          'compare it against yet.')
+        A('No club moved by more than a few tenths of a point. Anything '
+          'smaller is the randomness in the simulation, not real news.')
     else:
         shown = False
         A('<ul style="margin:4px 0;padding-left:20px;">')

@@ -45,6 +45,41 @@ FD2US = dict(FIX2US, **{'Man United': 'Manchester United',
                         'Tottenham': 'Tottenham', 'Wolves': 'Wolverhampton Wanderers'})
 
 
+def explain(team, played, gw, mods, pred):
+    """A plain-English reason for a club's movement, from what actually happened."""
+    if not len(played):
+        return ''
+    d = played.copy()
+    d = d[(d.home == team) | (d.away == team)].sort_values('date')
+    if not len(d):
+        return 'did not play'
+    m = d.iloc[-1]
+    home = m.home == team
+    opp = m.away if home else m.home
+    gf, ga = (m.hg, m.ag) if home else (m.ag, m.hg)
+    xgf, xga = (m.hnpxg, m.anpxg) if home else (m.anpxg, m.hnpxg)
+    where = 'at home to' if home else 'away at'
+    won, lost = gf > ga, gf < ga
+    if won:
+        head = f'beat {opp} {int(gf)}-{int(ga)} {"at home" if home else "away"}'
+    elif lost:
+        head = f'lost {int(gf)}-{int(ga)} {where} {opp}'
+    else:
+        head = f'drew {int(gf)}-{int(ga)} {where} {opp}'
+
+    # did the performance match the scoreline? phrasing has to fit the result
+    edge = (xgf - xga) - (gf - ga)
+    if edge > 1.0:
+        tail = (', and deserved more' if won else
+                ', but played far better than the score')
+    elif edge < -1.0:
+        tail = (', and rode their luck' if won or not lost else
+                ', though it could have been worse')
+    else:
+        tail = ''
+    return head + tail
+
+
 def log(m):
     print(f'[{dt.datetime.now():%H:%M:%S}] {m}', flush=True)
 
@@ -335,18 +370,28 @@ def main():
     pred = pd.DataFrame(rows).sort_values('xPts', ascending=False).reset_index(drop=True)
     pred.insert(0, 'pos', np.arange(1, len(pred) + 1))
 
-    # ---- what changed since last run ----
+    # ---- what changed since the last PUBLISHED gameweek ----
+    # Comparing against the last run would report Monte Carlo noise as news:
+    # rerunning the identical model with a different seed moves expected points
+    # by up to 0.3. So compare against the previous gameweek's saved file, and
+    # only report moves that clear the noise floor.
+    NOISE = 0.4
     changes = []
-    prev_f = f'{OUT}/prediction_latest.csv'
-    if os.path.exists(prev_f):
+    prev_f = f'{OUT}/history/prediction_gw{gw - 1:02d}.csv'
+    if gw > 0 and os.path.exists(prev_f):
         old = pd.read_csv(prev_f)[['team', 'xPts', 'title', 'releg']]
         old.columns = ['team', 'xPts_prev', 'title_prev', 'releg_prev']
         c = pred.merge(old, on='team', how='left')
         c['d_xPts'] = c.xPts - c.xPts_prev
         c['d_title'] = 100 * (c.title - c.title_prev)
         c['d_releg'] = 100 * (c.releg - c.releg_prev)
-        changes = c.reindex(c.d_xPts.abs().sort_values(ascending=False).index).head(5)
-        changes = changes[['team', 'd_xPts', 'd_title', 'd_releg']].round(2).to_dict('records')
+        c = c[c.d_xPts.abs() >= NOISE]
+        c = c.reindex(c.d_xPts.abs().sort_values(ascending=False).index).head(5)
+        for _, r in c.iterrows():
+            changes.append(dict(team=r.team, d_xPts=round(r.d_xPts, 2),
+                                d_title=round(r.d_title, 2),
+                                d_releg=round(r.d_releg, 2),
+                                reason=explain(r.team, cur, gw, mods, pred)))
 
     # ---- next-gameweek match predictions, for future self-scoring ----
     if fixtures:
