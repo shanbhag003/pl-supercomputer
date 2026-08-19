@@ -2,11 +2,20 @@ name: PL Supercomputer
 
 on:
   schedule:
-    - cron: '17 */2 * * *'    # poll every 2h; exits in seconds unless a GW has settled
+    # publish: poll every 2h, gate lets it through 5h after a gameweek settles
+    - cron: '17 */2 * * *'
+    # refresh: Friday 17:00 UTC, after the week's team news has landed
+    - cron: '0 17 * * 5'
+    # refresh: Tuesday 17:00 UTC, for the five midweek rounds
+    - cron: '0 17 * * 2'
   workflow_dispatch:
     inputs:
       force:
         description: 'Publish even if no gameweek has settled'
+        type: boolean
+        default: false
+      refresh:
+        description: 'Rebuild the site with current squad data, no email'
         type: boolean
         default: false
 
@@ -37,6 +46,8 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           MAIL_TO: ${{ secrets.MAIL_TO }}
           FORCE_RUN: ${{ inputs.force }}
+          # the two 17:00 crons are team-news refreshes; the 2-hourly one is not
+          REFRESH_ONLY: ${{ github.event.schedule == '0 17 * * 5' || github.event.schedule == '0 17 * * 2' || inputs.refresh }}
         run: python src/update.py
 
       - name: Commit results
