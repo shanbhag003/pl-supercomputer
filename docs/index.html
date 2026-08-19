@@ -281,9 +281,14 @@ function paintStamp(){
   document.getElementById('stamp').textContent =
     'Updated ' + fmt(DATA.updated_utc) + ' ' + zoneLabel();
   document.getElementById('tzbtn').textContent = useUTC ? 'My time' : 'UTC';
-  document.getElementById('next').textContent = DATA.next_update_utc
+  const nx = document.getElementById('next');
+  nx.textContent = DATA.next_update_utc
     ? `Next update after Gameweek ${DATA.next_gameweek} — expected ${fmt(DATA.next_update_utc)} ${zoneLabel()}`
     : 'Season complete.';
+  if (DATA.refresh_only){
+    nx.innerHTML = '<span style="color:var(--cyan)">Refreshed for the latest '
+      + 'team news — injuries, suspensions and transfers.</span><br>' + nx.textContent;
+  }
 }
 
 const zoneOf = (pos, T) => pos <= 4 ? 'var(--green)' : pos <= 6 ? 'var(--cyan)'
