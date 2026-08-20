@@ -49,6 +49,17 @@ One command runs everything: `python src/update.py`. It does this:
 
 Takes about 40 seconds.
 
+**There are two kinds of run.** A **publish** happens five hours after a
+gameweek finishes: it does everything above and emails you. A **refresh** runs
+Friday and Tuesday at 17:00 UTC: it redoes steps 5 to 10 with the latest squad
+news, updates the website, and sends nothing.
+
+The refresh exists because of a timing problem. Team news comes out on Thursday
+and Friday, when managers hold press conferences. But a gameweek publishes on
+Tuesday. Without a refresh, the injury data would be a median of **6.7 days old**
+by the time the next round kicked off — and after an international break, nearly
+three weeks old. The refresh cuts that to under a day.
+
 ---
 
 ## Part 3 — The files that run every week
@@ -202,7 +213,30 @@ proportion to their FPL price.
 So a club that sells a key player and buys nobody loses that value. One that
 reinvests gets some of it back.
 
-**Step 4 — injuries and suspensions, scaled to time.**
+**Step 4 — who covers for an absent player.**
+
+Every club has a fixed budget of 38 matches x 11 players x 90 minutes. When
+somebody is unavailable, those minutes have to go to somebody else — and getting
+that wrong quietly destroys the whole layer.
+
+> **A real bug, found in review.** The first version handed the freed minutes to
+> everyone in proportion to how much they already played. So a missing striker
+> was covered by the goalkeeper, who ended up allocated **90.4 minutes a match** —
+> more than a match contains. And because the club rating is a minutes-weighted
+> *average*, replacing a star with other stars barely changed it. Injuring a key
+> player moved the club rating by 0.002, about a tenth of what it should have.
+>
+> Two fixes. Nobody is allocated more than 90 minutes a match. And minutes go to
+> available players **in the same position**, weighted by how much room they have
+> left — the backup striker, not the centre-back.
+>
+> The effect more than doubled, and something new appeared: **squad depth**.
+> Injuring Arsenal's forward barely moves them, because two capable deputies
+> exist. Injuring Manchester City's moves them nearly three times as much,
+> because one player absorbs it. The old version blurred both into the same
+> answer.
+
+**Step 5 — injuries and suspensions, scaled to time.**
 
 > **A real bug.** Originally an injured or suspended player was removed for the
 > *whole remaining season*. A one-match ban wiped a player out of 38 fixtures.
@@ -460,6 +494,41 @@ record flips the result from harmful to helpful. That version ships, at quarter
 strength because the evidence is thin.
 
 ---
+
+## Part 5b — What a code review turned up
+
+The whole codebase was read line by line. The interesting finds:
+
+**A bad response could have wiped the season.** The Understat cache was
+overwritten whenever the request returned any success code. Understat returns an
+empty-but-valid payload when it has nothing — which happens pre-season, and could
+happen mid-season during a fault. That would have replaced twenty gameweeks of
+results with an empty file. The gate would have blocked the email, but a Friday
+refresh skips the gate, so the website would have published a table with every
+club on zero points.
+
+Fixed by refusing any payload containing fewer results than the cache already
+holds. Results only accumulate within a season, so a shrinking count is always a
+fault, never an update.
+
+**Postponed matches were escaping the accuracy scoring.** Predictions were
+matched to results on date, club and opponent. A postponed game is replayed on a
+different date, so it never matched and quietly vanished from the record —
+losing precisely the matches most likely to have surprised the model. Now
+matched on the fixture rather than the date.
+
+**Everything else.** Dependency versions pinned, so an upstream release cannot
+break a Tuesday morning. `data.json` written to a temporary file and moved into
+place, so a crash cannot leave the site serving half a file. All twenty-three
+exception handlers now log the exception type, so a deliberate skip looks
+different from a real failure. Unrecognised player statuses treated as a doubt
+rather than assumed fit.
+
+**One thing checked and found sound.** League positions are decided by packing
+points, goal difference and goals into a single number for sorting. That looked
+fragile enough to be worth testing: 100,000 ranked rows, zero cases where the
+order broke the real tiebreak rules. It stays, now with a comment explaining why
+the multipliers cannot be compressed.
 
 ## Part 6 — The data files
 

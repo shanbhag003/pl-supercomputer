@@ -6,8 +6,6 @@ own past predictions against the bookmakers, and emails the result.
 
 Runs on GitHub Actions' free tier. Costs nothing.
 
-Try it out - https://shanbhag003.github.io/pl-supercomputer/
-
 ![Current forecast](outputs/table.png)
 
 ---
@@ -36,6 +34,16 @@ player-match records estimates what each club creates and concedes with each
 player on the pitch, adjusted for teammates and opposition. This is what makes
 transfers computable: a squad's rating is the minutes-weighted sum of its
 players' values.
+
+**Minutes.** Each club has a fixed budget of 38 x 11 x 90 minutes. Returning
+players keep roughly last season's share; whatever departures freed up goes to
+new signings in proportion to price. Nobody is allocated more than 90 minutes a
+match. When a player is unavailable, his minutes pass to available players **in
+the same position** with room to absorb them — a missing striker is covered by
+the backup striker, not by a centre-back. Only if that position has no spare
+capacity does the model look wider. This is what lets squad depth register:
+Arsenal losing a forward barely moves them because two capable deputies exist,
+while a club with one specialist in that role is hit much harder.
 
 **Uncertainty.** Two sources, both required. Bootstrap resampling captures how
 little we know about the ratings themselves. A drift term captures genuine
@@ -200,6 +208,14 @@ Stated plainly, because a model that hides these is not worth reading.
 - Home advantage is one league-wide value, not per club.
 - The plus-minus model struggles to separate players who never rotate. Football
   has far less lineup variation than the sports these methods were built for.
+- **The minute-allocation rules are reasoned, not backtested.** The backtest uses
+  the minutes players actually recorded, so the 90-minute cap and the positional
+  redistribution never run there and cannot be validated statistically. They are
+  corrections to obvious errors — the previous version sent a missing striker's
+  minutes to the goalkeeper — but the seven-season evidence behind the squad
+  layer measures the layer, not these rules.
+- Replacement is assumed like-for-like. A manager who loses their only striker
+  might change formation instead; the model cannot represent that.
 
 ---
 
@@ -220,6 +236,19 @@ gameweek has settled.
 
 ### When it publishes
 
+There are two kinds of run.
+
+**Publish** — the full job, after a gameweek settles. Rebuilds everything, saves
+that gameweek to `outputs/history/`, and sends the email.
+
+**Refresh** — Fridays and Tuesdays at 17:00 UTC, ahead of the weekend and
+midweek rounds. Re-reads squads, injuries and suspensions, rebuilds the site,
+and sends no email. This exists because team news lands on Thursday and Friday
+while a gameweek publish happens on Tuesday: without it, the injury data would be
+a median of 6.7 days old by the time the next round kicked off. A refresh never
+writes to `outputs/history/`, so the record of what was predicted before each
+gameweek stays intact for the accuracy scoring.
+
 A gameweek publishes when every fixture in it has been played, five hours have
 passed since the last one finished, and it has not already been published. A
 round ending Monday evening publishes Tuesday morning; a midweek round ending
@@ -236,6 +265,24 @@ postponed so the round can settle without it.
 [**HOW-IT-WORKS.md**](HOW-IT-WORKS.md) — a plain-English walkthrough of every
 file, with worked examples and the bugs found along the way. No statistics
 background needed.
+
+## Failure handling
+
+The job runs unattended, so every external source is treated as unreliable.
+
+| Guard | What it prevents |
+|---|---|
+| Division filter on results | The feed once served National League fixtures into a Premier League model |
+| CSV shape check before use | An HTML error page parsing into a junk table |
+| HTTP 300 detection | football-data.co.uk answers a missing file with a webpage, not a 404 |
+| Result count must not shrink | A transient empty response wiping the season and republishing a table of zeros |
+| Atomic write for `data.json` | The site serving truncated JSON after a crash mid-write |
+| Fixture-based match scoring | Postponed games silently dropping out of the accuracy record |
+| Pinned dependency versions | An upstream release breaking a Tuesday morning publish |
+
+Each optional layer — squad, manager, European values, story image — is wrapped
+so that a failure switches that layer off, logs the exception type, and lets the
+rest of the run finish. Nothing fails silently.
 
 ## Layout
 
