@@ -24,6 +24,7 @@ import requests
 sys.path.insert(0, f'{ROOT}/src')
 
 TOTAL_MIN = 38 * 11 * 90
+PLAYER_CAP = 38 * 90      # nobody plays more than 90 minutes in a match
 FPL2US = {
     'Hull City': 'Hull', 'Ipswich Town': 'Ipswich', 'Coventry City': 'Coventry',
     'Leeds United': 'Leeds', 'Leicester City': 'Leicester',
@@ -55,6 +56,7 @@ def fpl_squads():
             fpl_id=e['id'], club=tm[e['team']],
             full=norm(f"{e['first_name']} {e['second_name']}"),
             web=norm(e['web_name']),
+            pos=e['element_type'],      # 1 GK, 2 DEF, 3 MID, 4 FWD
             cost=e['now_cost'] / 10, status=e['status'],
             chance=e['chance_of_playing_next_round'], news=e['news']))
     return pd.DataFrame(rows)
@@ -158,14 +160,40 @@ def allocate_minutes(sq, remaining=38):
         for i, (st, ch) in enumerate(zip(g.status, g.chance)):
             if st == 'u':
                 avail[i] = 0.0                       # left the club / gone
+            elif st not in MISSED and st != 'a':
+                # an unrecognised status is news of some kind; treat it as a
+                # doubt rather than silently assuming the player is fit
+                avail[i] = 1.0 - min(1.0, 1 / rem)
             elif st in MISSED:
                 miss = MISSED[st]
                 if st == 'd':
                     miss = miss * (1 - (ch if ch == ch else 50) / 100)
                 avail[i] = 1.0 - min(1.0, miss / rem)
-        g['exp_min_adj'] = g.exp_min * avail
-        if g.exp_min_adj.sum() > 0:
-            g['exp_min_adj'] *= TOTAL_MIN / g.exp_min_adj.sum()
+        g['exp_min_adj'] = (g.exp_min * avail).clip(upper=PLAYER_CAP)
+
+        # Minutes freed by an absence go to a replacement in the SAME position,
+        # with headroom to play them. A missing striker is covered by the backup
+        # striker, not by a centre-back or the goalkeeper. Only if that position
+        # has no spare capacity do we fall back to the rest of the squad.
+        lost = pd.Series(g.exp_min.values * (1 - avail), index=g.index)
+        g['exp_min_adj'] = (g.exp_min * avail).clip(upper=PLAYER_CAP)
+
+        for pos_id, freed in lost.groupby(g.pos).sum().items():
+            if freed < 1:
+                continue
+            same = (g.pos == pos_id) & (avail > 0)
+            room = (PLAYER_CAP - g.exp_min_adj).clip(lower=0) * same
+            if room.sum() <= 0:                       # no cover in that position
+                room = (PLAYER_CAP - g.exp_min_adj).clip(lower=0) * (avail > 0)
+            if room.sum() <= 0:
+                continue
+            g['exp_min_adj'] = g.exp_min_adj + freed * room / room.sum()
+            g['exp_min_adj'] = g.exp_min_adj.clip(upper=PLAYER_CAP)
+
+        # a club still has to field eleven players for ninety minutes
+        tot = g.exp_min_adj.sum()
+        if tot > 0 and abs(tot - TOTAL_MIN) > 1:
+            g['exp_min_adj'] = (g.exp_min_adj * TOTAL_MIN / tot).clip(upper=PLAYER_CAP)
         out.append(g)
     return pd.concat(out)
 

@@ -46,9 +46,12 @@ def decide(fx, played_pairs, now=None, last_published_gw=-1):
 
     if not ready:
         nxt = fx[~fx.played].ko.min() if (~fx.played).any() else None
+        if nxt is not None:
+            return False, last_published_gw, (
+                f'no completed gameweek is settled yet; next kickoff '
+                f'{nxt:%Y-%m-%d %H:%M UTC}')
         return False, last_published_gw, (
-            f'no completed gameweek is settled yet; next kickoff '
-            f'{nxt:%Y-%m-%d %H:%M UTC}' if nxt is not None else 'season complete')
+            'season complete' if len(fx) else 'no fixtures loaded')
 
     gw, settle, postponed = max(ready)
     if gw <= last_published_gw:

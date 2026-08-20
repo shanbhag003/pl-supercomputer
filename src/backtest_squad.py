@@ -27,7 +27,7 @@ from preseason_bt import actual_table
 CFG = dict(xi=0.0045, w_xg=0.7, ridge=2.0)
 DRIFT, B, N, LAM = 0.16, 60, 20000, 1.0
 WEIGHTS = [0.0, 0.25, 0.5, 1.0]
-OUT = f'{ROOT}/data/processed/squad_bt2.csv'
+OUT = f'{ROOT}/data/processed/squad_bt3.csv'
 CACHE = f'{ROOT}/data/processed/pm_merged.parquet'
 
 mt = pd.read_parquet(f'{ROOT}/data/processed/matches.parquet')
@@ -109,6 +109,9 @@ def squad_rating(season, att, dfn, big):
     # in the fit as a control, but its coefficient describes twelve seasons of
     # fringe players and is far too harsh a prior for an actual new signing.
     p['key'] = np.where(p.pid.isin(big), p.pid, 'UNKNOWN')
+    # mirror the live minute cap: nobody exceeds 90 a match
+    CAP = 38 * 90
+    p['mins'] = p.mins.clip(upper=CAP)
     tot = p.groupby('club').mins.sum()
     p['w'] = p.mins / p.club.map(tot)
     p['a'] = p.key.map(lambda k: att.get(k, 0.0) if k != 'UNKNOWN' else 0.0)

@@ -107,14 +107,35 @@ def refresh():
             except Exception as e:
                 log(f'  {div}_{code} fetch failed: {e}')
     ok = False
+    cache = f'{DATA}/understat/EPL_{SEASON}.json'
     try:
         r = requests.get(f'https://understat.com/getLeagueData/EPL/{SEASON}',
                          headers=UA, timeout=40)
         if r.ok:
-            json.dump(r.json(), open(f'{DATA}/understat/EPL_{SEASON}.json', 'w'))
-            ok = True
+            j = r.json()
+            # Results only ever accumulate within a season, so a payload with
+            # fewer results than we already hold is a fault, not an update.
+            # Writing it would wipe the table - and refresh mode, which skips
+            # the gate, would then publish a season reset to zero.
+            n_new = len([m for m in j.get('dates', []) if m.get('isResult')])
+            n_old = 0
+            if os.path.exists(cache):
+                try:
+                    n_old = len([m for m in json.load(open(cache)).get('dates', [])
+                                 if m.get('isResult')])
+                except Exception:
+                    n_old = 0
+            if n_new >= n_old:
+                with open(cache, 'w') as fh:
+                    json.dump(j, fh)
+                ok = True
+            else:
+                log(f'  understat returned {n_new} results but the cache holds '
+                    f'{n_old} - keeping the cache')
+                ok = os.path.exists(cache)
     except Exception as e:
-        log(f'  understat fetch failed: {e}')
+        log(f'  understat fetch failed: {type(e).__name__}: {e}')
+        ok = os.path.exists(cache)
     return ok
 
 
@@ -194,7 +215,11 @@ def validate(played, teams):
         return None
     mp = pd.read_csv(f)
     mp['date'] = pd.to_datetime(mp['date'])
-    m = played.merge(mp, on=['date', 'home', 'away'], how='inner')
+    # Match on the fixture, not the date: a postponed game is replayed on a
+    # different day, and merging on date would silently drop it from scoring -
+    # losing exactly the matches most likely to have surprised the model.
+    mp = mp.sort_values('date').drop_duplicates(['home', 'away'], keep='first')
+    m = played.merge(mp.drop(columns=['date']), on=['home', 'away'], how='inner')
     if not len(m):
         return None
     res = np.where(m.hg > m.ag, 0, np.where(m.hg == m.ag, 1, 2))
@@ -287,7 +312,7 @@ def main():
                     att_x[pid_] = v / 2; dfn_x[pid_] = v / 2; known_x.add(pid_)
                     n_eu += 1
         except Exception as e:
-            log(f'  european values unavailable: {e}')
+            log(f'  european values unavailable: {type(e).__name__}: {e}')
         sd, _, _, sq = squad_live.build(att_x, dfn_x, known_x, base,
                                         remaining=max(38 - int(gpt), 1),
                                         eu_index=eu_idx)
@@ -299,7 +324,7 @@ def main():
         if unmatched > 10:
             log(f'  WARNING: {unmatched} players with PL minutes did not match')
     except Exception as e:
-        log(f'  squad layer unavailable: {e}')
+        log(f'  squad layer unavailable: {type(e).__name__}: {e}')
     log(f'squad layer: {squad_note}')
 
     # ---- manager layer: only scored when BOTH managers have a PL record ----
@@ -335,7 +360,7 @@ def main():
                 mgr_changes.append(f'{t}: {old} -> {new} ({mgr_delta[t]:+.2f})')
         mgr_note = f'on (weight {MGR_W}, spells {src}, {len(mgr_delta)} scored)'
     except Exception as e:
-        log(f'  manager layer unavailable: {e}')
+        log(f'  manager layer unavailable: {type(e).__name__}: {e}')
     log(f'manager layer: {mgr_note}')
     for c in mgr_changes:
         log(f'    {c}')
@@ -447,7 +472,7 @@ def main():
         import render_story
         story = render_story.render_story(pred, f'{OUT}/story.png', label, n_sims=N)
     except Exception as e:
-        log(f'  story image skipped: {e}')
+        log(f'  story image skipped: {type(e).__name__}: {e}')
 
     status = dict(updated=dt.datetime.now().isoformat(timespec='seconds'),
                   gameweek=gw, matches_played=n_played, drift=round(drift, 3),
@@ -458,7 +483,8 @@ def main():
                   squad_delta={k: round(v, 3) for k, v in
                                sorted(squad_delta.items(), key=lambda kv: kv[1])},
                   validation=scorecard, biggest_moves=changes)
-    json.dump(status, open(f'{OUT}/status.json', 'w'), indent=2)
+    with open(f'{OUT}/status.json', 'w') as fh:
+        json.dump(status, fh, indent=2)
 
     # ---- next three fixtures per club, with our own win probability ----
     nextfx = {t: [] for t in teams}
@@ -483,7 +509,7 @@ def main():
                 nextfx[team].append(dict(opp=opp, side=side,
                                          win=round(float(np.mean(ps)), 3)))
     except Exception as e:
-        log(f'  next fixtures failed: {e}')
+        log(f'  next fixtures failed: {type(e).__name__}: {e}')
 
     # ---- official FPL fixture difficulty, for the Actual tab ----
     fdr = {t: [] for t in teams}
@@ -503,7 +529,7 @@ def main():
                     fdr[me].append(dict(opp=opp, side=side, fdr=int(dif)))
         log(f'  FPL difficulty ratings loaded for {sum(1 for v in fdr.values() if v)} clubs')
     except Exception as e:
-        log(f'  FPL fixture difficulty unavailable: {e}')
+        log(f'  FPL fixture difficulty unavailable: {type(e).__name__}: {e}')
 
     # ---- data for the public web page ----
     try:
@@ -521,7 +547,7 @@ def main():
         pm_web = pd.DataFrame(
             {t: np.bincount(pos[:, i], minlength=22)[1:21] / N
              for i, t in enumerate(teams)}).T.loc[pred.team]
-        json.dump(dict(
+        payload = dict(
             updated_utc=dt.datetime.now(dt.timezone.utc).isoformat(
                 timespec='seconds'),
             gameweek=gw, label=label, n_sims=N, refresh_only=refresh_only,
@@ -547,15 +573,23 @@ def main():
                    for _, r in pred.iterrows()],
             position_matrix={t: [round(v, 4) for v in pm_web.loc[t].tolist()]
                              for t in pm_web.index},
-        ), open(f'{web}/data.json', 'w'))
+        )
+        # write to a temp file then move it into place, so a crash mid-write
+        # cannot leave the site serving truncated JSON
+        tmp = f'{web}/data.json.tmp'
+        with open(tmp, 'w') as fh:
+            json.dump(payload, fh)
+        os.replace(tmp, f'{web}/data.json')
         log(f'web data written -> docs/data.json')
     except Exception as e:
-        log(f'  web data failed: {e}')
+        log(f'  web data failed: {type(e).__name__}: {e}')
 
     body = mailer.build_body(pred, status, label)
     html = mailer.build_html(pred, status, label)
-    open(f'{OUT}/email_body.txt', 'w').write(body)
-    open(f'{OUT}/email_body.html', 'w').write(html)
+    with open(f'{OUT}/email_body.txt', 'w') as fh:
+        fh.write(body)
+    with open(f'{OUT}/email_body.html', 'w') as fh:
+        fh.write(html)
     lead = pred.iloc[0]
     subj = (f'{label.title()} — {lead.team} favourites '
             f'({100 * lead.title:.0f}%)')
@@ -568,7 +602,7 @@ def main():
             extras.insert(0, story)          # attached alongside the main table
         mailer.send(subj, body, f'{OUT}/table.png', extras, html=html)
     except Exception as e:
-        log(f'email failed: {e}')
+        log(f'email failed: {type(e).__name__}: {e}')
     log('done -> outputs/table.png')
 
 

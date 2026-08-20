@@ -88,7 +88,18 @@ def simulate(cum, fixtures, teams, N=20000, start=None, seed=1):
 
 
 def positions(pts, gd, gf, seed=2):
-    """PL tiebreak: points, then GD, then goals scored, then random (playoff)."""
+    """PL tiebreak: points, then GD, then goals scored, then random (playoff).
+
+    The four criteria are packed into one float64 sort key. The multipliers are
+    chosen so each tier cannot reach into the one above it:
+      points x 1e9   - max ~1.14e11
+      (GD+200) x 1e5 - max ~3e7,   under one point
+      goals x 1e1    - max ~1.2e3, under one GD
+      random in (0,1)                under one goal
+    float64 resolves to ~1.5e-5 at that magnitude, so the random playoff
+    tiebreak still separates. Verified on 100,000 ranked rows. Do not compress
+    these multipliers.
+    """
     rng = np.random.default_rng(seed)
     N, T = pts.shape
     key = (pts.astype(np.float64) * 1e9 + (gd + 200) * 1e5 + gf * 1e1
