@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — PRE-SEASON  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Arsenal are favourites for the title, with a 32.9% chance.
+Arsenal are favourites for the title, with a 31.2% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,18 +9,18 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Arsenal                   72    32.9%    75.2%
-2  Manchester City           70    24.8%    66.9%
-3  Liverpool                 63     9.7%    41.6%
-4  Manchester United         59     6.8%    33.9%
+1  Arsenal                   72    31.2%    73.3%
+2  Manchester City           69    25.2%    66.8%
+3  Liverpool                 63     9.9%    41.6%
+4  Manchester United         59     6.9%    33.9%
 5  Bournemouth               58     4.5%    28.1%
-6  Brighton                  55     1.5%    17.5%
+6  Aston Villa               56     3.8%    21.9%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Ipswich                 66.0%
+   Ipswich                 66.1%
    Coventry                55.6%
-   Hull                    51.3%
+   Hull                    51.4%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
