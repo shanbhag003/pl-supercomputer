@@ -6,6 +6,54 @@
 <title>Premier League Predictions 2026-27</title>
 <meta name="description" content="A self-updating Premier League forecast. 20,000 simulations, refreshed after every gameweek.">
 <meta name="theme-color" content="#1A0020">
+
+<!-- ═══════════════════════ analytics ═══════════════════════════════════
+     Set the two IDs below. Leave either as an empty string to switch that
+     provider off. Nothing fires on localhost or on a 127.0.0.1 preview, so
+     opening the file locally will not pollute the reports.
+-->
+<script>
+  window.PL_GA4_ID     = 'G-XXXXXXXXXX';   // GA4 Measurement ID
+  window.PL_CLARITY_ID = 'xxxxxxxxxx';     // Microsoft Clarity Project ID
+
+  window.PL_ANALYTICS_ON = !(
+    ['localhost', '127.0.0.1', '0.0.0.0', ''].includes(location.hostname)
+    || location.protocol === 'file:'
+  );
+</script>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://www.clarity.ms">
+<script>
+(function () {
+  if (!window.PL_ANALYTICS_ON) return;
+
+  // ---- GA4 ----
+  var G = window.PL_GA4_ID;
+  if (G && G.indexOf('G-') === 0) {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(G);
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', G, { send_page_view: true, anonymize_ip: true });
+  }
+
+  // ---- Microsoft Clarity ----
+  var C = window.PL_CLARITY_ID;
+  if (C) {
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1;
+      t.src = 'https://www.clarity.ms/tag/' + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', C);
+  }
+})();
+</script>
+<!-- ═════════════════════ end analytics ═══════════════════════════════ -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -258,6 +306,65 @@ const localZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local';
 let useUTC = localStorage.getItem('plzone') === 'utc';
 let DATA = null;
 let TAB = 'pred';
+
+/* ── analytics helpers ─────────────────────────────────────────────────
+   track() sends a custom event to both GA4 and Clarity. tag() sets a
+   Clarity custom tag (filterable in the recordings list) and pins the same
+   value onto every subsequent GA4 event. Both are wrapped so a blocked
+   tracker can never break the page. */
+function track(name, params) {
+  params = params || {};
+  try { if (window.gtag) gtag('event', name, params); } catch (e) {}
+  try { if (window.clarity) clarity('event', name); } catch (e) {}
+}
+function tag(key, value) {
+  value = String(value);
+  try { if (window.clarity) clarity('set', key, value); } catch (e) {}
+  try { if (window.gtag) { var o = {}; o[key] = value; gtag('set', o); } } catch (e) {}
+}
+
+/* Scroll depth. The page is one long column, so how far down people get is
+   the clearest signal of which sections are actually being read. */
+(function () {
+  var marks = [25, 50, 75, 100], hit = {};
+  function check() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    if (max <= 0) return;
+    var pctDown = Math.min(100, Math.round((window.scrollY / max) * 100));
+    marks.forEach(function (m) {
+      if (pctDown >= m && !hit[m]) {
+        hit[m] = true;
+        track('scroll_depth', { percent_scrolled: m });
+      }
+    });
+  }
+  var queued = false;
+  window.addEventListener('scroll', function () {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () { queued = false; check(); });
+  }, { passive: true });
+})();
+
+/* The accordions live inside #app, which is rebuilt by innerHTML on every
+   render, so listeners on the <details> themselves would be lost. #app
+   itself persists. The 'toggle' event does not bubble, but it does pass
+   through the capture phase, so a capturing listener on #app catches it. */
+document.getElementById('app').addEventListener('toggle', function (ev) {
+  var el = ev.target;
+  if (!el || el.tagName !== 'DETAILS' || !el.open) return;
+  var s = el.querySelector('summary');
+  var label = s ? s.textContent.replace(/^▸\s*/, '').trim() : 'unknown';
+  track('section_open', { section_name: label, tab: TAB });
+}, true);
+
+/* Outbound links (currently just the repo link in the footer). */
+document.addEventListener('click', function (ev) {
+  var a = ev.target.closest && ev.target.closest('a[href^="http"]');
+  if (!a || a.hostname === location.hostname) return;
+  track('outbound_click', { link_domain: a.hostname, link_url: a.href });
+}, true);
 
 const pct = v => v*100 < 0.05 ? '—' : (v*100).toFixed(1) + '%';
 const ord = n => n + (['th','st','nd','rd'][(n%100-n%10!=10)*(n%10<4)*(n%10)] || 'th');
@@ -531,9 +638,11 @@ function render(){
 }
 
 function setTab(t){
+  const changed = TAB !== t;
   TAB = t;
   document.getElementById('t-pred').setAttribute('aria-selected', t === 'pred');
   document.getElementById('t-act').setAttribute('aria-selected', t === 'act');
+  if (changed) track('tab_switch', { tab: t, gameweek: DATA ? DATA.gameweek : null });
   if (DATA) render();
 }
 document.getElementById('t-pred').addEventListener('click', () => setTab('pred'));
@@ -541,17 +650,38 @@ document.getElementById('t-act').addEventListener('click', () => setTab('act'));
 document.getElementById('tzbtn').addEventListener('click', () => {
   useUTC = !useUTC;
   localStorage.setItem('plzone', useUTC ? 'utc' : 'local');
+  track('timezone_toggle', { zone: useUTC ? 'utc' : 'local' });
   paintStamp();
 });
 
 fetch('data.json?v=' + Date.now())
   .then(r => r.ok ? r.json() : Promise.reject(r.status))
-  .then(j => { DATA = j; render(); })
+  .then(j => {
+    DATA = j;
+    // Session-level tags. In Clarity these become filters on the recordings
+    // list; in GA4 they ride along on every later event in the session.
+    tag('gameweek', j.gameweek);
+    tag('season_phase', j.matches_played > 0 ? 'in_season' : 'pre_season');
+    tag('run_type', j.refresh_only ? 'team_news_refresh' : 'gameweek_publish');
+    tag('forecast_leader', (j.teams && j.teams[0]) ? j.teams[0].team : 'unknown');
+    track('forecast_loaded', {
+      gameweek: j.gameweek,
+      matches_played: j.matches_played,
+      refresh_only: !!j.refresh_only,
+      has_validation: !!(j.validation && j.validation.n),
+      leader: (j.teams && j.teams[0]) ? j.teams[0].team : null
+    });
+    render();
+  })
   .catch(e => {
     document.getElementById('gw').textContent = '';
     document.getElementById('app').innerHTML =
       '<div class="err">Could not load the latest forecast. '
       + 'If this persists the last run may have failed — check the Actions tab.</div>';
+    // The page is only ever as good as the last Actions run, so a spike here
+    // is your early warning that the pipeline broke.
+    tag('load_failed', 'true');
+    track('forecast_load_failed', { reason: String(e).slice(0, 100) });
     console.error(e);
   });
 </script>
