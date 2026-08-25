@@ -140,7 +140,12 @@ def refresh():
 
 
 def current_season_matches():
-    """Played 2026/27 matches with xG where available, goals otherwise."""
+    """Played 2026/27 matches with xG where available, goals otherwise.
+
+    xG comes from understat; any match understat has not posted yet is filled
+    from the football-data results feed on a per-match basis, so a round is
+    never partially represented.
+    """
     rows = []
     p = f'{DATA}/understat/EPL_{SEASON}.json'
     if os.path.exists(p):
@@ -160,28 +165,51 @@ def current_season_matches():
                              hxg=float(m['xG']['h']), axg=float(m['xG']['a']),
                              hnpxg=float(gh['npxG']) if gh else float(m['xG']['h']),
                              anpxg=float(ga['npxG']) if ga else float(m['xG']['a'])))
-    if not rows:   # fallback: goals only, no xG yet
-        f = f'{DATA}/raw/E0_{FD_CODE}.csv'
-        if os.path.exists(f):
-            try:
-                o = pd.read_csv(f, encoding='latin-1')
-            except Exception as e:
-                log(f'  {f} is not parseable ({e}) - treating as no matches yet')
-                o = pd.DataFrame()
-            # Reject anything that is not the CSV we expect. A stale or
-            # HTML-ish file can still parse into a junk DataFrame.
-            need = {'Div', 'Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG'}
-            if not need.issubset(set(o.columns)):
-                log(f'  {f} lacks the expected columns - ignoring it')
-                o = pd.DataFrame(columns=sorted(need))
-            o = o[o['Div'] == 'E0'].dropna(subset=['FTHG'])
-            for _, r in o.iterrows():
-                h = FD2US.get(r.HomeTeam, r.HomeTeam); a = FD2US.get(r.AwayTeam, r.AwayTeam)
-                rows.append(dict(season=SEASON,
-                                 date=pd.to_datetime(r.Date, dayfirst=True).strftime('%Y-%m-%d'),
-                                 home=h, away=a, hg=int(r.FTHG), ag=int(r.FTAG),
-                                 hxg=np.nan, axg=np.nan,
-                                 hnpxg=float(r.FTHG), anpxg=float(r.FTAG)))
+    # Understat lags the results feed, and it does not lag uniformly - it can
+    # hold 9 of a 10-match round. The old code only consulted football-data
+    # when understat had NOTHING, so a single missing fixture was dropped
+    # outright: absent from the training set and from the standings table.
+    # Publish runs were shielded by the gate (which reads `done` from this
+    # function), but REFRESH_ONLY skips the gate and would rebuild the site
+    # from a partial round. So fill per match instead of all-or-nothing.
+    # Goals stand in for npxG, which is what ratings.py actually consumes;
+    # hxg/axg stay NaN and are never read by the fit.
+    have = {(r['home'], r['away']) for r in rows}
+    f = f'{DATA}/raw/E0_{FD_CODE}.csv'
+    if os.path.exists(f):
+        try:
+            o = pd.read_csv(f, encoding='latin-1')
+        except Exception as e:
+            log(f'  {f} is not parseable ({e}) - treating as no matches yet')
+            o = pd.DataFrame()
+        # football-data ships this CSV with a UTF-8 BOM. Reading it as latin-1
+        # never raises, but it decodes the BOM into mojibake, so the first
+        # column arrives as 'i>>?Div' rather than 'Div' and the column check
+        # below rejected the whole file. Normalise before validating.
+        o.columns = [str(c).replace('\ufeff', '').replace('ï»¿', '').strip()
+                     for c in o.columns]
+        # Reject anything that is not the CSV we expect. A stale or
+        # HTML-ish file can still parse into a junk DataFrame.
+        need = {'Div', 'Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG'}
+        if not need.issubset(set(o.columns)):
+            log(f'  {f} lacks the expected columns - ignoring it')
+            o = pd.DataFrame(columns=sorted(need))
+        o = o[o['Div'] == 'E0'].dropna(subset=['FTHG'])
+        filled = 0
+        for _, r in o.iterrows():
+            h = FD2US.get(r.HomeTeam, r.HomeTeam); a = FD2US.get(r.AwayTeam, r.AwayTeam)
+            if (h, a) in have:
+                continue
+            rows.append(dict(season=SEASON,
+                             date=pd.to_datetime(r.Date, dayfirst=True).strftime('%Y-%m-%d'),
+                             home=h, away=a, hg=int(r.FTHG), ag=int(r.FTAG),
+                             hxg=np.nan, axg=np.nan,
+                             hnpxg=float(r.FTHG), anpxg=float(r.FTAG)))
+            have.add((h, a))
+            filled += 1
+            log(f'  {h} v {a}: no understat xG yet, using goals')
+        if filled:
+            log(f'  filled {filled} match(es) from football-data')
     d = pd.DataFrame(rows)
     if len(d):
         d['date'] = pd.to_datetime(d['date'])
