@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-25T12:54:13",
+  "updated": "2026-08-25T13:16:18",
   "gameweek": 1,
   "matches_played": 10,
   "drift": 0.147,
@@ -42,7 +42,7 @@
     "logloss": 0.9458376449624547,
     "hit": 0.6,
     "drawn": 1,
-    "picked_draw": 0
+    "picked_draw": 2
   },
   "biggest_moves": [
     {
