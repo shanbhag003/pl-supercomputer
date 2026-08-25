@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-25T14:16:36",
+  "updated": "2026-08-25T17:22:38",
   "gameweek": 1,
   "matches_played": 10,
   "drift": 0.147,
@@ -63,21 +63,21 @@
       "team": "Aston Villa",
       "d_xPts": -4.23,
       "d_title": -1.88,
-      "d_releg": 6.18,
+      "d_releg": 6.17,
       "reason": "lost 0-4 away at Brighton"
     },
     {
       "team": "Tottenham",
       "d_xPts": -3.69,
       "d_title": -0.69,
-      "d_releg": 7.84,
+      "d_releg": 7.86,
       "reason": "lost 0-3 away at Brentford"
     },
     {
       "team": "Ipswich",
       "d_xPts": 3.56,
       "d_title": 0.02,
-      "d_releg": -10.15,
+      "d_releg": -10.18,
       "reason": "beat Sunderland 2-1 at home"
     }
   ]
