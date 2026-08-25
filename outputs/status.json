@@ -1,10 +1,10 @@
 {
-  "updated": "2026-08-25T03:01:18",
+  "updated": "2026-08-25T12:35:25",
   "gameweek": 1,
   "matches_played": 10,
   "drift": 0.147,
   "n_sims": 20000,
-  "gate": "GW1 settled at 2026-08-25 02:00 UTC, 1.0h ago",
+  "gate": "GW1 already published",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.5, 20 clubs, 0 unmatched with PL minutes, 4430 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
@@ -40,14 +40,16 @@
     "n": 10,
     "rps": 0.22145712273657034,
     "logloss": 0.9458376449624547,
-    "hit": 0.6
+    "hit": 0.6,
+    "drawn": 1,
+    "picked_draw": 0
   },
   "biggest_moves": [
     {
       "team": "Hull",
       "d_xPts": 7.67,
       "d_title": 0.5,
-      "d_releg": -23.43,
+      "d_releg": -23.44,
       "reason": "beat Manchester United 2-0 at home, and rode their luck"
     },
     {
