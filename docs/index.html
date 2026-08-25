@@ -274,6 +274,9 @@
     letter-spacing:.04em;padding:2px 8px;border-radius:6px;
     background:rgba(255,40,130,.12);white-space:nowrap}
   .cb{width:3px;height:15px;border-radius:2px;flex:none}
+  .mxg{text-align:center;margin-top:3px;font-size:10.5px;color:var(--dim);
+    letter-spacing:.04em}
+  .mxg b{color:var(--lav);font-weight:600}
   /* stacked three-way probability bar */
   .mprob{display:flex;height:5px;border-radius:3px;overflow:hidden;margin-top:8px;
     background:rgba(255,255,255,.06)}
@@ -657,6 +660,15 @@ function matchCard(m){
       + `<span class="mtm aw ${hi('A')}">${nm(m.away)}`
         + `<i class="cb" style="background:${cc(m.away)}"></i></span>`
     + '</div>'
+    // Expected goals under the headline score. The modal scoreline is the most
+    // likely single result but rarely more than ~14% likely, so on its own it
+    // understates what the model expects: 2.3-0.6 says "possibly a rout" where
+    // "2-0" says only "a win".
+    + (m.xg_h !== undefined
+        ? `<div class="mxg" title="goals the model expects on average, `
+          + `not a prediction of the final score">expected goals `
+          + `<b>${m.xg_h.toFixed(1)} &ndash; ${m.xg_a.toFixed(1)}</b></div>`
+        : '')
     + '<div class="mprob">'
       + seg(m.pH, cc(m.home), nm(m.home) + ' win')
       + seg(m.pD, '#6B5A78', 'draw')
@@ -693,8 +705,12 @@ function tableFixtures(){
   h += '</div><div class="mnote">Every prediction was saved '
     + '<b style="color:#fff">before kickoff</b> and is never edited afterwards. '
     + 'Predictions refresh for team news right up to kickoff, then freeze.'
-    + (scored.length ? ' Exact scores are hard — bookmakers manage roughly one '
-        + 'in nine as well.' : '')
+    + (scored.length ? ' Getting the exact score right is mostly luck. Even in '
+        + 'the most one-sided game on the card, the likeliest score only comes '
+        + 'up about one time in seven — so roughly one in nine is about as good '
+        + 'as anyone can manage, bookmakers included. The expected goals line '
+        + 'under each score is the more useful number: it is how many goals the '
+        + 'model thinks each side will score on an average day.' : '')
     + '</div></div>';
 
   const byGw = {};
