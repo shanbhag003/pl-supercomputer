@@ -28,6 +28,28 @@ FD_CODE = '2627'
 CFG = dict(xi=0.0045, w_xg=0.7, ridge=2.0)
 BASE_DRIFT, B, N = 0.16, 80, 20000
 SQUAD_W = 0.5          # backtested on 7 seasons; see VALIDATION.md
+CLOSE_CALL = 0.04      # two leading outcomes this close => call it level
+
+
+def call_outcome(pH, pD, pA):
+    """Index of the outcome to publish: 0 home, 1 draw, 2 away.
+
+    Plain argmax over the three outcomes can essentially never return a draw,
+    because in a Dixon-Coles grid the draw is almost never the single largest
+    of the three. That capped the hit rate near 76% and, worse, made the model
+    "call" 36/28/36 fixtures for the home side purely on tie-break order.
+
+    So when the two leading outcomes are within CLOSE_CALL of each other, the
+    model cannot separate them and we publish a draw instead of pretending.
+    At 4 percentage points this produces draws for about 20% of fixtures,
+    against a real Premier League draw rate near 24%.
+
+    Every consumer of a prediction must use this one function, or the tick on
+    the fixtures page will disagree with the hit rate in the accuracy panel.
+    """
+    p = [float(pH), float(pD), float(pA)]
+    order = sorted(range(3), key=lambda i: -p[i])
+    return 1 if p[order[0]] - p[order[1]] < CLOSE_CALL else order[0]
 MGR_W = 0.25           # half the tested optimum; within-PL moves only
 UA = {'User-Agent': 'Mozilla/5.0', 'X-Requested-With': 'XMLHttpRequest'}
 
@@ -256,8 +278,12 @@ def validate(played, teams):
     co = np.cumsum(np.eye(3)[res], 1)
     rps = ((cp - co) ** 2).sum(1) / 2
     ll = -np.log(np.clip(P[np.arange(len(P)), res], 1e-9, 1))
+    # Same close-call rule as the fixtures page, or the tick beside a match
+    # would contradict the hit rate reported here.
+    srt = np.sort(P, 1)
+    call = np.where(srt[:, 2] - srt[:, 1] < CLOSE_CALL, 1, P.argmax(1))
     out = dict(n=int(len(m)), rps=float(rps.mean()), logloss=float(ll.mean()),
-               hit=float((P.argmax(1) == res).mean()))
+               hit=float((call == res).mean()))
     # Exact-scoreline accuracy, once predictions carry a scoreline. Expect
     # roughly one in nine: the most likely single result in a football match
     # is usually 1-1 or 1-0 and rarely carries more than ~12% probability.
@@ -271,7 +297,7 @@ def validate(played, teams):
     # Dixon-Coles model, so `hit` is structurally capped near 76%. Publish the
     # count so the ceiling is visible rather than hidden.
     out['drawn'] = int((res == 1).sum())
-    out['picked_draw'] = int((P.argmax(1) == 1).sum())
+    out['picked_draw'] = int((call == 1).sum())
     if 'bH' in m.columns and m.bH.notna().any():
         Q = m[['bH', 'bD', 'bA']].values
         ok = ~np.isnan(Q).any(1)
@@ -508,7 +534,7 @@ def main():
             # 1-1 even when a home win is the most likely result, so the page
             # would read "home win, most likely 1-1" - incoherent, and the
             # first thing anyone would screenshot.
-            oc = int(np.argmax([pH, pD, pA]))
+            oc = call_outcome(pH, pD, pA)
             keep = np.zeros_like(M, dtype=bool)
             if oc == 0:
                 keep[np.tril_indices_from(M, -1)] = True
@@ -559,7 +585,7 @@ def main():
                for _, r in fx.iterrows()}
         for _, r in j.sort_values(['gw', 'date', 'home']).iterrows():
             probs = [float(r.pH), float(r.pD), float(r.pA)]
-            oc = 'HDA'[int(np.argmax(probs))]
+            oc = 'HDA'[call_outcome(*probs)]
             row = dict(gw=int(r.gw), home=r.home, away=r.away,
                        ko=(r.ko if isinstance(r.get('ko'), str)
                            else kos.get((r.home, r.away))),
