@@ -595,6 +595,14 @@ def main():
             if pd.notna(r.get('sc_h')) and pd.notna(r.get('sc_a')):
                 row.update(sc_h=int(r.sc_h), sc_a=int(r.sc_a),
                            p_score=round(float(r.p_score), 4))
+            # The modal scoreline is only the tallest bar in a very flat
+            # distribution - it carries ~14% at best. Expected goals say what
+            # the model actually thinks: 2.3-0.6 conveys "possibly a rout",
+            # which "2-0" cannot. Already computed and stored in the CSV; this
+            # just carries it through to the page.
+            if pd.notna(r.get('xg_h')) and pd.notna(r.get('xg_a')):
+                row.update(xg_h=round(float(r.xg_h), 2),
+                           xg_a=round(float(r.xg_a), 2))
             if pd.notna(r.get('hg')):
                 hg, ag = int(r.hg), int(r.ag)
                 row.update(res_h=hg, res_a=ag,
