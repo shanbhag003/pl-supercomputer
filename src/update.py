@@ -17,7 +17,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'src'))
 warnings.filterwarnings('ignore')
 
-from ratings import fit_ratings
+from ratings import fit_ratings, score_matrix
 from simulate import bootstrap_models, fixture_grids, simulate, positions
 import render as R
 import gate, mailer
@@ -258,6 +258,20 @@ def validate(played, teams):
     ll = -np.log(np.clip(P[np.arange(len(P)), res], 1e-9, 1))
     out = dict(n=int(len(m)), rps=float(rps.mean()), logloss=float(ll.mean()),
                hit=float((P.argmax(1) == res).mean()))
+    # Exact-scoreline accuracy, once predictions carry a scoreline. Expect
+    # roughly one in nine: the most likely single result in a football match
+    # is usually 1-1 or 1-0 and rarely carries more than ~12% probability.
+    if 'sc_h' in m.columns and m.sc_h.notna().any():
+        s = m[m.sc_h.notna() & m.sc_a.notna()]
+        if len(s):
+            exact = (s.sc_h.astype(int) == s.hg) & (s.sc_a.astype(int) == s.ag)
+            out['hit_score'] = float(exact.mean())
+            out['n_score'] = int(len(s))
+    # argmax over three outcomes can essentially never return a draw in a
+    # Dixon-Coles model, so `hit` is structurally capped near 76%. Publish the
+    # count so the ceiling is visible rather than hidden.
+    out['drawn'] = int((res == 1).sum())
+    out['picked_draw'] = int((P.argmax(1) == 1).sum())
     if 'bH' in m.columns and m.bH.notna().any():
         Q = m[['bH', 'bD', 'bA']].values
         ok = ~np.isnan(Q).any(1)
@@ -452,30 +466,110 @@ def main():
                                 d_releg=round(r.d_releg, 2),
                                 reason=explain(r.team, cur, gw, mods, pred)))
 
-    # ---- next-gameweek match predictions, for future self-scoring ----
+    # ---- match predictions for the next TWO gameweeks, for self-scoring ----
+    # Two rounds rather than one, so a missed scheduler run can never orphan a
+    # gameweek: the round after next was already predicted and stored, and can
+    # still be scored honestly.
+    #
+    # A prediction FREEZES AT KICKOFF and is never revised afterwards. Before
+    # kickoff it is rewritten on every run, so late team news is reflected.
+    # This is the single rule that keeps the public scorecard meaningful: what
+    # gets marked is what stood when the ball was kicked, not a tidied-up
+    # version written once the result was known. The `ko > now` test below is
+    # what enforces it, and it also stops a run that fires mid-match from
+    # inventing a prediction for a game already in progress.
     if fixtures:
-        nxt = remaining[remaining['Round Number'] == remaining['Round Number'].min()]
-        mp = []
+        f = f'{OUT}/match_predictions.csv'
+        prev = pd.read_csv(f) if os.path.exists(f) else pd.DataFrame()
+        rounds = sorted(remaining['Round Number'].unique())[:2]
+        nxt = remaining[remaining['Round Number'].isin(rounds)]
+        now_utc = pd.Timestamp.now(tz='UTC')
+        log(f'predicting gameweeks {rounds} ({len(nxt)} fixtures)')
+
+        mp, frozen = [], 0
         for _, r in nxt.iterrows():
-            ps = []
+            ko = pd.to_datetime(r.Date, dayfirst=True).tz_localize('UTC')
+            if ko <= now_utc:
+                frozen += 1
+                continue
+            Ms, lhs, las = [], [], []
             for m in mods[:40]:
-                from ratings import score_matrix
                 lh = np.clip(np.exp(m['mu'] + m['gamma'] + m['att'][r.home] - m['dfn'][r.away]), .05, 8)
                 la = np.clip(np.exp(m['mu'] + m['att'][r.away] - m['dfn'][r.home]), .05, 8)
-                M = score_matrix(lh, la, m['rho'], 10)
-                ps.append([np.tril(M, -1).sum(), np.trace(M), np.triu(M, 1).sum()])
-            p = np.mean(ps, 0)
-            mp.append(dict(date=pd.to_datetime(r.Date, dayfirst=True).strftime('%Y-%m-%d'),
+                Ms.append(score_matrix(lh, la, m['rho'], 10))
+                lhs.append(lh); las.append(la)
+            M = np.mean(Ms, 0)
+            pH = float(np.tril(M, -1).sum())
+            pD = float(np.trace(M))
+            pA = float(np.triu(M, 1).sum())
+
+            # Modal scoreline CONDITIONAL on the modal outcome. Taking the
+            # single most likely cell of the whole grid would routinely give
+            # 1-1 even when a home win is the most likely result, so the page
+            # would read "home win, most likely 1-1" - incoherent, and the
+            # first thing anyone would screenshot.
+            oc = int(np.argmax([pH, pD, pA]))
+            keep = np.zeros_like(M, dtype=bool)
+            if oc == 0:
+                keep[np.tril_indices_from(M, -1)] = True
+            elif oc == 1:
+                np.fill_diagonal(keep, True)
+            else:
+                keep[np.triu_indices_from(M, 1)] = True
+            sh, sa = np.unravel_index(np.argmax(np.where(keep, M, -1.0)), M.shape)
+
+            mp.append(dict(date=ko.strftime('%Y-%m-%d'), ko=ko.isoformat(),
                            gw=int(r['Round Number']), home=r.home, away=r.away,
-                           pH=p[0], pD=p[1], pA=p[2]))
-        mpd = pd.DataFrame(mp)
-        f = f'{OUT}/match_predictions.csv'
-        if os.path.exists(f):
-            mpd = pd.concat([pd.read_csv(f), mpd]).drop_duplicates(
-                subset=['date', 'home', 'away'], keep='first')
-        mpd.to_csv(f, index=False)
+                           pH=pH, pD=pD, pA=pA, outcome='HDA'[oc],
+                           sc_h=int(sh), sc_a=int(sa),
+                           p_score=float(M[sh, sa]),
+                           xg_h=float(np.mean(lhs)), xg_a=float(np.mean(las))))
+
+        # New rows first, so drop_duplicates(keep='first') lets a refreshed
+        # pre-kickoff prediction win while anything already frozen survives.
+        mpd = pd.concat([pd.DataFrame(mp), prev], ignore_index=True) \
+            if len(mp) else prev
+        if len(mpd):
+            mpd = (mpd.drop_duplicates(subset=['home', 'away'], keep='first')
+                      .sort_values(['gw', 'date', 'home']))
+            mpd.to_csv(f, index=False)
+        log(f'  {len(mp)} predictions written, {frozen} already frozen at kickoff')
 
     scorecard = validate(cur, teams)
+
+    # ---- fixture-by-fixture payload for the site ----
+    # Every stored prediction, joined to the actual result where one exists, so
+    # the page can show the call and the outcome side by side instead of just
+    # asserting an accuracy figure. `outcome` is derived here rather than read
+    # from the file, so rows written before scorelines existed still work.
+    match_rows = []
+    fmp = f'{OUT}/match_predictions.csv'
+    if os.path.exists(fmp):
+        allp = pd.read_csv(fmp)
+        act = (cur[['home', 'away', 'hg', 'ag']] if n_played
+               else pd.DataFrame(columns=['home', 'away', 'hg', 'ag']))
+        j = allp.merge(act, on=['home', 'away'], how='left')
+        for _, r in j.sort_values(['gw', 'date', 'home']).iterrows():
+            probs = [float(r.pH), float(r.pD), float(r.pA)]
+            oc = 'HDA'[int(np.argmax(probs))]
+            row = dict(gw=int(r.gw), home=r.home, away=r.away,
+                       ko=(r.ko if isinstance(r.get('ko'), str) else None),
+                       pH=round(probs[0], 4), pD=round(probs[1], 4),
+                       pA=round(probs[2], 4), outcome=oc,
+                       conf=round(max(probs), 4))
+            if pd.notna(r.get('sc_h')) and pd.notna(r.get('sc_a')):
+                row.update(sc_h=int(r.sc_h), sc_a=int(r.sc_a),
+                           p_score=round(float(r.p_score), 4))
+            if pd.notna(r.get('hg')):
+                hg, ag = int(r.hg), int(r.ag)
+                row.update(res_h=hg, res_a=ag,
+                           actual='H' if hg > ag else ('D' if hg == ag else 'A'))
+                row['ok_outcome'] = bool(row['actual'] == oc)
+                if 'sc_h' in row:
+                    row['ok_score'] = bool(row['sc_h'] == hg and row['sc_a'] == ag)
+            match_rows.append(row)
+        log(f'  fixture payload: {len(match_rows)} rows, '
+            f'{sum(1 for r in match_rows if "res_h" in r)} settled')
     log(f'validation: {scorecard}')
 
     # ---- write everything ----
@@ -599,6 +693,7 @@ def main():
                         next3=nextfx.get(r.team, []),
                         next3_fdr=fdr.get(r.team, []))
                    for _, r in pred.iterrows()],
+            matches=match_rows,
             position_matrix={t: [round(v, 4) for v in pm_web.loc[t].tolist()]
                              for t in pm_web.index},
         )
