@@ -16,7 +16,7 @@ import os, json, sys
 import datetime as dt
 import pandas as pd
 
-SETTLE_HOURS = 5
+SETTLE_HOURS = 3
 MATCH_HOURS = 2
 POSTPONE_DAYS = 5
 
