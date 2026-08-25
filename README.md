@@ -1,7 +1,7 @@
 # Premier League Supercomputer
 
 An expected-goals model that simulates the rest of the 2026/27 Premier League
-season 20,000 times, refits itself five hours after every gameweek, grades its
+season 20,000 times, refits itself three hours after every gameweek, grades its
 own past predictions against the bookmakers, and emails the result.
 
 Runs on GitHub Actions' free tier. Costs nothing.
@@ -249,7 +249,7 @@ a median of 6.7 days old by the time the next round kicked off. A refresh never
 writes to `outputs/history/`, so the record of what was predicted before each
 gameweek stays intact for the accuracy scoring.
 
-A gameweek publishes when every fixture in it has been played, five hours have
+A gameweek publishes when every fixture in it has been played, three hours have
 passed since the last one finished, and it has not already been published. A
 round ending Monday evening publishes Tuesday morning; a midweek round ending
 Wednesday publishes Thursday. **Five gameweeks this season end on a Wednesday**,

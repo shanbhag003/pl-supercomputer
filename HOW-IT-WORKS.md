@@ -49,7 +49,7 @@ One command runs everything: `python src/update.py`. It does this:
 
 Takes about 40 seconds.
 
-**There are two kinds of run.** A **publish** happens five hours after a
+**There are two kinds of run.** A **publish** happens three hours after a
 gameweek finishes: it does everything above and emails you. A **refresh** runs
 Friday and Tuesday at 17:00 UTC: it redoes steps 5 to 10 with the latest squad
 news, updates the website, and sends nothing.
@@ -117,7 +117,7 @@ schedule handles badly.
 **The solution.** The job wakes every two hours and asks three questions:
 
 1. Has every match in this round been played?
-2. Has it been five hours since the last one finished?
+2. Has it been three hours since the last one finished?
 3. Have we already published this gameweek?
 
 If the answer isn't yes, no, no — it exits in about two seconds and costs
