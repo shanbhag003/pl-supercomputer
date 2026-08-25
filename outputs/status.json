@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-25T12:35:25",
+  "updated": "2026-08-25T12:54:13",
   "gameweek": 1,
   "matches_played": 10,
   "drift": 0.147,
@@ -49,7 +49,7 @@
       "team": "Hull",
       "d_xPts": 7.67,
       "d_title": 0.5,
-      "d_releg": -23.44,
+      "d_releg": -23.43,
       "reason": "beat Manchester United 2-0 at home, and rode their luck"
     },
     {
@@ -70,14 +70,14 @@
       "team": "Tottenham",
       "d_xPts": -3.69,
       "d_title": -0.68,
-      "d_releg": 7.79,
+      "d_releg": 7.78,
       "reason": "lost 0-3 away at Brentford"
     },
     {
       "team": "Ipswich",
       "d_xPts": 3.57,
       "d_title": 0.02,
-      "d_releg": -10.1,
+      "d_releg": -10.12,
       "reason": "beat Sunderland 2-1 at home"
     }
   ]
