@@ -549,11 +549,20 @@ def main():
         act = (cur[['home', 'away', 'hg', 'ag']] if n_played
                else pd.DataFrame(columns=['home', 'away', 'hg', 'ag']))
         j = allp.merge(act, on=['home', 'away'], how='left')
+        # Predictions stored before the `ko` column existed have no kickoff
+        # time, so their cards would render without one. The kickoff is public
+        # fact from the fixture list, not part of the forecast, so filling it in
+        # afterwards is not hindsight - unlike the prediction itself, which is
+        # never touched.
+        kos = {(r.home, r.away): pd.to_datetime(r.Date, dayfirst=True)
+                                   .tz_localize('UTC').isoformat()
+               for _, r in fx.iterrows()}
         for _, r in j.sort_values(['gw', 'date', 'home']).iterrows():
             probs = [float(r.pH), float(r.pD), float(r.pA)]
             oc = 'HDA'[int(np.argmax(probs))]
             row = dict(gw=int(r.gw), home=r.home, away=r.away,
-                       ko=(r.ko if isinstance(r.get('ko'), str) else None),
+                       ko=(r.ko if isinstance(r.get('ko'), str)
+                           else kos.get((r.home, r.away))),
                        pH=round(probs[0], 4), pD=round(probs[1], 4),
                        pA=round(probs[2], 4), outcome=oc,
                        conf=round(max(probs), 4))
