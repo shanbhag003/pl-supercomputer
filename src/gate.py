@@ -5,7 +5,7 @@ exit in ~2 seconds unless a gameweek is genuinely complete.
 
 A gameweek R is ready when ALL of:
   - every fixture in R has been played (per the results feed), and
-  - 5 hours have passed since the last match in R finished
+  - 3 hours have passed since the last match in R finished
     (finish = scheduled kickoff + 2h)
   - we have not already published for R
 
