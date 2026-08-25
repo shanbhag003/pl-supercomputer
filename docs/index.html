@@ -252,6 +252,42 @@
   footer a{color:var(--cyan);text-decoration:none}
   footer a:hover{text-decoration:underline}
   .err{padding:24px;text-align:center;color:var(--lav);font-size:14px}
+  /* ── fixtures tab ─────────────────────────────────────────────────── */
+  .msec{font:700 11.5px/1 'Barlow Condensed',sans-serif;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dim);margin:18px 0 8px}
+  .mgh{display:flex;align-items:baseline;gap:10px;margin:14px 0 7px}
+  .mgh b{font:700 15px/1 'Barlow Condensed',sans-serif;letter-spacing:.06em;
+    text-transform:uppercase;color:#fff}
+  .mgh span{font-size:11.5px;color:var(--lav);margin-left:auto;white-space:nowrap}
+  .mcard{background:rgba(255,255,255,.035);border:1px solid var(--line);
+    border-radius:10px;padding:9px 11px;margin-bottom:7px}
+  .mko{font-size:11px;color:var(--dim);letter-spacing:.03em;margin-bottom:5px}
+  .msb{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+  .mtm{display:flex;align-items:center;gap:6px;min-width:0;
+    font:600 14.5px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.02em;color:#fff}
+  .mtm.aw{justify-content:flex-end;text-align:right}
+  .mtm i{width:3px;height:15px;border-radius:2px;flex:none}
+  .msc{font:700 17px/1 'Barlow Condensed',sans-serif;color:var(--pink);
+    letter-spacing:.04em;padding:2px 8px;border-radius:6px;
+    background:rgba(255,40,130,.12);white-space:nowrap}
+  .mfoot{display:flex;align-items:center;gap:8px;margin-top:6px;
+    padding-top:6px;border-top:1px solid rgba(255,255,255,.07);font-size:11.5px}
+  .mconf{color:var(--lav)}
+  .mres{margin-left:auto;font-weight:600;white-space:nowrap}
+  .mres.yes{color:var(--green)}
+  .mres.no{color:var(--pink)}
+  .mres.wait{color:var(--dim);font-weight:400}
+  .mexact{color:var(--cyan);font-size:10.5px;margin-left:5px}
+  .msum{display:flex;gap:22px;flex-wrap:wrap}
+  .msum div{display:flex;flex-direction:column;gap:2px}
+  .msum b{font:700 21px/1 'Barlow Condensed',sans-serif;color:#fff}
+  .msum span{font-size:11px;color:var(--lav)}
+  .mnote{color:var(--lav);font-size:11.5px;line-height:1.55;margin-top:10px}
+  @media(max-width:430px){
+    .mtm{font-size:13px}
+    .msc{font-size:15.5px;padding:2px 6px}
+    .mtm i{height:13px}
+  }
 </style>
 </head>
 <body>
@@ -272,6 +308,7 @@
   <div class="tabs" role="tablist">
     <button class="tab" id="t-pred" role="tab" aria-selected="true">Predicted</button>
     <button class="tab" id="t-act"  role="tab" aria-selected="false">Actual</button>
+    <button class="tab" id="t-fix"  role="tab" aria-selected="false">Fixtures</button>
   </div>
   <div class="hint" id="hint"></div>
 
@@ -495,6 +532,142 @@ function heat(v){
   return `rgba(255,40,130,${Math.min(0.92, 0.10 + v*2.6).toFixed(3)})`;
 }
 
+function accuracyBlock(){
+  const v = DATA.validation;
+  let h = '<details><summary>▸ How accurate has this been?</summary><div class="card">';
+  if (!v || !v.n){
+    h += '<div style="color:var(--lav);font-size:13.5px;line-height:1.6">'
+      + 'No score yet. Only predictions made <i>before</i> a match was played are '
+      + 'graded, so the first scores appear once a forecast gameweek has been played.'
+      + '</div>';
+  } else {
+    const rows = [['Matches predicted', v.n],
+      ['Results called correctly', (v.hit*100).toFixed(0) + '%'],
+      ['Sharpness score (lower is better)', v.rps.toFixed(3)]];
+    if (v.hit_score !== undefined){
+      rows.splice(2, 0, ['Exact scorelines called correctly',
+        (v.hit_score*100).toFixed(0) + '%  (' + v.n_score + ' predicted)']);
+    }
+    if (v.bookie_rps){
+      const gap = 100*(v.rps/v.bookie_rps - 1);
+      rows.push(['Bookmakers, same matches', v.bookie_rps.toFixed(3)]);
+      rows.push(['Versus the market',
+        Math.abs(gap).toFixed(1) + '% ' + (gap > 0 ? 'behind' : 'ahead')]);
+    }
+    rows.forEach(r => h += `<div class="kv"><span>${r[0]}</span><span>${r[1]}</span></div>`);
+    h += '<div style="color:var(--lav);font-size:11.5px;margin-top:9px;line-height:1.55">'
+      + 'Nothing here is graded with hindsight.';
+    // The draw ceiling is a real limit on the headline number, so say it out
+    // loud rather than letting it quietly flatter the model.
+    if (v.drawn !== undefined && v.picked_draw === 0 && v.drawn > 0){
+      h += ' One caveat worth knowing: this model almost never makes a draw its '
+        + 'single most likely result, so every drawn match counts against it. '
+        + `${v.drawn} of these ${v.n} ended level. The sharpness score does not `
+        + 'have that blind spot, which is why it is the number to watch.';
+    }
+    h += '</div>';
+  }
+  return h + '</div></details>';
+}
+
+// Kickoff stamp: short weekday, honouring the UTC / local toggle.
+function fmtKo(iso){
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d)) return '';
+  const p = new Intl.DateTimeFormat('en-GB', {weekday:'short', day:'numeric',
+    month:'short', hour:'2-digit', minute:'2-digit', hour12:false,
+    timeZone: useUTC ? 'UTC' : undefined}).formatToParts(d);
+  const g = t => (p.find(x => x.type === t) || {}).value;
+  return `${g('weekday')} ${g('day')} ${g('month')}, ${g('hour')}:${g('minute')}`;
+}
+
+const OUTCOME = {H:'Home win', D:'Draw', A:'Away win'};
+
+function matchCard(m){
+  const settled = m.res_h !== undefined;
+  const clubBar = t => `<i style="background:${CLUB[t] || '#888'}"></i>`;
+  // Predicted score is shown when we have one. Rows stored before scorelines
+  // existed still render - they show a dash, and the outcome call underneath
+  // carries the information instead.
+  const hasSc = m.sc_h !== undefined;
+  const score = hasSc ? `${m.sc_h}&ndash;${m.sc_a}` : '&ndash;';
+  const scTitle = hasSc
+    ? `most likely scoreline, ${(m.p_score*100).toFixed(0)}% chance`
+    : 'no scoreline was predicted for this match';
+
+  let right = '';
+  if (settled){
+    const cls = m.ok_outcome ? 'yes' : 'no';
+    right = `<span class="mres ${cls}">${m.res_h}&ndash;${m.res_a} `
+      + `${m.ok_outcome ? '&check;' : '&times;'}`
+      + (m.ok_score ? '<span class="mexact">exact</span>' : '') + '</span>';
+  } else {
+    right = '<span class="mres wait">not played yet</span>';
+  }
+
+  return '<div class="mcard">'
+    + (m.ko ? `<div class="mko">${fmtKo(m.ko)} ${zoneLabel()}</div>` : '')
+    + '<div class="msb">'
+      + `<span class="mtm">${clubBar(m.home)}${nm(m.home)}</span>`
+      + `<span class="msc" title="${scTitle}">${score}</span>`
+      + `<span class="mtm aw">${nm(m.away)}${clubBar(m.away)}</span>`
+    + '</div>'
+    + '<div class="mfoot">'
+      + `<span class="mconf">${OUTCOME[m.outcome]} &middot; `
+      + `${(m.conf*100).toFixed(0)}% likely</span>${right}`
+    + '</div>'
+  + '</div>';
+}
+
+function tableFixtures(){
+  const ms = DATA.matches || [];
+  if (!ms.length){
+    return '<div class="card" style="color:var(--lav);font-size:13.5px;'
+      + 'line-height:1.6">No match predictions stored yet. They appear once the '
+      + 'model has forecast a gameweek that has not been played.</div>';
+  }
+
+  // headline tallies, over settled matches only
+  const done = ms.filter(m => m.res_h !== undefined);
+  const okOut = done.filter(m => m.ok_outcome).length;
+  const scored = done.filter(m => m.ok_score !== undefined);
+  const okSc = scored.filter(m => m.ok_score).length;
+
+  let h = '<div class="card"><div class="msum">'
+    + `<div><b>${okOut} of ${done.length}</b><span>results called right</span></div>`;
+  if (scored.length){
+    h += `<div><b>${okSc} of ${scored.length}</b><span>exact scores right</span></div>`;
+  }
+  h += '</div><div class="mnote">Every prediction below was saved '
+    + '<b style="color:#fff">before kickoff</b> and is never edited afterwards. '
+    + 'Predictions refresh for team news right up to kickoff, then freeze.'
+    + (scored.length ? ' Exact scores are genuinely hard — bookmakers manage '
+        + 'roughly one in nine as well.' : '')
+    + '</div></div>';
+
+  // split into gameweeks that still have something to play, and finished ones
+  const byGw = {};
+  ms.forEach(m => { (byGw[m.gw] = byGw[m.gw] || []).push(m); });
+  const gws = Object.keys(byGw).map(Number).sort((a,b) => a-b);
+  const open = gws.filter(g => byGw[g].some(m => m.res_h === undefined));
+  const shut = gws.filter(g => open.indexOf(g) < 0).reverse();
+
+  const block = g => {
+    const rows = byGw[g].slice().sort((a,b) =>
+      String(a.ko || '').localeCompare(String(b.ko || '')));
+    const d = rows.filter(m => m.res_h !== undefined);
+    const ok = d.filter(m => m.ok_outcome).length;
+    return `<div class="mgh"><b>Gameweek ${g}</b>`
+      + (d.length ? `<span>${ok} of ${d.length} called right</span>` : '')
+      + '</div>' + rows.map(matchCard).join('');
+  };
+
+  if (open.length) h += '<div class="msec">Coming up</div>' + open.map(block).join('');
+  if (shut.length) h += '<div class="msec">Already played</div>' + shut.map(block).join('');
+  return h;
+}
+
 function render(){
   const d = DATA, T = d.teams.length;
   document.getElementById('gw').textContent = d.label;
@@ -503,9 +676,29 @@ function render(){
   const started = d.matches_played > 0;
   const actBtn = document.getElementById('t-act');
   actBtn.disabled = !started;
-  if (!started) TAB = 'pred';
-  document.getElementById('hint').textContent = started ? ''
-    : 'The season has not started, so there are no actual standings yet.';
+  const fixBtn = document.getElementById('t-fix');
+  const hasFix = !!(d.matches && d.matches.length);
+  fixBtn.disabled = !hasFix;
+  if (!started && TAB === 'act') TAB = 'pred';
+  if (!hasFix && TAB === 'fix') TAB = 'pred';
+  ['pred','act','fix'].forEach(k =>
+    document.getElementById('t-' + k).setAttribute('aria-selected', TAB === k));
+
+  const hint = document.getElementById('hint');
+  hint.textContent = (!started && TAB !== 'fix')
+    ? 'The season has not started, so there are no actual standings yet.'
+    : (TAB === 'fix'
+        ? 'Each prediction was saved before kickoff. Nothing here is edited after the fact.'
+        : '');
+
+  // The fixtures tab is a different kind of view: no standings, no legend, no
+  // position grid. It shares the accuracy block, which is exactly the context
+  // a reader wants next to a list of calls.
+  if (TAB === 'fix'){
+    document.getElementById('app').innerHTML =
+      '<div class="rule"></div>' + tableFixtures() + accuracyBlock();
+    return;
+  }
 
   let h = '<div class="rule"></div>'
     + (TAB === 'act' ? tableActual() : tablePredicted());
@@ -550,28 +743,7 @@ function render(){
     + DEFS.map(x => `<span class="${x[2]}"><b>${x[0]}</b> &nbsp;${x[1]}</span>`).join('')
     + '</div>';
 
-  const v = d.validation;
-  h += '<details><summary>▸ How accurate has this been?</summary><div class="card">';
-  if (!v || !v.n){
-    h += '<div style="color:var(--lav);font-size:13.5px;line-height:1.6">'
-      + 'No score yet. Only predictions made <i>before</i> a match was played are '
-      + 'graded, so the first scores appear once a forecast gameweek has been played.'
-      + '</div>';
-  } else {
-    const rows = [['Matches predicted', v.n],
-      ['Results called correctly', (v.hit*100).toFixed(0) + '%'],
-      ['Sharpness score (lower is better)', v.rps.toFixed(3)]];
-    if (v.bookie_rps){
-      const gap = 100*(v.rps/v.bookie_rps - 1);
-      rows.push(['Bookmakers, same matches', v.bookie_rps.toFixed(3)]);
-      rows.push(['Versus the market',
-        Math.abs(gap).toFixed(1) + '% ' + (gap > 0 ? 'behind' : 'ahead')]);
-    }
-    rows.forEach(r => h += `<div class="kv"><span>${r[0]}</span><span>${r[1]}</span></div>`);
-    h += '<div style="color:var(--lav);font-size:11.5px;margin-top:9px">'
-      + 'Nothing here is graded with hindsight.</div>';
-  }
-  h += '</div></details>';
+  h += accuracyBlock();
 
   const mv = d.moves || [];
   const started2 = d.matches_played > 0;
@@ -640,13 +812,14 @@ function render(){
 function setTab(t){
   const changed = TAB !== t;
   TAB = t;
-  document.getElementById('t-pred').setAttribute('aria-selected', t === 'pred');
-  document.getElementById('t-act').setAttribute('aria-selected', t === 'act');
+  ['pred','act','fix'].forEach(k =>
+    document.getElementById('t-' + k).setAttribute('aria-selected', t === k));
   if (changed) track('tab_switch', { tab: t, gameweek: DATA ? DATA.gameweek : null });
   if (DATA) render();
 }
 document.getElementById('t-pred').addEventListener('click', () => setTab('pred'));
 document.getElementById('t-act').addEventListener('click', () => setTab('act'));
+document.getElementById('t-fix').addEventListener('click', () => setTab('fix'));
 document.getElementById('tzbtn').addEventListener('click', () => {
   useUTC = !useUTC;
   localStorage.setItem('plzone', useUTC ? 'utc' : 'local');
