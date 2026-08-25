@@ -1,7 +1,7 @@
-PREMIER LEAGUE PREDICTIONS — PRE-SEASON  ·  TEAM NEWS UPDATE
+PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 1
 ==========================================================
 
-Arsenal are favourites for the title, with a 31.2% chance.
+Arsenal are favourites for the title, with a 33.4% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,30 +9,44 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Arsenal                   72    31.2%    73.3%
-2  Manchester City           69    25.2%    66.8%
-3  Liverpool                 63     9.9%    41.6%
-4  Manchester United         59     6.9%    33.9%
-5  Bournemouth               58     4.5%    28.1%
-6  Aston Villa               56     3.8%    21.9%
+1  Arsenal                   72    33.4%    76.9%
+2  Manchester City           71    28.6%    72.3%
+3  Liverpool                 62     8.3%    41.9%
+4  Brighton                  60     4.7%    31.8%
+5  Chelsea                   57     5.2%    26.0%
+6  Manchester United         57     3.8%    26.0%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Ipswich                 66.1%
-   Coventry                55.6%
-   Hull                    51.4%
+   Coventry                61.5%
+   Ipswich                 56.1%
+   Sunderland              28.4%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
-  No club moved by more than a few tenths of a point. Anything
-  smaller than that is the randomness in the simulation rather
-  than real news.
+  Hull: 7.7 expected points up, title chance +0.5 points, relegation risk -23.4 points
+      beat Manchester United 2-0 at home, and rode their
+      luck
+  Brighton: 4.5 expected points up, title chance +3.2 points, relegation risk -1.6 points
+      beat Aston Villa 4-0 at home
+  Aston Villa: 4.3 expected points down, title chance -1.9 points, relegation risk +6.1 points
+      lost 0-4 away at Brighton
+  Tottenham: 3.7 expected points down, title chance -0.7 points, relegation risk +7.8 points
+      lost 0-3 away at Brentford
+  Ipswich: 3.6 expected points up, relegation risk -10.1 points
+      beat Sunderland 2-1 at home
+
+  Numbers move for three reasons: results, how well teams
+  actually played underneath those results, and any change
+  in squad or manager.
 
 HOW ACCURATE HAS THIS BEEN?
 ----------------------------------------------------------
-  No score yet. We grade only predictions made BEFORE a match was
-  played, so the first scores appear once a forecast gameweek has
-  actually happened.
+  Matches predicted so far: 10
+  Results called correctly: 60%
+  Sharpness score: 0.221 (lower is better)
+
+  Nothing here is graded with hindsight.
 
 HOW IT WORKS
 ----------------------------------------------------------

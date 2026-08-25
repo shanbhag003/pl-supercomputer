@@ -1,10 +1,10 @@
 {
-  "updated": "2026-08-21T17:19:40",
-  "gameweek": 0,
-  "matches_played": 0,
-  "drift": 0.16,
+  "updated": "2026-08-25T03:01:18",
+  "gameweek": 1,
+  "matches_played": 10,
+  "drift": 0.147,
   "n_sims": 20000,
-  "gate": "no completed gameweek is settled yet; next kickoff 2026-08-21 19:00 UTC",
+  "gate": "GW1 settled at 2026-08-25 02:00 UTC, 1.0h ago",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.5, 20 clubs, 0 unmatched with PL minutes, 4430 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
@@ -17,25 +17,66 @@
   "squad_delta": {
     "Liverpool": -0.143,
     "Manchester City": -0.14,
-    "Newcastle United": -0.099,
+    "Newcastle United": -0.104,
     "Arsenal": -0.099,
     "Manchester United": -0.096,
     "Brentford": -0.09,
     "Leeds": -0.069,
-    "Everton": -0.063,
-    "Aston Villa": -0.054,
+    "Everton": -0.061,
+    "Aston Villa": -0.06,
     "Crystal Palace": -0.029,
     "Bournemouth": -0.01,
+    "Brighton": -0.01,
     "Nottingham Forest": -0.009,
-    "Brighton": -0.008,
     "Chelsea": -0.006,
     "Coventry": 0.0,
     "Hull": 0.0,
     "Ipswich": 0.0,
     "Sunderland": 0.003,
-    "Tottenham": 0.019,
+    "Tottenham": 0.023,
     "Fulham": 0.03
   },
-  "validation": null,
-  "biggest_moves": []
+  "validation": {
+    "n": 10,
+    "rps": 0.22145712273657034,
+    "logloss": 0.9458376449624547,
+    "hit": 0.6
+  },
+  "biggest_moves": [
+    {
+      "team": "Hull",
+      "d_xPts": 7.67,
+      "d_title": 0.5,
+      "d_releg": -23.43,
+      "reason": "beat Manchester United 2-0 at home, and rode their luck"
+    },
+    {
+      "team": "Brighton",
+      "d_xPts": 4.46,
+      "d_title": 3.16,
+      "d_releg": -1.6,
+      "reason": "beat Aston Villa 4-0 at home"
+    },
+    {
+      "team": "Aston Villa",
+      "d_xPts": -4.28,
+      "d_title": -1.89,
+      "d_releg": 6.14,
+      "reason": "lost 0-4 away at Brighton"
+    },
+    {
+      "team": "Tottenham",
+      "d_xPts": -3.69,
+      "d_title": -0.68,
+      "d_releg": 7.79,
+      "reason": "lost 0-3 away at Brentford"
+    },
+    {
+      "team": "Ipswich",
+      "d_xPts": 3.57,
+      "d_title": 0.02,
+      "d_releg": -10.1,
+      "reason": "beat Sunderland 2-1 at home"
+    }
+  ]
 }
