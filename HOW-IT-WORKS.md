@@ -252,6 +252,105 @@ City come out at −0.125, the largest fall of any established club.
 
 ---
 
+### Match predictions — the part that can be checked
+
+Everything above forecasts the *table*. This part forecasts individual matches,
+which is the only claim a reader can verify for themselves.
+
+Each fixture in the next **two** gameweeks gets a full scoreline grid — every
+result from 0-0 to 10-10 with a probability. From that grid come three numbers:
+the chance of a home win, a draw and an away win. All of it is written to
+`outputs/match_predictions.csv`.
+
+**Why two gameweeks and not one.** If a scheduled run is skipped, the next round
+would never have been predicted, and could never be scored. Predicting two rounds
+means there is always a spare.
+
+**Why predictions freeze at kickoff.** Before a match kicks off, its prediction is
+rewritten on every run — that is how late team news gets in. The moment it kicks
+off, it is never touched again. This is the rule the whole accuracy claim rests
+on. Without it the model could quietly improve its own homework, and every number
+on the accuracy panel would be worthless.
+
+It also fixed a hazard nobody had noticed: a Friday refresh firing at 21:00 on a
+Saturday would previously have written a brand-new "prediction" for a match that
+was already half over.
+
+**Picking a scoreline is harder than it looks.** The obvious approach — take the
+most likely cell in the grid — goes wrong immediately. For a fixture where the
+home side are expected to score 1.45 and the away side 1.40, the single most
+likely scoreline is **1-1**, but the most likely *outcome* is a home win. The page
+would have read "home win, most likely 1-1". So the outcome is chosen first, and
+then the most likely scoreline *within* that outcome. That fixture now reads 2-1.
+
+**And picking a winner was quietly broken.** Taking whichever of the three
+outcomes was largest sounds obviously right. It isn't. In a Dixon-Coles grid the
+draw is almost never the largest of the three — it peaks around 28% — so the model
+could essentially never predict a draw. Two consequences:
+
+- About 24% of Premier League matches are draws, so the hit rate was capped near
+  76% no matter how good the model was.
+- A genuinely even fixture at 36% / 28% / 36% got "called" for the home side
+  purely because home comes first in the list.
+
+Now, when the top two outcomes are within 4 percentage points, the model says
+draw. On the current fixtures that fires for about 20% of matches, against a real
+rate near 24% — so it is roughly calibrated rather than arbitrary. The same rule
+is used in three separate places, and it has to be: if the accuracy panel scored
+predictions differently from the way the fixtures page displayed them, the ticks
+and the percentage would contradict each other.
+
+**Why expected goals sit under each scoreline.** A modal scoreline sounds
+confident and isn't. Even for the most one-sided fixture the model has seen —
+Arsenal against Coventry, 75% home win — the grid says:
+
+| Scoreline | Chance |
+|---|---|
+| 2-0 | 14.3% |
+| 1-0 | 12.2% |
+| 3-0 | 10.9% |
+| 4-0 | 6.3% |
+
+The best single guess in the most predictable match of the round is 14%. Printing
+"2-0" alone also throws away that the model gave Arsenal a **20% chance of scoring
+four or more**. So each prediction shows expected goals as well: 2.3 – 0.6 says
+what 2-0 cannot.
+
+This also means exact-score accuracy will sit near one in nine forever. That is
+close to the ceiling for anyone, bookmakers included, and the site says so
+instead of letting the number read as failure.
+
+---
+
+### `docs/index.html` — the site
+
+One hand-written file. No framework, no build step, no bundler. It fetches
+`docs/data.json` and renders it. GitHub Pages serves it straight from the folder.
+
+Three tabs:
+
+**Predicted** — the projected final table, with title, top-four, top-six and
+relegation chances.
+
+**Actual** — the real table, with each club's projected finish alongside. Green
+means the model expects them to climb, pink to fall.
+
+**Fixtures** — one gameweek at a time, selected with a row of pills. Each match
+shows kickoff time in your own timezone or UTC, the predicted scoreline, expected
+goals, and a bar splitting the three outcomes. The predicted winner is picked out
+in white; if the model calls it level, neither side is. Once played, the real
+result appears with a tick or a cross, and an "exact" tag if the scoreline was
+right too.
+
+Showing one gameweek at a time is not cosmetic. By May the record is 38 rounds of
+ten fixtures — 380 cards. One round is ten.
+
+Analytics are Google Analytics 4 and Microsoft Clarity, both wrapped in
+`try/catch` so that an ad blocker — which perhaps a third of a football audience
+runs — can never take the table down with it. Neither fires on localhost.
+
+---
+
 ### `render.py` — the graphics
 
 Draws the portrait table for the phone and a wider landscape version.
@@ -517,6 +616,26 @@ different date, so it never matched and quietly vanished from the record —
 losing precisely the matches most likely to have surprised the model. Now
 matched on the fixture rather than the date.
 
+**A fallback that had never once run.** If Understat had no expected goals yet,
+the model was supposed to fall back to plain goals from football-data.co.uk. That
+fallback was dead code from the day it was written. The file ships with a UTF-8
+byte-order mark, and it was being read as latin-1 — which never raises an error,
+but decodes those three bytes into visible junk, so the first column arrived named
+`ï»¿Div` instead of `Div`. The shape check then rejected the whole file, every
+time, silently. Had Understat been down at the season opener, the site would have
+published twenty clubs on zero points and it would have looked like a data
+problem rather than a code one. The same BOM affects seven of the raw files.
+
+**A round could be published with a match missing.** The same fallback was
+all-or-nothing: it only consulted football-data if Understat had returned
+*nothing at all*. Understat does not lag uniformly — it can hold nine results of
+a ten-match round. In that state the tenth match was dropped outright, absent from
+both the training set and the league table. Publish runs happened to be shielded,
+because the gate reads its "which matches are done" set from the same function
+and so refused to fire. But a Friday refresh skips the gate, and would have
+rebuilt the site showing two clubs on nothing. Now filled per match, with the
+substitution logged rather than silent.
+
 **Everything else.** Dependency versions pinned, so an upstream release cannot
 break a Tuesday morning. `data.json` written to a temporary file and moved into
 place, so a crash cannot leave the site serving half a file. All twenty-three
@@ -605,6 +724,15 @@ Champions League last 16.
 But when that adjustment was actually backtested, it helped in 2023–25 and hurt
 in 2019–22, netting out to nothing across seven seasons. 150 affected matches
 isn't enough to tell a real effect from a lucky one, so it isn't in the model.
+
+**"Why are the predicted scores always 1-0, 2-1 or 2-0? Never 4-0?"**
+Because that is the correct answer, and it is a property of predicting the *most
+likely* score rather than a fault. Goals arrive at roughly one and a half per side
+per match, so the most likely number of goals for almost any team in almost any
+game is 0, 1 or 2. In the twelve seasons of data behind the model, 1-1, 1-0, 2-1,
+2-0, 0-1 and 1-2 account for **half of all 4,560 matches**. 4-0 happens 1.9% of
+the time. A model that regularly predicted 4-0 would be wrong far more often. The
+expected-goals line under each score is what carries the rest of the information.
 
 **"Why isn't Guardiola leaving a bigger deal?"**
 Because it can't be measured cleanly. Guardiola managed City for nearly the whole

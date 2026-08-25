@@ -1,8 +1,9 @@
 # Premier League Supercomputer
 
 An expected-goals model that simulates the rest of the 2026/27 Premier League
-season 20,000 times, refits itself three hours after every gameweek, grades its
-own past predictions against the bookmakers, and emails the result.
+season 20,000 times, refits itself three hours after every gameweek, predicts
+every fixture in the next two rounds, and grades its own past predictions
+against the bookmakers in public.
 
 Runs on GitHub Actions' free tier. Costs nothing.
 
@@ -18,8 +19,9 @@ Every run, without anyone pressing anything:
 2. Refits club ratings on twelve seasons of data, weighted toward recent form
 3. Adjusts for transfers, injuries, suspensions and managerial changes
 4. Simulates every remaining fixture 20,000 times
-5. Scores last week's predictions against what actually happened
-6. Renders a graphic and emails it
+5. Predicts result and scoreline for every fixture in the next two gameweeks
+6. Scores its own past predictions against what actually happened
+7. Renders a graphic, rebuilds the site and emails it
 
 ## How the model works
 
@@ -56,6 +58,46 @@ the number the data says it should be.
 
 **Simulation.** Each fixture gets a full Dixon-Coles scoreline grid. Scorelines
 are sampled, not assumed, and real Premier League tiebreak rules are applied.
+
+---
+
+## Match predictions
+
+Beyond the league table, every fixture in the next **two** gameweeks gets a
+prediction: a result, a scoreline, and the probability of all three outcomes.
+
+**Two rounds, not one.** If a scheduled run is missed, the following round has
+already been predicted and stored, so it can still be scored honestly. Predicting
+only the next round would leave a permanent hole in the record.
+
+**Frozen at kickoff.** A prediction is rewritten on every run until its match
+kicks off, so late team news is reflected. After kickoff it is never touched
+again. This one rule is what makes the public scorecard mean anything: what gets
+marked is what stood when the ball was kicked, not a tidied-up version. It also
+prevents a run firing mid-match from inventing a prediction for a game already
+in progress.
+
+**Scorelines are conditional on the result.** Taking the single most likely cell
+of the scoreline grid gives 1-1 surprisingly often, even when a home win is the
+most likely outcome — which would print "home win, most likely 1-1". So the
+outcome is chosen first, then the most likely scoreline *within* that outcome.
+
+**Close calls are called level.** Plain `argmax` over home/draw/away can
+essentially never return a draw, because in a Dixon-Coles grid the draw is almost
+never the largest of the three. That capped the hit rate near 76% and, worse,
+"called" a 36/28/36 fixture for the home side purely on tie-break order. When the
+two leading outcomes fall within 4 percentage points, the model publishes a draw
+instead of pretending. That produces draws for about 20% of fixtures, against a
+real Premier League rate near 24%.
+
+**Expected goals alongside the scoreline.** The modal scoreline is only the
+tallest bar in a very flat distribution — even in the most one-sided fixture of a
+round it carries about 14%. So each prediction also shows the expected goals for
+both sides. "2-0" says a win; "2.3 – 0.6" says a win and possibly a rout.
+
+One consequence worth stating plainly: **exact-scoreline accuracy will sit near
+one in nine and cannot go much higher**, for this or any model. The site says so
+rather than letting the number look like failure.
 
 ---
 
@@ -229,10 +271,10 @@ FORCE_RUN=1 python src/update.py
 Full run — refit, 20,000 simulations, render, email — takes about 40 seconds on
 one CPU core.
 
-For scheduled runs, set three repository secrets: `GMAIL_USER`,
-`GMAIL_APP_PASSWORD` (a Google App Password, not your account password) and
-`MAIL_TO`. The workflow polls every two hours and exits in seconds unless a
-gameweek has settled.
+No local machine is needed. Everything can be driven from GitHub's web interface:
+edit files in the browser, and trigger runs from the Actions tab. See
+[**SETUP.md**](SETUP.md) for the full walkthrough, including repository secrets
+and the two manual-run toggles.
 
 ### When it publishes
 
@@ -266,6 +308,9 @@ postponed so the round can settle without it.
 file, with worked examples and the bugs found along the way. No statistics
 background needed.
 
+[**SETUP.md**](SETUP.md) — how to fork, configure and run it: secrets, GitHub
+Pages, the scheduler, analytics, and how to do all of it from a browser.
+
 ## Failure handling
 
 The job runs unattended, so every external source is treated as unreliable.
@@ -279,6 +324,9 @@ The job runs unattended, so every external source is treated as unreliable.
 | Atomic write for `data.json` | The site serving truncated JSON after a crash mid-write |
 | Fixture-based match scoring | Postponed games silently dropping out of the accuracy record |
 | Pinned dependency versions | An upstream release breaking a Tuesday morning publish |
+| BOM-tolerant column names | The results feed ships a UTF-8 BOM; read as latin-1 it renamed the first column and the whole file was silently rejected |
+| Per-match xG gap filling | Understat can hold nine results of a ten-match round; the round used to be published with a match missing from the table |
+| Predictions frozen at kickoff | A prediction being rewritten after the result was known, which would make the whole scorecard meaningless |
 
 Each optional layer — squad, manager, European values, story image — is wrapped
 so that a failure switches that layer off, logs the exception type, and lets the
@@ -302,7 +350,18 @@ src/cup_fixtures.py   FA Cup and EFL Cup dates
 src/uefa_fixtures.py  UEFA fixtures for English clubs
 src/backtest*.py      every validation run behind the numbers above
                       (incl. backtest_congestion.py)
+
+docs/index.html       the site: one hand-written file, no build step
+docs/data.json        everything the site renders, rewritten each run
+outputs/match_predictions.csv   every per-fixture prediction ever made
+outputs/history/      the forecast as it stood before each gameweek
+outputs/status.json   last run's gate decision, drift and scorecard
 ```
+
+The site has three tabs. **Predicted** is the projected final table. **Actual**
+is the real table with each club's projected finish beside it. **Fixtures** shows
+one gameweek at a time — the predicted result, scoreline and expected goals for
+each match, and once played, the real result with a tick or a cross.
 
 ---
 
