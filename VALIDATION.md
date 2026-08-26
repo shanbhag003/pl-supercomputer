@@ -101,85 +101,67 @@ optimum, deliberately.
 
 ---
 
-## 5. Shipped, then found to cost accuracy
+## 5. Shipped, then measured, then reverted
 
-This is the entry that matters most, because it is the one that went live before
-it was tested.
+The entry that matters most, because it went live before it was tested.
 
 **The problem it was meant to solve is real.** Picking the largest of home / draw
-/ away sounds obviously correct. It has two flaws. In a Dixon-Coles grid the draw
-is almost never the largest of the three — it peaks around 28% — so the model
-could essentially never predict a draw, while about 24% of matches are drawn.
-And a genuinely even fixture at 36% / 28% / 36% was "called" for the home side
-purely because home comes first in the list.
+/ away sounds obviously correct, and has two visible flaws. In a Dixon-Coles grid
+the draw is almost never the largest of the three — it peaks near 28% — so the
+model could essentially never predict a draw, while about 24% of matches are
+drawn. And a genuinely even fixture at 36% / 28% / 36% got "called" for the home
+side on a margin far below the model's own noise.
 
-**The fix shipped without a backtest.** When the top two outcomes fall within 4
-percentage points, publish a draw. It was justified by the fact that it produces
-draws for about 20% of fixtures against a real rate of 24% — a calibration
-argument, not an accuracy test.
+**The fix shipped without a backtest.** When the top two outcomes fell within 4
+percentage points, publish a draw. The justification was that it produced draws
+for about 20% of fixtures against a real rate of 24% — a calibration argument,
+not an accuracy test.
 
 **Then it was tested.** 6,090 matches, 2010–2026, using de-vigged Bet365 closing
 probabilities as a stand-in for well-calibrated match probabilities:
 
 | Rule | Hit rate | Draws called | Draws called right |
 |---|---|---|---|
-| Plain argmax | **54.60%** | 0 | 0 |
+| **Plain argmax** | **54.60%** | 0 | 0 |
 | Close-call < 2pp | 54.25% | 212 | 67 |
 | Close-call < 3pp | 54.07% | 322 | 97 |
-| **Close-call < 4pp (shipped)** | **53.89%** | 423 | 129 |
+| Close-call < 4pp (shipped) | 53.89% | 423 | 129 |
 | Close-call < 6pp | 53.61% | 675 | 206 |
 | Close-call < 10pp | 52.96% | 1,125 | 346 |
 
-**Every threshold makes the hit rate worse, and it gets monotonically worse as
-the threshold widens.** The 4pp rule costs **0.71 percentage points**.
+Every threshold is worse, monotonically so as the threshold widens. The 4pp rule
+cost **0.71 percentage points**.
 
-In hindsight this is obvious and should have been predicted from first
-principles: argmax maximises expected hit rate by construction. Any rule that
-overrides it must, on average, lower accuracy. Reasoning that "a coin-flip
-shouldn't be called for the home side" is a statement about presentation, not
-about accuracy, and it was mistaken for the latter.
+This should have been predicted from first principles: argmax maximises expected
+hit rate by construction, so any rule that overrides it must on average do worse.
+"A coin-flip shouldn't be called for the home side" is a statement about
+presentation. It was mistaken for one about accuracy.
 
-Looking only at the 423 matches the rule changes:
+**Then a second, worse problem surfaced.** In **422 of the 423** matches the rule
+changed, the draw it published was the outcome the model rated **least likely of
+the three**. Because the draw peaks near 28%, whenever home and away are level
+the draw is usually *third*, not second. The rule was not splitting the
+difference between two close options — it was advertising the model's least
+favoured result as its prediction.
 
-| On those matches | Right |
-|---|---|
-| Backing the marginal favourite | 172 (40.7%) |
-| Calling a draw | 129 (30.5%) |
-| Base draw rate, all matches | 24.2% |
+The live site made this visible before the backtest did: Tottenham v Newcastle
+showed 38.4% / 25.7% / 35.9% and published *draw*.
 
-Two things are true at once. The rule **does** find draw-prone fixtures — 30.5%
-against a 24.2% base rate is real signal. And backing the marginal favourite is
-**still better** on those same matches, 40.7% to 30.5%. Even in a 36/28/36
-fixture, the slight favourite is the better bet.
+**Reverted.** The published outcome is plain argmax again. Closeness is now a
+display fact rather than a prediction: a fixture whose top two outcomes are within
+4pp is labelled **"too close to call"**, and neither club is dimmed, but the
+prediction and the score against it remain the model's actual favourite. That
+keeps the honesty the rule was reaching for at zero cost in accuracy.
 
-**What this does not affect.** Ranked probability score and log loss are
-unchanged, because they score the published probabilities and ignore which
-outcome was nominated. The model's actual forecasting quality is identical either
-way. Only the headline hit rate moves.
+**What was never affected.** Ranked probability score and log loss score the
+published probabilities and ignore which outcome is nominated, so the model's
+forecasting quality was identical throughout. Only the hit rate moved. Gameweek 1
+scores 6 of 10 under either rule.
 
-**So it is a presentation choice with a measured price**, which is the honest way
-to describe it:
-
-- **Keep it** — the page never claims a call it cannot support, and never
-  displays a "prediction" that exists only because of list order. Cost: 0.71pp of
-  hit rate, disclosed.
-- **Revert to argmax** — highest hit rate, but the model can never say draw and
-  will nominate a winner in fixtures it cannot separate.
-- **Decouple them** — display "too close to call" while scoring against the
-  marginal favourite. No accuracy cost, honest display, more code.
-
-Whichever is chosen, the number on the site should be accompanied by this table
-rather than presented as if free.
-
-**Caveat on the test.** It used bookmaker probabilities, not the model's own,
-because refitting 6,090 matches walk-forward is expensive. The model sits within
-1.1% of the market on RPS, so the conclusion should transfer, but this validates
-the *decision rule* rather than the model. Re-running it on model probabilities
-is the obvious next job.
-
-Reproduce: the script is not yet in the repository. It de-vigs `B365H/D/A` from
-`data/raw/E0_*.csv`, compares `argmax` against the threshold rule, and reports
-hit rate.
+**Caveat on the test.** It used bookmaker probabilities rather than the model's
+own, because refitting 6,090 matches walk-forward is expensive. The model sits
+within 1.1% of the market on RPS, so the conclusion should transfer, but this
+validates the *decision rule* rather than the model.
 
 ---
 
@@ -316,8 +298,10 @@ Current figures always live in `outputs/status.json` and on the site.
 Stated plainly, because a validation document that only lists successes is
 marketing.
 
-- **The close-call threshold** shipped without a test and is now measured as
-  costing 0.71pp of hit rate (§5). It remains live as a presentation choice.
+- **The "too close to call" label** is a display choice, not a validated
+  improvement. The 4pp threshold that triggers it is inherited from the reverted
+  rule and has never been tuned; it changes nothing about what is predicted or
+  scored, so it cannot cost accuracy, but nor has it been shown to help readers.
 - **The two-gameweek prediction window and freeze-at-kickoff rule** are
   correctness properties, not accuracy improvements. Neither was backtested
   because neither claims to make forecasts better.
