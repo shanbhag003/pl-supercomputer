@@ -274,6 +274,9 @@
     letter-spacing:.04em;padding:2px 8px;border-radius:6px;
     background:rgba(255,40,130,.12);white-space:nowrap}
   .cb{width:3px;height:15px;border-radius:2px;flex:none}
+  .mtight{font-size:10px;letter-spacing:.05em;text-transform:uppercase;
+    color:#F5A12D;border:1px solid rgba(245,161,45,.45);border-radius:999px;
+    padding:2px 7px;white-space:nowrap}
   .mxg{text-align:center;margin-top:3px;font-size:10.5px;color:var(--dim);
     letter-spacing:.04em}
   .mxg b{color:var(--lav);font-weight:600}
@@ -429,18 +432,8 @@ document.getElementById('app').addEventListener('click', function (ev) {
   if (!b) return;
   const g = Number(b.getAttribute('data-gw'));
   if (g === FXGW) return;
-  const from = FXGW;
-  // A bare gameweek number does not answer the interesting question, which is
-  // whether people check past results or only ever look at what is coming.
-  const rows = (DATA.matches || []).filter(m => m.gw === g);
-  const done = rows.filter(m => m.res_h !== undefined).length;
-  const kind = !rows.length ? 'unknown'
-    : done === rows.length ? 'past' : (done ? 'in_progress' : 'upcoming');
   FXGW = g;
-  track('gameweek_select', {
-    gameweek: g, gw_type: kind, from_gameweek: from,
-    direction: from === null ? 'first' : (g > from ? 'forward' : 'back')
-  });
+  track('gameweek_select', { gameweek: g });
   render();
 });
 
@@ -643,8 +636,10 @@ function matchCard(m){
 
   // The predicted winner is picked out in white and the other side dimmed, so
   // the call is readable at a glance without reading any numbers. A predicted
-  // draw highlights neither - dimming one side would imply a favourite.
-  const hi = o => m.outcome === o ? 'hi' : (m.outcome === 'D' ? '' : 'lo');
+  // draw, or a fixture the model cannot separate, highlights neither side:
+  // dimming one would imply a favourite the model does not really have.
+  const flat = m.close || m.outcome === 'D';
+  const hi = o => flat ? (m.outcome === o ? 'hi' : '') : (m.outcome === o ? 'hi' : 'lo');
 
   // Result badge sits on the kickoff line rather than its own row: with a
   // gameweek at a time on screen, vertical space is the scarce thing.
@@ -659,9 +654,19 @@ function matchCard(m){
   const seg = (p, col, lab) =>
     `<i style="width:${(p*100).toFixed(1)}%;background:${col}" title="${lab}"></i>`;
 
+  // A tight fixture is labelled rather than mis-predicted. An earlier version
+  // published a draw for these, which turned out to be the outcome the model
+  // rated LEAST likely in 422 of 423 historical cases. The prediction is now
+  // always the model's favourite; this badge just says not to trust it much.
+  const tight = m.close
+    ? '<span class="mtight" title="the two leading outcomes are within 4 '
+      + 'percentage points, so this pick is barely more than a guess">'
+      + 'too close to call</span>'
+    : '';
+
   return '<div class="mcard">'
     + '<div class="mko">'
-      + `<span>${m.ko ? fmtKo(m.ko) + ' ' + zoneLabel() : ''}</span>${badge}`
+      + `<span>${m.ko ? fmtKo(m.ko) + ' ' + zoneLabel() : ''}</span>${tight}${badge}`
     + '</div>'
     + '<div class="msb">'
       + `<span class="mtm ${hi('H')}"><i class="cb" style="background:${cc(m.home)}"></i>`
@@ -908,7 +913,7 @@ document.getElementById('t-fix').addEventListener('click', () => setTab('fix'));
 document.getElementById('tzbtn').addEventListener('click', () => {
   useUTC = !useUTC;
   localStorage.setItem('plzone', useUTC ? 'utc' : 'local');
-  track('timezone_toggle', { zone: useUTC ? 'utc' : 'local', tab: TAB });
+  track('timezone_toggle', { zone: useUTC ? 'utc' : 'local' });
   paintStamp();
   // The fixtures tab prints a kickoff time on every card, and paintStamp only
   // repaints the header. Re-render so the whole list follows the toggle. Only
@@ -927,33 +932,12 @@ fetch('data.json?v=' + Date.now())
     tag('season_phase', j.matches_played > 0 ? 'in_season' : 'pre_season');
     tag('run_type', j.refresh_only ? 'team_news_refresh' : 'gameweek_publish');
     tag('forecast_leader', (j.teams && j.teams[0]) ? j.teams[0].team : 'unknown');
-
-    // Fixture-level context. `accuracy_band` is bucketed rather than exact so
-    // it stays a usable filter: "show me sessions from a week the model had a
-    // bad run" is answerable, where a raw 0.6 would not group.
-    const ms = j.matches || [];
-    const settled = ms.filter(m => m.res_h !== undefined);
-    const right = settled.filter(m => m.ok_outcome).length;
-    const band = settled.length
-      ? (Math.floor((right / settled.length) * 10) * 10) + '-'
-        + (Math.floor((right / settled.length) * 10) * 10 + 10) + '%'
-      : 'none';
-    const gwCount = new Set(ms.map(m => m.gw)).size;
-    tag('fixtures_available', ms.length ? 'yes' : 'no');
-    tag('accuracy_band', band);
-    tag('gameweeks_stored', gwCount);
-
     track('forecast_loaded', {
       gameweek: j.gameweek,
       matches_played: j.matches_played,
       refresh_only: !!j.refresh_only,
       has_validation: !!(j.validation && j.validation.n),
-      leader: (j.teams && j.teams[0]) ? j.teams[0].team : null,
-      n_matches: ms.length,
-      n_settled: settled.length,
-      results_right: right,
-      accuracy_band: band,
-      gameweeks_stored: gwCount
+      leader: (j.teams && j.teams[0]) ? j.teams[0].team : null
     });
     render();
   })
