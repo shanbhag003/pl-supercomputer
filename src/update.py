@@ -28,28 +28,42 @@ FD_CODE = '2627'
 CFG = dict(xi=0.0045, w_xg=0.7, ridge=2.0)
 BASE_DRIFT, B, N = 0.16, 80, 20000
 SQUAD_W = 0.5          # backtested on 7 seasons; see VALIDATION.md
-CLOSE_CALL = 0.04      # two leading outcomes this close => call it level
+CLOSE_CALL = 0.04      # top two outcomes this close => flag it as a tight call
 
 
 def call_outcome(pH, pD, pA):
     """Index of the outcome to publish: 0 home, 1 draw, 2 away.
 
-    Plain argmax over the three outcomes can essentially never return a draw,
-    because in a Dixon-Coles grid the draw is almost never the single largest
-    of the three. That capped the hit rate near 76% and, worse, made the model
-    "call" 36/28/36 fixtures for the home side purely on tie-break order.
+    This is plain argmax, and it has to be. An earlier version published a draw
+    whenever the top two outcomes were within CLOSE_CALL of each other, on the
+    reasoning that a coin-flip should not be "called" for either side. Two
+    measurements killed it:
 
-    So when the two leading outcomes are within CLOSE_CALL of each other, the
-    model cannot separate them and we publish a draw instead of pretending.
-    At 4 percentage points this produces draws for about 20% of fixtures,
-    against a real Premier League draw rate near 24%.
+      * On 6,090 matches it cost 0.71pp of hit rate at every threshold tested,
+        monotonically worse as the threshold widened. Obvious in hindsight:
+        argmax maximises expected accuracy by construction, so any override of
+        it must on average do worse.
+      * Worse, in 422 of the 423 matches it changed, the draw it published was
+        the outcome the model rated *least* likely of the three. In a
+        Dixon-Coles grid the draw peaks near 28%, so when home and away are
+        level the draw is usually third, not second. The rule was advertising
+        the model's least favoured result as its prediction.
 
-    Every consumer of a prediction must use this one function, or the tick on
-    the fixtures page will disagree with the hit rate in the accuracy panel.
+    Closeness is still worth surfacing - it is just a display fact, not a
+    prediction. See is_close_call().
     """
     p = [float(pH), float(pD), float(pA)]
-    order = sorted(range(3), key=lambda i: -p[i])
-    return 1 if p[order[0]] - p[order[1]] < CLOSE_CALL else order[0]
+    return int(max(range(3), key=lambda i: p[i]))
+
+
+def is_close_call(pH, pD, pA):
+    """True when the two leading outcomes are within CLOSE_CALL of each other.
+
+    Used only to label a fixture as tight on the site. It never changes which
+    outcome is predicted or scored, so it cannot cost accuracy.
+    """
+    p = sorted([float(pH), float(pD), float(pA)], reverse=True)
+    return bool(p[0] - p[1] < CLOSE_CALL)
 MGR_W = 0.25           # half the tested optimum; within-PL moves only
 UA = {'User-Agent': 'Mozilla/5.0', 'X-Requested-With': 'XMLHttpRequest'}
 
@@ -278,12 +292,13 @@ def validate(played, teams):
     co = np.cumsum(np.eye(3)[res], 1)
     rps = ((cp - co) ** 2).sum(1) / 2
     ll = -np.log(np.clip(P[np.arange(len(P)), res], 1e-9, 1))
-    # Same close-call rule as the fixtures page, or the tick beside a match
-    # would contradict the hit rate reported here.
+    # Plain argmax, matching what the fixtures page displays. Overriding it for
+    # near-ties was measured at -0.71pp on 6,090 matches; see VALIDATION.md.
+    call = P.argmax(1)
     srt = np.sort(P, 1)
-    call = np.where(srt[:, 2] - srt[:, 1] < CLOSE_CALL, 1, P.argmax(1))
     out = dict(n=int(len(m)), rps=float(rps.mean()), logloss=float(ll.mean()),
-               hit=float((call == res).mean()))
+               hit=float((call == res).mean()),
+               n_close=int((srt[:, 2] - srt[:, 1] < CLOSE_CALL).sum()))
     # Exact-scoreline accuracy, once predictions carry a scoreline. Expect
     # roughly one in nine: the most likely single result in a football match
     # is usually 1-1 or 1-0 and rarely carries more than ~12% probability.
@@ -591,7 +606,8 @@ def main():
                            else kos.get((r.home, r.away))),
                        pH=round(probs[0], 4), pD=round(probs[1], 4),
                        pA=round(probs[2], 4), outcome=oc,
-                       conf=round(max(probs), 4))
+                       conf=round(max(probs), 4),
+                       close=is_close_call(*probs))
             if pd.notna(r.get('sc_h')) and pd.notna(r.get('sc_a')):
                 row.update(sc_h=int(r.sc_h), sc_a=int(r.sc_a),
                            p_score=round(float(r.p_score), 4))
