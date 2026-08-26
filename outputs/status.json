@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-25T17:22:38",
+  "updated": "2026-08-26T03:52:59",
   "gameweek": 1,
   "matches_played": 10,
   "drift": 0.147,
@@ -41,43 +41,44 @@
     "rps": 0.22145712273657034,
     "logloss": 0.9458376449624547,
     "hit": 0.6,
+    "n_close": 2,
     "drawn": 1,
-    "picked_draw": 2
+    "picked_draw": 0
   },
   "biggest_moves": [
     {
       "team": "Hull",
-      "d_xPts": 7.67,
-      "d_title": 0.49,
-      "d_releg": -23.42,
+      "d_xPts": 7.65,
+      "d_title": 0.5,
+      "d_releg": -23.31,
       "reason": "beat Manchester United 2-0 at home, and rode their luck"
     },
     {
       "team": "Brighton",
       "d_xPts": 4.45,
-      "d_title": 3.17,
+      "d_title": 3.16,
       "d_releg": -1.61,
       "reason": "beat Aston Villa 4-0 at home"
     },
     {
       "team": "Aston Villa",
-      "d_xPts": -4.23,
-      "d_title": -1.88,
-      "d_releg": 6.17,
+      "d_xPts": -4.22,
+      "d_title": -1.87,
+      "d_releg": 6.11,
       "reason": "lost 0-4 away at Brighton"
     },
     {
       "team": "Tottenham",
-      "d_xPts": -3.69,
-      "d_title": -0.69,
-      "d_releg": 7.86,
+      "d_xPts": -3.68,
+      "d_title": -0.7,
+      "d_releg": 7.84,
       "reason": "lost 0-3 away at Brentford"
     },
     {
       "team": "Ipswich",
-      "d_xPts": 3.56,
+      "d_xPts": 3.57,
       "d_title": 0.02,
-      "d_releg": -10.18,
+      "d_releg": -10.12,
       "reason": "beat Sunderland 2-1 at home"
     }
   ]
