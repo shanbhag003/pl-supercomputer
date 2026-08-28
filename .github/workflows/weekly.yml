@@ -2,12 +2,32 @@ name: PL Supercomputer
 
 on:
   schedule:
-    # publish: poll every 2h, gate lets it through 5h after a gameweek settles
+    # ── publish ───────────────────────────────────────────────────────────
+    # Poll every 2h. The gate lets it through 3h after a gameweek settles,
+    # and exits in ~2s otherwise. This is the ONLY schedule that publishes.
     - cron: '17 */2 * * *'
-    # refresh: Friday 17:00 UTC, after the week's team news has landed
-    - cron: '0 17 * * 5'
-    # refresh: Tuesday 17:00 UTC, for the five midweek rounds
-    - cron: '0 17 * * 2'
+
+    # ── refresh ───────────────────────────────────────────────────────────
+    # Every schedule below rebuilds the site with current squad data and
+    # sends no email. See REFRESH_ONLY under "Run model" - the logic is
+    # "any schedule that is not the 2-hourly poll", so new refresh crons can
+    # be added here without touching it.
+
+    # Daily, 06:00 UTC. Team news, injuries, suspensions and transfers land
+    # continuously, and a fixture's prediction freezes the moment it kicks
+    # off - so a weekly refresh could leave a Friday-night kickoff frozen on
+    # Wednesday's squad data. Daily keeps the worst case at ~24h.
+    - cron: '0 6 * * *'
+
+    # Friday 09:00 UTC, a second pass before Friday-evening kickoffs (which
+    # are typically 19:00 UTC). Not 17:00: GitHub delays scheduled runs by
+    # 20-30 minutes fairly often, and a two-hour margin can vanish. Friday
+    # morning team news is settled enough, and this buys ten hours instead.
+    - cron: '0 9 * * 5'
+
+    # Tuesday 09:00 UTC, the same for the five midweek rounds.
+    - cron: '0 9 * * 2'
+
   workflow_dispatch:
     inputs:
       force:
@@ -46,8 +66,14 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           MAIL_TO: ${{ secrets.MAIL_TO }}
           FORCE_RUN: ${{ inputs.force }}
-          # the two 17:00 crons are team-news refreshes; the 2-hourly one is not
-          REFRESH_ONLY: ${{ github.event.schedule == '0 17 * * 5' || github.event.schedule == '0 17 * * 2' || inputs.refresh }}
+          # Stated as "a scheduled run that is NOT the 2-hourly poll", rather
+          # than by listing the refresh crons. Listing them meant every new
+          # refresh schedule had to be added here too, and forgetting would
+          # silently turn it into a publish run that exits at the gate without
+          # rebuilding anything. The event_name guard matters: on a manual
+          # dispatch github.event.schedule is empty, so without it every
+          # dispatch would be treated as a refresh and ignore the toggle.
+          REFRESH_ONLY: ${{ (github.event_name == 'schedule' && github.event.schedule != '17 */2 * * *') || inputs.refresh }}
         run: python src/update.py
 
       - name: Commit results
