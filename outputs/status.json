@@ -1,8 +1,8 @@
 {
-  "updated": "2026-08-28T20:28:04",
+  "updated": "2026-08-29T12:02:15",
   "gameweek": 1,
-  "matches_played": 10,
-  "drift": 0.147,
+  "matches_played": 11,
+  "drift": 0.145,
   "n_sims": 20000,
   "gate": "GW1 already published",
   "xg_source": "understat",
@@ -15,16 +15,16 @@
     "Nottingham Forest: V\u00edtor Pereira -> Oliver Glasner (+0.05)"
   ],
   "squad_delta": {
-    "Liverpool": -0.141,
-    "Manchester City": -0.138,
+    "Manchester City": -0.14,
+    "Liverpool": -0.124,
     "Newcastle United": -0.104,
-    "Arsenal": -0.099,
+    "Arsenal": -0.098,
     "Brentford": -0.093,
     "Manchester United": -0.085,
     "Leeds": -0.067,
     "Everton": -0.061,
-    "Aston Villa": -0.05,
-    "Crystal Palace": -0.026,
+    "Aston Villa": -0.041,
+    "Crystal Palace": -0.027,
     "Brighton": -0.021,
     "Nottingham Forest": -0.013,
     "Bournemouth": -0.005,
@@ -32,54 +32,56 @@
     "Hull": 0.0,
     "Ipswich": 0.0,
     "Sunderland": 0.0,
-    "Chelsea": 0.013,
+    "Chelsea": 0.014,
     "Tottenham": 0.024,
     "Fulham": 0.03
   },
   "validation": {
-    "n": 10,
-    "rps": 0.22145712273657034,
-    "logloss": 0.9458376449624547,
-    "hit": 0.6,
+    "n": 11,
+    "rps": 0.2183998384514242,
+    "logloss": 0.9306144892184026,
+    "hit": 0.6363636363636364,
     "n_close": 2,
+    "hit_score": 0.0,
+    "n_score": 1,
     "drawn": 1,
     "picked_draw": 0
   },
   "biggest_moves": [
     {
       "team": "Hull",
-      "d_xPts": 7.61,
-      "d_title": 0.51,
-      "d_releg": -23.15,
+      "d_xPts": 7.73,
+      "d_title": 0.45,
+      "d_releg": -24.23,
       "reason": "beat Manchester United 2-0 at home, and rode their luck"
     },
     {
       "team": "Brighton",
-      "d_xPts": 4.21,
-      "d_title": 3.12,
-      "d_releg": -1.51,
+      "d_xPts": 4.07,
+      "d_title": 2.41,
+      "d_releg": -1.52,
       "reason": "beat Aston Villa 4-0 at home"
     },
     {
       "team": "Aston Villa",
-      "d_xPts": -4.13,
-      "d_title": -1.86,
-      "d_releg": 5.93,
+      "d_xPts": -4.02,
+      "d_title": -2.02,
+      "d_releg": 5.61,
       "reason": "lost 0-4 away at Brighton"
     },
     {
-      "team": "Tottenham",
-      "d_xPts": -3.68,
-      "d_title": -0.69,
-      "d_releg": 7.9,
-      "reason": "lost 0-3 away at Brentford"
+      "team": "Manchester City",
+      "d_xPts": 3.85,
+      "d_title": 11.39,
+      "d_releg": -0.51,
+      "reason": "beat Crystal Palace 4-1 away, and rode their luck"
     },
     {
-      "team": "Ipswich",
-      "d_xPts": 3.56,
-      "d_title": 0.02,
-      "d_releg": -10.25,
-      "reason": "beat Sunderland 2-1 at home"
+      "team": "Crystal Palace",
+      "d_xPts": -3.83,
+      "d_title": -0.92,
+      "d_releg": 7.6,
+      "reason": "lost 1-4 at home to Manchester City, but played far better than the score"
     }
   ]
 }
