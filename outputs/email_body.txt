@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 2  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Arsenal are favourites for the title, with a 36.6% chance.
+Arsenal are favourites for the title, with a 36.5% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,33 +9,33 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Arsenal                   74    36.6%    83.1%
-2  Manchester City           73    34.6%    81.2%
+1  Arsenal                   74    36.5%    83.0%
+2  Manchester City           73    34.7%    81.2%
 3  Chelsea                   61     7.0%    36.2%
-4  Liverpool                 60     5.4%    35.1%
-5  Manchester United         58     3.7%    29.4%
-6  Brighton                  57     2.2%    22.0%
+4  Liverpool                 61     5.4%    35.5%
+5  Manchester United         58     3.7%    29.6%
+6  Brighton                  57     2.2%    21.9%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
    Coventry                64.7%
-   Ipswich                 64.6%
-   Fulham                  25.5%
+   Ipswich                 64.3%
+   Fulham                  25.1%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
   Chelsea: 3.5 expected points up, title chance +1.8 points, relegation risk -2.2 points
       beat Brighton 4-3 at home, and deserved more
-  Brighton: 2.9 expected points down, title chance -2.5 points, relegation risk +0.9 points
+  Crystal Palace: 2.8 expected points down, title chance -0.4 points, relegation risk +5.8 points
+      lost 1-4 at home to Manchester City, but played far
+      better than the score
+  Brighton: 2.8 expected points down, title chance -2.5 points, relegation risk +0.9 points
       lost 3-4 away at Chelsea, though it could have been
       worse
   Manchester City: 2.7 expected points up, title chance +6.1 points, relegation risk -0.2 points
       beat Crystal Palace 4-1 away, and rode their luck
-  Crystal Palace: 2.4 expected points down, title chance -0.3 points, relegation risk +4.9 points
-      lost 1-4 at home to Manchester City, but played far
-      better than the score
-  Sunderland: 2.0 expected points up, relegation risk -7.6 points
-      beat Fulham 1-0 at home
+  Aston Villa: 2.4 expected points down, title chance -0.9 points, relegation risk +3.6 points
+      lost 0-1 at home to Arsenal
 
   Numbers move for three reasons: results, how well teams
   actually played underneath those results, and any change
