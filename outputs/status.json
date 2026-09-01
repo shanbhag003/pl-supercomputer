@@ -1,10 +1,10 @@
 {
-  "updated": "2026-09-01T05:10:35",
+  "updated": "2026-09-01T10:52:02",
   "gameweek": 2,
   "matches_played": 20,
   "drift": 0.133,
   "n_sims": 20000,
-  "gate": "GW2 settled at 2026-09-01 00:00 UTC, 5.2h ago",
+  "gate": "GW2 already published",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.5, 20 clubs, 0 unmatched with PL minutes, 4430 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
