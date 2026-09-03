@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-02T10:16:57",
+  "updated": "2026-09-03T10:27:40",
   "gameweek": 2,
   "matches_played": 20,
   "drift": 0.133,
@@ -15,26 +15,26 @@
     "Nottingham Forest: V\u00edtor Pereira -> Oliver Glasner (+0.05)"
   ],
   "squad_delta": {
-    "Manchester City": -0.141,
+    "Manchester City": -0.185,
     "Liverpool": -0.12,
-    "Newcastle United": -0.104,
-    "Arsenal": -0.098,
-    "Aston Villa": -0.094,
+    "Aston Villa": -0.099,
+    "Arsenal": -0.097,
     "Brentford": -0.093,
+    "Newcastle United": -0.093,
     "Manchester United": -0.084,
-    "Leeds": -0.072,
-    "Everton": -0.063,
-    "Crystal Palace": -0.056,
-    "Brighton": -0.022,
+    "Leeds": -0.066,
+    "Chelsea": -0.038,
+    "Everton": -0.032,
+    "Brighton": -0.019,
+    "Crystal Palace": -0.018,
     "Bournemouth": -0.005,
     "Coventry": 0.0,
     "Hull": 0.0,
     "Ipswich": 0.0,
-    "Sunderland": 0.0,
-    "Chelsea": 0.015,
-    "Nottingham Forest": 0.019,
-    "Tottenham": 0.027,
-    "Fulham": 0.031
+    "Sunderland": 0.01,
+    "Nottingham Forest": 0.03,
+    "Fulham": 0.032,
+    "Tottenham": 0.043
   },
   "validation": {
     "n": 20,
@@ -49,39 +49,39 @@
   },
   "biggest_moves": [
     {
-      "team": "Chelsea",
-      "d_xPts": 3.51,
-      "d_title": 1.78,
-      "d_releg": -2.21,
-      "reason": "beat Brighton 4-3 at home, and deserved more"
-    },
-    {
-      "team": "Crystal Palace",
-      "d_xPts": -2.84,
-      "d_title": -0.37,
-      "d_releg": 5.75,
-      "reason": "lost 1-4 at home to Manchester City, but played far better than the score"
-    },
-    {
       "team": "Brighton",
       "d_xPts": -2.84,
-      "d_title": -2.52,
-      "d_releg": 0.95,
+      "d_title": -2.39,
+      "d_releg": 0.99,
       "reason": "lost 3-4 away at Chelsea, though it could have been worse"
     },
     {
-      "team": "Manchester City",
-      "d_xPts": 2.68,
-      "d_title": 6.11,
-      "d_releg": -0.25,
-      "reason": "beat Crystal Palace 4-1 away, and rode their luck"
+      "team": "Chelsea",
+      "d_xPts": 2.54,
+      "d_title": 1.06,
+      "d_releg": -1.8,
+      "reason": "beat Brighton 4-3 at home, and deserved more"
     },
     {
       "team": "Aston Villa",
-      "d_xPts": -2.35,
-      "d_title": -0.92,
-      "d_releg": 3.56,
+      "d_xPts": -2.46,
+      "d_title": -0.87,
+      "d_releg": 3.93,
       "reason": "lost 0-1 at home to Arsenal"
+    },
+    {
+      "team": "Nottingham Forest",
+      "d_xPts": 2.33,
+      "d_title": 0.06,
+      "d_releg": -5.04,
+      "reason": "drew 2-2 away at Liverpool"
+    },
+    {
+      "team": "Sunderland",
+      "d_xPts": 2.23,
+      "d_title": 0.0,
+      "d_releg": -8.04,
+      "reason": "beat Fulham 1-0 at home"
     }
   ]
 }
