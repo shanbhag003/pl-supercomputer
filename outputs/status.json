@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-04T10:14:57",
+  "updated": "2026-09-04T12:59:30",
   "gameweek": 2,
   "matches_played": 20,
   "drift": 0.133,
@@ -17,10 +17,10 @@
   "squad_delta": {
     "Manchester City": -0.183,
     "Liverpool": -0.121,
-    "Aston Villa": -0.099,
-    "Arsenal": -0.097,
+    "Arsenal": -0.116,
+    "Aston Villa": -0.094,
     "Brentford": -0.093,
-    "Newcastle United": -0.093,
+    "Newcastle United": -0.092,
     "Manchester United": -0.084,
     "Leeds": -0.064,
     "Chelsea": -0.038,
@@ -31,10 +31,10 @@
     "Coventry": 0.0,
     "Hull": 0.0,
     "Ipswich": 0.0,
-    "Sunderland": 0.01,
+    "Sunderland": 0.014,
+    "Tottenham": 0.016,
     "Nottingham Forest": 0.028,
-    "Fulham": 0.032,
-    "Tottenham": 0.043
+    "Fulham": 0.032
   },
   "validation": {
     "n": 20,
@@ -50,37 +50,37 @@
   "biggest_moves": [
     {
       "team": "Brighton",
-      "d_xPts": -2.86,
-      "d_title": -2.41,
-      "d_releg": 0.98,
+      "d_xPts": -2.82,
+      "d_title": -2.35,
+      "d_releg": 1.0,
       "reason": "lost 3-4 away at Chelsea, though it could have been worse"
     },
     {
       "team": "Chelsea",
-      "d_xPts": 2.55,
-      "d_title": 1.03,
-      "d_releg": -1.81,
+      "d_xPts": 2.58,
+      "d_title": 1.15,
+      "d_releg": -1.87,
       "reason": "beat Brighton 4-3 at home, and deserved more"
     },
     {
       "team": "Aston Villa",
-      "d_xPts": -2.46,
-      "d_title": -0.86,
-      "d_releg": 3.86,
+      "d_xPts": -2.34,
+      "d_title": -0.87,
+      "d_releg": 3.63,
       "reason": "lost 0-1 at home to Arsenal"
     },
     {
       "team": "Nottingham Forest",
-      "d_xPts": 2.3,
-      "d_title": 0.08,
-      "d_releg": -5.0,
+      "d_xPts": 2.33,
+      "d_title": 0.09,
+      "d_releg": -4.98,
       "reason": "drew 2-2 away at Liverpool"
     },
     {
       "team": "Sunderland",
-      "d_xPts": 2.24,
-      "d_title": 0.0,
-      "d_releg": -8.09,
+      "d_xPts": 2.32,
+      "d_title": 0.02,
+      "d_releg": -8.29,
       "reason": "beat Fulham 1-0 at home"
     }
   ]
