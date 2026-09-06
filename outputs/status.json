@@ -1,10 +1,10 @@
 {
-  "updated": "2026-09-06T09:59:09",
-  "gameweek": 2,
-  "matches_played": 28,
-  "drift": 0.123,
+  "updated": "2026-09-06T22:08:31",
+  "gameweek": 3,
+  "matches_played": 30,
+  "drift": 0.12,
   "n_sims": 20000,
-  "gate": "GW2 already published",
+  "gate": "GW3 settled at 2026-09-06 20:30 UTC, 1.6h ago",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.5, 20 clubs, 0 unmatched with PL minutes, 4430 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
@@ -17,14 +17,14 @@
   "squad_delta": {
     "Manchester City": -0.185,
     "Liverpool": -0.121,
-    "Arsenal": -0.116,
+    "Arsenal": -0.117,
     "Brentford": -0.098,
     "Aston Villa": -0.094,
     "Newcastle United": -0.094,
     "Manchester United": -0.084,
     "Leeds": -0.064,
     "Chelsea": -0.038,
-    "Everton": -0.032,
+    "Everton": -0.031,
     "Brighton": -0.02,
     "Crystal Palace": -0.018,
     "Bournemouth": -0.005,
@@ -37,51 +37,51 @@
     "Fulham": 0.032
   },
   "validation": {
-    "n": 28,
-    "rps": 0.18926892819704078,
-    "logloss": 1.0061742792094694,
-    "hit": 0.4642857142857143,
-    "n_close": 5,
-    "hit_score": 0.05555555555555555,
-    "n_score": 18,
-    "drawn": 9,
+    "n": 30,
+    "rps": 0.18471753180462666,
+    "logloss": 1.001636155053861,
+    "hit": 0.4666666666666667,
+    "n_close": 6,
+    "hit_score": 0.1,
+    "n_score": 20,
+    "drawn": 10,
     "picked_draw": 0
   },
   "biggest_moves": [
     {
-      "team": "Brighton",
-      "d_xPts": -3.97,
-      "d_title": -3.01,
-      "d_releg": 1.27,
-      "reason": "drew 1-1 at home to Leeds"
+      "team": "Coventry",
+      "d_xPts": 2.76,
+      "d_title": 0.01,
+      "d_releg": -10.05,
+      "reason": "lost 0-1 away at Manchester City"
     },
     {
-      "team": "Ipswich",
-      "d_xPts": -3.03,
-      "d_title": -0.02,
-      "d_releg": 14.22,
-      "reason": "lost 0-2 at home to Liverpool, but played far better than the score"
+      "team": "Chelsea",
+      "d_xPts": -2.07,
+      "d_title": -2.64,
+      "d_releg": 0.63,
+      "reason": "lost 1-2 away at Arsenal, though it could have been worse"
     },
     {
-      "team": "Aston Villa",
-      "d_xPts": -2.86,
-      "d_title": -1.05,
-      "d_releg": 3.54,
-      "reason": "drew 0-0 away at Hull"
+      "team": "Crystal Palace",
+      "d_xPts": 1.87,
+      "d_title": 0.05,
+      "d_releg": -5.64,
+      "reason": "beat Fulham 3-2 away, and rode their luck"
+    },
+    {
+      "team": "Hull",
+      "d_xPts": -1.54,
+      "d_title": -0.12,
+      "d_releg": 4.42,
+      "reason": "drew 0-0 at home to Aston Villa"
     },
     {
       "team": "Fulham",
-      "d_xPts": -2.82,
-      "d_title": -0.08,
-      "d_releg": 9.25,
+      "d_xPts": -1.53,
+      "d_title": 0.01,
+      "d_releg": 5.71,
       "reason": "lost 2-3 at home to Crystal Palace, but played far better than the score"
-    },
-    {
-      "team": "Sunderland",
-      "d_xPts": 2.59,
-      "d_title": 0.04,
-      "d_releg": -9.68,
-      "reason": "drew 1-1 away at Brentford"
     }
   ]
 }
