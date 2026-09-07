@@ -669,12 +669,18 @@ def main():
 
     # ---- next three fixtures per club, with our own win probability ----
     nextfx = {t: [] for t in teams}
+    # One canonical ordering of what is still to play, shared by both tabs.
+    # `remaining` is derived from actual results, so it is the authority on
+    # which fixtures are upcoming. Sorted by round then kickoff: sorting on
+    # the raw Date string would order 06/09 before 30/08.
+    upcoming = (remaining.assign(
+        _ko=pd.to_datetime(remaining['Date'], dayfirst=True))
+        .sort_values(['Round Number', '_ko'])) if len(remaining) \
+        else remaining.assign(_ko=None)
     try:
         from ratings import score_matrix as _sm
         sub = mods[:24]
-        for _, r in remaining.sort_values(
-                pd.to_datetime(remaining['Date'], dayfirst=True).name
-                if False else 'Round Number').iterrows():
+        for _, r in upcoming.iterrows():
             for side, team, opp in [('H', r.home, r.away), ('A', r.away, r.home)]:
                 if len(nextfx[team]) >= 3:
                     continue
@@ -701,14 +707,38 @@ def main():
         fl = requests.get('https://fantasy.premierleague.com/api/fixtures/',
                           headers={'User-Agent': 'Mozilla/5.0'}, timeout=40).json()
         fid = {t['id']: _sl.FPL2US.get(t['name'], t['name']) for t in b['teams']}
-        for f in sorted([x for x in fl if not x['finished'] and x['event']],
-                        key=lambda x: (x['event'], x['id'])):
+
+        # Difficulty comes from FPL. WHICH fixtures are next does not.
+        #
+        # This used to filter FPL's own list on `not x['finished']`, and that
+        # flag stays false until FPL has confirmed bonus points - which can be
+        # many hours after a match ends, and sometimes not until the whole
+        # round is processed. So the Actual tab kept offering played matches as
+        # upcoming: after GW3, Arsenal's next fixture was still shown as
+        # Chelsea at home, a game finished the previous afternoon. Meanwhile
+        # the Predicted tab, which reads `remaining`, had it right. The two
+        # tabs disagreeing about what is next is indefensible, so both now
+        # walk the same list.
+        diff = {}
+        for f in fl:
             h_, a_ = fid.get(f['team_h']), fid.get(f['team_a'])
-            for me, opp, side, dif in [(h_, a_, 'H', f['team_h_difficulty']),
-                                       (a_, h_, 'A', f['team_a_difficulty'])]:
-                if me in fdr and opp and len(fdr[me]) < 3:
-                    fdr[me].append(dict(opp=opp, side=side, fdr=int(dif)))
-        log(f'  FPL difficulty ratings loaded for {sum(1 for v in fdr.values() if v)} clubs')
+            if h_ and a_:
+                diff[(h_, a_)] = (int(f['team_h_difficulty']),
+                                  int(f['team_a_difficulty']))
+        missing = 0
+        for _, r in upcoming.iterrows():
+            if (r.home, r.away) in diff:
+                hd, ad = diff[(r.home, r.away)]
+            else:
+                hd = ad = 3          # neutral, so a name mismatch cannot lie
+                missing += 1
+            for me, opp, side, dif in ((r.home, r.away, 'H', hd),
+                                       (r.away, r.home, 'A', ad)):
+                if me in fdr and len(fdr[me]) < 3:
+                    fdr[me].append(dict(opp=opp, side=side, fdr=dif))
+        log(f'  FPL difficulty ratings loaded for '
+            f'{sum(1 for v in fdr.values() if v)} clubs'
+            + (f', {missing} fixtures unmatched' if missing else ''))
     except Exception as e:
         log(f'  FPL fixture difficulty unavailable: {type(e).__name__}: {e}')
 
