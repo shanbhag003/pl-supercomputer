@@ -1,10 +1,10 @@
 {
-  "updated": "2026-09-06T22:08:31",
+  "updated": "2026-09-07T05:25:55",
   "gameweek": 3,
   "matches_played": 30,
   "drift": 0.12,
   "n_sims": 20000,
-  "gate": "GW3 settled at 2026-09-06 20:30 UTC, 1.6h ago",
+  "gate": "GW3 already published",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.5, 20 clubs, 0 unmatched with PL minutes, 4430 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
@@ -50,38 +50,38 @@
   "biggest_moves": [
     {
       "team": "Coventry",
-      "d_xPts": 2.76,
+      "d_xPts": 2.9,
       "d_title": 0.01,
-      "d_releg": -10.05,
+      "d_releg": -10.64,
       "reason": "lost 0-1 away at Manchester City"
     },
     {
       "team": "Chelsea",
-      "d_xPts": -2.07,
-      "d_title": -2.64,
-      "d_releg": 0.63,
+      "d_xPts": -2.84,
+      "d_title": -3.17,
+      "d_releg": 1.01,
       "reason": "lost 1-2 away at Arsenal, though it could have been worse"
     },
     {
       "team": "Crystal Palace",
-      "d_xPts": 1.87,
-      "d_title": 0.05,
-      "d_releg": -5.64,
+      "d_xPts": 1.93,
+      "d_title": 0.03,
+      "d_releg": -5.62,
       "reason": "beat Fulham 3-2 away, and rode their luck"
     },
     {
-      "team": "Hull",
-      "d_xPts": -1.54,
-      "d_title": -0.12,
-      "d_releg": 4.42,
-      "reason": "drew 0-0 at home to Aston Villa"
+      "team": "Fulham",
+      "d_xPts": -1.59,
+      "d_title": 0.01,
+      "d_releg": 6.05,
+      "reason": "lost 2-3 at home to Crystal Palace, but played far better than the score"
     },
     {
-      "team": "Fulham",
-      "d_xPts": -1.53,
-      "d_title": 0.01,
-      "d_releg": 5.71,
-      "reason": "lost 2-3 at home to Crystal Palace, but played far better than the score"
+      "team": "Hull",
+      "d_xPts": -1.57,
+      "d_title": -0.15,
+      "d_releg": 4.38,
+      "reason": "drew 0-0 at home to Aston Villa"
     }
   ]
 }
