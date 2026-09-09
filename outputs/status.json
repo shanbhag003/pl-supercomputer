@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-08T13:24:32",
+  "updated": "2026-09-09T10:29:35",
   "gameweek": 3,
   "matches_played": 30,
   "drift": 0.12,
@@ -19,7 +19,7 @@
     "Liverpool": -0.121,
     "Arsenal": -0.117,
     "Brentford": -0.098,
-    "Aston Villa": -0.094,
+    "Aston Villa": -0.095,
     "Newcastle United": -0.094,
     "Manchester United": -0.084,
     "Leeds": -0.064,
@@ -50,38 +50,38 @@
   "biggest_moves": [
     {
       "team": "Coventry",
-      "d_xPts": 2.88,
+      "d_xPts": 2.87,
       "d_title": 0.01,
-      "d_releg": -10.48,
+      "d_releg": -10.41,
       "reason": "lost 0-1 away at Manchester City"
     },
     {
       "team": "Chelsea",
       "d_xPts": -2.84,
       "d_title": -3.16,
-      "d_releg": 1.01,
+      "d_releg": 0.98,
       "reason": "lost 1-2 away at Arsenal, though it could have been worse"
     },
     {
       "team": "Crystal Palace",
       "d_xPts": 1.93,
       "d_title": 0.04,
-      "d_releg": -5.64,
+      "d_releg": -5.68,
       "reason": "beat Fulham 3-2 away, and rode their luck"
-    },
-    {
-      "team": "Fulham",
-      "d_xPts": -1.58,
-      "d_title": 0.01,
-      "d_releg": 6.0,
-      "reason": "lost 2-3 at home to Crystal Palace, but played far better than the score"
     },
     {
       "team": "Hull",
       "d_xPts": -1.58,
-      "d_title": -0.15,
-      "d_releg": 4.46,
+      "d_title": -0.14,
+      "d_releg": 4.53,
       "reason": "drew 0-0 at home to Aston Villa"
+    },
+    {
+      "team": "Fulham",
+      "d_xPts": -1.57,
+      "d_title": 0.01,
+      "d_releg": 6.0,
+      "reason": "lost 2-3 at home to Crystal Palace, but played far better than the score"
     }
   ]
 }
