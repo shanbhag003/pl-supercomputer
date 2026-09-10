@@ -12,13 +12,13 @@ TOP OF THE TABLE
 1  Arsenal                   76    46.9%    89.3%
 2  Manchester City           72    31.2%    82.2%
 3  Liverpool                 61     5.5%    40.1%
-4  Chelsea                   58     3.8%    29.3%
-5  Manchester United         58     2.8%    28.5%
-6  Bournemouth               56     1.3%    21.6%
+4  Chelsea                   58     3.9%    29.3%
+5  Manchester United         58     2.8%    28.4%
+6  Bournemouth               56     1.4%    21.5%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Ipswich                 70.4%
+   Ipswich                 70.3%
    Coventry                54.3%
    Fulham                  31.5%
 
@@ -26,12 +26,12 @@ WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
   Coventry: 2.9 expected points up, relegation risk -10.4 points
       lost 0-1 away at Manchester City
-  Chelsea: 2.8 expected points down, title chance -3.2 points, relegation risk +1.0 points
+  Chelsea: 2.8 expected points down, title chance -3.1 points, relegation risk +1.0 points
       lost 1-2 away at Arsenal, though it could have been
       worse
   Crystal Palace: 1.9 expected points up, relegation risk -5.7 points
       beat Fulham 3-2 away, and rode their luck
-  Hull: 1.6 expected points down, title chance -0.1 points, relegation risk +4.5 points
+  Hull: 1.6 expected points down, title chance -0.1 points, relegation risk +4.6 points
       drew 0-0 at home to Aston Villa
   Fulham: 1.6 expected points down, relegation risk +6.0 points
       lost 2-3 at home to Crystal Palace, but played far

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-09T10:29:35",
+  "updated": "2026-09-10T10:19:43",
   "gameweek": 3,
   "matches_played": 30,
   "drift": 0.12,
@@ -26,7 +26,7 @@
     "Chelsea": -0.038,
     "Everton": -0.031,
     "Brighton": -0.02,
-    "Crystal Palace": -0.018,
+    "Crystal Palace": -0.017,
     "Bournemouth": -0.005,
     "Coventry": 0.0,
     "Hull": 0.0,
@@ -52,35 +52,35 @@
       "team": "Coventry",
       "d_xPts": 2.87,
       "d_title": 0.01,
-      "d_releg": -10.41,
+      "d_releg": -10.38,
       "reason": "lost 0-1 away at Manchester City"
     },
     {
       "team": "Chelsea",
       "d_xPts": -2.84,
-      "d_title": -3.16,
-      "d_releg": 0.98,
+      "d_title": -3.14,
+      "d_releg": 0.97,
       "reason": "lost 1-2 away at Arsenal, though it could have been worse"
     },
     {
       "team": "Crystal Palace",
-      "d_xPts": 1.93,
+      "d_xPts": 1.94,
       "d_title": 0.04,
-      "d_releg": -5.68,
+      "d_releg": -5.71,
       "reason": "beat Fulham 3-2 away, and rode their luck"
     },
     {
       "team": "Hull",
-      "d_xPts": -1.58,
+      "d_xPts": -1.59,
       "d_title": -0.14,
-      "d_releg": 4.53,
+      "d_releg": 4.56,
       "reason": "drew 0-0 at home to Aston Villa"
     },
     {
       "team": "Fulham",
       "d_xPts": -1.57,
       "d_title": 0.01,
-      "d_releg": 6.0,
+      "d_releg": 5.97,
       "reason": "lost 2-3 at home to Crystal Palace, but played far better than the score"
     }
   ]
