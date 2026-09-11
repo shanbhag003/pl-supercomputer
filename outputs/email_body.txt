@@ -12,7 +12,7 @@ TOP OF THE TABLE
 1  Arsenal                   76    46.8%    89.3%
 2  Manchester City           72    31.3%    82.2%
 3  Liverpool                 61     5.5%    40.1%
-4  Chelsea                   58     3.9%    29.3%
+4  Chelsea                   58     3.9%    29.2%
 5  Manchester United         58     2.8%    28.5%
 6  Bournemouth               56     1.4%    21.6%
 
