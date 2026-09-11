@@ -1,0 +1,53 @@
+name: Top 5 leagues - player data
+
+# Manual only. This scrapes Understat, so there is no reason to run it on a
+# schedule unless you actually want fresh numbers.
+on:
+  workflow_dispatch:
+    inputs:
+      seasons:
+        description: 'Starting years, space separated. 2025 means 2025/26'
+        type: string
+        default: '2025'
+      leagues:
+        description: 'Space separated: EPL La_liga Bundesliga Serie_A Ligue_1'
+        type: string
+        default: 'EPL La_liga Bundesliga Serie_A Ligue_1'
+      min_minutes:
+        description: 'Drop players below this many minutes (0 keeps everyone)'
+        type: string
+        default: '0'
+
+permissions:
+  contents: read
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install pandas requests xlsxwriter openpyxl
+
+      - name: Pull player data
+        run: |
+          python scripts/pull_top5_players.py \
+            --season ${{ inputs.seasons }} \
+            --leagues ${{ inputs.leagues }} \
+            --min-minutes ${{ inputs.min_minutes }} \
+            --out top5_players.xlsx
+
+      # Uploaded as an artifact rather than committed: this file is a few MB of
+      # third-party data that changes every week, and committing it would bloat
+      # the repository history for no benefit.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: top5-players
+          path: top5_players.xlsx
+          retention-days: 30
