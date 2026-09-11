@@ -32,8 +32,15 @@ LEAGUES = {
     'Ligue_1': 'Ligue 1',
 }
 
-HDR = {'User-Agent': 'Mozilla/5.0 (compatible; pl-supercomputer/1.0)'}
-BASE = 'https://understat.com/league'
+# Understat exposes a JSON endpoint. The first version of this script scraped
+# the HTML league page for a `playersData` variable instead, which failed on
+# every league: the page either no longer carries it, or is served behind a
+# challenge. getLeagueData returns the same data directly, and it is what the
+# main pipeline has been using successfully all season.
+#
+# X-Requested-With is not optional. Without it the endpoint does not answer.
+HDR = {'User-Agent': 'Mozilla/5.0', 'X-Requested-With': 'XMLHttpRequest'}
+BASE = 'https://understat.com/getLeagueData'
 
 # Numeric columns as Understat names them. Everything arrives as a string.
 NUMERIC = ['games', 'time', 'goals', 'xG', 'assists', 'xA', 'shots',
@@ -42,20 +49,21 @@ NUMERIC = ['games', 'time', 'goals', 'xG', 'assists', 'xA', 'shots',
 
 
 def scrape(league, season, session, retries=3):
-    """Return playersData for one league-season as a list of dicts."""
-    url = f'{BASE}/{league}/{season}'
+    """Return the player list for one league-season.
+
+    Falls back to scraping the HTML page if the JSON endpoint ever stops
+    answering, so a change at either end does not take the whole pull down.
+    """
     last = None
     for attempt in range(retries):
         try:
-            r = session.get(url, headers=HDR, timeout=40)
+            r = session.get(f'{BASE}/{league}/{season}', headers=HDR, timeout=40)
             r.raise_for_status()
-            m = re.search(r"var\s+playersData\s*=\s*JSON\.parse\('(.*?)'\)",
-                          r.text, re.S)
-            if not m:
-                raise ValueError('playersData not found - page layout changed, '
-                                 'or this league-season does not exist')
-            raw = m.group(1).encode('utf8').decode('unicode_escape')
-            return json.loads(raw)
+            j = r.json()
+            players = j.get('players')
+            if not players:
+                raise ValueError(f'no players in payload (keys: {list(j)})')
+            return players
         except Exception as e:                       # noqa: BLE001
             last = e
             if attempt < retries - 1:
@@ -63,6 +71,19 @@ def scrape(league, season, session, retries=3):
                 print(f'    retry {attempt + 1}/{retries - 1} in {wait}s ({e})',
                       flush=True)
                 time.sleep(wait)
+
+    # Last resort: the old HTML route.
+    try:
+        r = session.get(f'https://understat.com/league/{league}/{season}',
+                        headers=HDR, timeout=40)
+        r.raise_for_status()
+        m = re.search(r"playersData\s*=\s*JSON\.parse\('(.*?)'\)", r.text, re.S)
+        if m:
+            print('    (JSON endpoint failed, fell back to the HTML page)',
+                  flush=True)
+            return json.loads(m.group(1).encode('utf8').decode('unicode_escape'))
+    except Exception:                                # noqa: BLE001
+        pass
     raise RuntimeError(f'{league} {season}: {last}')
 
 
@@ -76,6 +97,15 @@ def tidy(rows, league, season):
     for c in [c for c in NUMERIC if c in df.columns] + ['minutes']:
         if c in df.columns:
             df[c] = pd.to_numeric(df[c], errors='coerce')
+
+    # Understat concatenates clubs for anyone who moved mid-season, so
+    # team_title arrives as "Everton,Manchester City". Left alone that invents
+    # phantom clubs: the 2026/27 Premier League came out with 23 "teams".
+    # `team` becomes the most recent club, and the full string is preserved.
+    if 'team' in df.columns:
+        df['teams_all'] = df['team']
+        df['team'] = df['team'].astype(str).str.split(',').str[-1].str.strip()
+        df['transferred'] = df['teams_all'].astype(str).str.contains(',')
 
     df.insert(0, 'league', LEAGUES.get(league, league))
     df.insert(1, 'season', f'{season}/{str(season + 1)[-2:]}')
@@ -102,7 +132,8 @@ def tidy(rows, league, season):
              'yellow_cards', 'red_cards',
              'goals_90', 'assists_90', 'xG_90', 'npxG_90', 'xA_90',
              'npxG_xA_90', 'shots_90', 'key_passes_90',
-             'xGChain_90', 'xGBuildup_90', 'goals_minus_xG', 'id']
+             'xGChain_90', 'xGBuildup_90', 'goals_minus_xG',
+             'transferred', 'teams_all', 'id']
     df = df[[c for c in order if c in df.columns]]
     return df.sort_values(['minutes', 'npxG'], ascending=False, na_position='last')
 
