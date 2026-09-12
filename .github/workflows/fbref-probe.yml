@@ -1,0 +1,30 @@
+name: FBref probe
+
+# Throwaway diagnostic. Fetches five FBref pages and reports whether they
+# answered, parsed, and contained the columns we need. Delete once it has
+# answered the question.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install pandas requests lxml
+
+      # continue-on-error so a failed probe still shows its own summary rather
+      # than just a red cross. The exit code is in the log either way.
+      - name: Probe FBref
+        continue-on-error: true
+        run: python scripts/probe_fbref.py
