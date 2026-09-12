@@ -1,4 +1,4 @@
-name: Top 5 leagues - player data
+name: Top 5 leagues - Understat data
 
 # Manual only. This scrapes Understat, so there is no reason to run it on a
 # schedule unless you actually want fresh numbers.
@@ -35,19 +35,19 @@ jobs:
 
       - run: pip install pandas requests xlsxwriter openpyxl
 
-      - name: Pull player data
+      - name: Pull Understat data
         run: |
-          python scripts/pull_top5_players.py \
+          python scripts/pull_understat_top5.py \
             --season ${{ inputs.seasons }} \
             --leagues ${{ inputs.leagues }} \
             --min-minutes ${{ inputs.min_minutes }} \
-            --out top5_players.xlsx
+            --out understat_top5.xlsx
 
       # Uploaded as an artifact rather than committed: this file is a few MB of
       # third-party data that changes every week, and committing it would bloat
       # the repository history for no benefit.
       - uses: actions/upload-artifact@v4
         with:
-          name: top5-players
-          path: top5_players.xlsx
+          name: understat-top5
+          path: understat_top5.xlsx
           retention-days: 30
