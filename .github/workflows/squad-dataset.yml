@@ -1,0 +1,60 @@
+name: Squads, birth dates and contracts
+
+# Manual only. Downloads a few hundred MB and takes several minutes, so there
+# is no reason to run it on a schedule.
+on:
+  workflow_dispatch:
+    inputs:
+      seasons:
+        description: 'Starting years, space separated. 2025 means 2025/26'
+        type: string
+        default: '2021 2022 2023 2024 2025'
+      leagues:
+        description: 'GB1=PL ES1=LaLiga IT1=SerieA L1=Bundesliga FR1=Ligue1. Add FR1 for all five.'
+        type: string
+        default: 'GB1 ES1 IT1 L1'
+      with_derived:
+        description: 'Also add age and contract-countdown columns (stale the day they are built)'
+        type: boolean
+        default: false
+      fill_dob:
+        description: 'Backfill missing dates of birth from Wikidata (slower)'
+        type: boolean
+        default: true
+      dob_limit:
+        description: 'Cap on Wikidata lookups'
+        type: string
+        default: '400'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install pandas requests xlsxwriter openpyxl
+
+      - name: Build dataset
+        run: |
+          python scripts/build_squad_dataset.py \
+            --seasons ${{ inputs.seasons }} \
+            --leagues ${{ inputs.leagues }} \
+            --dob-limit ${{ inputs.dob_limit }} \
+            ${{ inputs.fill_dob == false && '--no-fill-dob' || '' }} \
+            ${{ inputs.with_derived == true && '--with-derived' || '' }} \
+            --out squads_contracts.xlsx
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: squads-contracts
+          path: squads_contracts.xlsx
+          retention-days: 30
