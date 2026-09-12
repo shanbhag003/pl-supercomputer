@@ -9,31 +9,31 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Arsenal                   76    46.8%    89.3%
-2  Manchester City           72    31.3%    82.2%
+1  Arsenal                   76    46.8%    89.4%
+2  Manchester City           72    31.2%    82.2%
 3  Liverpool                 61     5.5%    40.1%
-4  Chelsea                   58     3.9%    29.2%
-5  Manchester United         58     2.8%    28.5%
-6  Bournemouth               56     1.4%    21.6%
+4  Chelsea                   58     3.7%    28.3%
+5  Manchester United         58     2.8%    28.6%
+6  Bournemouth               56     1.4%    21.5%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Ipswich                 70.3%
+   Ipswich                 70.2%
    Coventry                54.4%
-   Fulham                  31.4%
+   Fulham                  31.3%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
-  Coventry: 2.9 expected points up, relegation risk -10.3 points
-      lost 0-1 away at Manchester City
-  Chelsea: 2.8 expected points down, title chance -3.1 points, relegation risk +1.0 points
+  Chelsea: 3.1 expected points down, title chance -3.2 points, relegation risk +1.1 points
       lost 1-2 away at Arsenal, though it could have been
       worse
-  Crystal Palace: 1.9 expected points up, relegation risk -5.7 points
+  Coventry: 2.9 expected points up, relegation risk -10.3 points
+      lost 0-1 away at Manchester City
+  Crystal Palace: 2.0 expected points up, relegation risk -5.8 points
       beat Fulham 3-2 away, and rode their luck
   Hull: 1.6 expected points down, title chance -0.1 points, relegation risk +4.6 points
       drew 0-0 at home to Aston Villa
-  Fulham: 1.6 expected points down, relegation risk +5.9 points
+  Fulham: 1.5 expected points down, relegation risk +5.8 points
       lost 2-3 at home to Crystal Palace, but played far
       better than the score
 

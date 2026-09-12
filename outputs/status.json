@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-11T13:05:08",
+  "updated": "2026-09-12T09:51:47",
   "gameweek": 3,
   "matches_played": 30,
   "drift": 0.12,
@@ -18,14 +18,14 @@
     "Manchester City": -0.185,
     "Liverpool": -0.121,
     "Arsenal": -0.117,
-    "Brentford": -0.098,
+    "Brentford": -0.099,
     "Aston Villa": -0.095,
-    "Newcastle United": -0.094,
+    "Newcastle United": -0.089,
     "Manchester United": -0.084,
     "Leeds": -0.064,
-    "Chelsea": -0.038,
+    "Chelsea": -0.056,
     "Everton": -0.031,
-    "Brighton": -0.02,
+    "Brighton": -0.021,
     "Crystal Palace": -0.017,
     "Bournemouth": -0.005,
     "Coventry": 0.0,
@@ -34,7 +34,7 @@
     "Sunderland": 0.014,
     "Tottenham": 0.016,
     "Nottingham Forest": 0.028,
-    "Fulham": 0.032
+    "Fulham": 0.034
   },
   "validation": {
     "n": 30,
@@ -49,38 +49,38 @@
   },
   "biggest_moves": [
     {
-      "team": "Coventry",
-      "d_xPts": 2.85,
-      "d_title": 0.01,
-      "d_releg": -10.33,
-      "reason": "lost 0-1 away at Manchester City"
-    },
-    {
       "team": "Chelsea",
-      "d_xPts": -2.84,
-      "d_title": -3.11,
-      "d_releg": 0.98,
+      "d_xPts": -3.12,
+      "d_title": -3.25,
+      "d_releg": 1.12,
       "reason": "lost 1-2 away at Arsenal, though it could have been worse"
     },
     {
+      "team": "Coventry",
+      "d_xPts": 2.85,
+      "d_title": 0.01,
+      "d_releg": -10.3,
+      "reason": "lost 0-1 away at Manchester City"
+    },
+    {
       "team": "Crystal Palace",
-      "d_xPts": 1.94,
-      "d_title": 0.05,
-      "d_releg": -5.72,
+      "d_xPts": 1.96,
+      "d_title": 0.03,
+      "d_releg": -5.75,
       "reason": "beat Fulham 3-2 away, and rode their luck"
     },
     {
       "team": "Hull",
-      "d_xPts": -1.6,
-      "d_title": -0.15,
-      "d_releg": 4.6,
+      "d_xPts": -1.59,
+      "d_title": -0.14,
+      "d_releg": 4.63,
       "reason": "drew 0-0 at home to Aston Villa"
     },
     {
       "team": "Fulham",
-      "d_xPts": -1.56,
+      "d_xPts": -1.52,
       "d_title": 0.01,
-      "d_releg": 5.94,
+      "d_releg": 5.77,
       "reason": "lost 2-3 at home to Crystal Palace, but played far better than the score"
     }
   ]
