@@ -52,21 +52,77 @@ HDR = {'User-Agent': 'Mozilla/5.0 (squad-dataset-builder)'}
 
 # ── loading ──────────────────────────────────────────────────────────────────
 
+# The archive is not guaranteed to be CSV - the upstream pipeline is dbt, which
+# emits parquet - so try each format rather than assuming one.
+READERS = {
+    '.csv':        lambda f: pd.read_csv(f, low_memory=False),
+    '.csv.gz':     lambda f: pd.read_csv(f, low_memory=False, compression='gzip'),
+    '.parquet':    lambda f: pd.read_parquet(io.BytesIO(f.read())),
+    '.pq':         lambda f: pd.read_parquet(io.BytesIO(f.read())),
+    '.json':       lambda f: pd.read_json(f),
+    '.jsonl':      lambda f: pd.read_json(f, lines=True),
+}
+
+
+def list_archive(names, limit=60):
+    """Print what is actually inside, so a miss is diagnosable in one run."""
+    real = [n for n in names if not n.endswith('/') and '__MACOSX' not in n]
+    print(f'\n  archive holds {len(real)} files. Data-looking entries:')
+    data = [n for n in real
+            if any(n.lower().endswith(e) for e in READERS)]
+    shown = data or real
+    for n in sorted(shown)[:limit]:
+        print(f'      {n}')
+    if len(shown) > limit:
+        print(f'      ... and {len(shown) - limit} more')
+    if not data:
+        print('      (nothing with a recognised data extension)')
+
+
 def load_tables(zip_bytes, want):
-    """Pull the named CSVs out of the archive, wherever they sit inside it."""
+    """Pull the named tables out of the archive, whatever format they are in."""
     out = {}
     with zipfile.ZipFile(io.BytesIO(zip_bytes)) as z:
-        names = z.namelist()
+        names = [n for n in z.namelist()
+                 if not n.endswith('/') and '__MACOSX' not in n]
+        missing = []
         for key in want:
-            hits = [n for n in names
-                    if n.lower().endswith(f'{key}.csv') and '__MACOSX' not in n]
-            if not hits:
-                print(f'  ! {key}.csv not in the archive')
+            # Exact stem first, then near-misses like tm_players_v2.parquet.
+            # Scored rather than first-match, because a loose "contains" would
+            # let `games` match `club_games` and silently load the wrong table.
+            scored = []
+            for n in names:
+                low = n.lower()
+                ext = next((e for e in sorted(READERS, key=len, reverse=True)
+                            if low.endswith(e)), None)
+                if not ext:
+                    continue
+                stem = low[:-len(ext)].split('/')[-1]
+                if stem == key:
+                    rank = 0
+                elif stem.endswith(f'_{key}') or stem.startswith(f'{key}_'):
+                    rank = 1
+                elif f'_{key}_' in stem or stem.endswith(key):
+                    rank = 2
+                else:
+                    continue
+                scored.append((rank, len(n), n, ext))
+            if not scored:
+                missing.append(key)
                 continue
-            path = min(hits, key=len)
-            with z.open(path) as f:
-                out[key] = pd.read_csv(f, low_memory=False)
-            print(f'  {key:14} {len(out[key]):>9,} rows  from {path}')
+            scored.sort()
+            rank, _, path, ext = scored[0]
+            if rank:
+                print(f'  ~ {key}: no exact match, using {path}')
+            try:
+                with z.open(path) as f:
+                    out[key] = READERS[ext](f)
+                print(f'  {key:14} {len(out[key]):>9,} rows  from {path}')
+            except Exception as e:                    # noqa: BLE001
+                print(f'  ! {key}: found {path} but could not read it ({e})')
+        if missing:
+            print(f'\n  ! not found: {", ".join(missing)}')
+            list_archive(names)
     return out
 
 
@@ -222,7 +278,9 @@ def main():
     report_schema(tables)
     for need in ('players', 'appearances', 'games'):
         if need not in tables:
-            print(f'cannot continue without {need}.csv', file=sys.stderr)
+            print(f'cannot continue without a "{need}" table. See the archive '
+                  f'listing above and pass the right names, or open an issue.',
+                  file=sys.stderr)
             return 1
 
     P, AP, G = tables['players'], tables['appearances'], tables['games']
