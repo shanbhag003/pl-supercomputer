@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 3  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Arsenal are favourites for the title, with a 46.8% chance.
+Arsenal are favourites for the title, with a 52.3% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,33 +9,31 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Arsenal                   76    46.8%    89.4%
-2  Manchester City           72    31.2%    82.2%
-3  Liverpool                 61     5.5%    40.1%
-4  Chelsea                   58     3.7%    28.3%
-5  Manchester United         58     2.8%    28.6%
-6  Bournemouth               56     1.4%    21.5%
+1  Arsenal                   76    52.3%    92.2%
+2  Manchester City           72    30.3%    83.4%
+3  Liverpool                 60     3.9%    37.5%
+4  Manchester United         58     2.8%    31.4%
+5  Chelsea                   56     2.5%    23.5%
+6  Bournemouth               56     1.1%    21.7%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Ipswich                 70.2%
-   Coventry                54.4%
-   Fulham                  31.3%
+   Coventry                56.2%
+   Ipswich                 46.0%
+   Fulham                  33.6%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
-  Chelsea: 3.1 expected points down, title chance -3.2 points, relegation risk +1.1 points
-      lost 1-2 away at Arsenal, though it could have been
-      worse
-  Coventry: 2.9 expected points up, relegation risk -10.3 points
+  Chelsea: 5.2 expected points down, title chance -4.5 points, relegation risk +2.4 points
+      drew 2-2 at home to Hull
+  Ipswich: 4.9 expected points up, relegation risk -18.6 points
+      beat Crystal Palace 3-2 away
+  Aston Villa: 4.7 expected points down, title chance -0.5 points, relegation risk +11.2 points
+      lost 1-2 at home to Nottingham Forest
+  Coventry: 2.8 expected points up, relegation risk -8.5 points
       lost 0-1 away at Manchester City
-  Crystal Palace: 2.0 expected points up, relegation risk -5.8 points
-      beat Fulham 3-2 away, and rode their luck
-  Hull: 1.6 expected points down, title chance -0.1 points, relegation risk +4.6 points
-      drew 0-0 at home to Aston Villa
-  Fulham: 1.5 expected points down, relegation risk +5.8 points
-      lost 2-3 at home to Crystal Palace, but played far
-      better than the score
+  Brentford: 2.7 expected points down, title chance -2.1 points, relegation risk +1.9 points
+      drew 2-2 away at Bournemouth, and rode their luck
 
   Numbers move for three reasons: results, how well teams
   actually played underneath those results, and any change
@@ -43,9 +41,9 @@ WHAT CHANGED SINCE LAST GAMEWEEK
 
 HOW ACCURATE HAS THIS BEEN?
 ----------------------------------------------------------
-  Matches predicted so far: 30
-  Results called correctly: 47%
-  Sharpness score: 0.185 (lower is better)
+  Matches predicted so far: 37
+  Results called correctly: 41%
+  Sharpness score: 0.193 (lower is better)
 
   Nothing here is graded with hindsight.
 
