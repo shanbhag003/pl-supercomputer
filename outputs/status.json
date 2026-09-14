@@ -1,8 +1,8 @@
 {
-  "updated": "2026-09-13T10:51:31",
+  "updated": "2026-09-14T11:20:27",
   "gameweek": 3,
-  "matches_played": 37,
-  "drift": 0.111,
+  "matches_played": 39,
+  "drift": 0.108,
   "n_sims": 20000,
   "gate": "GW3 already published",
   "xg_source": "understat",
@@ -26,7 +26,7 @@
     "Chelsea": -0.056,
     "Everton": -0.031,
     "Crystal Palace": -0.027,
-    "Brighton": -0.021,
+    "Brighton": -0.022,
     "Bournemouth": -0.005,
     "Coventry": 0.0,
     "Hull": 0.0,
@@ -37,50 +37,50 @@
     "Fulham": 0.034
   },
   "validation": {
-    "n": 37,
-    "rps": 0.19345866457733388,
-    "logloss": 1.0569002462123718,
-    "hit": 0.40540540540540543,
-    "n_close": 6,
-    "hit_score": 0.07407407407407407,
-    "n_score": 27,
+    "n": 39,
+    "rps": 0.19509067054260126,
+    "logloss": 1.0483282960113987,
+    "hit": 0.4358974358974359,
+    "n_close": 7,
+    "hit_score": 0.06896551724137931,
+    "n_score": 29,
     "drawn": 14,
     "picked_draw": 0
   },
   "biggest_moves": [
     {
-      "team": "Chelsea",
-      "d_xPts": -5.2,
-      "d_title": -4.54,
-      "d_releg": 2.43,
-      "reason": "drew 2-2 at home to Hull"
-    },
-    {
       "team": "Ipswich",
-      "d_xPts": 4.88,
-      "d_title": 0.01,
-      "d_releg": -18.58,
+      "d_xPts": 5.03,
+      "d_title": 0.0,
+      "d_releg": -19.7,
       "reason": "beat Crystal Palace 3-2 away"
     },
     {
+      "team": "Chelsea",
+      "d_xPts": -4.77,
+      "d_title": -4.55,
+      "d_releg": 1.82,
+      "reason": "drew 2-2 at home to Hull"
+    },
+    {
       "team": "Aston Villa",
-      "d_xPts": -4.68,
-      "d_title": -0.46,
-      "d_releg": 11.21,
+      "d_xPts": -4.37,
+      "d_title": -0.51,
+      "d_releg": 9.04,
       "reason": "lost 1-2 at home to Nottingham Forest"
     },
     {
       "team": "Coventry",
-      "d_xPts": 2.78,
-      "d_title": 0.01,
-      "d_releg": -8.5,
-      "reason": "lost 0-1 away at Manchester City"
+      "d_xPts": -2.64,
+      "d_title": 0.0,
+      "d_releg": 11.2,
+      "reason": "lost 0-5 at home to Brighton, but played far better than the score"
     },
     {
       "team": "Brentford",
-      "d_xPts": -2.73,
-      "d_title": -2.07,
-      "d_releg": 1.88,
+      "d_xPts": -2.44,
+      "d_title": -2.15,
+      "d_releg": 1.1,
       "reason": "drew 2-2 away at Bournemouth, and rode their luck"
     }
   ]
