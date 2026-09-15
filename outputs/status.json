@@ -1,10 +1,10 @@
 {
-  "updated": "2026-09-15T04:56:32",
+  "updated": "2026-09-15T10:45:03",
   "gameweek": 4,
   "matches_played": 40,
   "drift": 0.107,
   "n_sims": 20000,
-  "gate": "GW4 settled at 2026-09-15 00:00 UTC, 4.9h ago",
+  "gate": "GW4 already published",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.5, 20 clubs, 0 unmatched with PL minutes, 4430 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
@@ -52,7 +52,7 @@
       "team": "Ipswich",
       "d_xPts": 6.03,
       "d_title": 0.01,
-      "d_releg": -25.61,
+      "d_releg": -25.6,
       "reason": "beat Crystal Palace 3-2 away"
     },
     {
@@ -66,7 +66,7 @@
       "team": "Crystal Palace",
       "d_xPts": -3.8,
       "d_title": -0.27,
-      "d_releg": 10.03,
+      "d_releg": 10.02,
       "reason": "lost 2-3 at home to Ipswich"
     },
     {
@@ -80,7 +80,7 @@
       "team": "Aston Villa",
       "d_xPts": -3.3,
       "d_title": -0.33,
-      "d_releg": 7.97,
+      "d_releg": 7.96,
       "reason": "lost 1-2 at home to Nottingham Forest"
     }
   ]
