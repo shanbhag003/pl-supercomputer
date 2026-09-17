@@ -10,17 +10,17 @@ TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
 1  Arsenal                   76    48.5%    91.8%
-2  Manchester City           74    35.7%    86.8%
-3  Liverpool                 60     3.6%    36.4%
+2  Manchester City           74    35.8%    86.8%
+3  Liverpool                 60     3.6%    36.5%
 4  Brighton                  58     2.2%    29.1%
 5  Leeds                     57     1.5%    22.3%
 6  Manchester United         57     1.5%    25.1%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Coventry                75.5%
+   Coventry                75.6%
    Ipswich                 44.5%
-   Fulham                  30.4%
+   Fulham                  30.3%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
@@ -33,7 +33,7 @@ WHAT CHANGED SINCE LAST GAMEWEEK
       lost 2-3 at home to Ipswich
   Nottingham Forest: 3.6 expected points up, title chance +0.3 points, relegation risk -6.1 points
       beat Aston Villa 2-1 away
-  Aston Villa: 3.3 expected points down, title chance -0.3 points, relegation risk +8.0 points
+  Aston Villa: 3.3 expected points down, title chance -0.3 points, relegation risk +8.1 points
       lost 1-2 at home to Nottingham Forest
 
   Numbers move for three reasons: results, how well teams
