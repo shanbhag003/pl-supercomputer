@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-17T10:43:12",
+  "updated": "2026-09-18T10:18:48",
   "gameweek": 4,
   "matches_played": 40,
   "drift": 0.107,
@@ -20,10 +20,10 @@
     "Arsenal": -0.117,
     "Brentford": -0.109,
     "Aston Villa": -0.096,
-    "Newcastle United": -0.094,
+    "Newcastle United": -0.092,
     "Manchester United": -0.084,
     "Leeds": -0.064,
-    "Chelsea": -0.057,
+    "Chelsea": -0.039,
     "Everton": -0.031,
     "Crystal Palace": -0.025,
     "Brighton": -0.022,
@@ -50,37 +50,37 @@
   "biggest_moves": [
     {
       "team": "Ipswich",
-      "d_xPts": 6.03,
+      "d_xPts": 6.02,
       "d_title": 0.01,
-      "d_releg": -25.6,
+      "d_releg": -25.69,
       "reason": "beat Crystal Palace 3-2 away"
     },
     {
       "team": "Coventry",
-      "d_xPts": -5.37,
+      "d_xPts": -5.39,
       "d_title": -0.01,
-      "d_releg": 20.93,
+      "d_releg": 21.05,
       "reason": "lost 0-5 at home to Brighton, but played far better than the score"
     },
     {
       "team": "Crystal Palace",
-      "d_xPts": -3.76,
+      "d_xPts": -3.78,
       "d_title": -0.27,
-      "d_releg": 9.98,
+      "d_releg": 10.05,
       "reason": "lost 2-3 at home to Ipswich"
     },
     {
       "team": "Nottingham Forest",
-      "d_xPts": 3.61,
+      "d_xPts": 3.6,
       "d_title": 0.32,
       "d_releg": -6.09,
       "reason": "beat Aston Villa 2-1 away"
     },
     {
       "team": "Aston Villa",
-      "d_xPts": -3.3,
+      "d_xPts": -3.32,
       "d_title": -0.33,
-      "d_releg": 8.05,
+      "d_releg": 8.12,
       "reason": "lost 1-2 at home to Nottingham Forest"
     }
   ]

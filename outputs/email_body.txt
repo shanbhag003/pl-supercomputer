@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 4  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Arsenal are favourites for the title, with a 48.5% chance.
+Arsenal are favourites for the title, with a 48.3% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,27 +9,27 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Arsenal                   76    48.5%    91.8%
-2  Manchester City           74    35.8%    86.8%
-3  Liverpool                 60     3.6%    36.5%
+1  Arsenal                   76    48.3%    91.8%
+2  Manchester City           74    35.8%    86.7%
+3  Liverpool                 60     3.5%    36.2%
 4  Brighton                  58     2.2%    29.1%
-5  Leeds                     57     1.5%    22.3%
-6  Manchester United         57     1.5%    25.1%
+5  Leeds                     57     1.5%    22.4%
+6  Manchester United         56     1.5%    24.9%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Coventry                75.6%
+   Coventry                75.7%
    Ipswich                 44.5%
    Fulham                  30.3%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
-  Ipswich: 6.0 expected points up, relegation risk -25.6 points
+  Ipswich: 6.0 expected points up, relegation risk -25.7 points
       beat Crystal Palace 3-2 away
-  Coventry: 5.4 expected points down, relegation risk +20.9 points
+  Coventry: 5.4 expected points down, relegation risk +21.1 points
       lost 0-5 at home to Brighton, but played far better
       than the score
-  Crystal Palace: 3.8 expected points down, title chance -0.3 points, relegation risk +10.0 points
+  Crystal Palace: 3.8 expected points down, title chance -0.3 points, relegation risk +10.1 points
       lost 2-3 at home to Ipswich
   Nottingham Forest: 3.6 expected points up, title chance +0.3 points, relegation risk -6.1 points
       beat Aston Villa 2-1 away
