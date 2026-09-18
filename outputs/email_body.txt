@@ -12,15 +12,15 @@ TOP OF THE TABLE
 1  Arsenal                   76    48.3%    91.8%
 2  Manchester City           74    35.8%    86.7%
 3  Liverpool                 60     3.5%    36.2%
-4  Brighton                  58     2.2%    29.1%
+4  Brighton                  58     2.2%    29.0%
 5  Leeds                     57     1.5%    22.4%
 6  Manchester United         56     1.5%    24.9%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
    Coventry                75.7%
-   Ipswich                 44.5%
-   Fulham                  30.3%
+   Ipswich                 44.4%
+   Fulham                  30.4%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
@@ -29,7 +29,7 @@ WHAT CHANGED SINCE LAST GAMEWEEK
   Coventry: 5.4 expected points down, relegation risk +21.1 points
       lost 0-5 at home to Brighton, but played far better
       than the score
-  Crystal Palace: 3.8 expected points down, title chance -0.3 points, relegation risk +10.1 points
+  Crystal Palace: 3.8 expected points down, title chance -0.3 points, relegation risk +10.0 points
       lost 2-3 at home to Ipswich
   Nottingham Forest: 3.6 expected points up, title chance +0.3 points, relegation risk -6.1 points
       beat Aston Villa 2-1 away

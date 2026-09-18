@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-18T10:18:48",
+  "updated": "2026-09-18T13:13:41",
   "gameweek": 4,
   "matches_played": 40,
   "drift": 0.107,
@@ -34,7 +34,7 @@
     "Sunderland": 0.013,
     "Tottenham": 0.016,
     "Nottingham Forest": 0.031,
-    "Fulham": 0.034
+    "Fulham": 0.033
   },
   "validation": {
     "n": 40,
@@ -50,14 +50,14 @@
   "biggest_moves": [
     {
       "team": "Ipswich",
-      "d_xPts": 6.02,
+      "d_xPts": 6.03,
       "d_title": 0.01,
-      "d_releg": -25.69,
+      "d_releg": -25.72,
       "reason": "beat Crystal Palace 3-2 away"
     },
     {
       "team": "Coventry",
-      "d_xPts": -5.39,
+      "d_xPts": -5.38,
       "d_title": -0.01,
       "d_releg": 21.05,
       "reason": "lost 0-5 at home to Brighton, but played far better than the score"
@@ -66,21 +66,21 @@
       "team": "Crystal Palace",
       "d_xPts": -3.78,
       "d_title": -0.27,
-      "d_releg": 10.05,
+      "d_releg": 10.03,
       "reason": "lost 2-3 at home to Ipswich"
     },
     {
       "team": "Nottingham Forest",
       "d_xPts": 3.6,
       "d_title": 0.32,
-      "d_releg": -6.09,
+      "d_releg": -6.08,
       "reason": "beat Aston Villa 2-1 away"
     },
     {
       "team": "Aston Villa",
       "d_xPts": -3.32,
       "d_title": -0.33,
-      "d_releg": 8.12,
+      "d_releg": 8.08,
       "reason": "lost 1-2 at home to Nottingham Forest"
     }
   ]
