@@ -1,10 +1,10 @@
 {
-  "updated": "2026-09-20T10:21:36",
-  "gameweek": 4,
-  "matches_played": 46,
-  "drift": 0.099,
+  "updated": "2026-09-20T22:27:42",
+  "gameweek": 5,
+  "matches_played": 50,
+  "drift": 0.093,
   "n_sims": 20000,
-  "gate": "GW4 already published",
+  "gate": "GW5 settled at 2026-09-20 20:30 UTC, 2.0h ago",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.5, 20 clubs, 0 unmatched with PL minutes, 4430 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
@@ -21,67 +21,67 @@
     "Brentford": -0.109,
     "Aston Villa": -0.101,
     "Newcastle United": -0.096,
-    "Manchester United": -0.083,
+    "Manchester United": -0.082,
     "Leeds": -0.056,
     "Chelsea": -0.039,
     "Everton": -0.031,
     "Crystal Palace": -0.025,
-    "Brighton": -0.022,
-    "Bournemouth": -0.005,
+    "Brighton": -0.023,
+    "Bournemouth": -0.006,
     "Coventry": 0.0,
     "Hull": 0.0,
     "Ipswich": 0.0,
-    "Sunderland": 0.013,
+    "Sunderland": 0.014,
     "Tottenham": 0.016,
     "Nottingham Forest": 0.031,
-    "Fulham": 0.033
+    "Fulham": 0.034
   },
   "validation": {
-    "n": 46,
-    "rps": 0.20662299318566205,
-    "logloss": 1.0453456496969944,
-    "hit": 0.45652173913043476,
+    "n": 50,
+    "rps": 0.20420396220768416,
+    "logloss": 1.0481421404064089,
+    "hit": 0.44,
     "n_close": 7,
-    "hit_score": 0.05555555555555555,
-    "n_score": 36,
-    "drawn": 14,
+    "hit_score": 0.05,
+    "n_score": 40,
+    "drawn": 16,
     "picked_draw": 0
   },
   "biggest_moves": [
     {
+      "team": "Coventry",
+      "d_xPts": 3.82,
+      "d_title": 0.0,
+      "d_releg": -11.49,
+      "reason": "beat Nottingham Forest 1-0 away, and rode their luck"
+    },
+    {
       "team": "Brighton",
-      "d_xPts": 5.23,
-      "d_title": 3.62,
-      "d_releg": -2.0,
+      "d_xPts": 3.07,
+      "d_title": 2.52,
+      "d_releg": -0.85,
       "reason": "beat Arsenal 3-0 at home, and rode their luck"
     },
     {
-      "team": "Chelsea",
-      "d_xPts": -4.87,
-      "d_title": -3.1,
-      "d_releg": 3.25,
-      "reason": "lost 0-3 away at Brentford, but played far better than the score"
+      "team": "Arsenal",
+      "d_xPts": -2.86,
+      "d_title": -12.27,
+      "d_releg": 0.0,
+      "reason": "lost 0-3 away at Brighton, but played far better than the score"
     },
     {
-      "team": "Ipswich",
-      "d_xPts": 4.18,
-      "d_title": 0.01,
-      "d_releg": -15.9,
-      "reason": "lost 0-1 away at Everton"
+      "team": "Brentford",
+      "d_xPts": 2.84,
+      "d_title": 1.36,
+      "d_releg": -2.64,
+      "reason": "beat Chelsea 3-0 at home, and rode their luck"
     },
     {
-      "team": "Crystal Palace",
-      "d_xPts": -3.9,
-      "d_title": -0.27,
-      "d_releg": 11.66,
-      "reason": "lost 2-3 at home to Ipswich"
-    },
-    {
-      "team": "Hull",
-      "d_xPts": 3.49,
-      "d_title": 0.15,
-      "d_releg": -11.5,
-      "reason": "lost 1-2 away at Newcastle United, but played far better than the score"
+      "team": "Nottingham Forest",
+      "d_xPts": -2.6,
+      "d_title": -0.31,
+      "d_releg": 3.36,
+      "reason": "lost 0-1 at home to Coventry, but played far better than the score"
     }
   ]
 }
