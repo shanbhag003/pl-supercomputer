@@ -1,8 +1,8 @@
 {
-  "updated": "2026-09-19T10:01:41",
+  "updated": "2026-09-20T10:21:36",
   "gameweek": 4,
-  "matches_played": 41,
-  "drift": 0.105,
+  "matches_played": 46,
+  "drift": 0.099,
   "n_sims": 20000,
   "gate": "GW4 already published",
   "xg_source": "understat",
@@ -19,8 +19,8 @@
     "Liverpool": -0.119,
     "Arsenal": -0.117,
     "Brentford": -0.109,
-    "Aston Villa": -0.1,
-    "Newcastle United": -0.092,
+    "Aston Villa": -0.101,
+    "Newcastle United": -0.096,
     "Manchester United": -0.083,
     "Leeds": -0.056,
     "Chelsea": -0.039,
@@ -37,51 +37,51 @@
     "Fulham": 0.033
   },
   "validation": {
-    "n": 41,
-    "rps": 0.19620650823473584,
-    "logloss": 1.0391860829923256,
-    "hit": 0.4634146341463415,
+    "n": 46,
+    "rps": 0.20662299318566205,
+    "logloss": 1.0453456496969944,
+    "hit": 0.45652173913043476,
     "n_close": 7,
-    "hit_score": 0.06451612903225806,
-    "n_score": 31,
+    "hit_score": 0.05555555555555555,
+    "n_score": 36,
     "drawn": 14,
     "picked_draw": 0
   },
   "biggest_moves": [
     {
-      "team": "Ipswich",
-      "d_xPts": 6.02,
-      "d_title": 0.0,
-      "d_releg": -25.49,
-      "reason": "beat Crystal Palace 3-2 away"
-    },
-    {
-      "team": "Coventry",
-      "d_xPts": -5.4,
-      "d_title": -0.01,
-      "d_releg": 21.61,
-      "reason": "lost 0-5 at home to Brighton, but played far better than the score"
+      "team": "Brighton",
+      "d_xPts": 5.23,
+      "d_title": 3.62,
+      "d_releg": -2.0,
+      "reason": "beat Arsenal 3-0 at home, and rode their luck"
     },
     {
       "team": "Chelsea",
-      "d_xPts": -4.84,
-      "d_title": -3.08,
-      "d_releg": 2.92,
+      "d_xPts": -4.87,
+      "d_title": -3.1,
+      "d_releg": 3.25,
       "reason": "lost 0-3 away at Brentford, but played far better than the score"
     },
     {
+      "team": "Ipswich",
+      "d_xPts": 4.18,
+      "d_title": 0.01,
+      "d_releg": -15.9,
+      "reason": "lost 0-1 away at Everton"
+    },
+    {
       "team": "Crystal Palace",
-      "d_xPts": -3.81,
-      "d_title": -0.25,
-      "d_releg": 10.1,
+      "d_xPts": -3.9,
+      "d_title": -0.27,
+      "d_releg": 11.66,
       "reason": "lost 2-3 at home to Ipswich"
     },
     {
-      "team": "Nottingham Forest",
-      "d_xPts": 3.61,
-      "d_title": 0.29,
-      "d_releg": -6.16,
-      "reason": "beat Aston Villa 2-1 away"
+      "team": "Hull",
+      "d_xPts": 3.49,
+      "d_title": 0.15,
+      "d_releg": -11.5,
+      "reason": "lost 1-2 away at Newcastle United, but played far better than the score"
     }
   ]
 }
