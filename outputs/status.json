@@ -1,10 +1,10 @@
 {
-  "updated": "2026-09-20T22:27:42",
+  "updated": "2026-09-21T11:34:36",
   "gameweek": 5,
   "matches_played": 50,
   "drift": 0.093,
   "n_sims": 20000,
-  "gate": "GW5 settled at 2026-09-20 20:30 UTC, 2.0h ago",
+  "gate": "GW5 already published",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.5, 20 clubs, 0 unmatched with PL minutes, 4430 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
@@ -50,37 +50,37 @@
   "biggest_moves": [
     {
       "team": "Coventry",
-      "d_xPts": 3.82,
+      "d_xPts": 3.73,
       "d_title": 0.0,
-      "d_releg": -11.49,
+      "d_releg": -10.5,
       "reason": "beat Nottingham Forest 1-0 away, and rode their luck"
     },
     {
       "team": "Brighton",
-      "d_xPts": 3.07,
-      "d_title": 2.52,
-      "d_releg": -0.85,
+      "d_xPts": 3.06,
+      "d_title": 3.0,
+      "d_releg": -0.81,
       "reason": "beat Arsenal 3-0 at home, and rode their luck"
     },
     {
       "team": "Arsenal",
-      "d_xPts": -2.86,
-      "d_title": -12.27,
+      "d_xPts": -2.83,
+      "d_title": -10.08,
       "d_releg": 0.0,
       "reason": "lost 0-3 away at Brighton, but played far better than the score"
     },
     {
       "team": "Brentford",
-      "d_xPts": 2.84,
-      "d_title": 1.36,
-      "d_releg": -2.64,
+      "d_xPts": 2.81,
+      "d_title": 1.67,
+      "d_releg": -2.62,
       "reason": "beat Chelsea 3-0 at home, and rode their luck"
     },
     {
       "team": "Nottingham Forest",
-      "d_xPts": -2.6,
-      "d_title": -0.31,
-      "d_releg": 3.36,
+      "d_xPts": -2.59,
+      "d_title": -0.29,
+      "d_releg": 3.34,
       "reason": "lost 0-1 at home to Coventry, but played far better than the score"
     }
   ]
