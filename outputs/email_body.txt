@@ -11,9 +11,9 @@ TOP OF THE TABLE
    TEAM                  POINTS    TITLE    TOP 4
 1  Manchester City           74    40.9%    87.9%
 2  Arsenal                   73    38.5%    87.4%
-3  Liverpool                 62     5.8%    45.6%
+3  Liverpool                 62     5.7%    45.5%
 4  Brighton                  61     5.2%    42.6%
-5  Brentford                 56     3.5%    23.2%
+5  Brentford                 56     3.5%    23.3%
 6  Manchester United         56     1.4%    22.1%
 
 MOST LIKELY TO GO DOWN
@@ -24,7 +24,7 @@ MOST LIKELY TO GO DOWN
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
-  Coventry: 3.7 expected points up, relegation risk -10.4 points
+  Coventry: 3.7 expected points up, relegation risk -10.5 points
       beat Nottingham Forest 1-0 away, and rode their luck
   Brighton: 3.1 expected points up, title chance +3.0 points, relegation risk -0.8 points
       beat Arsenal 3-0 at home, and rode their luck
