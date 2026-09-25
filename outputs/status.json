@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T10:53:49",
+  "updated": "2026-09-25T14:15:29",
   "gameweek": 5,
   "matches_played": 50,
   "drift": 0.093,
@@ -80,7 +80,7 @@
       "team": "Nottingham Forest",
       "d_xPts": -2.58,
       "d_title": -0.27,
-      "d_releg": 3.29,
+      "d_releg": 3.27,
       "reason": "lost 0-1 at home to Coventry, but played far better than the score"
     }
   ]
