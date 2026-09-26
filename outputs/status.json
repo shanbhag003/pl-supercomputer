@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T14:15:29",
+  "updated": "2026-09-26T10:34:20",
   "gameweek": 5,
   "matches_played": 50,
   "drift": 0.093,
@@ -50,37 +50,37 @@
   "biggest_moves": [
     {
       "team": "Coventry",
-      "d_xPts": 3.72,
+      "d_xPts": 3.73,
       "d_title": 0.0,
-      "d_releg": -10.36,
+      "d_releg": -10.41,
       "reason": "beat Nottingham Forest 1-0 away, and rode their luck"
     },
     {
       "team": "Brighton",
       "d_xPts": 3.06,
-      "d_title": 3.01,
+      "d_title": 3.02,
       "d_releg": -0.82,
       "reason": "beat Arsenal 3-0 at home, and rode their luck"
     },
     {
       "team": "Arsenal",
-      "d_xPts": -2.86,
-      "d_title": -10.11,
+      "d_xPts": -2.87,
+      "d_title": -10.19,
       "d_releg": 0.0,
       "reason": "lost 0-3 away at Brighton, but played far better than the score"
     },
     {
       "team": "Brentford",
       "d_xPts": 2.81,
-      "d_title": 1.64,
-      "d_releg": -2.59,
+      "d_title": 1.62,
+      "d_releg": -2.58,
       "reason": "beat Chelsea 3-0 at home, and rode their luck"
     },
     {
       "team": "Nottingham Forest",
       "d_xPts": -2.58,
       "d_title": -0.27,
-      "d_releg": 3.27,
+      "d_releg": 3.26,
       "reason": "lost 0-1 at home to Coventry, but played far better than the score"
     }
   ]
