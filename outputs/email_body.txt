@@ -9,8 +9,8 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Manchester City           74    40.9%    87.8%
-2  Arsenal                   73    38.4%    87.3%
+1  Manchester City           74    40.9%    87.9%
+2  Arsenal                   73    38.4%    87.2%
 3  Liverpool                 62     5.8%    45.5%
 4  Brighton                  61     5.2%    42.5%
 5  Brentford                 56     3.5%    23.3%
@@ -19,7 +19,7 @@ TOP OF THE TABLE
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
    Coventry                65.0%
-   Ipswich                 54.8%
+   Ipswich                 54.9%
    Tottenham               35.5%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
