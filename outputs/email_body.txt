@@ -11,15 +11,15 @@ TOP OF THE TABLE
    TEAM                  POINTS    TITLE    TOP 4
 1  Manchester City           74    40.9%    87.9%
 2  Arsenal                   73    38.4%    87.2%
-3  Liverpool                 62     5.8%    45.5%
+3  Liverpool                 62     5.8%    45.6%
 4  Brighton                  61     5.2%    42.5%
 5  Brentford                 56     3.5%    23.3%
 6  Manchester United         56     1.4%    22.1%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Coventry                65.0%
-   Ipswich                 54.9%
+   Coventry                65.1%
+   Ipswich                 54.8%
    Tottenham               35.5%
 
 WHAT CHANGED SINCE LAST GAMEWEEK

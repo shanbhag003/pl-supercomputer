@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T11:06:28",
+  "updated": "2026-09-28T12:28:23",
   "gameweek": 5,
   "matches_played": 50,
   "drift": 0.093,
@@ -16,12 +16,12 @@
   ],
   "squad_delta": {
     "Manchester City": -0.183,
-    "Liverpool": -0.119,
+    "Liverpool": -0.12,
     "Arsenal": -0.118,
     "Brentford": -0.109,
     "Aston Villa": -0.101,
     "Newcastle United": -0.096,
-    "Manchester United": -0.082,
+    "Manchester United": -0.083,
     "Leeds": -0.056,
     "Chelsea": -0.039,
     "Everton": -0.031,
@@ -52,19 +52,19 @@
       "team": "Coventry",
       "d_xPts": 3.73,
       "d_title": 0.0,
-      "d_releg": -10.4,
+      "d_releg": -10.37,
       "reason": "beat Nottingham Forest 1-0 away, and rode their luck"
     },
     {
       "team": "Brighton",
       "d_xPts": 3.06,
       "d_title": 3.02,
-      "d_releg": -0.82,
+      "d_releg": -0.83,
       "reason": "beat Arsenal 3-0 at home, and rode their luck"
     },
     {
       "team": "Arsenal",
-      "d_xPts": -2.88,
+      "d_xPts": -2.89,
       "d_title": -10.18,
       "d_releg": 0.0,
       "reason": "lost 0-3 away at Brighton, but played far better than the score"
@@ -72,15 +72,15 @@
     {
       "team": "Brentford",
       "d_xPts": 2.81,
-      "d_title": 1.65,
-      "d_releg": -2.58,
+      "d_title": 1.64,
+      "d_releg": -2.59,
       "reason": "beat Chelsea 3-0 at home, and rode their luck"
     },
     {
       "team": "Nottingham Forest",
-      "d_xPts": -2.58,
-      "d_title": -0.27,
-      "d_releg": 3.33,
+      "d_xPts": -2.57,
+      "d_title": -0.26,
+      "d_releg": 3.34,
       "reason": "lost 0-1 at home to Coventry, but played far better than the score"
     }
   ]
