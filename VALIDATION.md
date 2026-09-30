@@ -338,7 +338,7 @@ not carry into the season. Holding drift at 0.16 all season brings coverage to
 80–84%, but worsens title and relegation Brier scores — so the uncertainty is not
 too small everywhere, it is in the wrong clubs. A handful change a lot during a
 season and most do not. Uniform noise cannot express that; a per-club dynamic
-rating can. **Open, and the next thing this backtest will judge.**
+rating can. **The published range is recalibrated in Section 12.**
 
 The optional `boost` argument added to `fit_ratings` for this test defaults to
 1.0 and is not used by the live model.
@@ -435,7 +435,67 @@ Reproduce: `python src/backtest_flatten.py run` (~20 minutes on 8 cores), then
 
 ---
 
-## 12. Live in-season record
+## 12. Mid-season points ranges — recalibrated
+
+Section 9 found that the published 80% points range held the final total only
+72.5% of the time mid-season. Same replay, same 640 team forecasts (8 seasons ×
+GW 5/10/19/28 × 20 clubs).
+
+**Where the misses fall.** 13.6% of clubs finished below their range and 13.9%
+above it, against 10% each if calibrated. So the ranges are too narrow, not
+biased. The misses concentrate at the extremes:
+
+| Clubs, ranked by forecast | 80% coverage | Below range | Above range | Mean error (pts) |
+|---|---|---|---|---|
+| Top 5 | 73.8% | 9.4% | **16.9%** | +0.72 |
+| Middle 10 | 74.1% | 12.8% | 13.1% | +0.18 |
+| Bottom 5 | 68.1% | **19.4%** | 12.5% | −0.39 |
+
+The model pulls the best and worst clubs slightly toward the middle, and their
+seasons end further out than it allows.
+
+**Tried and rejected: in-season random walk.** In the simulation a club's
+strength is frozen from the checkpoint to May. `fixture_grids_walk` lets every
+rating move weekly through the run-in, σ from 0.01 to 0.03 (the summer drift of
+0.17/year would be ~0.024/week as a random walk). Checked first: σ = 0
+reproduces Section 9 exactly.
+
+| σ per week | CRPS | 80% coverage | Title Brier | Relegation Brier |
+|---|---|---|---|---|
+| 0 (live) | 4.0435 | 72.5% | 0.3326 | 0.9365 |
+| 0.02 | 4.0415 | 73.4% | 0.3336 | 0.9367 |
+| 0.03 | 4.0406 | 75.0% | 0.3378 | 0.9405 |
+
+CRPS — a proper score for the whole points distribution — moves by −0.003 with
+a 95% interval of ±0.02, and the two halves of the sample disagree. Coverage
+barely moves. Rejected; the function stays in `simulate.py` for reproducibility
+and is not used live.
+
+**Shipped: a calibrated display range.** No change to the model improves the
+forecast, so the fix is to publish the range that actually holds 80%. Across all
+640 forecasts that is the **7th–93rd percentile** of the simulated totals:
+
+| Percentiles published | 80% coverage | GW5 | GW10 | GW19 | GW28 |
+|---|---|---|---|---|---|
+| 10th–90th (before) | 72.5% | 71.2% | 68.8% | 76.9% | 73.1% |
+| **7th–93rd (now)** | **79.7%** | 79.4% | 76.2% | 83.1% | 80.0% |
+
+Split-half: choosing the width on 2018–21 and testing on 2022–25 gives 74.4%
+(from 70.9%); the other way round gives 83.4% (from 74.1%). Noisy, but centred
+on 80% where the old range was not.
+
+This changes only the two numbers of the displayed range (`RANGE_PCT` in
+`update.py`). Expected points, positions and every title, top-4, top-6 and
+relegation probability are untouched. The underlying pull toward the middle is
+still there; a dynamic rating model is the way to remove it, and this backtest
+is how it will be judged.
+
+Reproduce: `python src/backtest_ranges.py run` (~5 minutes), then
+`python src/backtest_ranges.py report`.
+
+---
+
+## 13. Live in-season record
 
 Updated automatically. Only predictions saved **before** kickoff are scored, and
 a prediction is frozen the moment its match starts.
@@ -458,7 +518,7 @@ Current figures always live in `outputs/status.json` and on the site.
 
 ---
 
-## 13. Not validated
+## 14. Not validated
 
 Stated plainly, because a validation document that only lists successes is
 marketing.
@@ -498,6 +558,7 @@ python src/backtest_congestion.py   # does fixture congestion help?
 python src/backtest_midseason.py run  # forecasts at GW 5/10/19/28; then: report
 python src/backtest_odds.py         # blend market odds into match predictions?
 python src/backtest_flatten.py run  # does drift noise hurt match predictions? then: report
+python src/backtest_ranges.py run   # mid-season points ranges; then: report
 python src/tune.py                  # resumable hyperparameter grid search
 ```
 

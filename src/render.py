@@ -279,7 +279,7 @@ def render(pred, out_path, gw_label, n_sims=20000, subtitle=None):
            fontsize=12, color=PINK, ha='right', zorder=4)
     C.text(.045, Y(H - 0.22),
            'Dixon-Coles xG + squad model  ·  Understat · football-data · FPL  ·  '
-           'range = middle 80% of simulated seasons',
+           'range = 80% likely, calibrated on past seasons',
            fontproperties=BC_M, fontsize=10.5, color=WHITE, alpha=.42, zorder=4)
 
     C.apply()
