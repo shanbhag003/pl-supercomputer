@@ -427,9 +427,9 @@ marketing.
 - **The two-gameweek prediction window and freeze-at-kickoff rule** are
   correctness properties, not accuracy improvements. Neither was backtested
   because neither claims to make forecasts better.
-- **The exact-scoreline metric** has no baseline in this repository. It should be
-  compared against a bookmaker correct-score market before any claim is made
-  about it.
+- **The predicted scoreline** is shown but not scored. Exact-score accuracy is
+  bounded near one in nine (Section 8) and has no baseline in this repository,
+  so it was removed from the scorecard rather than published without context.
 - **`SQUAD_W = 0.5` and `MGR_W = 0.25`** were chosen at half their tested optima
   as a hedge against overfitting. That is a judgement call, not a result.
 - **The manager layer rests on a handful of qualifying moves per season.** It

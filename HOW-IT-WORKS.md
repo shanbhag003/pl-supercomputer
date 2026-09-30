@@ -293,12 +293,20 @@ could essentially never predict a draw. Two consequences:
 - A genuinely even fixture at 36% / 28% / 36% got "called" for the home side
   purely because home comes first in the list.
 
-Now, when the top two outcomes are within 4 percentage points, the model says
-draw. On the current fixtures that fires for about 20% of matches, against a real
-rate near 24% — so it is roughly calibrated rather than arbitrary. The same rule
-is used in three separate places, and it has to be: if the accuracy panel scored
-predictions differently from the way the fixtures page displayed them, the ticks
-and the percentage would contradict each other.
+The first fix was to say draw whenever the top two outcomes were within 4
+percentage points. It was wrong, and a backtest proved it: on 6,090 matches it
+cost 0.71pp of hit rate, and in 422 of the 423 matches it changed, the draw it
+published was the outcome the model rated *least* likely — when home and away
+are level, the draw is usually third, not second. Picking the largest outcome
+maximises expected accuracy by construction, so any override must do worse on
+average.
+
+So the prediction is plain argmax again (`call_outcome` in `update.py`), and
+closeness is a display fact: a fixture whose top two outcomes are within 4pp is
+labelled **"too close to call"** and neither club is dimmed, but what is
+predicted and scored is still the model's favourite. The fixtures page and the
+accuracy panel both use plain argmax, so the ticks and the percentage cannot
+contradict each other. The full story is in VALIDATION.md §5.
 
 **Why expected goals sit under each scoreline.** A modal scoreline sounds
 confident and isn't. Even for the most one-sided fixture the model has seen —
@@ -316,9 +324,10 @@ The best single guess in the most predictable match of the round is 14%. Printin
 four or more**. So each prediction shows expected goals as well: 2.3 – 0.6 says
 what 2-0 cannot.
 
-This also means exact-score accuracy will sit near one in nine forever. That is
-close to the ceiling for anyone, bookmakers included, and the site says so
-instead of letting the number read as failure.
+This also means exact-score accuracy would sit near one in nine forever. That is
+close to the ceiling for anyone, bookmakers included, so the site does not score
+exact scorelines at all. Predictions are graded on the result and on the
+probabilities.
 
 ---
 

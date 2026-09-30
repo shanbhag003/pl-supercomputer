@@ -303,7 +303,6 @@
   .mres.yes{color:var(--green)}
   .mres.no{color:var(--pink)}
   .mres.wait{color:var(--dim);font-weight:400}
-  .mexact{color:var(--cyan);font-size:10.5px;margin-left:5px}
   .msum{display:flex;gap:22px;flex-wrap:wrap}
   .msum div{display:flex;flex-direction:column;gap:2px}
   .msum b{font:700 21px/1 'Barlow Condensed',sans-serif;color:#fff}
@@ -585,10 +584,6 @@ function accuracyBlock(){
     const rows = [['Matches predicted', v.n],
       ['Results called correctly', (v.hit*100).toFixed(0) + '%'],
       ['Sharpness score (lower is better)', v.rps.toFixed(3)]];
-    if (v.hit_score !== undefined){
-      rows.splice(2, 0, ['Exact scorelines called correctly',
-        (v.hit_score*100).toFixed(0) + '%  (' + v.n_score + ' predicted)']);
-    }
     if (v.bookie_rps){
       // like for like: the model on only the matches that had market odds
       const gap = 100*((v.model_rps_same ?? v.rps)/v.bookie_rps - 1);
@@ -646,8 +641,7 @@ function matchCard(m){
   // gameweek at a time on screen, vertical space is the scarce thing.
   const badge = settled
     ? `<span class="mres ${m.ok_outcome ? 'yes' : 'no'}">${m.res_h}&ndash;${m.res_a} `
-      + `${m.ok_outcome ? '&check;' : '&times;'}`
-      + (m.ok_score ? '<span class="mexact">exact</span>' : '') + '</span>'
+      + `${m.ok_outcome ? '&check;' : '&times;'}` + '</span>'
     : '<span class="mres wait">not played yet</span>';
 
   // All three outcomes, as a stacked bar plus figures. A single "46% likely"
@@ -710,23 +704,16 @@ function tableFixtures(){
   // whichever gameweek is selected - they are the season-long record.
   const done = ms.filter(m => m.res_h !== undefined);
   const okOut = done.filter(m => m.ok_outcome).length;
-  const scored = done.filter(m => m.ok_score !== undefined);
-  const okSc = scored.filter(m => m.ok_score).length;
 
+  // Exact-score accuracy is deliberately not shown. The likeliest single score
+  // carries ~14% at best, so the tally only ever looked like failure.
   let h = '<div class="card"><div class="msum">'
     + `<div><b>${okOut} of ${done.length}</b><span>results called right</span></div>`;
-  if (scored.length){
-    h += `<div><b>${okSc} of ${scored.length}</b><span>exact scores right</span></div>`;
-  }
   h += '</div><div class="mnote">Every prediction was saved '
     + '<b style="color:#fff">before kickoff</b> and is never edited afterwards. '
-    + 'Predictions refresh for team news right up to kickoff, then freeze.'
-    + (scored.length ? ' Getting the exact score right is mostly luck. Even in '
-        + 'the most one-sided game on the card, the likeliest score only comes '
-        + 'up about one time in seven — so roughly one in nine is about as good '
-        + 'as anyone can manage, bookmakers included. The expected goals line '
-        + 'under each score is the more useful number: it is how many goals the '
-        + 'model thinks each side will score on an average day.' : '')
+    + 'Predictions refresh for team news right up to kickoff, then freeze. '
+    + 'The expected goals line under each score is the more useful number: it '
+    + 'is how many goals the model thinks each side will score on an average day.'
     + '</div></div>';
 
   const byGw = {};
