@@ -21,13 +21,17 @@ PROMOTED_SD = 0.285
 
 
 def fit_ratings(df, ref_date, xi=0.0045, w_xg=0.7, max_years=4.0,
-                ridge=0.0, prior_att=None, prior_dfn=None, extra_teams=()):
+                ridge=0.0, prior_att=None, prior_dfn=None, extra_teams=(),
+                boost_from=None, boost=1.0):
     """Fit ratings using only matches strictly before ref_date.
 
     ridge      : L2 shrinkage strength toward prior (0 = plain MLE)
     prior_att/dfn : dict team -> prior value. Missing teams default to the
                  empirical promoted-team prior.
     extra_teams: teams to include with no match data (pure prior).
+    boost_from, boost : multiply the weight of matches on or after boost_from
+                 (the current season) by boost. Default 1.0 is a no-op; the
+                 mid-season backtest is what decides whether it earns a place.
     """
     ref = pd.Timestamp(ref_date)
     d = df[(df['date'] < ref) &
@@ -37,6 +41,8 @@ def fit_ratings(df, ref_date, xi=0.0045, w_xg=0.7, max_years=4.0,
 
     days = (ref - d['date']).dt.days.values
     w = np.exp(-xi * days)
+    if boost_from is not None and boost != 1.0:
+        w = w * np.where((d['date'] >= pd.Timestamp(boost_from)).values, boost, 1.0)
 
     teams = sorted(set(d['home']) | set(d['away']) | set(extra_teams))
     idx = {t: i for i, t in enumerate(teams)}
