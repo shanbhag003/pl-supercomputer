@@ -35,6 +35,12 @@ CLOSE_CALL = 0.04      # top two outcomes this close => flag it as a tight call
 # Calibrates the displayed range only; no probability depends on it. See
 # VALIDATION.md section 12.
 RANGE_PCT = (7, 93)
+# Game-state adjusted xG: each shot scaled by exp(beta * goals ahead, capped at
+# 2), so chances created while protecting or chasing a lead count at their
+# level-state value. 0.1 is the smallest setting whose gain is clearly real
+# (match RPS -0.00040, 95% CI excludes zero, 6 of 7 seasons; 0.1-0.2 all
+# help). See VALIDATION.md section 13 and gamestate.py.
+GAMESTATE_BETA = 0.1
 
 
 def call_outcome(pH, pD, pA):
@@ -190,6 +196,19 @@ def refresh():
     except Exception as e:
         log(f'  understat fetch failed: {type(e).__name__}: {e}')
         ok = os.path.exists(cache)
+    # Shot-by-shot data for game-state adjusted xG. Only matches not already
+    # cached are fetched - ten or so a gameweek. A failure costs nothing but
+    # the adjustment: those matches keep plain npxG until the next run.
+    try:
+        import gamestate
+        ids = ([m['id'] for m in json.load(open(cache)).get('dates', []) if m.get('isResult')]
+               if os.path.exists(cache) else None)
+        with requests.Session() as s:
+            added, failed = gamestate.pull_season(SEASON, s, match_ids=ids)
+        if added or failed:
+            log(f'  shots: +{added} matches, {failed} failed')
+    except Exception as e:
+        log(f'  shot fetch failed: {type(e).__name__}: {e}')
     return ok
 
 
@@ -395,6 +414,14 @@ def main():
             n_played = len(cur)
             log(f'  2026/27 PL matches after filter: {n_played}')
     full = pd.concat([hist, cur], ignore_index=True) if n_played else hist
+    # Ratings are fitted on game-state adjusted xG. hist and cur keep plain
+    # npxG: the squad layer's scale and the "rode their luck" notes use it.
+    try:
+        import gamestate
+        full, n_adj = gamestate.apply(full, GAMESTATE_BETA)
+        log(f'game-state adjusted xG (beta {GAMESTATE_BETA}): {n_adj} of {len(full)} matches')
+    except Exception as e:
+        log(f'  game-state adjustment unavailable: {type(e).__name__}: {e} - plain npxG')
     done = {(r.home, r.away) for _, r in cur.iterrows()} if n_played else set()
     played_mask = fx.apply(lambda r: (r.home, r.away) in done, axis=1)
     remaining = fx[~played_mask]

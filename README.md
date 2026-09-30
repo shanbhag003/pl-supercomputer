@@ -31,6 +31,13 @@ across twelve seasons, exponentially weighted with a 154-day half-life. Expected
 goals are used because goals over 38 matches are noisy: a club can finish six
 points from where its performances say it should be.
 
+**Game-state adjusted xG.** A team two goals up sits deep; the team chasing gets
+chances it would not get at 0-0. Every shot since 2014 is replayed with the
+score at the time and rescaled to its level-state value, so a comfortable lead
+does not make the leader look worse or the chaser better. Improved both match
+predictions and title/relegation forecasts in walk-forward testing
+([VALIDATION.md](VALIDATION.md) §13).
+
 **Player values.** A regularised plus-minus model (RAPM) over 200,000
 player-match records estimates what each club creates and concedes with each
 player on the pitch, adjusted for teammates and opposition. This is what makes

@@ -495,7 +495,72 @@ Reproduce: `python src/backtest_ranges.py run` (~5 minutes), then
 
 ---
 
-## 13. Live in-season record
+## 13. Game-state adjusted xG — shipped
+
+A team two goals up sits deep and creates less than it could; the team chasing
+the game gets chances it would not get at 0-0. Raw xG from those spells
+misstates both sides' strength ("score effects").
+
+**Data.** Every shot Understat has recorded, 2014/15 onward — 4,610 matches, one
+request each, cached in `data/understat/shots/` (2 MB). Understat stores each
+shot's minute and result but not the score, so the score is replayed in shot
+order. Own goals are listed under the team whose player scored them; with that
+rule **every one of the 4,610 final scores rebuilds exactly**.
+
+**The adjustment.** Each non-penalty shot is scaled by e^(β × goals ahead),
+capped at ±2: shots taken while leading count up, shots taken while chasing
+count down. A single parameter rather than measured factors, because measuring
+them is biased in both directions. Against a team's season-long level rate,
+leading looks *productive* (0.77–0.89) — a team that goes two up is usually
+having a good day. Against its level rate in the same match the effect is
+exaggerated (1.2–1.4 up, 0.55–0.7 down) — the side that scored first was
+probably on top at level. The truth lies between, so the backtest chooses β.
+
+**Match level.** Walk-forward exactly as Section 1, 2,660 matches. `orig` is the
+npxG already in the model and reproduces Section 1 to the fifth decimal.
+
+| β | RPS | Log loss | vs β = 0 | 95% CI | Seasons better |
+|---|---|---|---|---|---|
+| orig | 0.20069 | 0.9768 | +0.00008 | [−0.00004, +0.00020] | 1 / 7 |
+| 0 (shots, unadjusted) | 0.20061 | 0.9766 | — | — | — |
+| 0.05 | 0.20037 | 0.9757 | −0.00024 | [−0.00042, −0.00005] | 6 / 7 |
+| **0.1 (shipped)** | **0.20021** | **0.9752** | **−0.00040** | **[−0.00078, −0.00002]** | **6 / 7** |
+| 0.15 | 0.20013 | 0.9749 | −0.00048 | [−0.00107, +0.00012] | 5 / 7 |
+| 0.2 | 0.20015 | 0.9750 | −0.00046 | [−0.00123, +0.00032] | 5 / 7 |
+| 0.3 | 0.20049 | 0.9765 | −0.00012 | [−0.00128, +0.00113] | 4 / 7 |
+
+The gain is the same in both halves at β = 0.1 (2019–21 −0.00043, 2022–25
+−0.00039), and choosing β on either half and testing on the other still wins.
+0.1 is the smallest setting whose gain is clearly real — the same hedge as the
+squad and manager layers. Against the model as it was (`orig`) it is −0.00048,
+about 18% of the gap to the market in Section 10.
+
+**Season level.** The Section 9 replay (live settings, 32 cells) on adjusted xG:
+
+| | MAE | CRPS | Title Brier | Top-4 Brier | Relegation Brier |
+|---|---|---|---|---|---|
+| Before | 5.701 | 4.044 | 0.3326 | 1.1972 | 0.9365 |
+| **β = 0.1** | **5.643** | **4.001** | **0.3207** | **1.1910** | **0.9174** |
+
+Better on every metric; MAE better in 7 of 8 seasons, CRPS in 6 of 8 (the other
+two within 0.006). On the 2026/27 forecast after Gameweek 5 it spreads the table
+— strong clubs up, weak clubs down — which is the pull toward the middle found
+in Section 12 partly undone.
+
+**Live.** `update.py` tops up the current season's shots on every run (ten or so
+new matches a gameweek) and fits the ratings on adjusted xG
+(`GAMESTATE_BETA = 0.1`). A match whose shots are not yet available keeps plain
+npxG until the next run. The squad layer's scale and the "rode their luck" notes
+still use plain npxG, as they were built and tuned on it. The 7th–93rd range of
+Section 12 was re-measured on adjusted xG and still holds: 80.6% coverage
+(79.4 / 78.8 / 85.6 / 79.4% at GW 5 / 10 / 19 / 28), so it is unchanged.
+
+Reproduce: `python scripts/pull_understat_shots.py 2014 2025`, then
+`python src/backtest_gamestate.py run` and `report`.
+
+---
+
+## 14. Live in-season record
 
 Updated automatically. Only predictions saved **before** kickoff are scored, and
 a prediction is frozen the moment its match starts.
@@ -518,7 +583,7 @@ Current figures always live in `outputs/status.json` and on the site.
 
 ---
 
-## 14. Not validated
+## 15. Not validated
 
 Stated plainly, because a validation document that only lists successes is
 marketing.
@@ -559,6 +624,8 @@ python src/backtest_midseason.py run  # forecasts at GW 5/10/19/28; then: report
 python src/backtest_odds.py         # blend market odds into match predictions?
 python src/backtest_flatten.py run  # does drift noise hurt match predictions? then: report
 python src/backtest_ranges.py run   # mid-season points ranges; then: report
+python scripts/pull_understat_shots.py 2014 2025   # shot data, once
+python src/backtest_gamestate.py run  # game-state adjusted xG; then: report
 python src/tune.py                  # resumable hyperparameter grid search
 ```
 
