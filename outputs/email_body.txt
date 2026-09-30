@@ -46,6 +46,8 @@ HOW ACCURATE HAS THIS BEEN?
   Matches predicted so far: 50
   Results called correctly: 44%
   Sharpness score: 0.204 (lower is better)
+  Bookmakers on the same matches: 0.206
+  So we are 1.0% ahead of the betting market.
 
   Nothing here is graded with hindsight.
 
