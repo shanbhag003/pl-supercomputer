@@ -32,8 +32,9 @@ better.
 | 2025/26 | 0.20804 | 0.20528 |
 | **All (1,520 matches)** | **0.20373** | **0.20153** |
 
-Within **1.1%** of the closing market, on free data, with no team news and no
-in-play information. The market is the benchmark worth measuring against because
+Within **1.1%** of the pre-match market (football-data's pre-closing average
+odds, collected in the days before kickoff), on free data, with no team news and
+no in-play information. The market is the benchmark worth measuring against because
 it aggregates far more information than this model can see.
 
 Reproduce: `python src/backtest.py`
@@ -270,7 +271,128 @@ substantial chance of a rout.
 
 ---
 
-## 9. Live in-season record
+## 9. Mid-season forecasts
+
+Section 2 scores one forecast per season, made the day before it starts. The live
+model makes thirty-eight, and every one after the first has to decide how far to
+trust this season's results over last season's ratings. That was never tested.
+
+Each season 2018/19–2025/26 was replayed at Gameweeks 5, 10, 19 and 28 as the
+live pipeline would have seen it: same priors, same ridge, same bootstrap, actual
+points as the starting table, remaining fixtures simulated, scored against the
+final table. The squad and manager layers are not included — their player-match
+data is not in the repository — but neither changes during a season, so this
+tests the in-season core they sit on. Final tables are rebuilt from results, so
+points deductions are ignored, identically for every model.
+
+**Updating is clearly worth it.** Mean absolute error in final points, 8 seasons:
+
+| Checkpoint | Live model | Frozen pre-season ratings | Points per game | Pre-match odds* |
+|---|---|---|---|---|
+| GW5 | **7.82** | 8.39 | 15.91 | 5.69 |
+| GW10 | **6.84** | 7.69 | 10.39 | 5.25 |
+| GW19 | **4.58** | 5.41 | 6.14 | 3.87 |
+| GW28 | **3.57** | 4.10 | 4.25 | 3.23 |
+
+\*Not achievable: market odds for each remaining match, collected in the days
+before it is played, with information the checkpoint could not have. A ceiling, not a rival.
+The gap is widest early in the season, which is where missing information — team
+news, squad quality — costs most.
+
+**The in-season settings were tuned: nothing ships.** 84 variants: time decay
+`xi` ∈ {0.003, 0.0045, 0.007, 0.01}, an extra weight of 1, 2 or 3 on
+current-season matches, and seven drift schedules. Every variant is compared to
+live on the same season × checkpoint cells, with common random numbers.
+
+| | MAE | vs live | Relegation Brier | 80% coverage |
+|---|---|---|---|---|
+| Live (`xi` 0.0045, weight 1, drift → 0.04 over 12 games) | 5.701 | — | 0.937 | 72.5% |
+| Best of 84 (`xi` 0.003, current season ×2) | 5.648 | −0.053 | 0.968 | 72.3% |
+
+The best variant is better by 0.05 points per club — under 1% — and worse on
+relegation. It is the winner of 84 tries on the same data, so the split-half test
+decides it:
+
+| Chosen on | Tested on | Chosen variant MAE | Live MAE |
+|---|---|---|---|
+| 2018–2021 | 2022–2025 | 6.250 | 6.283 |
+| 2022–2025 | 2018–2021 | 5.303 | **5.119** |
+
+Choosing on one half and testing on the other gives a trivial gain one way and a
+0.19-point loss the other. That is noise. The live settings stay. Tripling the
+current-season weight was worse than doubling it: the data does not support
+reacting harder to early results.
+
+Drift schedules move expected points by at most ±0.03 — they change the width of
+the distribution, not its centre.
+
+**The finding that matters: mid-season intervals are too narrow.**
+
+| Checkpoint | GW5 | GW10 | GW19 | GW28 | All |
+|---|---|---|---|---|---|
+| 80% interval coverage, live | 71.2% | 68.8% | 76.9% | 73.1% | 72.5% |
+
+640 team forecasts, and the published 10th–90th percentile ranges contain the
+final total about 72% of the time. The pre-season calibration of Section 3 does
+not carry into the season. Holding drift at 0.16 all season brings coverage to
+80–84%, but worsens title and relegation Brier scores — so the uncertainty is not
+too small everywhere, it is in the wrong clubs. A handful change a lot during a
+season and most do not. Uniform noise cannot express that; a per-club dynamic
+rating can. **Open, and the next thing this backtest will judge.**
+
+The optional `boost` argument added to `fit_ratings` for this test defaults to
+1.0 and is not used by the live model.
+
+Reproduce: `python src/backtest_midseason.py run` (resumable, ~40 minutes on 7
+cores), then `python src/backtest_midseason.py report`.
+
+---
+
+## 10. Market odds in match predictions — benchmark, not ingredient
+
+The market beats the model at match level (Section 1). The obvious move is to
+blend the odds into the published fixture probabilities. This is a different
+question from the rejected market blend in Section 4, which was about
+pre-season *tables*.
+
+Held-out seasons 2019/20–2025/26, 2,660 matches. Odds are football-data's market
+average **pre-closing** odds — collected Friday afternoon for weekend games,
+Tuesday afternoon for midweek — because that is what the live pipeline can fetch
+before kickoff. Each blend is fitted only on seasons before the one it is scored
+on.
+
+| Method | RPS | Log loss | Hit rate |
+|---|---|---|---|
+| Model alone | 0.20069 | 0.9768 | 53.8% |
+| **Market alone** | **0.19806** | **0.9677** | **54.5%** |
+| Linear blend | 0.19813 | 0.9680 | 54.4% |
+| Log-linear blend | 0.19842 | 0.9694 | 54.3% |
+
+| Paired, per match | RPS difference | 95% CI | Seasons better |
+|---|---|---|---|
+| Market vs model | −0.00263 | [−0.00434, −0.00087] | 5 / 7 |
+| Linear blend vs model | −0.00256 | [−0.00398, −0.00118] | 6 / 7 |
+| Linear blend vs market | +0.00007 | [−0.00035, +0.00045] | 4 / 7 |
+
+The blend beats the model and does not beat the market. The weight it learns on
+the market is **0.66–0.93**, rising in recent seasons: the model adds almost no
+information the odds do not already contain. Publishing the blend would improve
+the scorecard by about 1.3% by publishing, in effect, the bookmakers' numbers.
+
+**Decision: the odds are a benchmark, not an ingredient.** The published
+probabilities stay the model's own. Pre-closing odds are fetched on every run,
+stored beside each prediction and frozen with it at kickoff, and the public
+scorecard grades both on the same matches.
+
+Caveat: the backtest model has no squad, manager or availability layer, which
+the live model does — and those target exactly what the market knows. The live
+gap may be smaller. The live scorecard is where that will show.
+
+Reproduce: `python src/backtest_odds.py` (~1 minute).
+
+---
+
+## 11. Live in-season record
 
 Updated automatically. Only predictions saved **before** kickoff are scored, and
 a prediction is frozen the moment its match starts.
@@ -293,7 +415,7 @@ Current figures always live in `outputs/status.json` and on the site.
 
 ---
 
-## 10. Not validated
+## 12. Not validated
 
 Stated plainly, because a validation document that only lists successes is
 marketing.
@@ -330,6 +452,8 @@ python src/backtest_squad.py        # does the squad layer help?
 python src/backtest_manager.py      # does the manager layer help?
 python src/backtest_market.py       # does blending market odds help?
 python src/backtest_congestion.py   # does fixture congestion help?
+python src/backtest_midseason.py run  # forecasts at GW 5/10/19/28; then: report
+python src/backtest_odds.py         # blend market odds into match predictions?
 python src/tune.py                  # resumable hyperparameter grid search
 ```
 

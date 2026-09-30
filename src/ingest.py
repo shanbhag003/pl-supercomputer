@@ -46,7 +46,9 @@ df = df.sort_values('date').reset_index(drop=True)
 df['hnpxg'] = df['hnpxg'].fillna(df['hxg'])
 df['anpxg'] = df['anpxg'].fillna(df['axg'])
 
-# ---- football-data.co.uk: closing odds (benchmark) ----
+# ---- football-data.co.uk: pre-closing market odds (benchmark) ----
+# AvgH/D/A are collected Friday afternoon (weekend) or Tuesday afternoon
+# (midweek). Closing odds are the separate AvgCH/CD/CA columns.
 NAME_FD2US = {
     'Man City': 'Manchester City', 'Man United': 'Manchester United',
     'Tottenham': 'Tottenham', 'Newcastle': 'Newcastle United',

@@ -97,7 +97,7 @@ def build_body(pred, status, gw_label, results_note=''):
           f'(lower is better)')
         if 'bookie_rps' in val:
             b = val['bookie_rps']
-            gap = 100 * (val['rps'] / b - 1)
+            gap = 100 * (val.get('model_rps_same', val['rps']) / b - 1)
             side = 'behind' if gap > 0 else 'ahead of'
             A(f'  Bookmakers on the same matches: {b:.3f}')
             A(f'  So we are {abs(gap):.1f}% {side} the betting market.')
@@ -228,7 +228,7 @@ def build_html(pred, status, gw_label):
                 ('Results called correctly', f'{100 * val.get("hit", 0):.0f}%'),
                 ('Sharpness score (lower is better)', f'{val.get("rps", 0):.3f}')]
         if 'bookie_rps' in val:
-            gap = 100 * (val['rps'] / val['bookie_rps'] - 1)
+            gap = 100 * (val.get('model_rps_same', val['rps']) / val['bookie_rps'] - 1)
             side = 'behind' if gap > 0 else 'ahead of'
             rows.append(('Bookmakers, same matches', f'{val["bookie_rps"]:.3f}'))
             rows.append(('Versus the market',
