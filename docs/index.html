@@ -590,7 +590,8 @@ function accuracyBlock(){
         (v.hit_score*100).toFixed(0) + '%  (' + v.n_score + ' predicted)']);
     }
     if (v.bookie_rps){
-      const gap = 100*(v.rps/v.bookie_rps - 1);
+      // like for like: the model on only the matches that had market odds
+      const gap = 100*((v.model_rps_same ?? v.rps)/v.bookie_rps - 1);
       rows.push(['Bookmakers, same matches', v.bookie_rps.toFixed(3)]);
       rows.push(['Versus the market',
         Math.abs(gap).toFixed(1) + '% ' + (gap > 0 ? 'behind' : 'ahead')]);

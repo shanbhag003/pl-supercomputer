@@ -28,6 +28,12 @@ on:
     # Tuesday 09:00 UTC, the same for the five midweek rounds.
     - cron: '0 9 * * 2'
 
+    # Friday and Tuesday 16:00 UTC: football-data collects market odds on
+    # those afternoons, after the 09:00 runs. Without these, Friday-night and
+    # Tuesday-night fixtures would freeze at kickoff with no odds to be graded
+    # against. Three hours before a 19:00 UTC kickoff, for the usual delays.
+    - cron: '0 16 * * 2,5'
+
   workflow_dispatch:
     inputs:
       force:

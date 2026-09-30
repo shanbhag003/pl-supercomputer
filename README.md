@@ -119,7 +119,7 @@ Four seasons never used for tuning:
 | 2025/26 | 0.20804 | 0.20528 |
 | **All (1,520 matches)** | **0.20373** | **0.20153** |
 
-**Within 1.1% of the closing market**, on free data, with no team news.
+**Within 1.1% of the pre-match betting market**, on free data, with no team news.
 
 ### Season level, seven pre-season forecasts
 
@@ -368,7 +368,7 @@ each match, and once played, the real result with a tick or a cross.
 ## Data
 
 - [Understat](https://understat.com) — expected goals, player and match level
-- [football-data.co.uk](https://www.football-data.co.uk) — results and closing odds
+- [football-data.co.uk](https://www.football-data.co.uk) — results and pre-match odds
 - [Fantasy Premier League API](https://fantasy.premierleague.com) — squads, injuries, suspensions
 - Wikipedia — manager spells, domestic cup and UEFA fixtures
 - Fixtures via fixturedownload.com

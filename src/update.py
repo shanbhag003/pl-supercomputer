@@ -142,6 +142,18 @@ def refresh():
                         f'(HTTP {r.status_code}) - skipping')
             except Exception as e:
                 log(f'  {div}_{code} fetch failed: {e}')
+    # Upcoming fixtures with pre-closing market odds - the benchmark each match
+    # prediction is graded against. Only matches in the next few days are
+    # listed, so a failed fetch just keeps the previous file.
+    try:
+        r = requests.get('https://www.football-data.co.uk/fixtures.csv', timeout=40)
+        body = r.content[:400].lstrip().lstrip(b'\xef\xbb\xbf')
+        if r.status_code == 200 and body.startswith(b'Div,'):
+            open(f'{DATA}/raw/fixtures_odds.csv', 'wb').write(r.content)
+        else:
+            log(f'  fixtures.csv: not a valid CSV (HTTP {r.status_code}) - skipping')
+    except Exception as e:
+        log(f'  fixtures.csv fetch failed: {e}')
     ok = False
     cache = f'{DATA}/understat/EPL_{SEASON}.json'
     try:
@@ -252,6 +264,37 @@ def current_season_matches():
     return d
 
 
+def market_odds():
+    """De-vigged pre-closing market odds, {(home, away): [pH, pD, pA]}.
+
+    Benchmark only: backtest_odds.py found that blending these into the model
+    does no better than the odds alone - the blend learns 66-93% market - so
+    publishing it would echo the bookmakers. The model's own probabilities are
+    published; the market's are stored beside them so the scorecard can grade
+    both on the same matches. football-data collects them on Friday afternoon
+    for weekend games and Tuesday afternoon for midweek ones.
+    """
+    f = f'{DATA}/raw/fixtures_odds.csv'
+    if not os.path.exists(f):
+        return {}
+    try:
+        o = pd.read_csv(f, encoding='latin-1')
+    except Exception as e:
+        log(f'  {f} is not parseable ({e}) - no market odds this run')
+        return {}
+    o.columns = [str(c).replace('﻿', '').replace('ï»¿', '').strip()
+                 for c in o.columns]
+    if not {'Div', 'HomeTeam', 'AwayTeam', 'AvgH', 'AvgD', 'AvgA'} <= set(o.columns):
+        return {}
+    o = o[o['Div'] == 'E0'].dropna(subset=['AvgH', 'AvgD', 'AvgA'])
+    out = {}
+    for r in o.itertuples():
+        q = 1 / np.array([r.AvgH, r.AvgD, r.AvgA], dtype=float)
+        out[(FD2US.get(r.HomeTeam, r.HomeTeam),
+             FD2US.get(r.AwayTeam, r.AwayTeam))] = q / q.sum()
+    return out
+
+
 # ---------------------------------------------------------------------- table
 def build_table(played, teams):
     st = {t: dict(P=0, W=0, D=0, L=0, GF=0, GA=0, Pts=0) for t in teams}
@@ -319,6 +362,10 @@ def validate(played, teams):
         cq = np.cumsum(Q[ok], 1)
         out['bookie_rps'] = float((((cq - co[ok]) ** 2).sum(1) / 2).mean())
         out['bookie_n'] = int(ok.sum())
+        # The model on the SAME matches. Odds only exist for fixtures priced
+        # before kickoff, so comparing against the all-match rps would set the
+        # model's full record against the market's partial one.
+        out['model_rps_same'] = float(rps[ok].mean())
     return out
 
 
@@ -527,6 +574,14 @@ def main():
         now_utc = pd.Timestamp.now(tz='UTC')
         log(f'predicting gameweeks {rounds} ({len(nxt)} fixtures)')
 
+        # Market odds, stored beside each prediction and frozen with it at
+        # kickoff. A fixture priced on an earlier run but missing from today's
+        # feed keeps its earlier odds rather than losing them.
+        odds = market_odds()
+        if len(prev) and 'bH' in prev.columns:
+            for pr in prev.dropna(subset=['bH', 'bD', 'bA']).itertuples():
+                odds.setdefault((pr.home, pr.away), [pr.bH, pr.bD, pr.bA])
+
         mp, frozen = [], 0
         for _, r in nxt.iterrows():
             ko = pd.to_datetime(r.Date, dayfirst=True).tz_localize('UTC')
@@ -558,13 +613,15 @@ def main():
             else:
                 keep[np.triu_indices_from(M, 1)] = True
             sh, sa = np.unravel_index(np.argmax(np.where(keep, M, -1.0)), M.shape)
+            bq = odds.get((r.home, r.away), [np.nan] * 3)
 
             mp.append(dict(date=ko.strftime('%Y-%m-%d'), ko=ko.isoformat(),
                            gw=int(r['Round Number']), home=r.home, away=r.away,
                            pH=pH, pD=pD, pA=pA, outcome='HDA'[oc],
                            sc_h=int(sh), sc_a=int(sa),
                            p_score=float(M[sh, sa]),
-                           xg_h=float(np.mean(lhs)), xg_a=float(np.mean(las))))
+                           xg_h=float(np.mean(lhs)), xg_a=float(np.mean(las)),
+                           bH=float(bq[0]), bD=float(bq[1]), bA=float(bq[2])))
 
         # New rows first, so drop_duplicates(keep='first') lets a refreshed
         # pre-kickoff prediction win while anything already frozen survives.
@@ -574,7 +631,8 @@ def main():
             mpd = (mpd.drop_duplicates(subset=['home', 'away'], keep='first')
                       .sort_values(['gw', 'date', 'home']))
             mpd.to_csv(f, index=False)
-        log(f'  {len(mp)} predictions written, {frozen} already frozen at kickoff')
+        log(f'  {len(mp)} predictions written, {frozen} already frozen at kickoff, '
+            f'{sum(1 for x in mp if not np.isnan(x["bH"]))} with market odds')
 
     scorecard = validate(cur, teams)
 
