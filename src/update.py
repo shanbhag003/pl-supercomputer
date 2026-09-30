@@ -29,6 +29,12 @@ CFG = dict(xi=0.0045, w_xg=0.7, ridge=2.0)
 BASE_DRIFT, B, N = 0.16, 80, 20000
 SQUAD_W = 0.5          # backtested on 7 seasons; see VALIDATION.md
 CLOSE_CALL = 0.04      # top two outcomes this close => flag it as a tight call
+# The published points range, as percentiles of the simulated final totals. The
+# plain 10th-90th came out too narrow: over 640 mid-season backtest forecasts it
+# held the final total 72% of the time, not 80%. The 7th-93rd held it 79.7%.
+# Calibrates the displayed range only; no probability depends on it. See
+# VALIDATION.md section 12.
+RANGE_PCT = (7, 93)
 
 
 def call_outcome(pH, pD, pA):
@@ -519,8 +525,8 @@ def main():
         p = pos[:, i]
         rows.append(dict(team=t, played=table[t]['P'], pts_now=table[t]['Pts'],
                          xPts=pts[:, i].mean(),
-                         lo=np.percentile(pts[:, i], 10),
-                         hi=np.percentile(pts[:, i], 90),
+                         lo=np.percentile(pts[:, i], RANGE_PCT[0]),
+                         hi=np.percentile(pts[:, i], RANGE_PCT[1]),
                          title=(p == 1).mean(), top4=(p <= 4).mean(),
                          top6=(p <= 6).mean(), releg=(p >= 18).mean()))
     pred = pd.DataFrame(rows).sort_values('xPts', ascending=False).reset_index(drop=True)

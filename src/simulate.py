@@ -51,6 +51,40 @@ def fixture_grids(models, fixtures, teams):
     return cum
 
 
+def fixture_grids_walk(models, fixtures, weeks, teams, sigma, seed=0):
+    """fixture_grids, plus in-season change: each club's ratings follow a
+    random walk through the rest of the season, sigma per week.
+
+    Without it a club's strength is frozen from now to May, so every source of
+    change after today - injuries, sackings, form - is missing, and mid-season
+    intervals come out too narrow. weeks[i] is how many weeks from now fixture
+    i is played; the walk starts at zero this week. One path per bootstrap
+    model, like the drift, so it is shared by that model's block of sims.
+    sigma=0 returns exactly fixture_grids.
+    """
+    if sigma <= 0:
+        return fixture_grids(models, fixtures, teams)
+    rng = np.random.default_rng(seed)
+    ti = {t: i for i, t in enumerate(teams)}
+    wk = np.clip(np.asarray(weeks, dtype=int), 0, None)
+    W = int(wk.max()) + 1 if len(wk) else 1
+    B, M, K = len(models), len(fixtures), (MAXG + 1) ** 2
+    cum = np.zeros((B, M, K))
+    for bi, m in enumerate(models):
+        steps = rng.normal(0, sigma, size=(len(teams), W, 2))
+        steps[:, 0, :] = 0.0
+        path = np.cumsum(steps, axis=1)            # [team, week, att/def]
+        att, dfn = m['att'], m['dfn']
+        for mi, (h, a) in enumerate(fixtures):
+            w, hi, ai = wk[mi], ti[h], ti[a]
+            lh = np.clip(np.exp(m['mu'] + m['gamma'] + att[h] + path[hi, w, 0]
+                                - dfn[a] - path[ai, w, 1]), .05, 8)
+            la = np.clip(np.exp(m['mu'] + att[a] + path[ai, w, 0]
+                                - dfn[h] - path[hi, w, 1]), .05, 8)
+            cum[bi, mi] = np.cumsum(score_matrix(lh, la, m['rho'], MAXG).ravel())
+    return cum
+
+
 def simulate(cum, fixtures, teams, N=20000, start=None, seed=1):
     """Returns points, goal difference, goals for  [N, T]."""
     rng = np.random.default_rng(seed)
