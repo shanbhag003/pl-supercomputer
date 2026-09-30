@@ -392,7 +392,50 @@ Reproduce: `python src/backtest_odds.py` (~1 minute).
 
 ---
 
-## 11. Live in-season record
+## 11. Drift noise in match predictions — checked, harmless
+
+The published fixture probabilities are not what Section 1 validated. Section 1
+scores a single fitted model. The live pipeline averages the scoreline grid over
+40 bootstrap models, each with the season-simulation drift added to every
+rating — N(0, 0.16) at the start of a season, shrinking to 0.04 by Gameweek 12.
+Averaging over noisy ratings flattens the probabilities, most of all early on.
+Drift is right for the table simulation, where one draw of ratings persists for
+38 matches. Whether it costs anything for a single match had to be measured.
+
+Walk-forward, 2018/19–2025/26, 3,040 matches, weekly refits, identical bootstrap
+draws for every variant. The single-fit column reproduces Section 1's held-out
+figures exactly, so the harness matches the validated backtest.
+
+| Variant | RPS | Log loss | Hit rate | Mean favourite prob. |
+|---|---|---|---|---|
+| Single fit (Section 1) | 0.19903 | 0.9676 | 54.6% | 51.6% |
+| Bootstrap, no noise | 0.19916 | 0.9681 | 54.7% | 51.5% |
+| **Bootstrap + live drift** | **0.19917** | **0.9682** | **54.7%** | **51.5%** |
+| Bootstrap + ½ drift | 0.19915 | 0.9680 | 54.7% | 51.5% |
+| Bootstrap + 2× drift | 0.19935 | 0.9690 | 54.5% | 51.5% |
+
+| Paired against live, per match | RPS difference | 95% CI | Seasons better |
+|---|---|---|---|
+| Single fit | −0.00014 | [−0.00042, +0.00015] | 5 / 8 |
+| Bootstrap, no noise | −0.00001 | [−0.00017, +0.00016] | 3 / 8 |
+| ½ drift | −0.00002 | [−0.00011, +0.00006] | 3 / 8 |
+| 2× drift | +0.00018 | [+0.00000, +0.00036] | 3 / 8 |
+
+The flattening is real but small: it moves the favourite's probability by 0.1pp
+on average, and the RPS cost is 0.07% with a confidence interval spanning zero.
+Only doubling the drift is measurably worse. Early in the season, where the
+drift is largest, live is no worse than the single fit (GW1–6: 0.19085 against
+0.19090).
+
+**No change.** Removing the noise from match predictions would mean a second
+code path for a gain the data cannot distinguish from zero.
+
+Reproduce: `python src/backtest_flatten.py run` (~20 minutes on 8 cores), then
+`python src/backtest_flatten.py report`.
+
+---
+
+## 12. Live in-season record
 
 Updated automatically. Only predictions saved **before** kickoff are scored, and
 a prediction is frozen the moment its match starts.
@@ -415,7 +458,7 @@ Current figures always live in `outputs/status.json` and on the site.
 
 ---
 
-## 12. Not validated
+## 13. Not validated
 
 Stated plainly, because a validation document that only lists successes is
 marketing.
@@ -427,9 +470,9 @@ marketing.
 - **The two-gameweek prediction window and freeze-at-kickoff rule** are
   correctness properties, not accuracy improvements. Neither was backtested
   because neither claims to make forecasts better.
-- **The exact-scoreline metric** has no baseline in this repository. It should be
-  compared against a bookmaker correct-score market before any claim is made
-  about it.
+- **The predicted scoreline** is shown but not scored. Exact-score accuracy is
+  bounded near one in nine (Section 8) and has no baseline in this repository,
+  so it was removed from the scorecard rather than published without context.
 - **`SQUAD_W = 0.5` and `MGR_W = 0.25`** were chosen at half their tested optima
   as a hedge against overfitting. That is a judgement call, not a result.
 - **The manager layer rests on a handful of qualifying moves per season.** It
@@ -454,6 +497,7 @@ python src/backtest_market.py       # does blending market odds help?
 python src/backtest_congestion.py   # does fixture congestion help?
 python src/backtest_midseason.py run  # forecasts at GW 5/10/19/28; then: report
 python src/backtest_odds.py         # blend market odds into match predictions?
+python src/backtest_flatten.py run  # does drift noise hurt match predictions? then: report
 python src/tune.py                  # resumable hyperparameter grid search
 ```
 

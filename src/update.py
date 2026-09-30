@@ -342,15 +342,10 @@ def validate(played, teams):
     out = dict(n=int(len(m)), rps=float(rps.mean()), logloss=float(ll.mean()),
                hit=float((call == res).mean()),
                n_close=int((srt[:, 2] - srt[:, 1] < CLOSE_CALL).sum()))
-    # Exact-scoreline accuracy, once predictions carry a scoreline. Expect
-    # roughly one in nine: the most likely single result in a football match
-    # is usually 1-1 or 1-0 and rarely carries more than ~12% probability.
-    if 'sc_h' in m.columns and m.sc_h.notna().any():
-        s = m[m.sc_h.notna() & m.sc_a.notna()]
-        if len(s):
-            exact = (s.sc_h.astype(int) == s.hg) & (s.sc_a.astype(int) == s.ag)
-            out['hit_score'] = float(exact.mean())
-            out['n_score'] = int(len(s))
+    # Exact-scoreline accuracy is deliberately not scored. The likeliest single
+    # score rarely carries more than ~14%, so the hit rate sits near one in
+    # nine for any model and only ever read as failure. The predicted
+    # scoreline is still shown, with expected goals beside it.
     # argmax over three outcomes can essentially never return a draw in a
     # Dixon-Coles model, so `hit` is structurally capped near 76%. Publish the
     # count so the ceiling is visible rather than hidden.
@@ -682,8 +677,6 @@ def main():
                 row.update(res_h=hg, res_a=ag,
                            actual='H' if hg > ag else ('D' if hg == ag else 'A'))
                 row['ok_outcome'] = bool(row['actual'] == oc)
-                if 'sc_h' in row:
-                    row['ok_score'] = bool(row['sc_h'] == hg and row['sc_a'] == ag)
             match_rows.append(row)
         log(f'  fixture payload: {len(match_rows)} rows, '
             f'{sum(1 for r in match_rows if "res_h" in r)} settled')

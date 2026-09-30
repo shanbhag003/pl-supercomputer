@@ -82,22 +82,24 @@ of the scoreline grid gives 1-1 surprisingly often, even when a home win is the
 most likely outcome — which would print "home win, most likely 1-1". So the
 outcome is chosen first, then the most likely scoreline *within* that outcome.
 
-**Close calls are called level.** Plain `argmax` over home/draw/away can
-essentially never return a draw, because in a Dixon-Coles grid the draw is almost
-never the largest of the three. That capped the hit rate near 76% and, worse,
-"called" a 36/28/36 fixture for the home side purely on tie-break order. When the
-two leading outcomes fall within 4 percentage points, the model publishes a draw
-instead of pretending. That produces draws for about 20% of fixtures, against a
-real Premier League rate near 24%.
+**Close calls are labelled, not overridden.** The prediction is always the most
+likely of home/draw/away. In a Dixon-Coles grid the draw is almost never the
+largest of the three, so the model essentially never predicts one. An earlier
+version published a draw whenever the top two outcomes were within 4 percentage
+points; tested on 6,090 matches it cost 0.71pp of hit rate, and in 422 of the
+423 matches it changed, the draw it published was the outcome the model rated
+*least* likely. It was reverted. A fixture that close is now labelled **"too
+close to call"** on the site, but the prediction and the score against it stay
+the model's actual favourite. Details in [VALIDATION.md](VALIDATION.md) §5.
 
 **Expected goals alongside the scoreline.** The modal scoreline is only the
 tallest bar in a very flat distribution — even in the most one-sided fixture of a
 round it carries about 14%. So each prediction also shows the expected goals for
 both sides. "2-0" says a win; "2.3 – 0.6" says a win and possibly a rout.
 
-One consequence worth stating plainly: **exact-scoreline accuracy will sit near
-one in nine and cannot go much higher**, for this or any model. The site says so
-rather than letting the number look like failure.
+One consequence worth stating plainly: **exact-scoreline accuracy would sit near
+one in nine and cannot go much higher**, for this or any model. So the site does
+not score it: predictions are graded on the result and on the probabilities.
 
 ---
 
