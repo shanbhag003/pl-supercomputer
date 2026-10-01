@@ -12,8 +12,10 @@
 <style>
 :root{--deep:#1A0020;--purple:#37003C;--pink:#FF2882;--cyan:#04F5FF;--lav:#C4AECC;--dim:#9C7FA6;--line:rgba(255,255,255,.12)}
 *{box-sizing:border-box}
-body{margin:0;color:#fff;font:15px/1.65 Inter,-apple-system,Segoe UI,Roboto,sans-serif;
-  background:linear-gradient(170deg,var(--deep) 0%,var(--purple) 55%,#4E0055 100%) fixed}
+html{background:var(--deep);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;color:#fff;font:15px/1.65 Inter,-apple-system,Segoe UI,Roboto,sans-serif}
+body:before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(170deg,var(--deep) 0%,var(--purple) 55%,#4E0055 100%)}
 .wrap{max-width:780px;margin:0 auto;padding:18px 16px 60px}
 .back{font:600 14px 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);text-decoration:none}
 h1{font:400 34px/1.1 Anton,Impact,sans-serif;margin:14px 0 6px}
