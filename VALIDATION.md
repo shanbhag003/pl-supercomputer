@@ -835,6 +835,26 @@ should do better than this. **Not modelled yet:** 2025/26's
 defensive-contribution points, which is why 2025/26 predictions run a little
 low (1.08 against 1.17 per player-gameweek).
 
+**Live (stage 2, `fpl_live.py`).** Each pipeline run predicts the next five
+gameweeks for every FPL player, from the same 40 bootstrap models as the
+fixture predictions, plus what the backtest could not have:
+
+- **availability** — FPL's injury, doubt and suspension flags; a return date
+  in FPL's news ("Expected back 18 Oct") is read, otherwise an injured player
+  is assumed out for six fixtures and a suspended one for two
+- **defensive-contribution points** (2025/26 rules) — 2 points × the player's
+  rate of reaching the threshold per 60-minute appearance, this season plus
+  half of last, shrunk toward his position (2025/26: defenders 27%,
+  midfielders 18%, forwards 1%)
+- scale factors and bonus model from all six backtest seasons
+  (`fpl_calibration.json`), and last season's final appearances so the
+  minutes model works from Gameweek 1 (`fpl_prev_season.parquet`, rebuilt
+  every June by `player-values.yml`)
+
+FPL's genuine pre-deadline expected points (`ep_next`) are logged beside the
+model's for the next gameweek on every run until its deadline, then frozen
+(`outputs/fpl_benchmark.csv`) — the fair comparison the archive could not give.
+
 Reproduce: download `merged_gw_<season>.csv` and `players_raw_<season>.csv`
 for 2020-21 … 2025-26 from github.com/vaastav/Fantasy-Premier-League into
 `data/fpl_history/` (gitignored, ~45 MB), then `python src/backtest_fpl.py

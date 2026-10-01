@@ -225,6 +225,17 @@ def refresh():
             log(f'  shots: +{added} matches, {failed} failed')
     except Exception as e:
         log(f'  shot fetch failed: {type(e).__name__}: {e}')
+    # This season's lineups, for the FPL predictions' chance shares. Same
+    # endpoint and the same few new matches a gameweek.
+    try:
+        sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+        import pull_understat_rosters as pur
+        with requests.Session() as s:
+            added, failed = pur.pull(SEASON, s)
+        if added or failed:
+            log(f'  lineups: +{added} matches, {failed} failed')
+    except Exception as e:
+        log(f'  lineup fetch failed: {type(e).__name__}: {e}')
     return ok
 
 
@@ -678,6 +689,26 @@ def main():
         log(f'  {len(mp)} predictions written, {frozen} already frozen at kickoff, '
             f'{sum(1 for x in mp if not np.isnan(x["bH"]))} with market odds')
 
+    # ---- FPL expected points, next five gameweeks (VALIDATION.md s.18) ----
+    # Team goal expectations come from the same 40 bootstrap models as the
+    # fixture predictions above, so the two can never disagree. Any failure is
+    # logged and skipped: FPL is an add-on and must not stop a publish.
+    fpl_payload = None
+    try:
+        import fpl_live
+
+        def lam_fn(h, a):
+            if h not in mods[0]['att'] or a not in mods[0]['att']:
+                return 1.45, 1.20            # club outside the model: league average
+            lhs = [np.clip(np.exp(m['mu'] + m['gamma'] + m['att'][h] - m['dfn'][a]), .05, 8)
+                   for m in mods[:40]]
+            las = [np.clip(np.exp(m['mu'] + m['att'][a] - m['dfn'][h]), .05, 8)
+                   for m in mods[:40]]
+            return float(np.mean(lhs)), float(np.mean(las))
+        fpl_payload = fpl_live.run(lam_fn, log=log)
+    except Exception as e:
+        log(f'  FPL predictions unavailable: {type(e).__name__}: {e}')
+
     scorecard = validate(cur, teams)
 
     # ---- fixture-by-fixture payload for the site ----
@@ -886,6 +917,7 @@ def main():
             matches=match_rows,
             position_matrix={t: [round(v, 4) for v in pm_web.loc[t].tolist()]
                              for t in pm_web.index},
+            fpl=fpl_payload,
         )
         # write to a temp file then move it into place, so a crash mid-write
         # cannot leave the site serving truncated JSON
