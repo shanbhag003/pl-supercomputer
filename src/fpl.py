@@ -52,7 +52,8 @@ def load_history(label):
         points=d.total_points, goals=d.goals_scored, assists=d.assists, cs=d.clean_sheets,
         gc=d.goals_conceded, saves=d.saves, bonus=d.bonus, yellow=d.yellow_cards,
         pen_saved=d.penalties_saved, pen_missed=d.penalties_missed, own_goals=d.own_goals,
-        red=d.red_cards, xP=d.get('xP')))
+        red=d.red_cards, xP=d.get('xP'), fixture=d.fixture,
+        dc=d.get('defensive_contribution', pd.Series(0, index=d.index))))
     return out.sort_values(['kickoff', 'element']).reset_index(drop=True)
 
 

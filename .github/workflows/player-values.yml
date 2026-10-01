@@ -50,11 +50,25 @@ jobs:
       - name: Rebuild player values
         run: python src/build_player_values.py
 
+      # Last season's final FPL appearances and defensive-contribution rates,
+      # so the FPL minutes model works from Gameweek 1 (src/fpl_live.py).
+      # From the vaastav archive; a failure here leaves last year's file.
+      - name: Rebuild FPL last-season file
+        continue-on-error: true
+        run: |
+          LAST=$(( $(date -u +%Y) - 1 ))
+          LABEL="$LAST-$(( (LAST + 1) % 100 ))"
+          mkdir -p data/fpl_history
+          BASE=https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/master/data/$LABEL
+          curl -sfL -o data/fpl_history/merged_gw_$LABEL.csv $BASE/gws/merged_gw.csv
+          curl -sfL -o data/fpl_history/players_raw_$LABEL.csv $BASE/players_raw.csv
+          python -c "import sys; sys.path.insert(0, 'src'); import fpl_live; fpl_live.build_prev_season('$LABEL')"
+
       - name: Commit
         run: |
           git config user.name  "pl-supercomputer"
           git config user.email "actions@github.com"
-          git add data/processed/rapm_live.pkl data/understat/ || true
+          git add data/processed/rapm_live.pkl data/processed/fpl_prev_season.parquet data/understat/ || true
           git diff --staged --quiet && echo "nothing to commit" || {
             git commit -m "Player values rebuilt $(date -u +'%Y-%m-%d')"
             git pull --rebase && git push
