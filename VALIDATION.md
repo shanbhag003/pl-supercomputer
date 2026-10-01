@@ -596,7 +596,45 @@ Reproduce: `python src/backtest_gamestate.py setpiece`, then `setpiece-report`.
 
 ---
 
-## 15. Live in-season record
+## 15. Dynamic (Kalman) ratings — tested and rejected
+
+The static model refits every run with exponentially decaying match weights,
+which treats every club as changing at the same rate. The alternative tried
+here (`dynamic.py`): each club's attack and defence is a state that drifts
+week to week with its own uncertainty, updated after every match day by an
+iterated extended Kalman filter on the same quasi-Poisson target (game-state
+adjusted xG blended with goals). Uncertainty grows by σ_w² a week and σ_s² over
+the summer, with optional summer shrinkage κ; promoted clubs restart at the
+promoted prior; league scoring level and home advantage drift too, so the
+empty-stadium season could pull home advantage down and let it recover.
+
+One pass through history gives walk-forward predictions on the same 7-day
+snapshot schedule as Section 1's refits. 72 settings (σ_w 0.005–0.03, σ_s
+0.1–0.25, κ 1 or 0.85, dispersion 0.5–1), chosen on 2016/17–2018/19, scored on
+the same 2,660 held-out matches as Section 13, against the live static model:
+
+| | RPS 2019–25 | vs live | 95% CI | Seasons better |
+|---|---|---|---|---|
+| Live static model | 0.20021 | — | — | — |
+| Dynamic, chosen on tuning seasons | 0.20119 | +0.00098 | [+0.00007, +0.00192] | 1 / 7 |
+| Dynamic, best of 72 *with hindsight* | 0.20032 | +0.00011 | — | — |
+
+Worse at every point of the season, August and September included, where it
+should have helped most. Even choosing the setting by its held-out score — which
+flatters it — it does not reach the static model, so no tuning of this design
+wins. The static fit, which re-estimates every club jointly on four seasons with
+recency weighting and mild shrinkage, already is a well-tuned version of the
+same idea; the filter commits to each update as it goes and pays for its
+approximations. The motivation from Section 12, the pull toward the middle, is
+largely addressed by Section 13 and the calibrated range.
+
+**Rejected.** `dynamic.py` stays in the repository so the result can be checked.
+
+Reproduce: `python src/backtest_dynamic.py run` (~5 minutes), then `report`.
+
+---
+
+## 16. Live in-season record
 
 Updated automatically. Only predictions saved **before** kickoff are scored, and
 a prediction is frozen the moment its match starts.
@@ -619,7 +657,7 @@ Current figures always live in `outputs/status.json` and on the site.
 
 ---
 
-## 16. Not validated
+## 17. Not validated
 
 Stated plainly, because a validation document that only lists successes is
 marketing.
@@ -663,6 +701,7 @@ python src/backtest_ranges.py run   # mid-season points ranges; then: report
 python scripts/pull_understat_shots.py 2014 2025   # shot data, once
 python src/backtest_gamestate.py run  # game-state adjusted xG; then: report
 python src/backtest_gamestate.py setpiece  # set-piece weighting; then: setpiece-report
+python src/backtest_dynamic.py run  # Kalman-filter ratings vs static; then: report
 python src/tune.py                  # resumable hyperparameter grid search
 ```
 
