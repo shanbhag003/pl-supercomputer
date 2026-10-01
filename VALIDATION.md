@@ -697,6 +697,16 @@ on every metric — points better in 29 of 35 forecasts (−0.074), title unchan
 Bournemouth above Chelsea (each within half a point); City's title chance 43.0%
 → 45.9%.
 
+**Position labels, corrected and re-tested.** The informed prior's position
+term read Understat's codes by first letter, so defensive midfielders
+(DMC/DML/DMR — Rice, Rodri) counted as defenders and substitute appearances
+('Sub') as forwards. Fixed in `players.position_group`. Re-run on both tests:
+lineup error 0.1864 against 0.1858, and at the live weight points MAE 6.316
+against 6.310, title Brier 0.3560 against 0.3577 — neutral, every difference
+within noise. A player's own numbers already carry most of what his position
+would. The code keeps the correct labels; the live values are not rebuilt for a
+neutral change, and the June rebuild picks the labels up.
+
 **Next.** Value signings with no Premier League record from something other
 than zero — transfer fee, or minutes and role at the previous club. That is
 the lever for title odds, and with it the full informed weight may become safe.
