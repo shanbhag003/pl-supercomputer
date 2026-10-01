@@ -1,0 +1,11 @@
+# Foreign-league match data (VALIDATION.md section 17): ~24 MB, re-downloadable
+# with scripts/pull_understat_rosters.py. Only the summary cache,
+# data/processed/foreign_values.parquet, is kept in the repository.
+data/understat/rosters/Bundesliga_*
+data/understat/rosters/La_liga_*
+data/understat/rosters/Serie_A_*
+data/understat/rosters/Ligue_1_*
+data/understat/shots/Bundesliga_*
+data/understat/shots/La_liga_*
+data/understat/shots/Serie_A_*
+data/understat/shots/Ligue_1_*
