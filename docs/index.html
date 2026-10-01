@@ -181,6 +181,8 @@ table.cur td:nth-child(2),table.cur th:nth-child(2){text-align:left}
 .flagbtn{border:0;cursor:pointer;margin-left:6px;font:600 11px var(--label);letter-spacing:.06em;text-transform:uppercase;
   border-radius:4px;padding:1px 5px;background:rgba(255,225,77,.15);color:#FFE14D;vertical-align:1px}
 .toast{max-width:88vw;white-space:normal;text-align:center}
+.zone{border:1px solid var(--line);background:var(--card2);color:#fff;border-radius:999px;cursor:pointer;
+  font:600 11px var(--label);letter-spacing:.08em;padding:2px 9px;margin-left:6px;vertical-align:1px;white-space:nowrap}
 .pl .sub{display:block;font-size:12px;color:var(--dim)}
 .pl .xp{font:400 18px var(--display);color:var(--green)}
 .tag{font:600 11px var(--label);letter-spacing:.06em;border-radius:4px;padding:1px 5px;background:var(--card2);color:var(--lav)}
@@ -240,12 +242,19 @@ const nm = t => SHORT[t] || t;
 const pct = (v, d=0) => v >= 0.995 ? '>99%' : v < 0.005 && v > 0 ? '<1%' : v === 0 ? '–' : (100*v).toFixed(d)+'%';
 const col = t => CLUB[t] || '#888';
 const dot = t => `<span class="dot" style="background:${col(t)}"></span>`;
-const ko = s => s ? new Date(s).toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : '';
+// Times in the visitor's own zone or UTC, their choice, remembered.
+let useUTC = false;
+try { useUTC = localStorage.getItem('plzone') === 'utc'; } catch (e) {}
+const zoneName = () => useUTC ? 'UTC' : (new Intl.DateTimeFormat(navigator.language || 'en-GB', {timeZoneName: 'short'})
+  .formatToParts(new Date()).find(p => p.type === 'timeZoneName') || {}).value || 'local';
+const ko = s => s ? new Date(s).toLocaleString('en-GB', Object.assign({weekday:'short',day:'numeric',month:'short',
+  hour:'2-digit',minute:'2-digit',hour12:false}, useUTC ? {timeZone: 'UTC'} : {})) : '';
 let TAB = 'table', VIEW = 'pred', GW = null, POS = 'ALL', HZ = 'x1', SHOWN = 40;
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 const setMeta = () => document.getElementById('meta').innerHTML =
-  `After <b>Gameweek ${D.gameweek}</b> · updated ${ko(D.updated_utc)} · next update after GW${D.next_gameweek}`;
+  `After <b>Gameweek ${D.gameweek}</b> · updated ${ko(D.updated_utc)} · next update after GW${D.next_gameweek}
+   <button class="zone" data-zone="1" title="Switch between your time and UTC">${zoneName()} ⇄ ${useUTC ? 'local' : 'UTC'}</button>`;
 
 /* -------------------------------------------------------------- SHARING */
 // Phones get their own share sheet (WhatsApp, Instagram, Messages...);
@@ -454,13 +463,18 @@ document.addEventListener('click', e => {
     else if (s.dataset.copy) navigator.clipboard.writeText(SITE).then(() => toast('Link copied'), () => toast(SITE));
     return;
   }
-  const t = e.target.closest('[data-t],[data-v],[data-gw],[data-pos],[data-hz],.row[data-team]');
+  const t = e.target.closest('[data-t],[data-v],[data-gw],[data-pos],[data-hz],[data-zone],.row[data-team]');
   if (!t) return;
   if (t.dataset.t) { TAB = t.dataset.t; render(); window.scrollTo({top: 0}); }
   else if (t.dataset.v) { VIEW = t.dataset.v; render(); }
   else if (t.dataset.gw) { GW = +t.dataset.gw; render(); }
   else if (t.dataset.pos) { POS = t.dataset.pos; SHOWN = 40; render(); }
   else if (t.dataset.hz) { HZ = t.dataset.hz; SHOWN = 40; render(); }
+  else if (t.dataset.zone) {
+    useUTC = !useUTC;
+    try { localStorage.setItem('plzone', useUTC ? 'utc' : 'local'); } catch (e) {}
+    setMeta(); render();
+  }
   else if (t.dataset.team) t.classList.toggle('open');
 });
 fetch('data.json?v=' + Date.now()).then(r => r.json()).then(d => {
