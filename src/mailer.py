@@ -56,6 +56,10 @@ def build_body(pred, status, gw_label, results_note=''):
 
     A('WHAT CHANGED SINCE LAST GAMEWEEK')
     A('-' * 58)
+    if status.get('model_note'):
+        for line in textwrap.wrap(status['model_note'], 56):
+            A(f'  {line}')
+        A('')
     if not moves:
         A('  No club moved by more than a few tenths of a point. Anything')
         A('  smaller than that is the randomness in the simulation rather')
@@ -189,6 +193,9 @@ def build_html(pred, status, gw_label):
     A(f'<div style="padding:22px 22px 6px;font-size:16px;font-weight:700;">'
       f'What changed since last week</div><div style="padding:0 22px;'
       f'font-size:14px;line-height:1.6;color:#2C1F33;">')
+    if status.get('model_note'):
+        A(f'<p style="margin:4px 0 8px;padding:8px 10px;background:#F4EEF7;'
+          f'border-radius:6px;">{status["model_note"]}</p>')
     if not moves:
         A('No club moved by more than a few tenths of a point. Anything '
           'smaller is the randomness in the simulation, not real news.')

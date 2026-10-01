@@ -827,6 +827,13 @@ function render(){
   const started2 = d.matches_played > 0;
   h += `<details><summary>▸ ${started2 ? 'What changed since last gameweek'
         : 'What changed'}</summary><div class="card">`;
+  // A model upgrade between gameweeks moves every club; say so before the list
+  // rather than letting the moves read as pure results.
+  if (d.model_note){
+    h += '<div style="color:#fff;font-size:12.5px;line-height:1.55;margin-bottom:10px;'
+      + 'padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.06)">'
+      + esc(d.model_note) + '</div>';
+  }
   if (!started2){
     h += '<div style="color:var(--lav);font-size:13.5px;line-height:1.6">'
       + 'Nothing yet — no matches have been played. This will fill in once the '

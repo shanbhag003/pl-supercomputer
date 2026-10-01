@@ -41,6 +41,15 @@ RANGE_PCT = (7, 93)
 # (match RPS -0.00040, 95% CI excludes zero, 6 of 7 seasons; 0.1-0.2 all
 # help). See VALIDATION.md section 13 and gamestate.py.
 GAMESTATE_BETA = 0.1
+# Model upgrades that land between gameweeks. "What changed" compares against
+# the previous gameweek's saved forecast, so the first comparison after an
+# upgrade mixes the upgrade into every move. Keyed by the gameweek whose
+# comparison is affected; shown above the moves in the email and on the site.
+_GAMESTATE_NOTE = ('The model was upgraded this week: chances a team creates while '
+                   'protecting or chasing a lead now count at what they would be '
+                   'worth at level. That moves every club a little, so part of '
+                   'each change below is the upgrade, not the results.')
+MODEL_NOTES = {5: _GAMESTATE_NOTE, 6: _GAMESTATE_NOTE}
 
 
 def call_outcome(pH, pD, pA):
@@ -747,7 +756,8 @@ def main():
                   manager_changes=mgr_changes,
                   squad_delta={k: round(v, 3) for k, v in
                                sorted(squad_delta.items(), key=lambda kv: kv[1])},
-                  validation=scorecard, biggest_moves=changes)
+                  validation=scorecard, biggest_moves=changes,
+                  model_note=MODEL_NOTES.get(gw))
     with open(f'{OUT}/status.json', 'w') as fh:
         json.dump(status, fh, indent=2)
 
@@ -848,7 +858,7 @@ def main():
             gameweek=gw, label=label, n_sims=N, refresh_only=refresh_only,
             matches_played=n_played,
             next_gameweek=next_gw, next_update_utc=next_settle,
-            validation=scorecard, moves=changes,
+            validation=scorecard, moves=changes, model_note=MODEL_NOTES.get(gw),
             actual=[dict(pos=i + 1, team=t,
                          P=v['P'], W=v['W'], D=v['D'], L=v['L'],
                          GF=int(v['GF']), GA=int(v['GA']),
