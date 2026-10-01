@@ -195,8 +195,11 @@ is not last season's squad.
 API. It lists every player, their current club, and their status: available,
 injured, doubtful, suspended, or gone.
 
-**Step 2 — match them to their value.** Player values come from `rapm.py`. The
-join is by name, which is fiddlier than it sounds.
+**Step 2 — match them to their value.** Player values are in
+`data/processed/rapm_live.pkl`, built by `build_player_values.py`:
+plus-minus with each player shrunk toward what his own numbers suggest
+(`players.py`; VALIDATION.md §16). The join is by name, which is fiddlier than
+it sounds.
 
 > **A real bug.** Ødegaard, Fábio Vieira and others failed to match, because the
 > standard way of stripping accents doesn't handle `ø` — it deleted the letter

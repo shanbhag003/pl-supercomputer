@@ -38,11 +38,13 @@ does not make the leader look worse or the chaser better. Improved both match
 predictions and title/relegation forecasts in walk-forward testing
 ([VALIDATION.md](VALIDATION.md) §13).
 
-**Player values.** A regularised plus-minus model (RAPM) over 200,000
-player-match records estimates what each club creates and concedes with each
-player on the pitch, adjusted for teammates and opposition. This is what makes
-transfers computable: a squad's rating is the minutes-weighted sum of its
-players' values.
+**Player values.** A regularised plus-minus model (RAPM) over every
+player-match since 2014 estimates what each club creates and concedes with each
+player on the pitch, adjusted for teammates and opposition. Each player is
+shrunk toward what his own numbers suggest (xG, xA, involvement in build-up,
+position) rather than toward league average, which separates players better
+when the same eleven keep sharing the pitch. This is what makes transfers
+computable: a squad's rating is the minutes-weighted sum of its players' values.
 
 **Minutes.** Each club has a fixed budget of 38 x 11 x 90 minutes. Returning
 players keep roughly last season's share; whatever departures freed up goes to

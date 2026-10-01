@@ -634,7 +634,80 @@ Reproduce: `python src/backtest_dynamic.py run` (~5 minutes), then `report`.
 
 ---
 
-## 16. Live in-season record
+## 16. Player values with an informed prior — shipped at squad weight 0.25
+
+The squad layer turns squad changes into rating shifts using each player's
+plus-minus (RAPM) value. Plain RAPM shrinks every player toward league average,
+a heavy pull in football, where substitutions are few and the same players
+share the pitch. The informed version (`players.py`, after basketball's
+box-score-prior RAPM) shrinks each player toward what his own per-90 numbers
+suggest — xG, xA, xGChain, xGBuildup and position — mapped onto RAPM values
+from training data only. The strongest signal on both ends is xGBuildup:
+players involved in moves that lead to shots make their side create more and
+concede less.
+
+**Data.** Every player in every match since 2014/15 from Understat's match
+rosters — minutes, side, position, per-match xG/xA/xGChain/xGBuildup (4,610
+matches, `data/understat/rosters/`). The side a player played for is recorded,
+so no club inference is needed.
+
+**Component test — predicting a side from its lineup.** For each season
+2019/20–2025/26, values fitted on earlier seasons predict each club's xG for
+and against from who actually played; ridge strength chosen on 2017–18.
+Players with no earlier Premier League minutes count as zero in every model.
+
+| Club-season xG error per match | Held out 2019–25 |
+|---|---|
+| No player information | 0.293 |
+| Plain RAPM (best ridge) | 0.191 |
+| **Informed prior** | **0.186** |
+
+Better in 5 of 7 seasons; over 140 club-seasons −0.0051, 95% CI [−0.0119,
++0.0009]. Modest, but less fragile to the ridge setting: with heavier
+shrinkage (ridge 1–4) informed wins by 7–10%; only at the lightest tested
+(0.25) is plain better.
+
+**Season test — the squad layer, which is what ships.** Section 13's replay
+(game-state xG, live drift, common random numbers), pre-season plus GW
+5/10/19/28, 2019/20–2025/26: 35 forecasts. As in the original squad backtest,
+minute shares are those actually played — the optimistic version. Old values
+reproduced: plain RAPM at ridge 1.0 correlates 0.978 with the live file.
+
+| 35 forecasts | Points MAE | CRPS | Title Brier | Top-4 Brier | Relegation Brier |
+|---|---|---|---|---|---|
+| No squad layer | 6.473 | 4.567 | 0.3399 | 1.400 | 1.139 |
+| Before: plain values, weight 0.5 | 6.384 | 4.485 | 0.3580 | 1.369 | 1.115 |
+| **Informed values, weight 0.25** | **6.310** | **4.437** | **0.3577** | **1.364** | **1.104** |
+| Informed values, weight 0.5 | 6.202 | 4.350 | 0.3857 | 1.345 | 1.076 |
+
+At weight 0.5 informed values beat the old layer on points in **all 7
+seasons** (−0.18 points per club) — but title Brier gets worse, and almost all
+of it comes from 2022/23 and 2023/24. Both summers Manchester City replaced
+established players with signings who had no Premier League record (Haaland;
+Gvardiol and Doku), and the squad layer counts such a player as league average,
+so it marked the eventual champions down. Sharper values mark them down harder.
+That is a flaw in valuing new signings, not in the informed prior — and it was
+already in the live layer, whose title Brier is on average worse than having no
+squad layer at all (0.358 against 0.340, within noise).
+
+**Shipped: informed values at weight 0.25.** Better or equal to the old layer
+on every metric — points better in 29 of 35 forecasts (−0.074), title unchanged.
+`build_player_values.py` writes `rapm_live.pkl`; `SQUAD_W = 0.25`. On the
+2026/27 forecast after Gameweek 5 it moves Leeds above Manchester United and
+Bournemouth above Chelsea (each within half a point); City's title chance 43.0%
+→ 45.9%.
+
+**Next.** Value signings with no Premier League record from something other
+than zero — transfer fee, or minutes and role at the previous club. That is
+the lever for title odds, and with it the full informed weight may become safe.
+
+Reproduce: `python scripts/pull_understat_rosters.py 2014 2026`, then
+`python src/backtest_players.py run` / `report` and
+`python src/backtest_squad_players.py run` / `report` (~10 minutes).
+
+---
+
+## 17. Live in-season record
 
 Updated automatically. Only predictions saved **before** kickoff are scored, and
 a prediction is frozen the moment its match starts.
@@ -657,7 +730,7 @@ Current figures always live in `outputs/status.json` and on the site.
 
 ---
 
-## 17. Not validated
+## 18. Not validated
 
 Stated plainly, because a validation document that only lists successes is
 marketing.
@@ -672,8 +745,12 @@ marketing.
 - **The predicted scoreline** is shown but not scored. Exact-score accuracy is
   bounded near one in nine (Section 8) and has no baseline in this repository,
   so it was removed from the scorecard rather than published without context.
-- **`SQUAD_W = 0.5` and `MGR_W = 0.25`** were chosen at half their tested optima
-  as a hedge against overfitting. That is a judgement call, not a result.
+- **`MGR_W = 0.25`** was chosen at half its tested optimum as a hedge against
+  overfitting. That is a judgement call, not a result. (`SQUAD_W`, once the same,
+  is now 0.25 on the evidence in Section 16.)
+- **Signings with no Premier League record** count as league average in the
+  squad layer, or get a heavily shrunk European value. Section 16 shows this
+  costs title accuracy when a top club buys abroad.
 - **The manager layer rests on a handful of qualifying moves per season.** It
   improves the backtest, but the sample is small enough that the improvement
   could be luck.
@@ -702,6 +779,9 @@ python scripts/pull_understat_shots.py 2014 2025   # shot data, once
 python src/backtest_gamestate.py run  # game-state adjusted xG; then: report
 python src/backtest_gamestate.py setpiece  # set-piece weighting; then: setpiece-report
 python src/backtest_dynamic.py run  # Kalman-filter ratings vs static; then: report
+python scripts/pull_understat_rosters.py 2014 2026   # player-match data, once
+python src/backtest_players.py run  # informed vs plain player values; then: report
+python src/backtest_squad_players.py run  # squad layer, season level; then: report
 python src/tune.py                  # resumable hyperparameter grid search
 ```
 
