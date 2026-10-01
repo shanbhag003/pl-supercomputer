@@ -940,6 +940,12 @@ def main():
             json.dump(payload, fh)
         os.replace(tmp, f'{web}/data.json')
         log(f'web data written -> docs/data.json')
+        # the site's own test-record page (docs/validation.html) reads this copy
+        try:
+            import shutil
+            shutil.copyfile(os.path.join(ROOT, 'VALIDATION.md'), f'{web}/VALIDATION.md')
+        except Exception as e:
+            log(f'  test record copy failed: {type(e).__name__}: {e}')
     except Exception as e:
         log(f'  web data failed: {type(e).__name__}: {e}')
 

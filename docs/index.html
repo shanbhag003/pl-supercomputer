@@ -175,7 +175,14 @@ table.cur td:nth-child(2),table.cur th:nth-child(2){text-align:left}
 .pl th{font:600 12px var(--label);letter-spacing:.08em;color:var(--dim);text-align:right;padding:6px 4px;white-space:nowrap}
 .pl td{padding:8px 4px;border-top:1px solid var(--line);text-align:right;white-space:nowrap}
 .pl td:first-child,.pl th:first-child{text-align:left}
-.pl td:first-child{white-space:normal}
+.pl td:first-child{max-width:44vw}
+.pl td:first-child .l1,.pl td:first-child .sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl .fx1{max-width:24vw;overflow:hidden;text-overflow:ellipsis}
+.flagbtn{border:0;cursor:pointer;margin-left:6px;font:600 11px var(--label);letter-spacing:.06em;text-transform:uppercase;
+  border-radius:4px;padding:1px 5px;background:rgba(255,225,77,.15);color:#FFE14D;vertical-align:1px}
+.toast{max-width:88vw;white-space:normal;text-align:center}
+.zone{border:1px solid var(--line);background:var(--card2);color:#fff;border-radius:999px;cursor:pointer;
+  font:600 11px var(--label);letter-spacing:.08em;padding:2px 9px;margin-left:6px;vertical-align:1px;white-space:nowrap}
 .pl .sub{display:block;font-size:12px;color:var(--dim)}
 .pl .xp{font:400 18px var(--display);color:var(--green)}
 .tag{font:600 11px var(--label);letter-spacing:.06em;border-radius:4px;padding:1px 5px;background:var(--card2);color:var(--lav)}
@@ -235,12 +242,19 @@ const nm = t => SHORT[t] || t;
 const pct = (v, d=0) => v >= 0.995 ? '>99%' : v < 0.005 && v > 0 ? '<1%' : v === 0 ? '–' : (100*v).toFixed(d)+'%';
 const col = t => CLUB[t] || '#888';
 const dot = t => `<span class="dot" style="background:${col(t)}"></span>`;
-const ko = s => s ? new Date(s).toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : '';
-let TAB = 'table', VIEW = 'pred', GW = null, POS = 'ALL', HZ = 'x1';
+// Times in the visitor's own zone or UTC, their choice, remembered.
+let useUTC = false;
+try { useUTC = localStorage.getItem('plzone') === 'utc'; } catch (e) {}
+const zoneName = () => useUTC ? 'UTC' : (new Intl.DateTimeFormat(navigator.language || 'en-GB', {timeZoneName: 'short'})
+  .formatToParts(new Date()).find(p => p.type === 'timeZoneName') || {}).value || 'local';
+const ko = s => s ? new Date(s).toLocaleString('en-GB', Object.assign({weekday:'short',day:'numeric',month:'short',
+  hour:'2-digit',minute:'2-digit',hour12:false}, useUTC ? {timeZone: 'UTC'} : {})) : '';
+let TAB = 'table', VIEW = 'pred', GW = null, POS = 'ALL', HZ = 'x1', SHOWN = 40;
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 const setMeta = () => document.getElementById('meta').innerHTML =
-  `After <b>Gameweek ${D.gameweek}</b> · updated ${ko(D.updated_utc)} · next update after GW${D.next_gameweek}`;
+  `After <b>Gameweek ${D.gameweek}</b> · updated ${ko(D.updated_utc)} · next update after GW${D.next_gameweek}
+   <button class="zone" data-zone="1" title="Switch between your time and UTC">${zoneName()} ⇄ ${useUTC ? 'local' : 'UTC'}</button>`;
 
 /* -------------------------------------------------------------- SHARING */
 // Phones get their own share sheet (WhatsApp, Instagram, Messages...);
@@ -262,10 +276,10 @@ function shareBar(text, label = 'Share'){
     <a class="sbtn alt" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=${t}&url=${u}">${ICON.x}Post</a>
     <button class="sbtn alt" data-copy="1">${ICON.link}Copy link</button></div>`;
 }
-function toast(msg){
+function toast(msg, ms = 1800){
   let el = document.querySelector('.toast');
   if (!el) { el = document.createElement('div'); el.className = 'toast'; document.body.appendChild(el); }
-  el.textContent = msg; el.classList.add('on'); setTimeout(() => el.classList.remove('on'), 1800);
+  el.textContent = msg; el.classList.add('on'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('on'), ms);
 }
 const raceText = () => D.teams.slice(0, 3).map(t => `${nm(t.team)} ${pct(t.title)}`).join(' · ')
   + ` to win the Premier League, after ${D.n_sims.toLocaleString()} simulations. Who's your money on?`;
@@ -349,8 +363,10 @@ function tableTab(){
       <span><i style="background:var(--pink)"></i>Relegation</span><span>Bar under each club: the 80% likely points range</span></div></div>`;
   } else {
     h += `<div class="card"><table class="cur"><tr><th>#</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th class="hide-s">GF</th><th class="hide-s">GA</th><th>GD</th><th>Pts</th></tr>
-      ${D.actual.map(r => `<tr><td>${r.pos}</td><td>${dot(r.team)}${nm(r.team)}</td><td>${r.P}</td><td>${r.W}</td><td>${r.D}</td><td>${r.L}</td>
-        <td class="hide-s">${r.GF}</td><td class="hide-s">${r.GA}</td><td>${r.GD > 0 ? '+' : ''}${r.GD}</td><td><b>${r.Pts}</b></td></tr>`).join('')}</table></div>`;
+      ${D.actual.map((r, i) => `<tr style="box-shadow:inset 3px 0 0 ${i < 4 ? 'var(--green)' : i < 6 ? 'var(--cyan)' : i >= 17 ? 'var(--pink)' : 'transparent'}"><td>${r.pos}</td><td>${dot(r.team)}${nm(r.team)}</td><td>${r.P}</td><td>${r.W}</td><td>${r.D}</td><td>${r.L}</td>
+        <td class="hide-s">${r.GF}</td><td class="hide-s">${r.GA}</td><td>${r.GD > 0 ? '+' : ''}${r.GD}</td><td><b>${r.Pts}</b></td></tr>`).join('')}</table>
+      <div class="legend"><span><i style="background:var(--green)"></i>Top 4</span><span><i style="background:var(--cyan)"></i>Top 6</span>
+      <span><i style="background:var(--pink)"></i>Relegation</span></div></div>`;
   }
   return h;
 }
@@ -388,10 +404,11 @@ function fplTab(){
   const last = HZ === 'x1' ? F.gws[0] : HZ === 'x3' ? F.gws[Math.min(2, F.gws.length - 1)] : F.gws[F.gws.length - 1];
   const span = HZ === 'x1' ? `GW${F.gws[0]}` : `GW${F.gws[0]}–${last}`;
   const fix = r => r.next.filter(n => n.gw === F.gws[0]).map(n => `${n.home ? 'v' : '@'} ${nm(n.opp)}`).join(', ') || 'no game';
-  const flag = r => r.status === 'a' ? '' : ` <span class="tag" style="color:#FFE14D" title="${esc(r.news)}">${
-    {d: 'doubt', i: 'injured', s: 'suspended'}[r.status] || 'out'}</span>`;
+  const flag = r => r.status === 'a' ? '' : ` <button class="flagbtn" data-news="${esc(r.news || 'No details from FPL')}">${
+    {d: 'doubt', i: 'injured', s: 'suspended'}[r.status] || 'out'}</button>`;
   const rows = F.players.filter(r => POS === 'ALL' || r.pos === POS).sort((a, b) => b[HZ] - a[HZ]);
   const caps = [...F.players].sort((a, b) => b.x1 - a.x1).slice(0, 5);
+  const shown = rows.slice(0, SHOWN);
   let h = `<div class="note">Expected FPL points for every player, from the model's predicted goals for each fixture,
     each player's share of his team's chances, his minutes and FPL's injury news. Deadline <b>${ko(F.deadline)}</b>.
     Tested on five past seasons: the model's top-10 picks scored 0.7 points per player per gameweek more than picking on form.</div>`;
@@ -402,11 +419,14 @@ function fplTab(){
   h += `<div class="card"><div class="chips">${[['x1', 'Next gameweek'], ['x3', 'Next 3'], ['x5', 'Next 5']].map(([k, l]) =>
       `<button class="chip ${HZ === k ? 'on' : ''}" data-hz="${k}">${l}</button>`).join('')}</div>
     <div class="chips">${['ALL', 'GKP', 'DEF', 'MID', 'FWD'].map(p => `<button class="chip ${POS === p ? 'on' : ''}" data-pos="${p}">${p}</button>`).join('')}</div>
-    <table class="pl"><tr><th>Player</th><th>GW${F.gws[0]}</th><th>xG</th><th>xA</th><th>CS</th><th>Pts ${span}</th><th class="hide-s">per £m</th></tr>
-    ${rows.slice(0, 40).map(r => `<tr><td><b>${esc(r.name)}</b>${flag(r)}<span class="sub">${dot(r.club)}${nm(r.club)} · <span class="tag">${r.pos}</span> · £${r.price.toFixed(1)}m · ${r.own.toFixed(1)}% owned</span></td>
-      <td>${fix(r)}</td><td>${r.eg.toFixed(2)}</td><td>${r.ea.toFixed(2)}</td><td>${pct(r.cs)}</td>
-      <td class="xp">${r[HZ].toFixed(1)}</td><td class="hide-s">${(r[HZ] / r.price).toFixed(2)}</td></tr>`).join('')}</table>
-    <div class="legend">xG, xA and CS (clean-sheet chance) are for GW${F.gws[0]}. Tap a flag for FPL's injury news.</div></div>`;
+    <table class="pl"><tr><th>Player</th><th>GW${F.gws[0]}</th><th>xG</th><th>xA</th><th>CS</th><th>Pts ${span}</th><th class="hide-s">Owned</th><th class="hide-s">per £m</th></tr>
+    ${shown.map(r => `<tr><td><div class="l1"><b>${esc(r.name)}</b>${flag(r)}</div><span class="sub">${dot(r.club)}${nm(r.club)} · <span class="tag">${r.pos}</span> · £${r.price.toFixed(1)}m</span></td>
+      <td class="fx1">${fix(r)}</td><td>${r.eg.toFixed(2)}</td><td>${r.ea.toFixed(2)}</td><td>${r.pos === 'FWD' ? '–' : pct(r.cs)}</td>
+      <td class="xp">${r[HZ].toFixed(1)}</td><td class="hide-s">${r.own.toFixed(1)}%</td><td class="hide-s">${(r[HZ] / r.price).toFixed(2)}</td></tr>`).join('')}</table>
+    ${rows.length > shown.length ? `<button class="chip" data-more="1" style="margin-top:12px">Show ${Math.min(40, rows.length - shown.length)} more</button>` : ''}
+    <div class="legend">Showing ${shown.length} of ${rows.length}${POS === 'ALL' ? '' : ' ' + POS} players with a realistic chance of points.
+      xG, xA and CS (clean-sheet chance; forwards score nothing for one) are for GW${F.gws[0]}.${
+      shown.some(r => r.status !== 'a') ? ' Tap a yellow tag for FPL&#39;s injury news.' : ''}</div></div>`;
   return h;
 }
 
@@ -420,7 +440,7 @@ function aboutTab(){
     <div class="step"><div class="n">4</div><div><b>Mark our own homework</b><span>Every match prediction is frozen at kickoff and graded against the result and the bookmakers — ${v.n||0} so far.</span></div></div></div>
     <div class="card"><div class="h2">Updates</div><span style="color:var(--lav);font-size:14px">Three hours after each gameweek ends, plus daily team-news refreshes. Runs itself on GitHub's free tier.</span></div>
     <div class="card"><div class="h2">Every test, including the ones that failed</div><span style="color:var(--lav);font-size:14px">How each part of the model was checked against past seasons, how it compares with the bookmakers, and the ideas that were tried and dropped.</span>
-      <a class="fulltest" target="_blank" rel="noopener" href="https://github.com/shanbhag003/pl-supercomputer/blob/main/VALIDATION.md">The full test record — every result, including what didn't work →</a></div>
+      <a class="fulltest" href="validation.html">The full test record — every result, including what didn't work →</a></div>
     <div class="card"><div class="h2">Share the predictions</div>${shareBar('Premier League predictions from a model that simulates the season 20,000 times and grades itself against the bookmakers:', 'Share this site')}</div>`;
 }
 
@@ -432,6 +452,10 @@ function render(){
 }
 document.addEventListener('click', e => {
   // share buttons sit inside table rows, so handle them first and stop there
+  const fb = e.target.closest('[data-news]');
+  if (fb) { toast(fb.dataset.news, 4000); return; }
+  const more = e.target.closest('[data-more]');
+  if (more) { SHOWN += 40; render(); return; }
   const s = e.target.closest('[data-share],[data-copy],.share a');
   if (s) {
     e.stopPropagation();
@@ -439,13 +463,18 @@ document.addEventListener('click', e => {
     else if (s.dataset.copy) navigator.clipboard.writeText(SITE).then(() => toast('Link copied'), () => toast(SITE));
     return;
   }
-  const t = e.target.closest('[data-t],[data-v],[data-gw],[data-pos],[data-hz],.row[data-team]');
+  const t = e.target.closest('[data-t],[data-v],[data-gw],[data-pos],[data-hz],[data-zone],.row[data-team]');
   if (!t) return;
   if (t.dataset.t) { TAB = t.dataset.t; render(); window.scrollTo({top: 0}); }
   else if (t.dataset.v) { VIEW = t.dataset.v; render(); }
   else if (t.dataset.gw) { GW = +t.dataset.gw; render(); }
-  else if (t.dataset.pos) { POS = t.dataset.pos; render(); }
-  else if (t.dataset.hz) { HZ = t.dataset.hz; render(); }
+  else if (t.dataset.pos) { POS = t.dataset.pos; SHOWN = 40; render(); }
+  else if (t.dataset.hz) { HZ = t.dataset.hz; SHOWN = 40; render(); }
+  else if (t.dataset.zone) {
+    useUTC = !useUTC;
+    try { localStorage.setItem('plzone', useUTC ? 'utc' : 'local'); } catch (e) {}
+    setMeta(); render();
+  }
   else if (t.dataset.team) t.classList.toggle('open');
 });
 fetch('data.json?v=' + Date.now()).then(r => r.json()).then(d => {
