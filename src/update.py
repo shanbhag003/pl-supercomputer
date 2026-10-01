@@ -50,11 +50,13 @@ GAMESTATE_BETA = 0.1
 # the previous gameweek's saved forecast, so the first comparison after an
 # upgrade mixes the upgrade into every move. Keyed by the gameweek whose
 # comparison is affected; shown above the moves in the email and on the site.
-_GAMESTATE_NOTE = ('The model was upgraded this week: chances a team creates while '
-                   'protecting or chasing a lead now count at what they would be '
-                   'worth at level. That moves every club a little, so part of '
-                   'each change below is the upgrade, not the results.')
-MODEL_NOTES = {5: _GAMESTATE_NOTE, 6: _GAMESTATE_NOTE}
+_UPGRADE_NOTE = ('The model was upgraded this week in two ways: chances a team '
+                 'creates while protecting or chasing a lead now count at what '
+                 'they would be worth at level, and players are now valued partly '
+                 'from their own numbers, which sharpens how squad changes count. '
+                 'That moves every club a little, so part of each change below '
+                 'is the upgrade, not the results.')
+MODEL_NOTES = {5: _UPGRADE_NOTE, 6: _UPGRADE_NOTE}
 
 
 def call_outcome(pH, pD, pA):
