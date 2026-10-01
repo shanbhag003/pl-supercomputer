@@ -59,9 +59,25 @@ def load_rosters(league='EPL'):
         parts.append(pd.read_parquet(f).assign(season=int(f.split('_')[-1].split('.')[0])))
     r = pd.concat(parts, ignore_index=True)
     r['match_id'] = r.match_id.astype(str)
-    r['pos'] = r.position.str[0].map({'G': 'GK', 'D': 'D', 'M': 'M', 'F': 'F', 'A': 'M',
-                                      'S': 'F'}).fillna('M')
+    r['pos'] = r.position.map(position_group)
     return r[r.time > 0]
+
+
+def position_group(code):
+    """Understat position code -> GK / D / M / F. Defensive midfielders
+    (DMC, DML, DMR) are midfielders, not defenders; substitute appearances
+    ('Sub') say nothing about position and give None, so they are left out
+    when a player's usual position is taken."""
+    code = str(code or '')
+    if code == 'GK':
+        return 'GK'
+    if code.startswith('DM') or code[:1] in ('M', 'A'):
+        return 'M'
+    if code[:1] == 'D':
+        return 'D'
+    if code[:1] == 'F':
+        return 'F'
+    return None
 
 
 def team_matches(rosters, targets):
@@ -124,7 +140,9 @@ def player_stats(lu):
     PSEUDO_MIN minutes, plus his modal position and total minutes."""
     g = lu.groupby('player_id')
     mins = g.time.sum()
-    pos = g.pos.agg(lambda s: s.value_counts().index[0])
+    # usual position from starts only (substitute rows carry no position);
+    # a player who only ever came off the bench defaults to midfield
+    pos = g.pos.agg(lambda s: s.dropna().value_counts().index[0] if s.notna().any() else 'M')
     tot = g[STATS].sum()
     rate = tot.div(mins, axis=0) * 90
     pos_mean = (tot.groupby(pos).sum().div(mins.groupby(pos).sum(), axis=0) * 90)

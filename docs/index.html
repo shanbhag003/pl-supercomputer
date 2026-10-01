@@ -175,9 +175,9 @@ table.cur td:nth-child(2),table.cur th:nth-child(2){text-align:left}
 .pl th{font:600 12px var(--label);letter-spacing:.08em;color:var(--dim);text-align:right;padding:6px 4px;white-space:nowrap}
 .pl td{padding:8px 4px;border-top:1px solid var(--line);text-align:right;white-space:nowrap}
 .pl td:first-child,.pl th:first-child{text-align:left}
-.pl td:first-child{max-width:44vw}
-.pl td:first-child .l1,.pl td:first-child .sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pl .fx1{max-width:24vw;overflow:hidden;text-overflow:ellipsis}
+.plw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.pl td:first-child .l1,.pl td:first-child .sub{white-space:nowrap}
+.pl td:first-child .l1 b{display:inline-block;max-width:118px;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom}
 .flagbtn{border:0;cursor:pointer;margin-left:6px;font:600 11px var(--label);letter-spacing:.06em;text-transform:uppercase;
   border-radius:4px;padding:1px 5px;background:rgba(255,225,77,.15);color:#FFE14D;vertical-align:1px}
 .toast{max-width:88vw;white-space:normal;text-align:center}
@@ -213,6 +213,10 @@ a{color:var(--cyan)}
   .racer .pct{font-size:28px}
   .stat b{font-size:22px}
   .hide-s{display:none}
+  .pl td,.pl th{padding:8px 3px}
+  .pl{font-size:13.5px}
+  .pl td:first-child .l1 b{max-width:100px}
+  .pl .xp{font-size:16px}
 }
 </style>
 </head>
@@ -239,6 +243,11 @@ const CLUB={"Arsenal":"#EF0107","Manchester City":"#6CABDD","Liverpool":"#C8102E
 "Everton":"#003399","Fulham":"#CC0000","Sunderland":"#EB172B","Hull":"#F5A12D","Coventry":"#78D0F3","Ipswich":"#0044A9"};
 const SHORT={"Manchester City":"Man City","Manchester United":"Man Utd","Newcastle United":"Newcastle","Nottingham Forest":"Nott'm Forest","Crystal Palace":"Palace","Aston Villa":"Villa"};
 const nm = t => SHORT[t] || t;
+const CODE = {"Arsenal":"ARS","Aston Villa":"AVL","Bournemouth":"BOU","Brentford":"BRE","Brighton":"BHA","Chelsea":"CHE",
+"Coventry":"COV","Crystal Palace":"CRY","Everton":"EVE","Fulham":"FUL","Hull":"HUL","Ipswich":"IPS","Leeds":"LEE",
+"Liverpool":"LIV","Manchester City":"MCI","Manchester United":"MUN","Newcastle United":"NEW","Nottingham Forest":"NFO",
+"Sunderland":"SUN","Tottenham":"TOT"};
+const code = t => CODE[t] || String(t).slice(0, 3).toUpperCase();
 const pct = (v, d=0) => v >= 0.995 ? '>99%' : v < 0.005 && v > 0 ? '<1%' : v === 0 ? '–' : (100*v).toFixed(d)+'%';
 const col = t => CLUB[t] || '#888';
 const dot = t => `<span class="dot" style="background:${col(t)}"></span>`;
@@ -403,7 +412,8 @@ function fplTab(){
     return '<div class="card">FPL predictions appear here before each gameweek.</div>';
   const last = HZ === 'x1' ? F.gws[0] : HZ === 'x3' ? F.gws[Math.min(2, F.gws.length - 1)] : F.gws[F.gws.length - 1];
   const span = HZ === 'x1' ? `GW${F.gws[0]}` : `GW${F.gws[0]}–${last}`;
-  const fix = r => r.next.filter(n => n.gw === F.gws[0]).map(n => `${n.home ? 'v' : '@'} ${nm(n.opp)}`).join(', ') || 'no game';
+  const fix = r => r.next.filter(n => n.gw === F.gws[0]).map(n => `${n.home ? 'v' : '@'} ${code(n.opp)}`).join(', ') || '–';
+  const fixLong = r => r.next.filter(n => n.gw === F.gws[0]).map(n => `${n.home ? 'v' : '@'} ${nm(n.opp)}`).join(', ') || 'no game';
   const flag = r => r.status === 'a' ? '' : ` <button class="flagbtn" data-news="${esc(r.news || 'No details from FPL')}">${
     {d: 'doubt', i: 'injured', s: 'suspended'}[r.status] || 'out'}</button>`;
   const rows = F.players.filter(r => POS === 'ALL' || r.pos === POS).sort((a, b) => b[HZ] - a[HZ]);
@@ -415,17 +425,17 @@ function fplTab(){
   h += `<div class="h2">Captain picks <small>highest expected points, GW${F.gws[0]}</small></div><div class="caps">
     ${caps.map(r => `<div class="cap" style="border-color:${col(r.club)}"><div class="x">${r.x1.toFixed(1)}</div>
       <div class="nm">${esc(r.name)}${flag(r)}</div><div class="sub">${nm(r.club)} · ${r.pos} · £${r.price.toFixed(1)}m</div>
-      <div class="sub">${fix(r)} · xG ${r.eg.toFixed(2)} · xA ${r.ea.toFixed(2)}</div></div>`).join('')}</div>`;
+      <div class="sub">${fixLong(r)} · xG ${r.eg.toFixed(2)} · xA ${r.ea.toFixed(2)}</div></div>`).join('')}</div>`;
   h += `<div class="card"><div class="chips">${[['x1', 'Next gameweek'], ['x3', 'Next 3'], ['x5', 'Next 5']].map(([k, l]) =>
       `<button class="chip ${HZ === k ? 'on' : ''}" data-hz="${k}">${l}</button>`).join('')}</div>
     <div class="chips">${['ALL', 'GKP', 'DEF', 'MID', 'FWD'].map(p => `<button class="chip ${POS === p ? 'on' : ''}" data-pos="${p}">${p}</button>`).join('')}</div>
-    <table class="pl"><tr><th>Player</th><th>GW${F.gws[0]}</th><th>xG</th><th>xA</th><th>CS</th><th>Pts ${span}</th><th class="hide-s">Owned</th><th class="hide-s">per £m</th></tr>
-    ${shown.map(r => `<tr><td><div class="l1"><b>${esc(r.name)}</b>${flag(r)}</div><span class="sub">${dot(r.club)}${nm(r.club)} · <span class="tag">${r.pos}</span> · £${r.price.toFixed(1)}m</span></td>
-      <td class="fx1">${fix(r)}</td><td>${r.eg.toFixed(2)}</td><td>${r.ea.toFixed(2)}</td><td>${r.pos === 'FWD' ? '–' : pct(r.cs)}</td>
-      <td class="xp">${r[HZ].toFixed(1)}</td><td class="hide-s">${r.own.toFixed(1)}%</td><td class="hide-s">${(r[HZ] / r.price).toFixed(2)}</td></tr>`).join('')}</table>
+    <div class="plw"><table class="pl"><tr><th>Player</th><th>GW${F.gws[0]}</th><th>xG</th><th class="hide-s">xA</th><th>CS</th><th>Pts ${span}</th><th class="hide-s">Owned</th><th class="hide-s">per £m</th></tr>
+    ${shown.map(r => `<tr><td><div class="l1"><b>${esc(r.name)}</b>${flag(r)}</div><span class="sub">${dot(r.club)}${code(r.club)} · <span class="tag">${r.pos}</span> · £${r.price.toFixed(1)}m</span></td>
+      <td class="fx1">${fix(r)}</td><td>${r.eg.toFixed(2)}</td><td class="hide-s">${r.ea.toFixed(2)}</td><td>${r.pos === 'FWD' ? '–' : pct(r.cs)}</td>
+      <td class="xp">${r[HZ].toFixed(1)}</td><td class="hide-s">${r.own.toFixed(1)}%</td><td class="hide-s">${(r[HZ] / r.price).toFixed(2)}</td></tr>`).join('')}</table></div>
     ${rows.length > shown.length ? `<button class="chip" data-more="1" style="margin-top:12px">Show ${Math.min(40, rows.length - shown.length)} more</button>` : ''}
     <div class="legend">Showing ${shown.length} of ${rows.length}${POS === 'ALL' ? '' : ' ' + POS} players with a realistic chance of points.
-      xG, xA and CS (clean-sheet chance; forwards score nothing for one) are for GW${F.gws[0]}.${
+      xG, xA (wider screens) and CS (clean-sheet chance; forwards score nothing for one) are for GW${F.gws[0]}.${
       shown.some(r => r.status !== 'a') ? ' Tap a yellow tag for FPL&#39;s injury news.' : ''}</div></div>`;
   return h;
 }
