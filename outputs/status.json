@@ -1,12 +1,12 @@
 {
-  "updated": "2026-09-30T17:22:48",
+  "updated": "2026-10-01T12:08:51",
   "gameweek": 5,
   "matches_played": 50,
   "drift": 0.093,
   "n_sims": 20000,
   "gate": "GW5 already published",
   "xg_source": "understat",
-  "squad_layer": "on (weight 0.5, 20 clubs, 0 unmatched with PL minutes, 4430 players valued from European leagues)",
+  "squad_layer": "on (weight 0.25, 20 clubs, 0 unmatched with PL minutes, 4317 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
   "manager_changes": [
     "Ipswich: Kieran McKenna -> Gary O'Neil (+0.12)",
@@ -15,26 +15,26 @@
     "Nottingham Forest: V\u00edtor Pereira -> Oliver Glasner (+0.05)"
   ],
   "squad_delta": {
-    "Manchester City": -0.183,
-    "Liverpool": -0.12,
-    "Arsenal": -0.118,
-    "Brentford": -0.109,
-    "Aston Villa": -0.101,
-    "Newcastle United": -0.096,
-    "Manchester United": -0.083,
-    "Leeds": -0.056,
-    "Chelsea": -0.039,
-    "Everton": -0.031,
-    "Crystal Palace": -0.025,
-    "Brighton": -0.023,
-    "Bournemouth": -0.006,
+    "Newcastle United": -0.359,
+    "Chelsea": -0.262,
+    "Manchester United": -0.25,
+    "Manchester City": -0.229,
+    "Brentford": -0.195,
+    "Leeds": -0.17,
+    "Arsenal": -0.167,
+    "Crystal Palace": -0.158,
+    "Aston Villa": -0.137,
+    "Everton": -0.121,
+    "Bournemouth": -0.117,
+    "Brighton": -0.107,
+    "Liverpool": -0.097,
+    "Sunderland": -0.007,
     "Coventry": 0.0,
     "Hull": 0.0,
     "Ipswich": 0.0,
-    "Sunderland": 0.014,
-    "Tottenham": 0.016,
-    "Nottingham Forest": 0.031,
-    "Fulham": 0.035
+    "Nottingham Forest": 0.021,
+    "Fulham": 0.055,
+    "Tottenham": 0.126
   },
   "validation": {
     "n": 50,
@@ -51,38 +51,39 @@
   "biggest_moves": [
     {
       "team": "Brentford",
-      "d_xPts": 3.74,
-      "d_title": 1.62,
-      "d_releg": -3.23,
+      "d_xPts": 4.05,
+      "d_title": 1.38,
+      "d_releg": -3.4,
       "reason": "beat Chelsea 3-0 at home, and rode their luck"
     },
     {
       "team": "Ipswich",
-      "d_xPts": -3.49,
+      "d_xPts": -3.31,
       "d_title": -0.01,
-      "d_releg": 15.45,
+      "d_releg": 14.91,
       "reason": "lost 0-1 away at Everton"
     },
     {
+      "team": "Liverpool",
+      "d_xPts": 3.28,
+      "d_title": 1.74,
+      "d_releg": -0.65,
+      "reason": "beat Bournemouth 1-0 away"
+    },
+    {
       "team": "Coventry",
-      "d_xPts": 3.01,
+      "d_xPts": 3.2,
       "d_title": 0.0,
-      "d_releg": -10.14,
+      "d_releg": -10.95,
       "reason": "beat Nottingham Forest 1-0 away, and rode their luck"
     },
     {
       "team": "Nottingham Forest",
-      "d_xPts": -2.85,
-      "d_title": -0.4,
-      "d_releg": 3.02,
+      "d_xPts": -2.95,
+      "d_title": -0.44,
+      "d_releg": 2.96,
       "reason": "lost 0-1 at home to Coventry, but played far better than the score"
-    },
-    {
-      "team": "Tottenham",
-      "d_xPts": -2.79,
-      "d_title": -0.03,
-      "d_releg": 10.02,
-      "reason": "lost 2-3 at home to Aston Villa, but played far better than the score"
     }
-  ]
+  ],
+  "model_note": "The model was upgraded this week in two ways: chances a team creates while protecting or chasing a lead now count at what they would be worth at level, and players are now valued partly from their own numbers, which sharpens how squad changes count. That moves every club a little, so part of each change below is the upgrade, not the results."
 }
