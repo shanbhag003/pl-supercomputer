@@ -27,6 +27,7 @@ import pandas as pd
 
 SHOTS = f'{ROOT}/data/understat/shots'
 STATES = ['lvl', 'up1', 'dn1', 'up2', 'dn2']
+SET_PIECES = {'FromCorner', 'SetPiece', 'DirectFreekick'}   # penalties excluded anyway
 FLIP = dict(lvl='lvl', up1='dn1', dn1='up1', up2='dn2', dn2='up2')
 T = 90                                   # match length; later goals count at 90
 
@@ -50,12 +51,16 @@ def match_table(shots):
     for mid, g in s.groupby('match_id', sort=False):
         score = {'h': 0, 'a': 0}
         xg = {(side, st): 0.0 for side in 'ha' for st in STATES}
+        sp = {(side, st): 0.0 for side in 'ha' for st in STATES}   # set-piece part
         mins = dict.fromkeys(STATES, 0.0)          # from the home side's view
         t_prev = 0
         for r in g.itertuples():
             other = 'a' if r.h_a == 'h' else 'h'
             if r.situation != 'Penalty' and r.result != 'OwnGoal':
-                xg[(r.h_a, state_of(score[r.h_a] - score[other]))] += r.xG
+                k = (r.h_a, state_of(score[r.h_a] - score[other]))
+                xg[k] += r.xG
+                if r.situation in SET_PIECES:
+                    sp[k] += r.xG
             if r.result in ('Goal', 'OwnGoal'):
                 t = min(max(r.minute, t_prev), T)
                 mins[state_of(score['h'] - score['a'])] += t - t_prev
@@ -70,6 +75,8 @@ def match_table(shots):
         for st in STATES:
             row[f'h_xg_{st}'] = xg[('h', st)]
             row[f'a_xg_{st}'] = xg[('a', st)]
+            row[f'h_sp_{st}'] = sp[('h', st)]
+            row[f'a_sp_{st}'] = sp[('a', st)]
             row[f'h_min_{st}'] = mins[st]
             row[f'a_min_{st}'] = mins[FLIP[st]]
         rows.append(row)
@@ -94,24 +101,25 @@ def factors(beta):
     return {st: float(np.exp(beta * k)) for st, k in STEP.items()}
 
 
-def adjusted_npxg(m, beta):
-    """Per-side non-penalty xG with each shot rescaled for game state."""
+def adjusted_npxg(m, beta, w_sp=1.0):
+    """Per-side non-penalty xG with each shot rescaled for game state, and
+    set-piece xG (corners, free kicks) weighted by w_sp. w_sp=1 is no change."""
     f = factors(beta)
-    h = sum(f[st] * m[f'h_xg_{st}'] for st in STATES)
-    a = sum(f[st] * m[f'a_xg_{st}'] for st in STATES)
+    h = sum(f[st] * (m[f'h_xg_{st}'] + (w_sp - 1) * m[f'h_sp_{st}']) for st in STATES)
+    a = sum(f[st] * (m[f'a_xg_{st}'] + (w_sp - 1) * m[f'a_sp_{st}']) for st in STATES)
     return h.values, a.values
 
 
-def apply(df, beta):
+def apply(df, beta, w_sp=1.0):
     """Replace hnpxg/anpxg in a match frame with game-state adjusted xG.
 
     Matches with no shot data - a result football-data has posted before
     understat, filled with goals - keep what they had. Returns (frame, number
     of matches adjusted)."""
-    if beta == 0 or not glob.glob(f'{SHOTS}/EPL_*.parquet'):
+    if (beta == 0 and w_sp == 1) or not glob.glob(f'{SHOTS}/EPL_*.parquet'):
         return df, 0
     st = match_table(load_shots())
-    h, a = adjusted_npxg(st, beta)
+    h, a = adjusted_npxg(st, beta, w_sp)
     adj = st[['date', 'home', 'away']].assign(h_adj=h, a_adj=a)
     out = df.merge(adj, on=['date', 'home', 'away'], how='left')
     n = int(out.h_adj.notna().sum())

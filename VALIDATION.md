@@ -560,7 +560,43 @@ Reproduce: `python scripts/pull_understat_shots.py 2014 2025`, then
 
 ---
 
-## 14. Live in-season record
+## 14. Set-piece xG weighting — tested, no change
+
+Set pieces (corners, free kicks, other set plays) are 23.6% of non-penalty xG.
+A club's set-piece output looks much less persistent than its open play: across
+240 club-seasons, first-half xG predicts second-half xG with
+
+| | Open play | Set pieces |
+|---|---|---|
+| xG for | r = 0.82 | r = 0.37 |
+| xG against | r = 0.66 | r = 0.32 |
+
+which suggested set pieces should count for less in the ratings. Tested with
+the Section 13 harness — game-state β at its live 0.1, set-piece xG weighted by
+w — on the same 2,660 matches:
+
+| w | RPS | vs w = 1 | 95% CI | Seasons better |
+|---|---|---|---|---|
+| 0.4 | 0.20070 | +0.00049 | [+0.00006, +0.00093] | 1 / 7 |
+| 0.7 | 0.20039 | +0.00018 | [−0.00003, +0.00039] | 2 / 7 |
+| **1.0 (live)** | **0.20021** | — | — | — |
+| 1.15 | 0.20016 | −0.00005 | [−0.00015, +0.00005] | 4 / 7 |
+| 1.3 | 0.20014 | −0.00007 | [−0.00027, +0.00013] | 4 / 7 |
+
+Down-weighting hurts, in both halves of the sample. The low split-half
+correlation reflects how little clubs differ in set-piece output (between-club
+SD 0.10 per game, against 0.37 for open play), not an absence of signal — and
+the ratings already average hundreds of matches, which handles the noise.
+Up-weighting gains too little to tell from zero. **No change.** For the same
+reason a separate set-piece rating per club is not worth building: there is
+little between clubs to separate. The `w_sp` argument in `gamestate.py`
+defaults to 1 and is not used live.
+
+Reproduce: `python src/backtest_gamestate.py setpiece`, then `setpiece-report`.
+
+---
+
+## 15. Live in-season record
 
 Updated automatically. Only predictions saved **before** kickoff are scored, and
 a prediction is frozen the moment its match starts.
@@ -583,7 +619,7 @@ Current figures always live in `outputs/status.json` and on the site.
 
 ---
 
-## 15. Not validated
+## 16. Not validated
 
 Stated plainly, because a validation document that only lists successes is
 marketing.
@@ -626,6 +662,7 @@ python src/backtest_flatten.py run  # does drift noise hurt match predictions? t
 python src/backtest_ranges.py run   # mid-season points ranges; then: report
 python scripts/pull_understat_shots.py 2014 2025   # shot data, once
 python src/backtest_gamestate.py run  # game-state adjusted xG; then: report
+python src/backtest_gamestate.py setpiece  # set-piece weighting; then: setpiece-report
 python src/tune.py                  # resumable hyperparameter grid search
 ```
 
