@@ -27,7 +27,12 @@ SEASON = 2026                     # Understat label for 2026/27
 FD_CODE = '2627'
 CFG = dict(xi=0.0045, w_xg=0.7, ridge=2.0)
 BASE_DRIFT, B, N = 0.16, 80, 20000
-SQUAD_W = 0.5          # backtested on 7 seasons; see VALIDATION.md
+# Squad layer weight. Player values (rapm_live.pkl, build_player_values.py) are
+# informed-prior RAPM since VALIDATION.md section 16; at 0.25 they beat the old
+# plain values at 0.5 on points, CRPS, top-4 and relegation, with title Brier
+# unchanged. Higher weights help points further but hurt title odds, because a
+# signing with no Premier League record counts as league average.
+SQUAD_W = 0.25
 CLOSE_CALL = 0.04      # top two outcomes this close => flag it as a tight call
 # The published points range, as percentiles of the simulated final totals. The
 # plain 10th-90th came out too narrow: over 640 mid-season backtest forecasts it
