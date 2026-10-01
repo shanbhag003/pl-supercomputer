@@ -890,7 +890,21 @@ def main():
         pm_web = pd.DataFrame(
             {t: np.bincount(pos[:, i], minlength=22)[1:21] / N
              for i, t in enumerate(teams)}).T.loc[pred.team]
+        # title race over the season, from each gameweek's saved forecast, for
+        # the current top six (the site charts the top four)
+        title_trend = {}
+        try:
+            hdir = f'{OUT}/history'
+            for fn in sorted(os.listdir(hdir)):
+                if fn.startswith('prediction_gw') and fn.endswith('.csv'):
+                    h_ = pd.read_csv(f'{hdir}/{fn}')
+                    for t_, v_ in zip(h_.team, h_.title):
+                        title_trend.setdefault(t_, []).append([int(fn[13:15]), round(float(v_), 4)])
+            title_trend = {t_: title_trend[t_] for t_ in pred.team[:6] if t_ in title_trend}
+        except Exception as e:
+            log(f'  title trend unavailable: {type(e).__name__}: {e}')
         payload = dict(
+            title_trend=title_trend,
             updated_utc=dt.datetime.now(dt.timezone.utc).isoformat(
                 timespec='seconds'),
             gameweek=gw, label=label, n_sims=N, refresh_only=refresh_only,
