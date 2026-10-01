@@ -83,7 +83,12 @@ if __name__ == '__main__':
     print(f"built: {d['meta']}")
     if os.path.exists(OUT) and '--force' not in sys.argv:
         cur = pickle.load(open(OUT, 'rb'))
-        if cur.get('att') == d['att'] and cur.get('dfn') == d['dfn']:
+        # Within 1e-6 counts as unchanged: the same data fitted on another
+        # machine's library versions differs by ~3e-8, which is not news.
+        same = (set(cur.get('att', {})) == set(d['att']) and
+                max((max(abs(cur['att'][p] - d['att'][p]), abs(cur['dfn'][p] - d['dfn'][p]))
+                     for p in d['att']), default=0.0) < 1e-6)
+        if same:
             print('values unchanged - file left as it is')
             sys.exit(0)
         problems = check(d, cur)
