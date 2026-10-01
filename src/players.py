@@ -36,13 +36,21 @@ PSEUDO_MIN = 900          # per-90 rates are shrunk toward position means by thi
 
 def training_targets(beta=0.1):
     """Per match: game-state adjusted npxG for each side (as the live ratings
-    use), with its match_id and season."""
+    use), with its match_id and season.
+
+    Built straight from the downloaded shot files, season taken from each
+    file's name, so a newly finished season is picked up with nothing else to
+    regenerate by hand (matches.parquet and the cached state table are not
+    rebuilt automatically)."""
     import gamestate as G
-    st = pd.read_parquet(f'{ROOT}/data/processed/gamestate_matches.parquet')
+    files = sorted(glob.glob(f'{ROOT}/data/understat/shots/EPL_*.parquet'))
+    shots = pd.concat([pd.read_parquet(f).assign(season=int(f.split('_')[-1].split('.')[0]))
+                       for f in files], ignore_index=True)
+    season_of = shots.groupby('match_id').season.first()
+    st = G.match_table(shots.drop(columns='season'))
     h, a = G.adjusted_npxg(st, beta)
-    t = st[['match_id', 'date', 'home', 'away']].assign(h_y=h, a_y=a)
-    mt = pd.read_parquet(f'{ROOT}/data/processed/matches.parquet')[['date', 'home', 'away', 'season']]
-    return t.merge(mt, on=['date', 'home', 'away'])
+    return st[['match_id', 'date', 'home', 'away']].assign(
+        h_y=h, a_y=a, season=st.match_id.map(season_of).values)
 
 
 def load_rosters(league='EPL'):
