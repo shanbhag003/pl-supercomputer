@@ -9,3 +9,8 @@ data/understat/shots/Bundesliga_*
 data/understat/shots/La_liga_*
 data/understat/shots/Serie_A_*
 data/understat/shots/Ligue_1_*
+
+# FPL history archive (vaastav/Fantasy-Premier-League), ~45 MB, re-downloadable;
+# see src/backtest_fpl.py
+data/fpl_history/
+data/processed/fpl_components.parquet

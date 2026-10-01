@@ -771,7 +771,79 @@ foreign leagues first (`python scripts/pull_understat_rosters.py 2014 2025
 
 ---
 
-## 18. Live in-season record
+## 18. FPL expected points — stage 1, backtest
+
+Expected Fantasy Premier League points for every player and fixture
+(`fpl.py`, `fpl_model.py`), built from what the model already has. Each part
+uses only data from before the gameweek's first kickoff:
+
+| Part | From |
+|---|---|
+| Minutes | chance of 60+, of a substitute appearance, expected minutes — last 8 fixtures, recency-weighted, unused-sub rows included |
+| Goals, assists | the player's share of his side's xG / xA while on the pitch (Understat, penalties included, so takers count) × the model's predicted team goals × time on the pitch |
+| Clean sheets, goals conceded | the model's predicted goals for the opponent |
+| Saves | the keeper's save rate × the opponent's predicted goals |
+| Bonus | goals, assists, clean sheets and saves → bonus, by position |
+
+Scale factors and the bonus model are learned from earlier seasons only
+(2020/21 is calibration only). Scoring rules are FPL's 2020/21–2024/25.
+
+**Data.** Real FPL points per player per fixture from the vaastav
+Fantasy-Premier-League archive, 2020/21–2025/26 (163,404 player-fixtures).
+FPL players are linked to Understat players by name within club and season —
+exact, contained ("David Raya" in "David Raya Martin"), FPL's short web name
+("Rodri"), surname — covering **99.5–100% of minutes** every season.
+
+**The benchmark that could not be used.** The archive includes FPL's own
+expected points (xP), and on its face they are far better than the model. They
+were recorded with hindsight:
+
+| Regular starters who then… | FPL archived xP | Model |
+|---|---|---|
+| scored 10+ points | 7.08 | 4.91 |
+| scored 2–3 points | 3.10 | 3.62 |
+| were unexpectedly benched (0 minutes) | 1.21 | 3.46 |
+
+No pre-match forecast separates future hauls from blanks that sharply. The
+archived xP is not used; the live pipeline will record FPL's genuine
+pre-deadline figures instead. (Its double-gameweek values are also the
+gameweek total repeated on each fixture row — summing them would double it.)
+
+**Fair benchmarks** — information any FPL player has before the deadline:
+*form*, mean points over the last five gameweeks (FPL's own expected points are
+essentially this scaled by fixture), and *points per match played* × chance of
+playing. Every listed player-gameweek, benched players included:
+
+| Correlation with actual points | 2021 | 2022 | 2023 | 2024 | 2025 |
+|---|---|---|---|---|---|
+| **Model** | **0.540** | **0.557** | **0.548** | **0.512** | **0.550** |
+| Form | 0.476 | 0.491 | 0.488 | 0.495 | 0.492 |
+| Points per match | 0.505 | 0.523 | 0.519 | 0.484 | 0.518 |
+
+**Picking players** — mean actual points of each method's top 10, per
+gameweek, 189 gameweeks:
+
+| | Top-10 vs form | Top-10 vs points per match | Captain vs form |
+|---|---|---|---|
+| Model | **+0.72** [+0.51, +0.92] | **+0.60** [+0.38, +0.81] | +0.69 [−0.20, +1.60] |
+
+Better every season. The captain edge is positive but not yet certain.
+
+**Not in the backtest, in the live version:** injury and suspension flags
+(FPL publishes them, the archive does not keep them), so live predictions
+should do better than this. **Not modelled yet:** 2025/26's
+defensive-contribution points, which is why 2025/26 predictions run a little
+low (1.08 against 1.17 per player-gameweek).
+
+Reproduce: download `merged_gw_<season>.csv` and `players_raw_<season>.csv`
+for 2020-21 … 2025-26 from github.com/vaastav/Fantasy-Premier-League into
+`data/fpl_history/` (gitignored, ~45 MB), then `python src/backtest_fpl.py
+build` (~1 minute) and `report`. Team predictions per match are in
+`fpl_team_lambdas.parquet`.
+
+---
+
+## 19. Live in-season record
 
 Updated automatically. Only predictions saved **before** kickoff are scored, and
 a prediction is frozen the moment its match starts.
@@ -794,7 +866,7 @@ Current figures always live in `outputs/status.json` and on the site.
 
 ---
 
-## 19. Not validated
+## 20. Not validated
 
 Stated plainly, because a validation document that only lists successes is
 marketing.
@@ -847,6 +919,7 @@ python src/backtest_dynamic.py run  # Kalman-filter ratings vs static; then: rep
 python scripts/pull_understat_rosters.py 2014 2026   # player-match data, once
 python src/backtest_players.py run  # informed vs plain player values; then: report
 python src/backtest_squad_players.py run  # squad layer, season level; then: report
+python src/backtest_fpl.py build    # FPL expected points (needs data/fpl_history/); then: report
 # Section 17 runs from the committed foreign_values.parquet. Rebuilding that
 # cache needs the foreign leagues first (~18 min, not committed):
 #   python scripts/pull_understat_rosters.py 2014 2025 Bundesliga   (and La_liga,
