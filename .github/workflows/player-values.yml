@@ -1,0 +1,61 @@
+name: Player values (yearly)
+
+# Rebuilds data/processed/rapm_live.pkl - the player values the squad layer
+# uses - once the season is over, so they always include the latest complete
+# season. Without this the values silently go a season stale every summer and
+# new signings never get one. See src/build_player_values.py and VALIDATION.md
+# section 16.
+on:
+  schedule:
+    # 10 June, 05:00 UTC: two weeks after the last round, before the
+    # pre-season forecast is built.
+    - cron: '0 5 10 6 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Same group as the weekly pipeline: both commit to main, so they queue rather
+# than race each other.
+concurrency:
+  group: pl-supercomputer
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      # Understat labels a season by the year it starts, so in June the season
+      # that just finished is last year's. Both downloads only fetch matches
+      # not already cached.
+      - name: Top up lineups and shots
+        run: |
+          LAST=$(( $(date -u +%Y) - 1 ))
+          python scripts/pull_understat_rosters.py $((LAST - 1)) $LAST
+          python scripts/pull_understat_shots.py $((LAST - 1)) $LAST
+
+      # Exits with an error, writing nothing, if the new values fail the
+      # sanity check against the current file - so a bad download can never
+      # replace good values. The job then shows red in the Actions tab.
+      - name: Rebuild player values
+        run: python src/build_player_values.py
+
+      - name: Commit
+        run: |
+          git config user.name  "pl-supercomputer"
+          git config user.email "actions@github.com"
+          git add data/processed/rapm_live.pkl data/understat/ || true
+          git diff --staged --quiet && echo "nothing to commit" || {
+            git commit -m "Player values rebuilt $(date -u +'%Y-%m-%d')"
+            git pull --rebase && git push
+          }

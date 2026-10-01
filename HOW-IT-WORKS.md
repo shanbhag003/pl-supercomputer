@@ -709,6 +709,17 @@ before each round — which is what makes the self-scoring trustworthy.
 
 ---
 
+### `player-values.yml`, once a year
+
+Player values are fitted on complete seasons, so they need rebuilding each
+summer or they quietly go a season stale. On 10 June this workflow downloads any
+missing lineups and shots, refits the values, and only then compares them with
+the current file. If they have far fewer players, reach an older season, or
+correlate below 0.9 with the old values (a real new season correlates about
+0.97; a broken download much less), nothing is written and the run fails
+visibly. Otherwise the new file is committed, queued behind the weekly
+pipeline so the two never collide.
+
 ## Part 8 — Three things people ask
 
 **"Why does the expected points total differ from the current table?"**

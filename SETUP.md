@@ -131,13 +131,22 @@ takes about two.
 
 ### When it runs on its own
 
-Three schedules, all in `.github/workflows/weekly.yml`:
+In `.github/workflows/weekly.yml`:
 
 - **Every two hours** (`17 */2 * * *`) — a cheap poll. Publishes only if a
   gameweek has settled, otherwise exits.
-- **Tuesdays and Fridays at 17:00 UTC** — a refresh. Re-reads squads, injuries
-  and suspensions, rebuilds the site, sends no email. This exists because team
-  news lands Thursday and Friday while a publish happens Tuesday.
+- **Refreshes** — daily at 06:00 UTC, Tuesdays and Fridays at 09:00 UTC (before
+  midweek and Friday-evening kickoffs), and Tuesdays and Fridays at 16:00 UTC
+  (after football-data collects that day's betting odds). Each re-reads squads,
+  injuries and suspensions, rebuilds the site, and sends no email.
+
+In `.github/workflows/player-values.yml`:
+
+- **10 June, 05:00 UTC, once a year** — rebuilds the player values the squad
+  layer uses, so they include the season just finished. It checks the new
+  values against the current ones first, and if they look broken it changes
+  nothing and the run shows as failed in the Actions tab. Can also be run by
+  hand: **Actions** → **Player values (yearly)** → **Run workflow**.
 
 A gameweek publishes once every fixture in it has been played and **three hours**
 have passed since the last one finished. That window is set by `SETTLE_HOURS` in
