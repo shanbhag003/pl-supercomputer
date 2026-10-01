@@ -10,6 +10,8 @@ column already in matches.parquet, which should reproduce VALIDATION.md s.1.
     python src/backtest_gamestate.py run
     python src/backtest_gamestate.py report
     python src/backtest_gamestate.py season   # season-table check, ~10 min
+    python src/backtest_gamestate.py setpiece           # set-piece weight, resumable
+    python src/backtest_gamestate.py setpiece-report
 """
 import os as _os
 # Repo root, resolved from this file. Never hardcode absolute paths:
@@ -43,12 +45,14 @@ def state_table():
     return m
 
 
-def matches_with(beta):
+def matches_with(beta, w_sp=1.0):
     """matches.parquet with hnpxg/anpxg replaced by adjusted xG. Matches with no
     usable shot data keep their original npxG."""
     mt = pd.read_parquet(f'{ROOT}/data/processed/matches.parquet')
     if beta == 'orig':
         return mt
+    if w_sp != 1.0:
+        return G.apply(mt, beta, w_sp)[0]
     if beta == 0:                      # shots summed, unadjusted - apply() skips 0
         st = state_table()
         h, a = G.adjusted_npxg(st, 0.0)
@@ -62,9 +66,10 @@ def matches_with(beta):
 
 def run_season(args):
     """backtest.run_season, on a given version of the match data."""
-    beta, season = args
+    beta, season = args[:2]
+    w_sp = args[2] if len(args) > 2 else 1.0
     t0 = time.time()
-    df = matches_with(beta)
+    df = matches_with(beta, w_sp)
     d = df[df.season == season].sort_values('date')
     prev = set(df[df.season == season - 1].home)
     pa = {t: 0.0 for t in prev}; pdf_ = {t: 0.0 for t in prev}
@@ -78,7 +83,7 @@ def run_season(args):
         for m in chunk.itertuples():
             o = outcome_probs(model, m.home, m.away)
             res = 0 if m.hg > m.ag else (1 if m.hg == m.ag else 2)
-            out.append(dict(beta=str(beta), season=season, date=date, home=m.home,
+            out.append(dict(beta=str(beta), w_sp=w_sp, season=season, date=date, home=m.home,
                             away=m.away, res=res, pH=o['H'], pD=o['D'], pA=o['A']))
     print(f'  beta={beta} {season}: {time.time() - t0:.0f}s', flush=True)
     return out
@@ -120,6 +125,52 @@ def report():
         lo, hi = np.percentile(bs, [2.5, 97.5])
         by = pd.Series(d).groupby(r[r.beta == b].season.values).mean()
         print(f'  {b:<5} {d.mean():+.5f}  95% CI [{lo:+.5f}, {hi:+.5f}]  '
+              f'better in {int((by < 0).sum())}/{len(by)} seasons  '
+              f'2019-21 {by.loc[2019:2021].mean():+.5f}  2022-25 {by.loc[2022:].mean():+.5f}')
+
+
+SP_OUT = f'{ROOT}/data/processed/setpiece_bt.parquet'
+W_SP = [1.0, 0.85, 0.7, 0.55, 0.4, 1.15, 1.3]
+LIVE_BETA = 0.1
+
+
+def setpiece_run():
+    """Set-piece weight, with game-state beta at its live value. w_sp=1 is live."""
+    state_table()
+    old = pd.read_parquet(SP_OUT) if os.path.exists(SP_OUT) else pd.DataFrame()
+    have = set(zip(old.w_sp, old.season)) if len(old) else set()
+    jobs = [(LIVE_BETA, s, w) for w in W_SP for s in SEASONS if (w, s) not in have]
+    print(f'{len(jobs)} season runs to do, {len(have)} cached', flush=True)
+    if not jobs:
+        return
+    with Pool(max(1, (os.cpu_count() or 2) - 1)) as p:
+        rows = sum(p.map(run_season, jobs), [])
+    pd.concat([old, pd.DataFrame(rows)], ignore_index=True).to_parquet(SP_OUT)
+
+
+def setpiece_report():
+    r = pd.read_parquet(SP_OUT)
+    P = r[['pH', 'pD', 'pA']].values
+    y = r.res.values
+    cp, co = np.cumsum(P, 1), np.cumsum(np.eye(3)[y], 1)
+    r['rps'] = ((cp - co) ** 2).sum(1) / 2
+    r['ll'] = -np.log(np.clip(P[np.arange(len(y)), y], 1e-12, 1))
+    pd.set_option('display.width', 200)
+    print(f'\n=== set-piece weight, beta={LIVE_BETA}, {(r.w_sp == 1).sum()} matches each ===')
+    print(r.groupby('w_sp')[['rps', 'll']].mean().sort_index(ascending=False).round(5).to_string())
+    print('\n=== RPS by season ===')
+    print(r.pivot_table(index='season', columns='w_sp', values='rps')
+          .sort_index(axis=1, ascending=False).round(5).to_string())
+    base = r[r.w_sp == 1].set_index(['date', 'home', 'away']).rps
+    rng = np.random.default_rng(0)
+    print('\n=== paired vs w_sp=1 (live) ===')
+    for w in W_SP[1:]:
+        v = r[r.w_sp == w].set_index(['date', 'home', 'away']).rps
+        d = (v - base.loc[v.index]).values
+        bs = [d[rng.integers(0, len(d), len(d))].mean() for _ in range(2000)]
+        lo, hi = np.percentile(bs, [2.5, 97.5])
+        by = pd.Series(d).groupby(r[r.w_sp == w].season.values).mean()
+        print(f'  w_sp {w:<5} {d.mean():+.5f}  95% CI [{lo:+.5f}, {hi:+.5f}]  '
               f'better in {int((by < 0).sum())}/{len(by)} seasons  '
               f'2019-21 {by.loc[2019:2021].mean():+.5f}  2022-25 {by.loc[2022:].mean():+.5f}')
 
@@ -166,4 +217,5 @@ def season_level():
 
 if __name__ == '__main__':
     what = sys.argv[1] if len(sys.argv) > 1 else 'report'
-    {'run': run, 'season': season_level}.get(what, report)()
+    {'run': run, 'season': season_level, 'setpiece': setpiece_run,
+     'setpiece-report': setpiece_report}.get(what, report)()
