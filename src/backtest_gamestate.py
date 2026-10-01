@@ -84,7 +84,8 @@ def run_season(args):
             o = outcome_probs(model, m.home, m.away)
             res = 0 if m.hg > m.ag else (1 if m.hg == m.ag else 2)
             out.append(dict(beta=str(beta), w_sp=w_sp, season=season, date=date, home=m.home,
-                            away=m.away, res=res, pH=o['H'], pD=o['D'], pA=o['A']))
+                            away=m.away, res=res, pH=o['H'], pD=o['D'], pA=o['A'],
+                            lh=o['lh'], la=o['la']))
     print(f'  beta={beta} {season}: {time.time() - t0:.0f}s', flush=True)
     return out
 
