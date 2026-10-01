@@ -46,6 +46,9 @@ WEIGHTS = [0.25, 0.5, 1.0]
 VALUES = {'plain1': dict(damp=1.0, informed=False),
           'plain05': dict(damp=0.5, informed=False),
           'informed': dict(damp=0.5, informed=True)}
+# informed values, with players who have no Premier League record valued at
+# the average newcomer (inf_flat) or by the buying club's strength (inf_club)
+NEWCOMER = ['inf_flat', 'inf_club', 'inf_foreign']
 
 
 def player_values(season, rows, lu):
@@ -59,11 +62,18 @@ def player_values(season, rows, lu):
     return out
 
 
-def squad_delta(season, net, lu_season, base):
-    """squad_live.build's delta: change in minutes-weighted net value."""
+def squad_delta(season, net, lu_season, base, unknown=None, unknown_player=None):
+    """squad_live.build's delta: change in minutes-weighted net value.
+    This season's players with no fitted value (no Premier League record) are
+    valued from unknown_player {player: value}, then unknown {club: value},
+    otherwise zero."""
     def rating(s):
         x = lu_season[s]
-        v = x.player_id.map(net).fillna(0.0)
+        v = x.player_id.map(net)
+        if s == season and unknown_player is not None:
+            v = v.fillna(x.player_id.map(unknown_player))
+        fill = x.club.map(unknown) if (unknown is not None and s == season) else 0.0
+        v = v.fillna(fill).fillna(0.0)
         w = x.time / x.groupby('club').time.transform('sum')
         return (w * v).groupby(x.club).sum()
     new, old = rating(season), rating(season - 1)
@@ -98,7 +108,37 @@ def cell(args):
     vals = player_values(season, rows, lu)
     deltas = {k: squad_delta(season, v, lu_season, base) for k, v in vals.items()}
 
-    variants = [('none', 0.0)] + [(k, w) for k in VALUES for w in WEIGHTS]
+    # newcomer priors, learned from newcomers of earlier seasons only
+    ps = (lux[lux.season < season + 1].groupby(['player_id', 'season'])
+          .agg(mins=('time', 'sum'), club=('club', lambda s: s.value_counts().index[0]))
+          .reset_index())
+    nc = PL.newcomer_model(ps[ps.season < season], vals['informed'], season)
+    cx = PL.club_strength(season - 1)
+    clubs = set(lu_season[season].club)
+    unk_club = {c: nc(cx.get(c)) for c in clubs}
+    first = ps.groupby('player_id').season.min()
+    hist_new = ps[(ps.season == ps.player_id.map(first)) & (ps.season > ps.season.min())
+                  & (ps.season < season)].copy()
+    hist_new['value'] = hist_new.player_id.map(vals['informed'])
+    hist_new = hist_new.dropna(subset=['value'])
+    flat = float(np.average(hist_new.value, weights=hist_new.mins))
+    deltas['inf_flat'] = squad_delta(season, vals['informed'], lu_season, base,
+                                     unknown={c: flat for c in clubs})
+    deltas['inf_club'] = squad_delta(season, vals['informed'], lu_season, base,
+                                     unknown=unk_club)
+
+    # ... plus each newcomer's own value in a foreign league, as of this window
+    ftab = PL.foreign_value_table(list(range(2016, 2026)))
+    ncf = PL.newcomer_model_foreign(ps[ps.season < season], vals['informed'], season, ftab)
+    fv_now = ftab[ftab.window == season].set_index('player_id').fv.to_dict()
+    cur = lu_season[season]
+    newbies = set(cur.player_id) - set(vals['informed'])
+    club_of = cur.groupby('player_id').club.agg(lambda s: s.value_counts().index[0])
+    unk_player = {p: ncf(cx.get(club_of[p]), fv_now.get(p)) for p in newbies}
+    deltas['inf_foreign'] = squad_delta(season, vals['informed'], lu_season, base,
+                                        unknown_player=unk_player)
+
+    variants = [('none', 0.0)] + [(k, w) for k in list(VALUES) + NEWCOMER for w in WEIGHTS]
     ap = fin.loc[teams, 'pts'].values
     apos = fin.loc[teams, 'pos'].values
     out = []
@@ -156,7 +196,7 @@ def report():
     live = c.xs(('plain1', 0.5), level=('values', 'weight'))
     rng = np.random.default_rng(0)
     print('\n=== vs live (plain1 at weight 0.5), per forecast ===')
-    for k, w in [('none', 0.0)] + [(k, w) for k in VALUES for w in WEIGHTS]:
+    for k, w in [('none', 0.0)] + [(k, w) for k in list(VALUES) + NEWCOMER for w in WEIGHTS]:
         if (k, w) == ('plain1', 0.5):
             continue
         x = c.xs((k, w), level=('values', 'weight'))

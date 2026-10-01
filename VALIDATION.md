@@ -707,7 +707,71 @@ Reproduce: `python scripts/pull_understat_rosters.py 2014 2026`, then
 
 ---
 
-## 17. Live in-season record
+## 17. Valuing new signings — tested, not shipped
+
+Section 16 left one flaw: a signing with no Premier League record counts as
+league average. Two ways to do better were tested.
+
+**Who signed him.** Newcomers who play are not average. Since 2016/17,
+minutes-weighted, they rate +0.49 against +0.27 for all players — so counting
+them at zero also marks down every club that buys. And the buyer matters:
+newcomers at the strongest quarter of clubs (by the previous season's xG
+difference) average 1.27, at the weakest 0.53, at promoted clubs 0.14. City's
+2022/23 and 2023/24 arrivals rated 2.2–2.9 (Haaland, Gvardiol, Álvarez, Doku).
+
+**How much he lifted his previous team.** The same informed plus-minus fitted
+in La Liga, Serie A, the Bundesliga and Ligue 1 — every match since 2014/15,
+lineups and shots, fitted only on the four seasons before each transfer window
+— so a player is judged by his on-pitch impact and output at his last club.
+Across 465 movers it predicts Premier League value weakly:
+
+| From | Movers | Correlation with PL value |
+|---|---|---|
+| Serie A | 98 | 0.34 |
+| Ligue 1 | 131 | 0.27 |
+| Bundesliga | 112 | 0.18 |
+| La Liga | 124 | 0.17 |
+| **All** | **465** | **0.24** |
+
+No better than the old European values (Section 7). Haaland shows why: Dortmund
+were only a little better with him on the pitch than without (+0.45), against
++2.90 at City — a strong side either way hides an individual's effect. Leagues
+outside these four (Portugal, the Championship) are not covered at all.
+
+**Season test.** Both, learned from earlier windows only, in the Section 16
+replay (35 forecasts):
+
+| | Points MAE | Title Brier | Top-4 Brier | Relegation Brier |
+|---|---|---|---|---|
+| Live (informed values, weight 0.25) | 6.310 | 0.3577 | 1.364 | 1.104 |
+| + who signed him, 0.25 | 6.320 | 0.3564 | 1.362 | 1.107 |
+| + who signed him + previous club, 0.25 | 6.317 | 0.3566 | 1.360 | 1.104 |
+| + both, 0.5 | 6.205 | 0.3808 | 1.332 | 1.078 |
+| + both, 1.0 | 6.054 | 0.4397 | 1.304 | 1.038 |
+
+At the live weight it changes nothing measurable (title −0.0011, points
++0.008, both intervals spanning zero). It does fix the bias it targeted — City's
+2022/23 squad downgrade shrinks from −0.46 to −0.20 — but raising the weight
+still trades better positions for worse title odds. What remains is not about
+signings: City lost established players (Gündoğan, Mahrez; Jesus and
+Zinchenko to Arsenal) and won anyway. With seven champions in the sample, a
+strong system absorbing departures cannot be told apart from two unlucky
+seasons.
+
+**Not shipped.** The newcomer models stay in `players.py` and the test in
+`backtest_squad_players.py`, to re-run as seasons accumulate. The foreign
+values cache (`foreign_values.parquet`) is committed; the 24 MB of foreign match
+data is not, and `pull_understat_rosters.py` re-downloads it in ~18 minutes.
+
+Reproduce: `python src/backtest_squad_players.py run` and `report` (~15
+minutes) read the committed cache. To rebuild the cache itself, download the
+foreign leagues first (`python scripts/pull_understat_rosters.py 2014 2025
+<league>` for Bundesliga, La_liga, Serie_A, Ligue_1), then delete
+`foreign_values.parquet`.
+
+---
+
+## 18. Live in-season record
 
 Updated automatically. Only predictions saved **before** kickoff are scored, and
 a prediction is frozen the moment its match starts.
@@ -730,7 +794,7 @@ Current figures always live in `outputs/status.json` and on the site.
 
 ---
 
-## 18. Not validated
+## 19. Not validated
 
 Stated plainly, because a validation document that only lists successes is
 marketing.
@@ -749,8 +813,9 @@ marketing.
   overfitting. That is a judgement call, not a result. (`SQUAD_W`, once the same,
   is now 0.25 on the evidence in Section 16.)
 - **Signings with no Premier League record** count as league average in the
-  squad layer, or get a heavily shrunk European value. Section 16 shows this
-  costs title accuracy when a top club buys abroad.
+  squad layer, or get a heavily shrunk European value. Section 17 shows better
+  estimates exist (who signed him) but change nothing measurable at the live
+  squad weight, so the simpler treatment stays.
 - **The manager layer rests on a handful of qualifying moves per season.** It
   improves the backtest, but the sample is small enough that the improvement
   could be luck.
@@ -782,6 +847,10 @@ python src/backtest_dynamic.py run  # Kalman-filter ratings vs static; then: rep
 python scripts/pull_understat_rosters.py 2014 2026   # player-match data, once
 python src/backtest_players.py run  # informed vs plain player values; then: report
 python src/backtest_squad_players.py run  # squad layer, season level; then: report
+# Section 17 runs from the committed foreign_values.parquet. Rebuilding that
+# cache needs the foreign leagues first (~18 min, not committed):
+#   python scripts/pull_understat_rosters.py 2014 2025 Bundesliga   (and La_liga,
+#   Serie_A, Ligue_1)
 python src/tune.py                  # resumable hyperparameter grid search
 ```
 

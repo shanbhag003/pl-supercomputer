@@ -45,9 +45,11 @@ def training_targets(beta=0.1):
     return t.merge(mt, on=['date', 'home', 'away'])
 
 
-def load_rosters():
-    r = pd.concat([pd.read_parquet(f) for f in sorted(glob.glob(f'{ROSTERS}/EPL_*.parquet'))],
-                  ignore_index=True)
+def load_rosters(league='EPL'):
+    parts = []
+    for f in sorted(glob.glob(f'{ROSTERS}/{league}_*.parquet')):
+        parts.append(pd.read_parquet(f).assign(season=int(f.split('_')[-1].split('.')[0])))
+    r = pd.concat(parts, ignore_index=True)
     r['match_id'] = r.match_id.astype(str)
     r['pos'] = r.position.str[0].map({'G': 'GK', 'D': 'D', 'M': 'M', 'F': 'F', 'A': 'M',
                                       'S': 'F'}).fillna('M')
@@ -169,6 +171,132 @@ def fit(rows, lu, damp, informed=False, damp_prior=None, min_mins=0):
                    home=b[2 * P], season=dict(zip(seasons, b[2 * P + 1:])),
                    prior_map=(wa, wd))
     return out
+
+
+FOREIGN = ['Bundesliga', 'La_liga', 'Serie_A', 'Ligue_1']
+
+
+def foreign_targets(league, beta=0.1):
+    """Game-state adjusted npxG per match for a foreign league, from its shots."""
+    import gamestate as G
+    files = sorted(glob.glob(f'{ROOT}/data/understat/shots/{league}_*.parquet'))
+    shots = pd.concat([pd.read_parquet(f).assign(season=int(f.split('_')[-1].split('.')[0]))
+                       for f in files], ignore_index=True)
+    season_of = shots.groupby('match_id').season.first()
+    st = G.match_table(shots.drop(columns='season'))
+    h, a = G.adjusted_npxg(st, beta)
+    return st[['match_id']].assign(h_y=h, a_y=a, season=st.match_id.map(season_of).values)
+
+
+def foreign_values(league, before, years=4, damp=0.5, rosters=None, targets=None):
+    """Informed plus-minus for one foreign league, fitted on the `years`
+    seasons before `before` - nothing a transfer window could not know.
+    Returns {player: net value} (attack minus def, in that league's units)."""
+    ro = rosters if rosters is not None else load_rosters(league)
+    tg = targets if targets is not None else foreign_targets(league)
+    keep = set(range(before - years, before))
+    tg = tg[tg.season.isin(keep)]
+    rows, lu = team_matches(ro[ro.season.isin(keep)], tg)
+    m = fit(rows, lu, damp, informed=True)
+    mins = lu.groupby('player_id').time.sum()
+    net = (m['att'] - m['dfn'])
+    return net[mins.reindex(net.index).fillna(0) >= 900].to_dict()
+
+
+FOREIGN_CACHE = f'{ROOT}/data/processed/foreign_values.parquet'
+
+
+def foreign_value_table(windows, rebuild=False):
+    """Foreign values for every league and transfer window (season the player
+    would join for), cached. Where a player qualifies in two leagues the one
+    he played more recently in wins. Columns: window, player_id, league, fv."""
+    import os
+    if os.path.exists(FOREIGN_CACHE) and not rebuild:
+        t = pd.read_parquet(FOREIGN_CACHE)
+        if set(windows) <= set(t.window):
+            return t
+    out = []
+    for lg in FOREIGN:
+        ro, tg = load_rosters(lg), foreign_targets(lg)
+        for w in windows:
+            before = ro[ro.season < w]
+            last = before.groupby('player_id').season.max()
+            v = foreign_values(lg, w, rosters=before, targets=tg)
+            out.append(pd.DataFrame({'window': w, 'player_id': list(v), 'league': lg,
+                                     'fv': list(v.values()),
+                                     'last': [last.get(p, 0) for p in v]}))
+    t = pd.concat(out, ignore_index=True)
+    t = (t.sort_values('last').drop_duplicates(['window', 'player_id'], keep='last')
+          .drop(columns='last'))
+    t.to_parquet(FOREIGN_CACHE, index=False)
+    return t
+
+
+def newcomer_model_foreign(players_seasons, net, before, ftab):
+    """newcomer_model plus the player's own value in a foreign league as of
+    the window he joined in (ftab, from foreign_value_table). Learned from
+    earlier newcomers only, weighted by minutes:
+
+        value = a + b*club_prev_xgd + c*promoted + d*fv + e*has_fv
+
+    Returns f(club_prev_xgd or None, fv or None) -> value."""
+    ps = players_seasons
+    first = ps.groupby('player_id').season.min()
+    new = ps[(ps.season == ps.player_id.map(first)) & (ps.season > ps.season.min())
+             & (ps.season < before)].copy()
+    new['value'] = new.player_id.map(net)
+    new = new.dropna(subset=['value'])
+    prev = {s: club_strength(s - 1) for s in new.season.unique()}
+    new['cx'] = [prev[s].get(c, np.nan) for c, s in zip(new.club, new.season)]
+    fv = ftab.set_index(['window', 'player_id']).fv
+    new['fv'] = [fv.get((s, p), np.nan) for s, p in zip(new.season, new.player_id)]
+
+    def feats(cx, f):
+        cx, f = np.asarray(cx, float), np.asarray(f, float)
+        pro, has = ~np.isfinite(cx), np.isfinite(f)
+        return np.column_stack([np.ones(len(cx)), np.where(pro, 0, cx), pro,
+                                np.where(has, f, 0), has]).astype(float)
+    X = feats(new.cx, new.fv)
+    w = np.sqrt(new.mins.values)
+    coef = np.linalg.lstsq(X * w[:, None], new.value.values * w, rcond=None)[0]
+    return lambda cx, f: float((feats([np.nan if cx is None else cx],
+                                      [np.nan if f is None else f]) @ coef)[0])
+
+
+def club_strength(season):
+    """Each club's non-penalty xG difference per game in the given season,
+    from matches.parquet. Clubs absent that season (promoted) are missing."""
+    mt = pd.read_parquet(f'{ROOT}/data/processed/matches.parquet')
+    mt = mt[mt.season == season]
+    x = pd.concat([pd.DataFrame({'club': mt.home, 'xgd': mt.hnpxg - mt.anpxg}),
+                   pd.DataFrame({'club': mt.away, 'xgd': mt.anpxg - mt.hnpxg})])
+    return x.groupby('club').xgd.mean().to_dict()
+
+
+def newcomer_model(players_seasons, net, before):
+    """How good are players arriving with no Premier League record?
+
+    players_seasons: player_id, season, club, mins (one row per player-season).
+    net: {player: value} fitted on seasons before `before`. Learns, from
+    newcomers who debuted in earlier seasons, value = a + b * (buying club's
+    xG difference per game the season before), weighted by minutes; promoted
+    clubs (no previous season) get their own minutes-weighted mean.
+    Returns a function (club, club_prev_xgd or None) -> value."""
+    ps = players_seasons
+    first = ps.groupby('player_id').season.min()
+    new = ps[(ps.season == ps.player_id.map(first)) & (ps.season > ps.season.min())
+             & (ps.season < before)].copy()
+    new['value'] = new.player_id.map(net)
+    new = new.dropna(subset=['value'])
+    prev = {s: club_strength(s - 1) for s in new.season.unique()}
+    new['cx'] = [prev[s].get(c, np.nan) for c, s in zip(new.club, new.season)]
+    pro = new[new.cx.isna()]
+    est = new[new.cx.notna()]
+    w = est.mins.values
+    A = np.column_stack([np.ones(len(est)), est.cx.values]) * np.sqrt(w)[:, None]
+    a, b = np.linalg.lstsq(A, est.value.values * np.sqrt(w), rcond=None)[0]
+    promoted = float(np.average(pro.value, weights=pro.mins)) if len(pro) else float(a)
+    return lambda cx: promoted if cx is None or not np.isfinite(cx) else float(a + b * cx)
 
 
 def predict(model, rows, lu, prior_for_unknown=None):
