@@ -198,8 +198,7 @@ table.cur td:nth-child(2),table.cur th:nth-child(2){text-align:left}
 .rec summary em.up{color:var(--green)} .rec summary em.dn{color:var(--pink)}
 .rec[open] summary{color:#fff}
 .rec .pl{margin-bottom:6px}
-.rec.older > summary span{color:var(--dim)}
-.rec.older .rec:first-of-type{border-top:0}
+
 .sep:before{content:' · '}
 .flagbtn.short{width:17px;height:17px;padding:0;border-radius:50%;font:700 11px/17px Inter;text-align:center}
 .titlebar{display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -295,7 +294,7 @@ const zoneName = () => useUTC ? 'UTC' : (new Intl.DateTimeFormat(navigator.langu
   .formatToParts(new Date()).find(p => p.type === 'timeZoneName') || {}).value || 'local';
 const ko = s => s ? new Date(s).toLocaleString('en-GB', Object.assign({weekday:'short',day:'numeric',month:'short',
   hour:'2-digit',minute:'2-digit',hour12:false}, useUTC ? {timeZone: 'UTC'} : {})) : '';
-let TAB = 'table', VIEW = 'pred', GW = null, POS = 'ALL', HZ = 'x1', SHOWN = 40;
+let TAB = 'table', VIEW = 'pred', GW = null, POS = 'ALL', HZ = 'x1', SHOWN = 40, FV = 'picks';
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 const localName = () => (new Intl.DateTimeFormat(navigator.language || 'en-GB', {timeZoneName: 'short'})
@@ -464,10 +463,13 @@ function fplTab(){
   const rows = F.players.filter(r => POS === 'ALL' || r.pos === POS).sort((a, b) => b[HZ] - a[HZ]);
   const caps = [...F.players].sort((a, b) => b.x1 - a.x1).slice(0, 5);
   const shown = rows.slice(0, SHOWN);
-  let h = `<div class="note">Expected FPL points for every player, from the model's predicted goals for each fixture,
+  const n = (F.record || []).length;
+  let h = `<div class="chips"><button class="chip ${FV === 'picks' ? 'on' : ''}" data-fv="picks">Expected points</button>
+    <button class="chip ${FV === 'record' ? 'on' : ''}" data-fv="record">Track record${n ? ` · ${n} GW${n > 1 ? 's' : ''}` : ''}</button></div>`;
+  if (FV === 'record') return h + fplRecord(F);
+  h += `<div class="note">Expected FPL points for every player, from the model's predicted goals for each fixture,
     each player's share of his team's chances, his minutes and FPL's injury news. Deadline <b>${ko(F.deadline)}</b>.
     Tested on five past seasons: the model's top-10 picks scored 0.7 points per player per gameweek more than picking on form.</div>`;
-  h += fplRecord(F);
   h += `<div class="card"><div class="h2">Captain picks <small>highest expected points, GW${F.gws[0]}</small></div><div class="caps">
     ${caps.map(r => `<div class="cap" style="border-color:${col(r.club)}"><div class="x">${r.x1.toFixed(1)}</div>
       <div class="nm">${esc(r.name)}${flag(r)}</div><div class="sub">${code(r.club)} · ${r.pos} · £${r.price.toFixed(1)}m</div>
@@ -493,8 +495,10 @@ function fplTab(){
 function fplRecord(F){
   const R = F.record || [];
   let h = `<div class="card"><div class="h2">Track record <small>our picks vs what happened</small></div>`;
-  if (!R.length) return h + `<div class="legend" style="margin-top:0">Starts after GW${F.gws[0]}: our captain and top-10
-    picks, frozen at the deadline, will be scored here against what they actually got, beside FPL's own picks.</div></div>`;
+  if (!R.length) return h + `<div class="legend" style="margin-top:0;font-size:13.5px;line-height:1.6">Every gameweek our
+    expected points are frozen at the deadline, beside FPL's own. Once the gameweek is played, our captain and top-10 picks
+    are scored here against what they actually got, with FPL's picks alongside, so you can judge both.
+    <br><br><b style="color:#fff">First results after GW${F.gws[0]}.</b></div></div>`;
   const avg = k => R.reduce((s, r) => s + k(r), 0) / R.length;
   const tile = (v, l, good) => `<div class="stat"><b style="color:${good ? 'var(--green)' : '#fff'}">${v}</b><span>${l}</span></div>`;
   const ours = avg(r => r.ours_top10), fpl = avg(r => r.fpl_top10), oc = avg(r => r.our_cap.pts), fc = avg(r => r.fpl_cap.pts);
@@ -509,9 +513,7 @@ function fplRecord(F){
       ${r.picks.map(p => `<tr><td>${dot(p.club)}${esc(p.name)} <span class="tag">${p.pos}</span></td><td>${p.x.toFixed(1)}</td><td class="act ${p.pts >= p.x ? 'up' : 'dn'}">${p.pts}</td></tr>`).join('')}</table>
     <div class="legend">FPL's own captain pick: ${esc(r.fpl_cap.name)}, ${r.fpl_cap.x} expected, ${r.fpl_cap.pts} scored.
       Best possible top 10 with hindsight: ${r.best_top10.toFixed(1)} avg.</div></details>`;
-  h += line(R[0]);
-  if (R.length > 1) h += `<details class="rec older"><summary><b>Earlier gameweeks</b><span>${R.length - 1} more</span></summary>
-    ${R.slice(1).map(line).join('')}</details>`;
+  h += R.map(line).join('');
   return h + `<div class="legend">Predictions are frozen at each deadline and never edited. Top-10 is the average points
     of the ten players each method rated highest, benched players included.</div></div>`;
 }
@@ -549,13 +551,14 @@ document.addEventListener('click', e => {
     else if (s.dataset.copy) navigator.clipboard.writeText(SITE).then(() => toast('Link copied'), () => toast(SITE));
     return;
   }
-  const t = e.target.closest('[data-t],[data-v],[data-gw],[data-pos],[data-hz],[data-zone],.row[data-team]');
+  const t = e.target.closest('[data-t],[data-v],[data-gw],[data-pos],[data-hz],[data-zone],[data-fv],.row[data-team]');
   if (!t) return;
   if (t.dataset.t) { TAB = t.dataset.t; render(); window.scrollTo({top: 0}); }
   else if (t.dataset.v) { VIEW = t.dataset.v; render(); }
   else if (t.dataset.gw) { GW = +t.dataset.gw; render(); }
   else if (t.dataset.pos) { POS = t.dataset.pos; SHOWN = 40; render(); }
   else if (t.dataset.hz) { HZ = t.dataset.hz; SHOWN = 40; render(); }
+  else if (t.dataset.fv) { FV = t.dataset.fv; render(); }
   else if (t.dataset.zone) {
     useUTC = !useUTC;
     try { localStorage.setItem('plzone', useUTC ? 'utc' : 'local'); } catch (e) {}
