@@ -455,6 +455,8 @@ function fplTab(){
     ${caps.map(r => `<div class="cap" style="border-color:${col(r.club)}"><div class="x">${r.x1.toFixed(1)}</div>
       <div class="nm">${esc(r.name)}${flag(r)}</div><div class="sub">${nm(r.club)} · ${r.pos} · £${r.price.toFixed(1)}m</div>
       <div class="sub">${fixLong(r)} · xG ${r.eg.toFixed(2)} · xA ${r.ea.toFixed(2)}</div></div>`).join('')}</div>`;
+  h += shareBar(`FPL captain picks for GW${F.gws[0]}: ${caps.slice(0, 3).map(r => `${r.name} ${r.x1.toFixed(1)}`).join(', ')}`
+    + ' expected points — from a model that simulates every fixture. Full list:', 'Share captain picks');
   h += `<div class="card"><div class="chips">${[['x1', 'Next gameweek'], ['x3', 'Next 3'], ['x5', 'Next 5']].map(([k, l]) =>
       `<button class="chip ${HZ === k ? 'on' : ''}" data-hz="${k}">${l}</button>`).join('')}</div>
     <div class="chips">${['ALL', 'GKP', 'DEF', 'MID', 'FWD'].map(p => `<button class="chip ${POS === p ? 'on' : ''}" data-pos="${p}">${p}</button>`).join('')}</div>
