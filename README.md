@@ -2,8 +2,11 @@
 
 An expected-goals model that simulates the rest of the 2026/27 Premier League
 season 20,000 times, refits itself three hours after every gameweek, predicts
-every fixture in the next two rounds, and grades its own past predictions
-against the bookmakers in public.
+every fixture in the next two rounds, forecasts Fantasy Premier League points for
+every player, and grades its own past predictions against the bookmakers in
+public.
+
+**Live site: [shanbhag003.github.io/pl-supercomputer](https://shanbhag003.github.io/pl-supercomputer/)**
 
 Runs on GitHub Actions' free tier. Costs nothing.
 
@@ -15,13 +18,16 @@ Runs on GitHub Actions' free tier. Costs nothing.
 
 Every run, without anyone pressing anything:
 
-1. Pulls the latest results, expected goals, squads and injuries
-2. Refits club ratings on twelve seasons of data, weighted toward recent form
+1. Pulls the latest results, expected goals, every shot and lineup, squads,
+   injuries and betting odds
+2. Refits club ratings on twelve seasons of data, weighted toward recent form,
+   with each shot's xG adjusted for the score when it was taken
 3. Adjusts for transfers, injuries, suspensions and managerial changes
 4. Simulates every remaining fixture 20,000 times
 5. Predicts result and scoreline for every fixture in the next two gameweeks
-6. Scores its own past predictions against what actually happened
-7. Renders a graphic, rebuilds the site and emails it
+6. Predicts FPL points for every player over the next five gameweeks
+7. Scores its own past predictions against the results and the bookmakers
+8. Renders a graphic, rebuilds the site and emails it
 
 ## How the model works
 
@@ -63,10 +69,20 @@ squad change over a summer — measured at 0.171 SD (attack) and 0.180 SD
 
 Using only bootstrap gives 80% intervals that cover 55–70% of outcomes. Adding
 the measured drift brings coverage to 77%. The number that fixes calibration is
-the number the data says it should be.
+the number the data says it should be. Mid-season the plain 10th–90th range
+held only 72%, so the published "likely range" is the 7th–93rd percentile,
+which held 80% across 640 backtest forecasts ([VALIDATION.md](VALIDATION.md) §12).
 
 **Simulation.** Each fixture gets a full Dixon-Coles scoreline grid. Scorelines
 are sampled, not assumed, and real Premier League tiebreak rules are applied.
+
+**FPL expected points.** For every player and fixture: minutes from his recent
+appearances and FPL's injury news; goals and assists from his share of his
+team's chances times the model's predicted goals; clean sheets from the
+opponent's predicted goals; saves, bonus and 2025/26 defensive-contribution
+points. Next 1, 3 and 5 gameweeks, captain picks and points per £m on the site.
+FPL's own expected points are logged before every deadline for an honest
+comparison ([VALIDATION.md](VALIDATION.md) §18).
 
 ---
 
@@ -122,15 +138,17 @@ result before predicting it.
 
 Four seasons never used for tuning:
 
-| Season | Model RPS | Bookmaker RPS |
-|---|---|---|
-| 2019/20 | 0.19865 | 0.19871 |
-| 2020/21 | 0.21363 | 0.21315 |
-| 2021/22 | 0.19459 | 0.18897 |
-| 2025/26 | 0.20804 | 0.20528 |
-| **All (1,520 matches)** | **0.20373** | **0.20153** |
+| Season | Original model RPS | Live model RPS | Bookmaker RPS |
+|---|---|---|---|
+| 2019/20 | 0.19865 | 0.19798 | 0.19871 |
+| 2020/21 | 0.21363 | 0.21355 | 0.21315 |
+| 2021/22 | 0.19459 | 0.19354 | 0.18897 |
+| 2025/26 | 0.20804 | 0.20795 | 0.20528 |
+| **All (1,520 matches)** | **0.20373** | **0.20326** | **0.20153** |
 
-**Within 1.1% of the pre-match betting market**, on free data, with no team news.
+**Within 0.9% of the pre-match betting market** (1.1% before game-state adjusted
+xG), on free data, with no team news. The live model is the original plus
+game-state adjusted xG ([VALIDATION.md](VALIDATION.md) §13).
 
 ### Season level, seven pre-season forecasts
 
@@ -142,6 +160,17 @@ Fitted the day before each season started, then simulated:
 | Club ratings only | 9.389 | 0.758 |
 | **+ squad layer** | **9.264** | **0.770** |
 | **+ manager layer (shipped)** | **9.216** | **0.772** |
+
+Since then two upgrades have shipped, each tested on a 35-forecast replay
+(pre-season plus gameweeks 5, 10, 19 and 28, 2019/20–2025/26):
+
+| Upgrade | Points MAE | Title Brier | Relegation Brier |
+|---|---|---|---|
+| Game-state adjusted xG | 5.70 → **5.64** | 0.333 → **0.321** | 0.937 → **0.917** |
+| Player values with an informed prior, squad weight 0.25 | 6.38 → **6.31** | 0.358 → **0.358** | 1.115 → **1.104** |
+
+(Each row is against the model as it stood before that upgrade; the two
+replays start from different baselines.)
 
 80% intervals cover 77% of outcomes. The eventual champion appeared in the
 model's top three in all seven backtested seasons.
@@ -159,6 +188,19 @@ switched off. The code is still in the repository so the results can be checked.
 | Manager effects, all changes | 9.311 | 0.760 | Worse on every metric |
 | Manager values from foreign leagues | not built | — | Player conversion was already weak at n≈200; a dozen manager moves would be noise |
 | Fixture congestion | no change | — | Effect reverses sign between eras and fails out-of-sample. See below |
+
+Tested since, each in [VALIDATION.md](VALIDATION.md):
+
+| Rejected or no change | Result | Section |
+|---|---|---|
+| Re-tuning in-season decay and drift (84 variants) | −0.05 points, fails split-half | §9 |
+| Blending betting odds into match predictions | Never beats the odds alone; odds kept as a benchmark | §10 |
+| Removing drift noise from match predictions | −0.00014 RPS, within noise | §11 |
+| In-season random walk on ratings | Coverage 72.5% → 75%, CRPS flat | §12 |
+| Weighting set-piece xG differently | Down-weighting hurts; up-weighting gains nothing measurable | §14 |
+| Dynamic (Kalman-filter) ratings | Worse than the live model; best of 72 settings with hindsight still loses | §15 |
+| Valuing new signings by buyer and previous club | No measurable change at the live weight | §17 |
+| Correct position labels for player values | Neutral; kept in code, applied at the June rebuild | §16 |
 
 **The manager failure is instructive.** Version one penalised Bournemouth for
 hiring Iraola and Liverpool for hiring Slot — who then won the league. It could
@@ -249,8 +291,11 @@ Stated plainly, because a model that hides these is not worth reading.
 
 - **Pre-season MAE is around 9 points per club.** No pre-season model is much
   better. Accuracy improves sharply once real results arrive.
-- New signings from outside Europe's big five leagues are valued at league
-  average.
+- New signings with no Premier League record are valued at league average (or
+  a heavily shrunk European value). Better estimates were tested and changed
+  nothing measurable (§17).
+- FPL points omit penalty-taker order, rotation risk beyond recent minutes, and
+  precise bonus; injury news is read from FPL's free-text return dates.
 - Manager changes where the incoming manager has no Premier League record are
   not scored at all.
 - Guardiola's decade at City cannot be separated from City itself with any
@@ -294,9 +339,10 @@ There are two kinds of run.
 **Publish** — the full job, after a gameweek settles. Rebuilds everything, saves
 that gameweek to `outputs/history/`, and sends the email.
 
-**Refresh** — Fridays and Tuesdays at 17:00 UTC, ahead of the weekend and
-midweek rounds. Re-reads squads, injuries and suspensions, rebuilds the site,
-and sends no email. This exists because team news lands on Thursday and Friday
+**Refresh** — daily at 06:00 UTC, Tuesdays and Fridays at 09:00 UTC (before
+midweek and Friday-evening kickoffs) and 16:00 UTC (after the day's betting odds
+are published). Re-reads squads, injuries and suspensions, rebuilds the site
+including the FPL predictions, and sends no email. This exists because team news lands on Thursday and Friday
 while a gameweek publish happens on Tuesday: without it, the injury data would be
 a median of 6.7 days old by the time the next round kicked off. A refresh never
 writes to `outputs/history/`, so the record of what was predicted before each
@@ -310,6 +356,10 @@ which a fixed weekly schedule would handle badly.
 
 A match still unplayed five days after its scheduled kickoff is treated as
 postponed so the round can settle without it.
+
+**Yearly** — every 10 June, `player-values.yml` downloads the finished season's
+lineups and shots, rebuilds the player values and last season's FPL file, and
+commits them only if they pass a sanity check against the current values.
 
 ---
 
@@ -338,6 +388,8 @@ The job runs unattended, so every external source is treated as unreliable.
 | BOM-tolerant column names | The results feed ships a UTF-8 BOM; read as latin-1 it renamed the first column and the whole file was silently rejected |
 | Per-match xG gap filling | Understat can hold nine results of a ten-match round; the round used to be published with a match missing from the table |
 | Predictions frozen at kickoff | A prediction being rewritten after the result was known, which would make the whole scorecard meaningless |
+| FPL step never fatal | An FPL API or matching failure taking down the table forecast or the site |
+| Player-value sanity check | A bad yearly download replacing good player values (refuses on missing players, an older season, or correlation below 0.9) |
 
 Each optional layer — squad, manager, European values, story image — is wrapped
 so that a failure switches that layer off, logs the exception type, and lets the
@@ -350,8 +402,14 @@ src/update.py         the weekly job
 src/gate.py           decides when a gameweek has settled
 src/ratings.py        Dixon-Coles fit and scoreline grids
 src/simulate.py       bootstrap ensemble and Monte Carlo
-src/rapm.py           plus-minus player values
+src/gamestate.py      game-state adjusted xG from every shot
+src/players.py        plus-minus player values with an informed prior
+src/build_player_values.py   writes the live player values (yearly)
+src/rapm.py           the original plus-minus player values
 src/eu_rapm.py        the same, for four other European leagues
+src/fpl.py            FPL history and FPL-to-Understat player matching
+src/fpl_model.py      expected FPL points per player per fixture
+src/fpl_live.py       live FPL predictions, next five gameweeks
 src/squad_live.py     current squads, availability, minute allocation
 src/managers.py       manager spells
 src/manager_model.py  manager effects
@@ -361,26 +419,37 @@ src/cup_fixtures.py   FA Cup and EFL Cup dates
 src/uefa_fixtures.py  UEFA fixtures for English clubs
 src/backtest*.py      every validation run behind the numbers above
                       (incl. backtest_congestion.py)
+src/dynamic.py        Kalman-filter ratings (tested and rejected)
+scripts/pull_understat_*.py   shots and lineups, any league
 
 docs/index.html       the site: one hand-written file, no build step
 docs/data.json        everything the site renders, rewritten each run
+docs/validation.html  the test record, rendered from VALIDATION.md
 outputs/match_predictions.csv   every per-fixture prediction ever made
 outputs/history/      the forecast as it stood before each gameweek
 outputs/status.json   last run's gate decision, drift and scorecard
+outputs/fpl_predictions.csv     FPL expected points, next five gameweeks
+outputs/fpl_benchmark.csv       ours beside FPL's own, frozen at each deadline
 ```
 
-The site has three tabs. **Predicted** is the projected final table. **Actual**
-is the real table with each club's projected finish beside it. **Fixtures** shows
-one gameweek at a time — the predicted result, scoreline and expected goals for
-each match, and once played, the real result with a tick or a cross.
+The site has four tabs. **Table** leads with the title race and how it has moved
+over the season, what changed this week, and the predicted or current table —
+tap a club for its chance of finishing in every position. **Matches** puts the
+accuracy record against the bookmakers first, then one gameweek of fixtures at a
+time with the predicted result, scoreline and expected goals, and a tick or a
+cross once played. **FPL** has captain picks and expected points for every player
+over the next 1, 3 or 5 gameweeks, with injury news. **About** explains the model
+and links to the full test record. Times switch between local and UTC, and every
+tab can be shared.
 
 ---
 
 ## Data
 
-- [Understat](https://understat.com) — expected goals, player and match level
+- [Understat](https://understat.com) — expected goals, every shot and lineup, player and match level
 - [football-data.co.uk](https://www.football-data.co.uk) — results and pre-match odds
-- [Fantasy Premier League API](https://fantasy.premierleague.com) — squads, injuries, suspensions
+- [Fantasy Premier League API](https://fantasy.premierleague.com) — squads, injuries, suspensions, prices, FPL's own expected points
+- [vaastav/Fantasy-Premier-League](https://github.com/vaastav/Fantasy-Premier-League) — historical FPL points, for the FPL backtest
 - Wikipedia — manager spells, domestic cup and UEFA fixtures
 - Fixtures via fixturedownload.com
 
