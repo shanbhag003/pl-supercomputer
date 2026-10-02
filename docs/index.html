@@ -156,7 +156,7 @@ table.cur td:nth-child(2),table.cur th:nth-child(2){text-align:left}
 .stat{background:var(--card2);border-radius:12px;padding:12px}
 .stat b{display:block;font:400 26px/1.1 var(--display)}
 .stat span{font-size:12px;color:var(--lav)}
-.fx{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;margin-bottom:10px}
+.fx{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;margin-bottom:12px}
 .fx .ko{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-bottom:8px}
 .fx .teams{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
 .fx .teams div:last-child{text-align:right}
@@ -171,10 +171,11 @@ table.cur td:nth-child(2),table.cur th:nth-child(2){text-align:left}
 
 /* fpl */
 .caps{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;scrollbar-width:none}
-.cap{min-width:150px;background:var(--card2);border-radius:12px;padding:12px;border-top:4px solid}
+.cap{flex:1 0 128px;min-width:128px;background:var(--card2);border-radius:12px;padding:12px;border-top:4px solid}
 .cap .x{font:400 30px/1 var(--display)}
 .cap .nm{font-weight:700;margin-top:4px}
 .cap .sub{font-size:12px;color:var(--lav)}
+.cap .sub,.cap .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pl{width:100%;border-collapse:collapse;font-size:14px}
 .pl th{font:600 12px var(--label);letter-spacing:.08em;color:var(--dim);text-align:right;padding:6px 4px;white-space:nowrap}
 .pl td{padding:8px 4px;border-top:1px solid var(--line);text-align:right;white-space:nowrap}
@@ -215,6 +216,8 @@ a{color:var(--cyan)}
   transition:opacity .2s;pointer-events:none;z-index:20}
 .toast.on{opacity:1}
 .fulltest{display:block;margin-top:6px;font-weight:600;text-decoration:none}
+/* inside a card the carousel needs no gap of its own before the share bar */
+.card .caps{margin-bottom:0}
 @media (max-width:520px){
   h1{font-size:32px}
   .row{grid-template-columns:22px minmax(0,1fr) 36px 129px;gap:6px}
@@ -451,12 +454,12 @@ function fplTab(){
   let h = `<div class="note">Expected FPL points for every player, from the model's predicted goals for each fixture,
     each player's share of his team's chances, his minutes and FPL's injury news. Deadline <b>${ko(F.deadline)}</b>.
     Tested on five past seasons: the model's top-10 picks scored 0.7 points per player per gameweek more than picking on form.</div>`;
-  h += `<div class="h2">Captain picks <small>highest expected points, GW${F.gws[0]}</small></div><div class="caps">
+  h += `<div class="card"><div class="h2">Captain picks <small>highest expected points, GW${F.gws[0]}</small></div><div class="caps">
     ${caps.map(r => `<div class="cap" style="border-color:${col(r.club)}"><div class="x">${r.x1.toFixed(1)}</div>
-      <div class="nm">${esc(r.name)}${flag(r)}</div><div class="sub">${nm(r.club)} · ${r.pos} · £${r.price.toFixed(1)}m</div>
-      <div class="sub">${fixLong(r)} · xG ${r.eg.toFixed(2)} · xA ${r.ea.toFixed(2)}</div></div>`).join('')}</div>`;
+      <div class="nm">${esc(r.name)}${flag(r)}</div><div class="sub">${code(r.club)} · ${r.pos} · £${r.price.toFixed(1)}m</div>
+      <div class="sub">${fixLong(r)}</div><div class="sub">xG ${r.eg.toFixed(2)} · xA ${r.ea.toFixed(2)}</div></div>`).join('')}</div>`;
   h += shareBar(`FPL captain picks for GW${F.gws[0]}: ${caps.slice(0, 3).map(r => `${r.name} ${r.x1.toFixed(1)}`).join(', ')}`
-    + ' expected points — from a model that simulates every fixture. Full list:', 'Share captain picks');
+    + ' expected points — from a model that simulates every fixture. Full list:', 'Share captain picks') + '</div>';
   h += `<div class="card"><div class="chips">${[['x1', 'Next gameweek'], ['x3', 'Next 3'], ['x5', 'Next 5']].map(([k, l]) =>
       `<button class="chip ${HZ === k ? 'on' : ''}" data-hz="${k}">${l}</button>`).join('')}</div>
     <div class="chips">${['ALL', 'GKP', 'DEF', 'MID', 'FWD'].map(p => `<button class="chip ${POS === p ? 'on' : ''}" data-pos="${p}">${p}</button>`).join('')}</div>
