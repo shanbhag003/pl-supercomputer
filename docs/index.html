@@ -187,6 +187,17 @@ table.cur td:nth-child(2),table.cur th:nth-child(2){text-align:left}
   border-radius:4px;padding:1px 5px;background:rgba(255,225,77,.15);color:#FFE14D;vertical-align:1px}
 .toast{max-width:88vw;white-space:normal;text-align:center}
 .show-s{display:none}
+.rec{border-top:1px solid var(--line)}
+.rec summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding:10px 0;font-size:13.5px;color:var(--lav)}
+.rec summary::-webkit-details-marker{display:none}
+.rec summary b{color:#fff;min-width:40px}
+.rec summary i{font-style:normal;color:var(--dim)}
+.rec summary em{font:700 13.5px Inter;font-style:normal}
+.rec .act{font:400 18px var(--display)}
+.rec .act.up{color:var(--green)} .rec .act.dn{color:var(--pink)}
+.rec summary em.up{color:var(--green)} .rec summary em.dn{color:var(--pink)}
+.rec[open] summary{color:#fff}
+.rec .pl{margin-bottom:6px}
 .sep:before{content:' · '}
 .flagbtn.short{width:17px;height:17px;padding:0;border-radius:50%;font:700 11px/17px Inter;text-align:center}
 .titlebar{display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -471,7 +482,34 @@ function fplTab(){
     <div class="legend">Showing ${shown.length} of ${rows.length}${POS === 'ALL' ? '' : ' ' + POS} players with a realistic chance of points.
       xG, xA and CS (clean-sheet chance; forwards score nothing for one) are for GW${F.gws[0]}.${
       shown.some(r => r.status !== 'a') ? ' Tap a yellow tag for FPL&#39;s injury news.' : ''}</div></div>`;
+  h += fplRecord(F);
   return h;
+}
+
+// Our frozen pre-deadline picks against what happened, beside FPL's own
+// expected points - the FPL version of the match scorecard.
+function fplRecord(F){
+  const R = F.record || [];
+  let h = `<div class="card"><div class="h2">Track record <small>our picks vs what happened</small></div>`;
+  if (!R.length) return h + `<div class="legend" style="margin-top:0">Every gameweek our expected points are frozen at the
+    deadline, beside FPL's own. Once the gameweek is played, our captain and top-10 picks are scored against what they
+    actually got. First results after GW${F.gws[0]}.</div></div>`;
+  const avg = k => R.reduce((s, r) => s + k(r), 0) / R.length;
+  const tile = (v, l, good) => `<div class="stat"><b style="color:${good ? 'var(--green)' : '#fff'}">${v}</b><span>${l}</span></div>`;
+  const ours = avg(r => r.ours_top10), fpl = avg(r => r.fpl_top10), oc = avg(r => r.our_cap.pts), fc = avg(r => r.fpl_cap.pts);
+  h += `<div class="stats">${tile(ours.toFixed(1), `our top-10, avg pts (FPL's ${fpl.toFixed(1)})`, ours >= fpl)}
+    ${tile(oc.toFixed(1), `our captain, avg pts (FPL's ${fc.toFixed(1)})`, oc >= fc)}
+    ${tile(R.length, R.length === 1 ? 'gameweek scored' : 'gameweeks scored', false)}</div>`;
+  h += R.map(r => `<details class="rec"><summary><b>GW${r.gw}</b>
+      <span>C: ${esc(r.our_cap.name)} <i>${r.our_cap.x}→</i><em class="${r.our_cap.pts >= r.fpl_cap.pts ? 'up' : 'dn'}">${r.our_cap.pts}</em></span>
+      <span class="hide-s">FPL's C: ${esc(r.fpl_cap.name)} <i>${r.fpl_cap.x}→</i>${r.fpl_cap.pts}</span>
+      <span>top-10 <em class="${r.ours_top10 >= r.fpl_top10 ? 'up' : 'dn'}">${r.ours_top10.toFixed(1)}</em> v ${r.fpl_top10.toFixed(1)}</span></summary>
+    <table class="pl"><tr><th>Our top 10</th><th>Expected</th><th>Actual</th></tr>
+      ${r.picks.map(p => `<tr><td>${dot(p.club)}${esc(p.name)} <span class="tag">${p.pos}</span></td><td>${p.x.toFixed(1)}</td><td class="act ${p.pts >= p.x ? 'up' : 'dn'}">${p.pts}</td></tr>`).join('')}</table>
+    <div class="legend">FPL's own captain pick: ${esc(r.fpl_cap.name)}, ${r.fpl_cap.x} expected, ${r.fpl_cap.pts} scored.
+      Best possible top 10 with hindsight: ${r.best_top10.toFixed(1)} avg.</div></details>`).join('');
+  return h + `<div class="legend">Predictions are frozen at each deadline and never edited. Top-10 is the average points
+    of the ten players each method rated highest, benched players included.</div></div>`;
 }
 
 /* ---------------------------------------------------------------- ABOUT */

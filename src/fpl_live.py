@@ -165,6 +165,39 @@ def match_understat(pl, ro):
     return m
 
 
+def track_record(pl, cur):
+    """Our frozen pre-deadline predictions (fpl_benchmark.csv) against what
+    each player then scored, one entry per finished gameweek, beside FPL's own
+    pre-deadline expected points. Every listed player counts, benched ones
+    included - the same rule as the backtest."""
+    bf = f'{OUT}/fpl_benchmark.csv'
+    if not os.path.exists(bf) or not len(cur):
+        return []
+    b = pd.read_csv(bf).fillna({'model': 0.0, 'fpl': 0.0})
+    act = cur.groupby(['gw', 'element']).points.sum()
+    done = set(cur.gw)
+    meta = pl.set_index('element')
+    who = lambda e: dict(name=str(meta.web.get(e, e)), club=str(meta.club.get(e, '')),
+                         pos=str(meta.pos.get(e, '')))
+    out = []
+    for gw, g in b.groupby('gw'):
+        if gw not in done:
+            continue                                   # not finished yet
+        g = g.assign(pts=[float(act.get((gw, e), 0)) for e in g.element])
+        top, ftop = g.nlargest(10, 'model'), g.nlargest(10, 'fpl')
+        cap, fcap = top.iloc[0], ftop.iloc[0]
+        out.append(dict(
+            gw=int(gw), players=int(len(g)),
+            ours_top10=round(top.pts.mean(), 2), fpl_top10=round(ftop.pts.mean(), 2),
+            best_top10=round(g.nlargest(10, 'pts').pts.mean(), 2),
+            our_cap=dict(who(cap.element), x=round(cap.model, 1), pts=int(cap.pts)),
+            fpl_cap=dict(who(fcap.element), x=round(fcap.fpl, 1), pts=int(fcap.pts)),
+            corr_ours=round(float(g[['model', 'pts']].corr().iloc[0, 1]), 3),
+            corr_fpl=round(float(g[['fpl', 'pts']].corr().iloc[0, 1]), 3),
+            picks=[dict(who(r.element), x=round(r.model, 1), pts=int(r.pts)) for r in top.itertuples()]))
+    return sorted(out, key=lambda r: -r['gw'])
+
+
 def run(lam_fn, log=print, today=None):
     """Expected points for every player over the next HORIZON gameweeks.
     lam_fn(home, away) -> (home goals, away goals) expected, from the live
@@ -293,7 +326,11 @@ def run(lam_fn, log=print, today=None):
     matched = sum(1 for e in pl.element if e in us)
     log(f'  FPL: {len(out)} players over GW{gws[0]}-{gws[-1]}; '
         f'{matched}/{len(pl)} linked to Understat; top pick {out[0]["name"]} {out[0]["x1"]:.1f}')
-    payload = dict(gws=gws, deadline=nxt['deadline_time'], players=out,
+    record = track_record(pl, cur)
+    if record:
+        log(f"  FPL record: {len(record)} gameweek(s) scored; latest GW{record[0]['gw']} "
+            f"top-10 ours {record[0]['ours_top10']} vs FPL {record[0]['fpl_top10']}")
+    payload = dict(gws=gws, deadline=nxt['deadline_time'], players=out, record=record,
                    benchmark_note="FPL's own pre-deadline expected points are recorded "
                                   "beside these for an honest comparison.")
     # plain Python numbers only: numpy types would make the site's JSON write
