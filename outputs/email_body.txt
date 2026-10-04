@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 5  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Manchester City are favourites for the title, with a 45.9% chance.
+Manchester City are favourites for the title, with a 46.0% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,18 +9,18 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Manchester City           76    45.9%    92.1%
-2  Arsenal                   75    37.9%    89.6%
+1  Manchester City           76    46.0%    92.1%
+2  Arsenal                   75    37.8%    89.6%
 3  Liverpool                 63     5.3%    49.4%
-4  Brighton                  60     3.2%    36.8%
-5  Brentford                 57     3.2%    25.5%
-6  Leeds                     56     1.1%    19.3%
+4  Brighton                  60     3.2%    36.9%
+5  Brentford                 57     3.2%    25.6%
+6  Leeds                     56     1.2%    19.3%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Coventry                64.4%
-   Ipswich                 59.5%
-   Tottenham               34.0%
+   Coventry                64.5%
+   Ipswich                 59.4%
+   Tottenham               33.9%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
@@ -38,9 +38,9 @@ WHAT CHANGED SINCE LAST GAMEWEEK
       lost 0-1 away at Everton
   Liverpool: 3.3 expected points up, title chance +1.8 points, relegation risk -0.7 points
       beat Bournemouth 1-0 away
-  Coventry: 3.2 expected points up, relegation risk -11.0 points
+  Coventry: 3.2 expected points up, relegation risk -10.9 points
       beat Nottingham Forest 1-0 away, and rode their luck
-  Nottingham Forest: 3.0 expected points down, title chance -0.4 points, relegation risk +3.0 points
+  Nottingham Forest: 2.9 expected points down, title chance -0.4 points, relegation risk +3.0 points
       lost 0-1 at home to Coventry, but played far better
       than the score
 
