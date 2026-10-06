@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 5  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Manchester City are favourites for the title, with a 46.0% chance.
+Manchester City are favourites for the title, with a 46.1% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,11 +9,11 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Manchester City           76    46.0%    92.0%
-2  Arsenal                   75    37.8%    89.5%
-3  Liverpool                 63     5.3%    49.3%
+1  Manchester City           76    46.1%    92.0%
+2  Arsenal                   75    37.7%    89.5%
+3  Liverpool                 63     5.4%    49.3%
 4  Brighton                  60     3.2%    36.9%
-5  Brentford                 57     3.2%    25.5%
+5  Brentford                 57     3.2%    25.6%
 6  Leeds                     56     1.1%    19.2%
 
 MOST LIKELY TO GO DOWN
