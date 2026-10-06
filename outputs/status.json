@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T12:30:14",
+  "updated": "2026-10-06T15:46:13",
   "gameweek": 5,
   "matches_played": 50,
   "drift": 0.093,
@@ -60,7 +60,7 @@
       "team": "Ipswich",
       "d_xPts": -3.29,
       "d_title": -0.01,
-      "d_releg": 14.89,
+      "d_releg": 14.88,
       "reason": "lost 0-1 away at Everton"
     },
     {
@@ -74,7 +74,7 @@
       "team": "Coventry",
       "d_xPts": 3.2,
       "d_title": 0.0,
-      "d_releg": -10.83,
+      "d_releg": -10.82,
       "reason": "beat Nottingham Forest 1-0 away, and rode their luck"
     },
     {
