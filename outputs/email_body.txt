@@ -19,7 +19,7 @@ TOP OF THE TABLE
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
    Coventry                64.6%
-   Ipswich                 59.4%
+   Ipswich                 59.3%
    Tottenham               34.0%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
@@ -34,7 +34,7 @@ WHAT CHANGED SINCE LAST GAMEWEEK
 
   Brentford: 4.0 expected points up, title chance +1.4 points, relegation risk -3.4 points
       beat Chelsea 3-0 at home, and rode their luck
-  Ipswich: 3.3 expected points down, relegation risk +14.9 points
+  Ipswich: 3.3 expected points down, relegation risk +14.8 points
       lost 0-1 away at Everton
   Liverpool: 3.3 expected points up, title chance +1.8 points, relegation risk -0.7 points
       beat Bournemouth 1-0 away
