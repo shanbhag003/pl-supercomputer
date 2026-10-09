@@ -13,7 +13,7 @@ TOP OF THE TABLE
 2  Arsenal                   75    37.9%    89.5%
 3  Liverpool                 63     5.4%    49.4%
 4  Brighton                  60     3.2%    37.1%
-5  Brentford                 57     3.3%    25.6%
+5  Brentford                 57     3.3%    25.7%
 6  Manchester United         56     0.9%    21.0%
 
 MOST LIKELY TO GO DOWN
@@ -34,7 +34,7 @@ WHAT CHANGED SINCE LAST GAMEWEEK
 
   Brentford: 4.1 expected points up, title chance +1.4 points, relegation risk -3.4 points
       beat Chelsea 3-0 at home, and rode their luck
-  Ipswich: 3.3 expected points down, relegation risk +14.9 points
+  Ipswich: 3.3 expected points down, relegation risk +14.8 points
       lost 0-1 away at Everton
   Liverpool: 3.3 expected points up, title chance +1.8 points, relegation risk -0.7 points
       beat Bournemouth 1-0 away
