@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 5  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Manchester City are favourites for the title, with a 46.0% chance.
+Manchester City are favourites for the title, with a 45.8% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,17 +9,17 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Manchester City           76    46.0%    92.0%
-2  Arsenal                   75    37.7%    89.5%
-3  Liverpool                 63     5.4%    49.3%
-4  Brighton                  60     3.2%    36.9%
-5  Brentford                 57     3.2%    25.6%
-6  Leeds                     56     1.1%    19.2%
+1  Manchester City           76    45.8%    92.1%
+2  Arsenal                   75    37.8%    89.5%
+3  Liverpool                 63     5.4%    49.4%
+4  Brighton                  60     3.2%    37.1%
+5  Brentford                 57     3.3%    25.6%
+6  Manchester United         56     1.0%    21.1%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
    Coventry                64.6%
-   Ipswich                 59.4%
+   Ipswich                 59.3%
    Tottenham               34.0%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
@@ -32,7 +32,7 @@ WHAT CHANGED SINCE LAST GAMEWEEK
   a little, so part of each change below is the upgrade,
   not the results.
 
-  Brentford: 4.0 expected points up, title chance +1.4 points, relegation risk -3.4 points
+  Brentford: 4.1 expected points up, title chance +1.4 points, relegation risk -3.4 points
       beat Chelsea 3-0 at home, and rode their luck
   Ipswich: 3.3 expected points down, relegation risk +14.8 points
       lost 0-1 away at Everton
