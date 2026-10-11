@@ -1,8 +1,8 @@
 {
-  "updated": "2026-10-10T11:39:17",
+  "updated": "2026-10-11T11:52:41",
   "gameweek": 5,
-  "matches_played": 50,
-  "drift": 0.093,
+  "matches_played": 56,
+  "drift": 0.085,
   "n_sims": 20000,
   "gate": "GW5 already published",
   "xg_source": "understat",
@@ -16,17 +16,17 @@
   ],
   "squad_delta": {
     "Newcastle United": -0.367,
-    "Chelsea": -0.258,
-    "Manchester United": -0.255,
+    "Chelsea": -0.259,
+    "Manchester United": -0.256,
     "Manchester City": -0.23,
-    "Brentford": -0.196,
     "Leeds": -0.19,
+    "Brentford": -0.184,
     "Arsenal": -0.166,
     "Crystal Palace": -0.159,
     "Aston Villa": -0.128,
     "Everton": -0.121,
     "Bournemouth": -0.12,
-    "Brighton": -0.102,
+    "Brighton": -0.107,
     "Liverpool": -0.096,
     "Sunderland": -0.003,
     "Coventry": 0.0,
@@ -34,55 +34,55 @@
     "Ipswich": 0.0,
     "Nottingham Forest": 0.022,
     "Fulham": 0.055,
-    "Tottenham": 0.126
+    "Tottenham": 0.121
   },
   "validation": {
-    "n": 50,
-    "rps": 0.20420396220768416,
-    "logloss": 1.0481421404064089,
-    "hit": 0.44,
-    "n_close": 7,
-    "drawn": 16,
+    "n": 56,
+    "rps": 0.2037447994960253,
+    "logloss": 1.0483725907044534,
+    "hit": 0.44642857142857145,
+    "n_close": 8,
+    "drawn": 18,
     "picked_draw": 0,
-    "bookie_rps": 0.20617239515925245,
-    "bookie_n": 50,
-    "model_rps_same": 0.20420396220768416
+    "bookie_rps": 0.2019847621956253,
+    "bookie_n": 56,
+    "model_rps_same": 0.2037447994960253
   },
   "biggest_moves": [
     {
+      "team": "Brighton",
+      "d_xPts": 4.67,
+      "d_title": 2.46,
+      "d_releg": -1.18,
+      "reason": "beat Sunderland 2-0 away, and rode their luck"
+    },
+    {
+      "team": "Bournemouth",
+      "d_xPts": -4.33,
+      "d_title": -0.8,
+      "d_releg": 2.34,
+      "reason": "lost 1-5 away at Chelsea, but played far better than the score"
+    },
+    {
       "team": "Brentford",
-      "d_xPts": 4.06,
-      "d_title": 1.43,
-      "d_releg": -3.42,
-      "reason": "beat Chelsea 3-0 at home, and rode their luck"
-    },
-    {
-      "team": "Liverpool",
-      "d_xPts": 3.27,
-      "d_title": 1.83,
-      "d_releg": -0.65,
-      "reason": "beat Bournemouth 1-0 away"
-    },
-    {
-      "team": "Ipswich",
-      "d_xPts": -3.27,
-      "d_title": -0.01,
-      "d_releg": 14.83,
-      "reason": "lost 0-1 away at Everton"
+      "d_xPts": 3.59,
+      "d_title": 0.47,
+      "d_releg": -3.67,
+      "reason": "drew 2-2 away at Aston Villa"
     },
     {
       "team": "Coventry",
-      "d_xPts": 3.21,
+      "d_xPts": 3.34,
       "d_title": 0.0,
-      "d_releg": -10.78,
+      "d_releg": -10.82,
       "reason": "beat Nottingham Forest 1-0 away, and rode their luck"
     },
     {
-      "team": "Nottingham Forest",
-      "d_xPts": -2.9,
-      "d_title": -0.44,
-      "d_releg": 2.97,
-      "reason": "lost 0-1 at home to Coventry, but played far better than the score"
+      "team": "Liverpool",
+      "d_xPts": 3.23,
+      "d_title": 1.11,
+      "d_releg": -0.6,
+      "reason": "beat Bournemouth 1-0 away"
     }
   ],
   "model_note": "The model was upgraded this week in two ways: chances a team creates while protecting or chasing a lead now count at what they would be worth at level, and players are now valued partly from their own numbers, which sharpens how squad changes count. That moves every club a little, so part of each change below is the upgrade, not the results."
