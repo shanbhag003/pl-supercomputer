@@ -316,6 +316,46 @@ def current_season_matches():
     return d
 
 
+def sync_kickoffs(fx):
+    """Replace placeholder kickoff times with FPL's confirmed ones.
+
+    fixtures_2627.csv lists any match whose TV slot was not confirmed when it
+    was downloaded at a placeholder (Saturday 14:00 UTC). The real kickoff can
+    be days later or hours EARLIER - and predictions freeze at kickoff, so an
+    earlier real kickoff left a prediction open after the match had started
+    (Arsenal v Leeds, GW6: real 11:30, file 14:00). FPL's fixtures carry the
+    confirmed times; they overwrite the file's, which is saved back so every
+    later step and run agrees. If FPL is unreachable the file is used as is.
+    """
+    try:
+        import fpl as F
+        boot = requests.get('https://fantasy.premierleague.com/api/bootstrap-static/',
+                            headers=UA, timeout=40).json()
+        fl = requests.get('https://fantasy.premierleague.com/api/fixtures/',
+                          headers=UA, timeout=40).json()
+        tn = {t['id']: F.FPL2US.get(t['name'], t['name']) for t in boot['teams']}
+        real = {(tn[f['team_h']], tn[f['team_a']]): pd.Timestamp(f['kickoff_time'])
+                for f in fl if f.get('kickoff_time')}
+        fixed = 0
+        dates = []
+        for d, h, a in zip(fx.Date, fx.home, fx.away):
+            ko = real.get((h, a))
+            if ko is None:
+                dates.append(d)
+                continue
+            new = ko.tz_convert('UTC').strftime('%d/%m/%Y %H:%M')
+            fixed += new != pd.to_datetime(d, dayfirst=True).strftime('%d/%m/%Y %H:%M')
+            dates.append(new)
+        if fixed:
+            fx = fx.copy()
+            fx['Date'] = dates
+            fx.drop(columns=['home', 'away']).to_csv(f'{DATA}/raw/fixtures_2627.csv', index=False)
+            log(f'  kickoff times: {fixed} corrected from FPL')
+    except Exception as e:
+        log(f'  kickoff sync failed: {type(e).__name__}: {e} - fixture file times used')
+    return fx
+
+
 def market_odds():
     """De-vigged pre-closing market odds, {(home, away): [pH, pD, pA]}.
 
@@ -429,6 +469,7 @@ def main():
     fx = pd.read_csv(f'{DATA}/raw/fixtures_2627.csv')
     fx['home'] = fx['Home Team'].map(lambda x: FIX2US.get(x, x))
     fx['away'] = fx['Away Team'].map(lambda x: FIX2US.get(x, x))
+    fx = sync_kickoffs(fx)
     teams = sorted(set(fx.home))
 
     # CRITICAL: drop anything that is not a 2026/27 PL fixture before it can
@@ -735,8 +776,10 @@ def main():
             probs = [float(r.pH), float(r.pD), float(r.pA)]
             oc = 'HDA'[call_outcome(*probs)]
             row = dict(gw=int(r.gw), home=r.home, away=r.away,
-                       ko=(r.ko if isinstance(r.get('ko'), str)
-                           else kos.get((r.home, r.away))),
+                       # the real kickoff (public fact) over the stored one,
+                       # which may be a placeholder from before the slot was set
+                       ko=(kos.get((r.home, r.away))
+                           or (r.ko if isinstance(r.get('ko'), str) else None)),
                        pH=round(probs[0], 4), pD=round(probs[1], 4),
                        pA=round(probs[2], 4), outcome=oc,
                        conf=round(max(probs), 4),
