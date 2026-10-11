@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-11T11:52:41",
+  "updated": "2026-10-11T13:01:31",
   "gameweek": 5,
   "matches_played": 56,
   "drift": 0.085,
@@ -32,21 +32,21 @@
     "Coventry": 0.0,
     "Hull": 0.0,
     "Ipswich": 0.0,
-    "Nottingham Forest": 0.022,
+    "Nottingham Forest": 0.021,
     "Fulham": 0.055,
     "Tottenham": 0.121
   },
   "validation": {
     "n": 56,
-    "rps": 0.2037447994960253,
-    "logloss": 1.0483725907044534,
+    "rps": 0.20374385415250956,
+    "logloss": 1.048369761837623,
     "hit": 0.44642857142857145,
     "n_close": 8,
     "drawn": 18,
     "picked_draw": 0,
     "bookie_rps": 0.2019847621956253,
     "bookie_n": 56,
-    "model_rps_same": 0.2037447994960253
+    "model_rps_same": 0.20374385415250956
   },
   "biggest_moves": [
     {
