@@ -436,7 +436,10 @@ function matchesTab(){
       <span>${gap === null ? '' : gap <= 0 ? 'ahead of the betting market' : 'behind the betting market'}</span></div></div>`;
   const gws = [...new Set(D.matches.map(m => m.gw))].sort((a,b) => a-b);
   h += `<div class="chips">${gws.map(g => `<button class="chip ${g===GW?'on':''}" data-gw="${g}">GW${g}</button>`).join('')}</div>`;
-  D.matches.filter(m => m.gw === GW).forEach(m => {
+  // earliest kickoff first; same-time matches by home club
+  D.matches.filter(m => m.gw === GW)
+    .sort((x, y) => (x.ko || '').localeCompare(y.ko || '') || x.home.localeCompare(y.home))
+    .forEach(m => {
     const played = m.res_h !== undefined;
     const badge = played ? `<span class="res ${m.ok_outcome?'y':'n'}">${m.res_h}–${m.res_a} ${m.ok_outcome?'✓ called':'✗'}</span>`
                          : `<span class="res w">not played yet</span>`;
