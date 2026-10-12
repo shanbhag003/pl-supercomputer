@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 5  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Arsenal are favourites for the title, with a 42.2% chance.
+Manchester City are favourites for the title, with a 54.5% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,18 +9,18 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Arsenal                   76    42.2%    92.6%
-2  Manchester City           76    42.8%    91.7%
-3  Liverpool                 63     4.7%    49.5%
-4  Brighton                  63     4.7%    48.2%
-5  Brentford                 57     2.3%    24.1%
-6  Chelsea                   56     1.1%    19.9%
+1  Manchester City           79    54.5%    96.1%
+2  Arsenal                   76    36.0%    93.3%
+3  Brighton                  63     3.7%    51.0%
+4  Liverpool                 60     1.7%    38.1%
+5  Brentford                 57     1.7%    25.1%
+6  Chelsea                   56     1.0%    21.0%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Coventry                64.6%
-   Ipswich                 53.0%
-   Fulham                  39.6%
+   Coventry                65.1%
+   Ipswich                 52.8%
+   Fulham                  38.8%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
@@ -32,17 +32,18 @@ WHAT CHANGED SINCE LAST GAMEWEEK
   a little, so part of each change below is the upgrade,
   not the results.
 
-  Brighton: 4.7 expected points up, title chance +2.5 points, relegation risk -1.2 points
+  Manchester City: 5.2 expected points up, title chance +18.8 points
+      beat Liverpool 3-0 away, and rode their luck
+  Brighton: 4.9 expected points up, title chance +1.5 points, relegation risk -1.1 points
       beat Sunderland 2-0 away, and rode their luck
-  Bournemouth: 4.3 expected points down, title chance -0.8 points, relegation risk +2.3 points
+  Bournemouth: 4.2 expected points down, title chance -0.9 points, relegation risk +2.5 points
       lost 1-5 away at Chelsea, but played far better than
       the score
-  Brentford: 3.6 expected points up, title chance +0.5 points, relegation risk -3.7 points
+  Brentford: 3.7 expected points up, title chance -0.1 points, relegation risk -3.6 points
       drew 2-2 away at Aston Villa
-  Coventry: 3.3 expected points up, relegation risk -10.8 points
-      beat Nottingham Forest 1-0 away, and rode their luck
-  Liverpool: 3.2 expected points up, title chance +1.1 points, relegation risk -0.6 points
-      beat Bournemouth 1-0 away
+  Nottingham Forest: 3.6 expected points down, title chance -0.5 points, relegation risk +3.7 points
+      lost 1-3 away at Crystal Palace, but played far
+      better than the score
 
   Numbers move for three reasons: results, how well teams
   actually played underneath those results, and any change
@@ -50,10 +51,10 @@ WHAT CHANGED SINCE LAST GAMEWEEK
 
 HOW ACCURATE HAS THIS BEEN?
 ----------------------------------------------------------
-  Matches predicted so far: 56
-  Results called correctly: 45%
-  Sharpness score: 0.204 (lower is better)
-  Bookmakers on the same matches: 0.202
+  Matches predicted so far: 59
+  Results called correctly: 44%
+  Sharpness score: 0.205 (lower is better)
+  Bookmakers on the same matches: 0.203
   So we are 0.9% behind the betting market.
 
   Nothing here is graded with hindsight.
