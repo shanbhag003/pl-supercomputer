@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-13T13:15:44",
+  "updated": "2026-10-13T16:47:35",
   "gameweek": 6,
   "matches_played": 60,
   "drift": 0.08,
@@ -23,7 +23,7 @@
     "Brentford": -0.184,
     "Arsenal": -0.167,
     "Crystal Palace": -0.16,
-    "Aston Villa": -0.127,
+    "Aston Villa": -0.126,
     "Everton": -0.121,
     "Bournemouth": -0.12,
     "Brighton": -0.108,
@@ -52,7 +52,7 @@
     {
       "team": "Manchester City",
       "d_xPts": 4.38,
-      "d_title": 10.58,
+      "d_title": 10.59,
       "d_releg": 0.0,
       "reason": "beat Liverpool 3-0 away, and rode their luck"
     },
@@ -60,13 +60,13 @@
       "team": "Coventry",
       "d_xPts": 3.02,
       "d_title": 0.0,
-      "d_releg": -13.74,
+      "d_releg": -13.75,
       "reason": "beat Newcastle United 4-1 at home, and rode their luck"
     },
     {
       "team": "Arsenal",
       "d_xPts": 2.9,
-      "d_title": -0.57,
+      "d_title": -0.58,
       "d_releg": 0.0,
       "reason": "beat Leeds 2-1 at home"
     },
@@ -74,7 +74,7 @@
       "team": "Bournemouth",
       "d_xPts": -2.78,
       "d_title": -0.58,
-      "d_releg": 2.21,
+      "d_releg": 2.2,
       "reason": "lost 1-5 away at Chelsea, but played far better than the score"
     },
     {
