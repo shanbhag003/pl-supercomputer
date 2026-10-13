@@ -1,10 +1,10 @@
 {
-  "updated": "2026-10-13T06:48:45",
+  "updated": "2026-10-13T13:15:44",
   "gameweek": 6,
   "matches_played": 60,
   "drift": 0.08,
   "n_sims": 20000,
-  "gate": "GW6 settled at 2026-10-13 00:00 UTC, 6.8h ago",
+  "gate": "GW6 already published",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.25, 20 clubs, 0 unmatched with PL minutes, 4317 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
@@ -17,7 +17,7 @@
   "squad_delta": {
     "Newcastle United": -0.361,
     "Chelsea": -0.259,
-    "Manchester United": -0.255,
+    "Manchester United": -0.259,
     "Manchester City": -0.229,
     "Leeds": -0.19,
     "Brentford": -0.184,
@@ -60,13 +60,13 @@
       "team": "Coventry",
       "d_xPts": 3.02,
       "d_title": 0.0,
-      "d_releg": -13.73,
+      "d_releg": -13.74,
       "reason": "beat Newcastle United 4-1 at home, and rode their luck"
     },
     {
       "team": "Arsenal",
       "d_xPts": 2.9,
-      "d_title": -0.56,
+      "d_title": -0.57,
       "d_releg": 0.0,
       "reason": "beat Leeds 2-1 at home"
     },
@@ -81,7 +81,7 @@
       "team": "Newcastle United",
       "d_xPts": -2.39,
       "d_title": -0.39,
-      "d_releg": 3.15,
+      "d_releg": 3.14,
       "reason": "lost 1-4 away at Coventry, but played far better than the score"
     }
   ],
