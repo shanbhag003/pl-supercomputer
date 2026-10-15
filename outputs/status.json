@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-14T10:55:44",
+  "updated": "2026-10-15T10:37:29",
   "gameweek": 6,
   "matches_played": 60,
   "drift": 0.08,
@@ -25,8 +25,8 @@
     "Crystal Palace": -0.16,
     "Aston Villa": -0.126,
     "Everton": -0.121,
-    "Bournemouth": -0.12,
-    "Brighton": -0.108,
+    "Bournemouth": -0.117,
+    "Brighton": -0.102,
     "Liverpool": -0.101,
     "Sunderland": -0.003,
     "Coventry": 0.0,
@@ -51,8 +51,8 @@
   "biggest_moves": [
     {
       "team": "Manchester City",
-      "d_xPts": 4.37,
-      "d_title": 10.59,
+      "d_xPts": 4.36,
+      "d_title": 10.6,
       "d_releg": 0.0,
       "reason": "beat Liverpool 3-0 away, and rode their luck"
     },
@@ -60,28 +60,28 @@
       "team": "Coventry",
       "d_xPts": 3.01,
       "d_title": 0.0,
-      "d_releg": -13.72,
+      "d_releg": -13.66,
       "reason": "beat Newcastle United 4-1 at home, and rode their luck"
     },
     {
       "team": "Arsenal",
-      "d_xPts": 2.89,
-      "d_title": -0.56,
+      "d_xPts": 2.88,
+      "d_title": -0.62,
       "d_releg": 0.0,
       "reason": "beat Leeds 2-1 at home"
     },
     {
       "team": "Bournemouth",
-      "d_xPts": -2.78,
+      "d_xPts": -2.75,
       "d_title": -0.58,
-      "d_releg": 2.26,
+      "d_releg": 2.21,
       "reason": "lost 1-5 away at Chelsea, but played far better than the score"
     },
     {
       "team": "Newcastle United",
-      "d_xPts": -2.38,
-      "d_title": -0.39,
-      "d_releg": 3.11,
+      "d_xPts": -2.39,
+      "d_title": -0.4,
+      "d_releg": 3.14,
       "reason": "lost 1-4 away at Coventry, but played far better than the score"
     }
   ],

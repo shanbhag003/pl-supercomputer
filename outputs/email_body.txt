@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 6  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Manchester City are favourites for the title, with a 55.2% chance.
+Manchester City are favourites for the title, with a 55.3% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,17 +9,17 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Manchester City           79    55.2%    96.2%
+1  Manchester City           79    55.3%    96.2%
 2  Arsenal                   76    35.7%    93.7%
-3  Brighton                  63     3.6%    51.6%
+3  Brighton                  63     3.7%    51.7%
 4  Liverpool                 60     1.7%    38.4%
 5  Brentford                 57     1.5%    25.0%
-6  Chelsea                   56     0.9%    21.0%
+6  Chelsea                   56     0.9%    21.1%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
    Ipswich                 54.2%
-   Coventry                50.2%
+   Coventry                50.3%
    Fulham                  41.6%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
@@ -39,7 +39,7 @@ WHAT CHANGED SINCE LAST GAMEWEEK
       luck
   Arsenal: 2.9 expected points up, title chance -0.6 points
       beat Leeds 2-1 at home
-  Bournemouth: 2.8 expected points down, title chance -0.6 points, relegation risk +2.3 points
+  Bournemouth: 2.8 expected points down, title chance -0.6 points, relegation risk +2.2 points
       lost 1-5 away at Chelsea, but played far better than
       the score
   Newcastle United: 2.4 expected points down, title chance -0.4 points, relegation risk +3.1 points
