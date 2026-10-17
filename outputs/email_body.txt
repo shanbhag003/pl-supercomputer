@@ -10,16 +10,16 @@ TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
 1  Manchester City           79    55.2%    96.2%
-2  Arsenal                   76    35.7%    93.6%
+2  Arsenal                   76    35.6%    93.6%
 3  Brighton                  63     3.7%    51.8%
 4  Liverpool                 60     1.7%    38.3%
-5  Brentford                 57     1.5%    25.2%
-6  Chelsea                   56     0.9%    20.9%
+5  Brentford                 57     1.5%    25.3%
+6  Chelsea                   56     1.0%    20.9%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
    Ipswich                 54.2%
-   Coventry                50.5%
+   Coventry                50.6%
    Fulham                  41.8%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
@@ -34,10 +34,10 @@ WHAT CHANGED SINCE LAST GAMEWEEK
 
   Manchester City: 4.3 expected points up, title chance +10.5 points
       beat Liverpool 3-0 away, and rode their luck
-  Coventry: 3.0 expected points up, relegation risk -13.4 points
+  Coventry: 3.0 expected points up, relegation risk -13.3 points
       beat Newcastle United 4-1 at home, and rode their
       luck
-  Arsenal: 2.9 expected points up, title chance -0.6 points
+  Arsenal: 2.9 expected points up, title chance -0.7 points
       beat Leeds 2-1 at home
   Bournemouth: 2.8 expected points down, title chance -0.6 points, relegation risk +2.2 points
       lost 1-5 away at Chelsea, but played far better than
