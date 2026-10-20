@@ -1,10 +1,10 @@
 {
-  "updated": "2026-10-20T04:52:42",
+  "updated": "2026-10-20T10:43:33",
   "gameweek": 7,
   "matches_played": 70,
   "drift": 0.067,
   "n_sims": 20000,
-  "gate": "GW7 settled at 2026-10-20 00:00 UTC, 4.9h ago",
+  "gate": "GW7 already published",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.25, 20 clubs, 0 unmatched with PL minutes, 4317 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
