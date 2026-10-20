@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-20T10:43:33",
+  "updated": "2026-10-20T14:11:40",
   "gameweek": 7,
   "matches_played": 70,
   "drift": 0.067,
@@ -23,7 +23,7 @@
     "Brentford": -0.171,
     "Arsenal": -0.166,
     "Crystal Palace": -0.128,
-    "Aston Villa": -0.127,
+    "Aston Villa": -0.121,
     "Everton": -0.121,
     "Bournemouth": -0.117,
     "Liverpool": -0.108,
@@ -53,35 +53,35 @@
       "team": "Hull",
       "d_xPts": -4.46,
       "d_title": -0.04,
-      "d_releg": 14.76,
+      "d_releg": 14.73,
       "reason": "lost 0-1 away at Fulham, though it could have been worse"
     },
     {
       "team": "Bournemouth",
       "d_xPts": 3.63,
       "d_title": 0.1,
-      "d_releg": -3.18,
+      "d_releg": -3.19,
       "reason": "beat Sunderland 2-0 at home, and deserved more"
     },
     {
       "team": "Brighton",
       "d_xPts": 3.59,
-      "d_title": 1.91,
+      "d_title": 1.92,
       "d_releg": -0.3,
       "reason": "beat Crystal Palace 5-0 at home, and rode their luck"
     },
     {
       "team": "Chelsea",
-      "d_xPts": 3.42,
+      "d_xPts": 3.41,
       "d_title": 0.34,
       "d_releg": -1.79,
       "reason": "beat Everton 2-0 away"
     },
     {
       "team": "Aston Villa",
-      "d_xPts": 3.26,
+      "d_xPts": 3.29,
       "d_title": 0.01,
-      "d_releg": -8.13,
+      "d_releg": -8.2,
       "reason": "beat Newcastle United 1-0 away"
     }
   ],
