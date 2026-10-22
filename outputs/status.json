@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-21T10:54:59",
+  "updated": "2026-10-22T10:54:53",
   "gameweek": 7,
   "matches_played": 70,
   "drift": 0.067,
@@ -17,22 +17,22 @@
   "squad_delta": {
     "Newcastle United": -0.358,
     "Chelsea": -0.268,
-    "Manchester United": -0.258,
+    "Manchester United": -0.259,
     "Manchester City": -0.244,
     "Leeds": -0.189,
     "Brentford": -0.171,
-    "Arsenal": -0.167,
-    "Crystal Palace": -0.128,
-    "Aston Villa": -0.121,
+    "Arsenal": -0.168,
+    "Crystal Palace": -0.127,
+    "Bournemouth": -0.122,
     "Everton": -0.121,
-    "Bournemouth": -0.117,
+    "Aston Villa": -0.114,
     "Liverpool": -0.109,
     "Brighton": -0.104,
     "Sunderland": -0.002,
     "Coventry": 0.0,
     "Hull": 0.0,
     "Ipswich": 0.0,
-    "Nottingham Forest": 0.012,
+    "Nottingham Forest": 0.013,
     "Fulham": 0.05,
     "Tottenham": 0.125
   },
@@ -53,15 +53,8 @@
       "team": "Hull",
       "d_xPts": -4.46,
       "d_title": -0.04,
-      "d_releg": 14.73,
+      "d_releg": 14.67,
       "reason": "lost 0-1 away at Fulham, though it could have been worse"
-    },
-    {
-      "team": "Bournemouth",
-      "d_xPts": 3.63,
-      "d_title": 0.1,
-      "d_releg": -3.18,
-      "reason": "beat Sunderland 2-0 at home, and deserved more"
     },
     {
       "team": "Brighton",
@@ -71,17 +64,24 @@
       "reason": "beat Crystal Palace 5-0 at home, and rode their luck"
     },
     {
+      "team": "Bournemouth",
+      "d_xPts": 3.59,
+      "d_title": 0.1,
+      "d_releg": -3.12,
+      "reason": "beat Sunderland 2-0 at home, and deserved more"
+    },
+    {
       "team": "Chelsea",
-      "d_xPts": 3.41,
+      "d_xPts": 3.4,
       "d_title": 0.34,
-      "d_releg": -1.79,
+      "d_releg": -1.78,
       "reason": "beat Everton 2-0 away"
     },
     {
       "team": "Aston Villa",
-      "d_xPts": 3.3,
+      "d_xPts": 3.35,
       "d_title": 0.01,
-      "d_releg": -8.21,
+      "d_releg": -8.32,
       "reason": "beat Newcastle United 1-0 away"
     }
   ],
