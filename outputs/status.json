@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-23T13:54:31",
+  "updated": "2026-10-23T19:38:31",
   "gameweek": 7,
   "matches_played": 70,
   "drift": 0.067,
@@ -17,7 +17,7 @@
   "squad_delta": {
     "Newcastle United": -0.358,
     "Chelsea": -0.267,
-    "Manchester United": -0.259,
+    "Manchester United": -0.258,
     "Manchester City": -0.244,
     "Leeds": -0.191,
     "Arsenal": -0.173,
@@ -53,13 +53,13 @@
       "team": "Hull",
       "d_xPts": -4.46,
       "d_title": -0.04,
-      "d_releg": 14.72,
+      "d_releg": 14.73,
       "reason": "lost 0-1 away at Fulham, though it could have been worse"
     },
     {
       "team": "Brighton",
       "d_xPts": 3.75,
-      "d_title": 2.17,
+      "d_title": 2.18,
       "d_releg": -0.31,
       "reason": "beat Crystal Palace 5-0 at home, and rode their luck"
     },
@@ -67,7 +67,7 @@
       "team": "Bournemouth",
       "d_xPts": 3.57,
       "d_title": 0.1,
-      "d_releg": -3.12,
+      "d_releg": -3.13,
       "reason": "beat Sunderland 2-0 at home, and deserved more"
     },
     {
@@ -81,7 +81,7 @@
       "team": "Aston Villa",
       "d_xPts": 3.35,
       "d_title": 0.01,
-      "d_releg": -8.31,
+      "d_releg": -8.34,
       "reason": "beat Newcastle United 1-0 away"
     }
   ],
