@@ -1,8 +1,8 @@
 {
-  "updated": "2026-10-24T10:02:54",
+  "updated": "2026-10-25T10:27:57",
   "gameweek": 7,
-  "matches_played": 71,
-  "drift": 0.065,
+  "matches_played": 75,
+  "drift": 0.06,
   "n_sims": 20000,
   "gate": "GW7 already published",
   "xg_source": "understat",
@@ -16,16 +16,16 @@
   ],
   "squad_delta": {
     "Newcastle United": -0.358,
-    "Chelsea": -0.267,
+    "Chelsea": -0.27,
     "Manchester United": -0.258,
-    "Manchester City": -0.244,
+    "Manchester City": -0.243,
     "Leeds": -0.191,
     "Arsenal": -0.173,
     "Brentford": -0.171,
     "Crystal Palace": -0.127,
+    "Everton": -0.122,
     "Bournemouth": -0.121,
-    "Everton": -0.121,
-    "Aston Villa": -0.114,
+    "Aston Villa": -0.113,
     "Liverpool": -0.11,
     "Brighton": -0.081,
     "Sunderland": -0.002,
@@ -37,52 +37,52 @@
     "Tottenham": 0.119
   },
   "validation": {
-    "n": 71,
-    "rps": 0.20304344403464292,
-    "logloss": 1.0263219305257036,
-    "hit": 0.4507042253521127,
-    "n_close": 11,
+    "n": 75,
+    "rps": 0.20713026039613627,
+    "logloss": 1.0261165418286664,
+    "hit": 0.4533333333333333,
+    "n_close": 12,
     "drawn": 21,
     "picked_draw": 0,
-    "bookie_rps": 0.1974668102382538,
-    "bookie_n": 71,
-    "model_rps_same": 0.20304344403464292
+    "bookie_rps": 0.20338597093295607,
+    "bookie_n": 75,
+    "model_rps_same": 0.20713026039613627
   },
   "biggest_moves": [
     {
+      "team": "Aston Villa",
+      "d_xPts": 5.5,
+      "d_title": 0.03,
+      "d_releg": -11.2,
+      "reason": "beat Manchester City 2-1 at home, and rode their luck"
+    },
+    {
+      "team": "Tottenham",
+      "d_xPts": 4.87,
+      "d_title": 0.01,
+      "d_releg": -18.84,
+      "reason": "beat Chelsea 2-0 away, and rode their luck"
+    },
+    {
       "team": "Hull",
-      "d_xPts": -4.53,
-      "d_title": -0.03,
-      "d_releg": 14.97,
+      "d_xPts": -4.79,
+      "d_title": -0.04,
+      "d_releg": 16.87,
       "reason": "lost 0-1 away at Fulham, though it could have been worse"
     },
     {
-      "team": "Brighton",
-      "d_xPts": 3.79,
-      "d_title": 2.6,
-      "d_releg": -0.33,
-      "reason": "beat Crystal Palace 5-0 at home, and rode their luck"
+      "team": "Fulham",
+      "d_xPts": 4.46,
+      "d_title": 0.0,
+      "d_releg": -23.73,
+      "reason": "beat Coventry 1-0 away"
     },
     {
-      "team": "Bournemouth",
-      "d_xPts": 3.57,
-      "d_title": 0.13,
-      "d_releg": -3.26,
-      "reason": "beat Sunderland 2-0 at home, and deserved more"
-    },
-    {
-      "team": "Aston Villa",
-      "d_xPts": 3.49,
-      "d_title": -0.02,
-      "d_releg": -9.18,
-      "reason": "beat Newcastle United 1-0 away"
-    },
-    {
-      "team": "Chelsea",
-      "d_xPts": 3.38,
-      "d_title": 0.24,
-      "d_releg": -1.82,
-      "reason": "beat Everton 2-0 away"
+      "team": "Everton",
+      "d_xPts": -3.98,
+      "d_title": -0.13,
+      "d_releg": 3.68,
+      "reason": "lost 0-2 away at Arsenal"
     }
   ],
   "model_note": null
