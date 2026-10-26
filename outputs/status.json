@@ -1,10 +1,10 @@
 {
-  "updated": "2026-10-25T10:27:57",
-  "gameweek": 7,
-  "matches_played": 75,
-  "drift": 0.06,
+  "updated": "2026-10-26T00:24:41",
+  "gameweek": 8,
+  "matches_played": 80,
+  "drift": 0.053,
   "n_sims": 20000,
-  "gate": "GW7 already published",
+  "gate": "GW8 settled at 2026-10-25 21:30 UTC, 2.9h ago",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.25, 20 clubs, 0 unmatched with PL minutes, 4317 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
@@ -15,19 +15,19 @@
     "Nottingham Forest: V\u00edtor Pereira -> Oliver Glasner (+0.05)"
   ],
   "squad_delta": {
-    "Newcastle United": -0.358,
+    "Newcastle United": -0.357,
     "Chelsea": -0.27,
     "Manchester United": -0.258,
     "Manchester City": -0.243,
-    "Leeds": -0.191,
-    "Arsenal": -0.173,
+    "Leeds": -0.189,
+    "Arsenal": -0.174,
     "Brentford": -0.171,
     "Crystal Palace": -0.127,
+    "Bournemouth": -0.122,
     "Everton": -0.122,
-    "Bournemouth": -0.121,
     "Aston Villa": -0.113,
-    "Liverpool": -0.11,
-    "Brighton": -0.081,
+    "Liverpool": -0.111,
+    "Brighton": -0.082,
     "Sunderland": -0.002,
     "Coventry": 0.0,
     "Hull": 0.0,
@@ -37,52 +37,52 @@
     "Tottenham": 0.119
   },
   "validation": {
-    "n": 75,
-    "rps": 0.20713026039613627,
-    "logloss": 1.0261165418286664,
-    "hit": 0.4533333333333333,
-    "n_close": 12,
-    "drawn": 21,
+    "n": 80,
+    "rps": 0.20775577562309194,
+    "logloss": 1.032126927201259,
+    "hit": 0.4375,
+    "n_close": 13,
+    "drawn": 23,
     "picked_draw": 0,
-    "bookie_rps": 0.20338597093295607,
-    "bookie_n": 75,
-    "model_rps_same": 0.20713026039613627
+    "bookie_rps": 0.20411613075795562,
+    "bookie_n": 80,
+    "model_rps_same": 0.20775577562309194
   },
   "biggest_moves": [
     {
-      "team": "Aston Villa",
-      "d_xPts": 5.5,
-      "d_title": 0.03,
-      "d_releg": -11.2,
-      "reason": "beat Manchester City 2-1 at home, and rode their luck"
+      "team": "Bournemouth",
+      "d_xPts": 3.76,
+      "d_title": 0.35,
+      "d_releg": -1.21,
+      "reason": "beat Manchester United 3-0 away, and rode their luck"
+    },
+    {
+      "team": "Manchester United",
+      "d_xPts": -3.62,
+      "d_title": -0.14,
+      "d_releg": 3.56,
+      "reason": "lost 0-3 at home to Bournemouth, but played far better than the score"
     },
     {
       "team": "Tottenham",
-      "d_xPts": 4.87,
-      "d_title": 0.01,
-      "d_releg": -18.84,
+      "d_xPts": 3.04,
+      "d_title": -0.01,
+      "d_releg": -8.99,
       "reason": "beat Chelsea 2-0 away, and rode their luck"
     },
     {
-      "team": "Hull",
-      "d_xPts": -4.79,
-      "d_title": -0.04,
-      "d_releg": 16.87,
-      "reason": "lost 0-1 away at Fulham, though it could have been worse"
+      "team": "Chelsea",
+      "d_xPts": -2.83,
+      "d_title": -0.72,
+      "d_releg": 0.34,
+      "reason": "lost 0-2 at home to Tottenham, but played far better than the score"
     },
     {
-      "team": "Fulham",
-      "d_xPts": 4.46,
-      "d_title": 0.0,
-      "d_releg": -23.73,
-      "reason": "beat Coventry 1-0 away"
-    },
-    {
-      "team": "Everton",
-      "d_xPts": -3.98,
-      "d_title": -0.13,
-      "d_releg": 3.68,
-      "reason": "lost 0-2 away at Arsenal"
+      "team": "Aston Villa",
+      "d_xPts": 2.21,
+      "d_title": -0.01,
+      "d_releg": -3.22,
+      "reason": "beat Manchester City 2-1 at home, and rode their luck"
     }
   ],
   "model_note": null
