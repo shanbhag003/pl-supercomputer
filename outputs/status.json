@@ -1,10 +1,10 @@
 {
-  "updated": "2026-10-26T00:24:41",
+  "updated": "2026-10-26T11:57:39",
   "gameweek": 8,
   "matches_played": 80,
   "drift": 0.053,
   "n_sims": 20000,
-  "gate": "GW8 settled at 2026-10-25 21:30 UTC, 2.9h ago",
+  "gate": "GW8 already published",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.25, 20 clubs, 0 unmatched with PL minutes, 4317 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
@@ -53,7 +53,7 @@
       "team": "Bournemouth",
       "d_xPts": 3.76,
       "d_title": 0.35,
-      "d_releg": -1.21,
+      "d_releg": -1.22,
       "reason": "beat Manchester United 3-0 away, and rode their luck"
     },
     {
@@ -73,7 +73,7 @@
     {
       "team": "Chelsea",
       "d_xPts": -2.83,
-      "d_title": -0.72,
+      "d_title": -0.73,
       "d_releg": 0.34,
       "reason": "lost 0-2 at home to Tottenham, but played far better than the score"
     },
@@ -81,7 +81,7 @@
       "team": "Aston Villa",
       "d_xPts": 2.21,
       "d_title": -0.01,
-      "d_releg": -3.22,
+      "d_releg": -3.23,
       "reason": "beat Manchester City 2-1 at home, and rode their luck"
     }
   ],
