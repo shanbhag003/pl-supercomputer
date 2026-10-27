@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T15:12:52",
+  "updated": "2026-10-27T20:19:38",
   "gameweek": 8,
   "matches_played": 80,
   "drift": 0.053,
@@ -20,14 +20,14 @@
     "Manchester United": -0.258,
     "Manchester City": -0.243,
     "Leeds": -0.189,
+    "Brentford": -0.176,
     "Arsenal": -0.174,
-    "Brentford": -0.171,
-    "Crystal Palace": -0.128,
+    "Crystal Palace": -0.126,
     "Bournemouth": -0.122,
     "Everton": -0.121,
     "Aston Villa": -0.113,
     "Liverpool": -0.111,
-    "Brighton": -0.082,
+    "Brighton": -0.081,
     "Sunderland": -0.002,
     "Coventry": 0.0,
     "Hull": 0.0,
@@ -51,9 +51,9 @@
   "biggest_moves": [
     {
       "team": "Bournemouth",
-      "d_xPts": 3.75,
+      "d_xPts": 3.76,
       "d_title": 0.35,
-      "d_releg": -1.21,
+      "d_releg": -1.2,
       "reason": "beat Manchester United 3-0 away, and rode their luck"
     },
     {
@@ -67,7 +67,7 @@
       "team": "Tottenham",
       "d_xPts": 3.04,
       "d_title": -0.01,
-      "d_releg": -9.01,
+      "d_releg": -8.99,
       "reason": "beat Chelsea 2-0 away, and rode their luck"
     },
     {
@@ -81,7 +81,7 @@
       "team": "Aston Villa",
       "d_xPts": 2.21,
       "d_title": -0.01,
-      "d_releg": -3.21,
+      "d_releg": -3.2,
       "reason": "beat Manchester City 2-1 at home, and rode their luck"
     }
   ],

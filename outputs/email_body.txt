@@ -12,15 +12,15 @@ TOP OF THE TABLE
 1  Arsenal                   79    49.9%    97.1%
 2  Manchester City           78    41.6%    96.1%
 3  Liverpool                 65     2.9%    56.5%
-4  Brighton                  65     3.7%    58.3%
-5  Bournemouth               59     0.5%    26.7%
+4  Brighton                  65     3.7%    58.4%
+5  Bournemouth               59     0.5%    26.8%
 6  Chelsea                   56     0.5%    17.5%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
    Ipswich                 66.4%
    Coventry                61.3%
-   Sunderland              38.4%
+   Sunderland              38.5%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
