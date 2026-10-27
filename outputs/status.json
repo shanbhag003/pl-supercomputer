@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T11:19:44",
+  "updated": "2026-10-27T15:12:52",
   "gameweek": 8,
   "matches_played": 80,
   "drift": 0.053,
@@ -67,7 +67,7 @@
       "team": "Tottenham",
       "d_xPts": 3.04,
       "d_title": -0.01,
-      "d_releg": -9.0,
+      "d_releg": -9.01,
       "reason": "beat Chelsea 2-0 away, and rode their luck"
     },
     {
