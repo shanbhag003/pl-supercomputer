@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 8  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Arsenal are favourites for the title, with a 49.9% chance.
+Arsenal are favourites for the title, with a 49.8% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,18 +9,18 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Arsenal                   79    49.9%    97.1%
-2  Manchester City           78    41.6%    96.1%
+1  Arsenal                   79    49.8%    97.0%
+2  Manchester City           78    41.7%    96.0%
 3  Liverpool                 65     2.9%    56.5%
 4  Brighton                  65     3.7%    58.4%
 5  Bournemouth               59     0.5%    26.7%
-6  Chelsea                   56     0.6%    17.5%
+6  Chelsea                   56     0.5%    17.5%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Ipswich                 66.5%
-   Coventry                61.3%
-   Sunderland              38.4%
+   Ipswich                 66.6%
+   Coventry                61.2%
+   Sunderland              38.3%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
