@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T15:24:51",
+  "updated": "2026-10-30T20:16:11",
   "gameweek": 8,
   "matches_played": 80,
   "drift": 0.053,
@@ -16,7 +16,7 @@
   ],
   "squad_delta": {
     "Newcastle United": -0.357,
-    "Chelsea": -0.276,
+    "Chelsea": -0.275,
     "Manchester United": -0.256,
     "Manchester City": -0.243,
     "Leeds": -0.189,
@@ -60,19 +60,19 @@
       "team": "Manchester United",
       "d_xPts": -3.59,
       "d_title": -0.14,
-      "d_releg": 3.6,
+      "d_releg": 3.59,
       "reason": "lost 0-3 at home to Bournemouth, but played far better than the score"
     },
     {
       "team": "Tottenham",
       "d_xPts": 3.09,
       "d_title": -0.01,
-      "d_releg": -9.1,
+      "d_releg": -9.09,
       "reason": "beat Chelsea 2-0 away, and rode their luck"
     },
     {
       "team": "Chelsea",
-      "d_xPts": -2.88,
+      "d_xPts": -2.87,
       "d_title": -0.71,
       "d_releg": 0.33,
       "reason": "lost 0-2 at home to Tottenham, but played far better than the score"
