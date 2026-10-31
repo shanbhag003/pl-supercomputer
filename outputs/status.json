@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T20:16:11",
+  "updated": "2026-10-31T11:28:58",
   "gameweek": 8,
   "matches_played": 80,
   "drift": 0.053,
@@ -25,9 +25,9 @@
     "Crystal Palace": -0.137,
     "Bournemouth": -0.122,
     "Everton": -0.121,
-    "Aston Villa": -0.112,
+    "Aston Villa": -0.111,
     "Liverpool": -0.097,
-    "Brighton": -0.096,
+    "Brighton": -0.097,
     "Sunderland": -0.002,
     "Coventry": 0.0,
     "Hull": 0.0,
@@ -60,7 +60,7 @@
       "team": "Manchester United",
       "d_xPts": -3.59,
       "d_title": -0.14,
-      "d_releg": 3.59,
+      "d_releg": 3.6,
       "reason": "lost 0-3 at home to Bournemouth, but played far better than the score"
     },
     {
@@ -72,16 +72,16 @@
     },
     {
       "team": "Chelsea",
-      "d_xPts": -2.87,
+      "d_xPts": -2.88,
       "d_title": -0.71,
-      "d_releg": 0.33,
+      "d_releg": 0.32,
       "reason": "lost 0-2 at home to Tottenham, but played far better than the score"
     },
     {
       "team": "Aston Villa",
-      "d_xPts": 2.22,
+      "d_xPts": 2.23,
       "d_title": -0.01,
-      "d_releg": -3.29,
+      "d_releg": -3.3,
       "reason": "beat Manchester City 2-1 at home, and rode their luck"
     }
   ],
