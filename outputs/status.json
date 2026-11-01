@@ -1,8 +1,8 @@
 {
-  "updated": "2026-10-31T11:28:58",
+  "updated": "2026-11-01T12:24:36",
   "gameweek": 8,
-  "matches_played": 80,
-  "drift": 0.053,
+  "matches_played": 88,
+  "drift": 0.043,
   "n_sims": 20000,
   "gate": "GW8 already published",
   "xg_source": "understat",
@@ -16,73 +16,73 @@
   ],
   "squad_delta": {
     "Newcastle United": -0.357,
-    "Chelsea": -0.275,
-    "Manchester United": -0.256,
+    "Chelsea": -0.28,
+    "Manchester United": -0.258,
     "Manchester City": -0.243,
     "Leeds": -0.189,
     "Brentford": -0.175,
     "Arsenal": -0.175,
-    "Crystal Palace": -0.137,
+    "Crystal Palace": -0.14,
     "Bournemouth": -0.122,
     "Everton": -0.121,
     "Aston Villa": -0.111,
     "Liverpool": -0.097,
     "Brighton": -0.097,
-    "Sunderland": -0.002,
+    "Sunderland": -0.001,
     "Coventry": 0.0,
     "Hull": 0.0,
     "Ipswich": 0.0,
     "Nottingham Forest": 0.013,
     "Fulham": 0.05,
-    "Tottenham": 0.125
+    "Tottenham": 0.13
   },
   "validation": {
-    "n": 80,
-    "rps": 0.20775577562309194,
-    "logloss": 1.032126927201259,
-    "hit": 0.4375,
-    "n_close": 13,
-    "drawn": 23,
+    "n": 88,
+    "rps": 0.20869762360942684,
+    "logloss": 1.0324149112700416,
+    "hit": 0.4431818181818182,
+    "n_close": 14,
+    "drawn": 25,
     "picked_draw": 0,
-    "bookie_rps": 0.20411613075795562,
-    "bookie_n": 80,
-    "model_rps_same": 0.20775577562309194
+    "bookie_rps": 0.20490609479533248,
+    "bookie_n": 88,
+    "model_rps_same": 0.20869762360942684
   },
   "biggest_moves": [
     {
+      "team": "Tottenham",
+      "d_xPts": 6.53,
+      "d_title": 0.03,
+      "d_releg": -14.69,
+      "reason": "beat Crystal Palace 2-0 at home, and deserved more"
+    },
+    {
       "team": "Bournemouth",
-      "d_xPts": 3.76,
-      "d_title": 0.35,
-      "d_releg": -1.2,
-      "reason": "beat Manchester United 3-0 away, and rode their luck"
+      "d_xPts": 5.35,
+      "d_title": 0.79,
+      "d_releg": -1.46,
+      "reason": "beat Leeds 2-0 at home, and rode their luck"
     },
     {
       "team": "Manchester United",
-      "d_xPts": -3.59,
-      "d_title": -0.14,
-      "d_releg": 3.6,
-      "reason": "lost 0-3 at home to Bournemouth, but played far better than the score"
+      "d_xPts": -5.17,
+      "d_title": -0.16,
+      "d_releg": 5.05,
+      "reason": "lost 0-2 away at Chelsea, but played far better than the score"
     },
     {
-      "team": "Tottenham",
-      "d_xPts": 3.09,
-      "d_title": -0.01,
-      "d_releg": -9.09,
-      "reason": "beat Chelsea 2-0 away, and rode their luck"
+      "team": "Manchester City",
+      "d_xPts": -4.38,
+      "d_title": -20.62,
+      "d_releg": 0.0,
+      "reason": "lost 0-1 at home to Brighton, but played far better than the score"
     },
     {
-      "team": "Chelsea",
-      "d_xPts": -2.88,
-      "d_title": -0.71,
-      "d_releg": 0.32,
-      "reason": "lost 0-2 at home to Tottenham, but played far better than the score"
-    },
-    {
-      "team": "Aston Villa",
-      "d_xPts": 2.23,
-      "d_title": -0.01,
-      "d_releg": -3.3,
-      "reason": "beat Manchester City 2-1 at home, and rode their luck"
+      "team": "Crystal Palace",
+      "d_xPts": -4.31,
+      "d_title": 0.0,
+      "d_releg": 18.28,
+      "reason": "lost 0-2 away at Tottenham, though it could have been worse"
     }
   ],
   "model_note": null
