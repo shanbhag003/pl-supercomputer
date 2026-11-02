@@ -1,8 +1,8 @@
 {
-  "updated": "2026-11-01T12:24:36",
+  "updated": "2026-11-02T14:20:57",
   "gameweek": 8,
-  "matches_played": 88,
-  "drift": 0.043,
+  "matches_played": 89,
+  "drift": 0.041,
   "n_sims": 20000,
   "gate": "GW8 already published",
   "xg_source": "understat",
@@ -21,13 +21,13 @@
     "Manchester City": -0.243,
     "Leeds": -0.189,
     "Brentford": -0.175,
-    "Arsenal": -0.175,
+    "Arsenal": -0.174,
     "Crystal Palace": -0.14,
     "Bournemouth": -0.122,
     "Everton": -0.121,
     "Aston Villa": -0.111,
-    "Liverpool": -0.097,
     "Brighton": -0.097,
+    "Liverpool": -0.094,
     "Sunderland": -0.001,
     "Coventry": 0.0,
     "Hull": 0.0,
@@ -37,51 +37,51 @@
     "Tottenham": 0.13
   },
   "validation": {
-    "n": 88,
-    "rps": 0.20869762360942684,
-    "logloss": 1.0324149112700416,
-    "hit": 0.4431818181818182,
+    "n": 89,
+    "rps": 0.20898348271502107,
+    "logloss": 1.0311431885799733,
+    "hit": 0.449438202247191,
     "n_close": 14,
     "drawn": 25,
     "picked_draw": 0,
-    "bookie_rps": 0.20490609479533248,
-    "bookie_n": 88,
-    "model_rps_same": 0.20869762360942684
+    "bookie_rps": 0.2051938605068764,
+    "bookie_n": 89,
+    "model_rps_same": 0.20898348271502107
   },
   "biggest_moves": [
     {
       "team": "Tottenham",
-      "d_xPts": 6.53,
-      "d_title": 0.03,
-      "d_releg": -14.69,
+      "d_xPts": 6.49,
+      "d_title": 0.05,
+      "d_releg": -14.64,
       "reason": "beat Crystal Palace 2-0 at home, and deserved more"
     },
     {
       "team": "Bournemouth",
-      "d_xPts": 5.35,
-      "d_title": 0.79,
-      "d_releg": -1.46,
+      "d_xPts": 5.46,
+      "d_title": 0.66,
+      "d_releg": -1.51,
       "reason": "beat Leeds 2-0 at home, and rode their luck"
     },
     {
       "team": "Manchester United",
-      "d_xPts": -5.17,
-      "d_title": -0.16,
-      "d_releg": 5.05,
+      "d_xPts": -5.2,
+      "d_title": -0.18,
+      "d_releg": 5.13,
       "reason": "lost 0-2 away at Chelsea, but played far better than the score"
     },
     {
       "team": "Manchester City",
-      "d_xPts": -4.38,
-      "d_title": -20.62,
+      "d_xPts": -4.34,
+      "d_title": -23.67,
       "d_releg": 0.0,
       "reason": "lost 0-1 at home to Brighton, but played far better than the score"
     },
     {
       "team": "Crystal Palace",
-      "d_xPts": -4.31,
+      "d_xPts": -4.28,
       "d_title": 0.0,
-      "d_releg": 18.28,
+      "d_releg": 17.75,
       "reason": "lost 0-2 away at Tottenham, though it could have been worse"
     }
   ],
