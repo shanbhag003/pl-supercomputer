@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-03T16:17:34",
+  "updated": "2026-11-03T16:54:51",
   "gameweek": 9,
   "matches_played": 90,
   "drift": 0.04,
   "n_sims": 20000,
-  "gate": "GW9 settled at 2026-11-03 01:00 UTC, 15.3h ago",
+  "gate": "GW9 already published",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.25, 20 clubs, 0 unmatched with PL minutes, 4317 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
