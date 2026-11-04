@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 9  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Arsenal are favourites for the title, with a 63.3% chance.
+Arsenal are favourites for the title, with a 63.2% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,17 +9,17 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Arsenal                   81    63.3%    98.3%
+1  Arsenal                   81    63.2%    98.3%
 2  Manchester City           75    26.9%    93.3%
 3  Brighton                  67     5.9%    67.2%
 4  Liverpool                 64     1.7%    48.6%
 5  Bournemouth               61     0.9%    30.6%
-6  Chelsea                   59     0.6%    22.6%
+6  Chelsea                   59     0.6%    22.7%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
    Ipswich                 58.7%
-   Hull                    47.3%
+   Hull                    47.4%
    Crystal Palace          47.1%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
@@ -33,7 +33,7 @@ WHAT CHANGED SINCE LAST GAMEWEEK
   Crystal Palace: 2.8 expected points down, relegation risk +13.1 points
       lost 0-2 away at Tottenham, though it could have
       been worse
-  Newcastle United: 2.7 expected points down, relegation risk +4.7 points
+  Newcastle United: 2.7 expected points down, relegation risk +4.6 points
       lost 0-1 at home to Everton
 
   Numbers move for three reasons: results, how well teams

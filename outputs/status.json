@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T21:23:19",
+  "updated": "2026-11-04T13:32:17",
   "gameweek": 9,
   "matches_played": 90,
   "drift": 0.04,
@@ -17,7 +17,7 @@
   "squad_delta": {
     "Newcastle United": -0.357,
     "Chelsea": -0.281,
-    "Manchester United": -0.258,
+    "Manchester United": -0.259,
     "Manchester City": -0.244,
     "Leeds": -0.189,
     "Brentford": -0.175,
@@ -53,21 +53,21 @@
       "team": "Tottenham",
       "d_xPts": 3.6,
       "d_title": 0.04,
-      "d_releg": -5.71,
+      "d_releg": -5.73,
       "reason": "beat Crystal Palace 2-0 at home, and deserved more"
     },
     {
       "team": "Coventry",
       "d_xPts": 3.15,
       "d_title": 0.0,
-      "d_releg": -17.69,
+      "d_releg": -17.74,
       "reason": "beat Sunderland 3-1 at home, and rode their luck"
     },
     {
       "team": "Everton",
-      "d_xPts": 2.96,
-      "d_title": 0.0,
-      "d_releg": -5.08,
+      "d_xPts": 2.97,
+      "d_title": 0.01,
+      "d_releg": -5.09,
       "reason": "beat Newcastle United 1-0 away"
     },
     {
@@ -81,7 +81,7 @@
       "team": "Newcastle United",
       "d_xPts": -2.74,
       "d_title": -0.01,
-      "d_releg": 4.66,
+      "d_releg": 4.64,
       "reason": "lost 0-1 at home to Everton"
     }
   ],
