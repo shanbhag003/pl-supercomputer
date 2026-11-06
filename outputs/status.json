@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-06T13:30:37",
+  "updated": "2026-11-06T16:25:29",
   "gameweek": 9,
   "matches_played": 90,
   "drift": 0.04,
@@ -16,16 +16,16 @@
   ],
   "squad_delta": {
     "Newcastle United": -0.352,
-    "Chelsea": -0.281,
-    "Manchester United": -0.259,
+    "Chelsea": -0.282,
+    "Manchester United": -0.255,
     "Manchester City": -0.244,
     "Leeds": -0.199,
     "Brentford": -0.175,
-    "Arsenal": -0.155,
+    "Arsenal": -0.156,
     "Crystal Palace": -0.14,
-    "Bournemouth": -0.136,
+    "Bournemouth": -0.132,
     "Everton": -0.121,
-    "Aston Villa": -0.111,
+    "Aston Villa": -0.112,
     "Brighton": -0.098,
     "Liverpool": -0.095,
     "Sunderland": -0.002,
@@ -53,35 +53,35 @@
       "team": "Tottenham",
       "d_xPts": 3.61,
       "d_title": 0.04,
-      "d_releg": -5.68,
+      "d_releg": -5.67,
       "reason": "beat Crystal Palace 2-0 at home, and deserved more"
     },
     {
       "team": "Coventry",
       "d_xPts": 3.16,
       "d_title": 0.0,
-      "d_releg": -17.63,
+      "d_releg": -17.62,
       "reason": "beat Sunderland 3-1 at home, and rode their luck"
     },
     {
       "team": "Everton",
       "d_xPts": 2.98,
       "d_title": 0.01,
-      "d_releg": -5.12,
+      "d_releg": -5.1,
       "reason": "beat Newcastle United 1-0 away"
     },
     {
       "team": "Crystal Palace",
       "d_xPts": -2.8,
       "d_title": 0.0,
-      "d_releg": 13.13,
+      "d_releg": 13.08,
       "reason": "lost 0-2 away at Tottenham, though it could have been worse"
     },
     {
       "team": "Newcastle United",
-      "d_xPts": -2.69,
+      "d_xPts": -2.7,
       "d_title": -0.01,
-      "d_releg": 4.52,
+      "d_releg": 4.55,
       "reason": "lost 0-1 at home to Everton"
     }
   ],
