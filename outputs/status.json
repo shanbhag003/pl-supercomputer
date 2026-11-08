@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-07T12:10:54",
+  "updated": "2026-11-08T12:30:58",
   "gameweek": 9,
   "matches_played": 90,
   "drift": 0.04,
@@ -15,17 +15,17 @@
     "Nottingham Forest: V\u00edtor Pereira -> Oliver Glasner (+0.05)"
   ],
   "squad_delta": {
-    "Newcastle United": -0.352,
+    "Newcastle United": -0.355,
     "Chelsea": -0.282,
     "Manchester United": -0.255,
-    "Manchester City": -0.244,
-    "Leeds": -0.197,
+    "Manchester City": -0.246,
+    "Leeds": -0.198,
     "Brentford": -0.175,
     "Arsenal": -0.156,
     "Crystal Palace": -0.14,
     "Bournemouth": -0.132,
     "Everton": -0.121,
-    "Aston Villa": -0.112,
+    "Aston Villa": -0.111,
     "Brighton": -0.098,
     "Liverpool": -0.095,
     "Sunderland": -0.002,
@@ -34,7 +34,7 @@
     "Ipswich": 0.0,
     "Nottingham Forest": 0.011,
     "Fulham": 0.056,
-    "Tottenham": 0.13
+    "Tottenham": 0.134
   },
   "validation": {
     "n": 90,
@@ -51,7 +51,7 @@
   "biggest_moves": [
     {
       "team": "Tottenham",
-      "d_xPts": 3.61,
+      "d_xPts": 3.65,
       "d_title": 0.03,
       "d_releg": -5.67,
       "reason": "beat Crystal Palace 2-0 at home, and deserved more"
@@ -60,12 +60,12 @@
       "team": "Coventry",
       "d_xPts": 3.15,
       "d_title": 0.0,
-      "d_releg": -17.75,
+      "d_releg": -17.73,
       "reason": "beat Sunderland 3-1 at home, and rode their luck"
     },
     {
       "team": "Everton",
-      "d_xPts": 2.98,
+      "d_xPts": 2.99,
       "d_title": 0.01,
       "d_releg": -5.08,
       "reason": "beat Newcastle United 1-0 away"
@@ -74,14 +74,14 @@
       "team": "Crystal Palace",
       "d_xPts": -2.79,
       "d_title": 0.0,
-      "d_releg": 13.06,
+      "d_releg": 13.03,
       "reason": "lost 0-2 away at Tottenham, though it could have been worse"
     },
     {
       "team": "Newcastle United",
-      "d_xPts": -2.7,
+      "d_xPts": -2.71,
       "d_title": -0.01,
-      "d_releg": 4.54,
+      "d_releg": 4.68,
       "reason": "lost 0-1 at home to Everton"
     }
   ],
