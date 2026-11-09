@@ -1,10 +1,10 @@
 {
-  "updated": "2026-11-09T14:47:48",
-  "gameweek": 9,
+  "updated": "2026-11-09T20:45:35",
+  "gameweek": 10,
   "matches_played": 100,
   "drift": 0.04,
   "n_sims": 20000,
-  "gate": "GW10 settled at 2026-11-08 21:30 UTC, 17.3h ago",
+  "gate": "GW10 settled at 2026-11-08 21:30 UTC, 23.3h ago",
   "xg_source": "understat",
   "squad_layer": "on (weight 0.25, 20 clubs, 0 unmatched with PL minutes, 4317 players valued from European leagues)",
   "manager_layer": "on (weight 0.25, spells cached, 4 scored)",
@@ -27,7 +27,7 @@
     "Everton": -0.121,
     "Aston Villa": -0.12,
     "Brighton": -0.098,
-    "Liverpool": -0.096,
+    "Liverpool": -0.097,
     "Sunderland": -0.004,
     "Coventry": 0.0,
     "Hull": 0.0,
@@ -50,39 +50,39 @@
   },
   "biggest_moves": [
     {
+      "team": "Nottingham Forest",
+      "d_xPts": 3.54,
+      "d_title": 0.03,
+      "d_releg": -5.3,
+      "reason": "beat Manchester City 3-1 at home"
+    },
+    {
       "team": "Manchester City",
-      "d_xPts": -5.84,
-      "d_title": -26.76,
+      "d_xPts": -3.37,
+      "d_title": -12.23,
       "d_releg": 0.01,
       "reason": "lost 1-3 away at Nottingham Forest"
     },
     {
-      "team": "Everton",
-      "d_xPts": 4.9,
-      "d_title": 0.03,
-      "d_releg": -7.37,
-      "reason": "beat Coventry 3-1 at home"
-    },
-    {
-      "team": "Brighton",
-      "d_xPts": 4.55,
-      "d_title": 5.4,
-      "d_releg": -0.04,
-      "reason": "beat Brentford 2-0 at home"
-    },
-    {
-      "team": "Crystal Palace",
-      "d_xPts": -4.41,
+      "team": "Sunderland",
+      "d_xPts": 2.51,
       "d_title": 0.0,
-      "d_releg": 21.19,
-      "reason": "lost 1-3 at home to Liverpool"
+      "d_releg": -13.66,
+      "reason": "beat Chelsea 1-0 at home"
     },
     {
-      "team": "Hull",
-      "d_xPts": -2.71,
+      "team": "Chelsea",
+      "d_xPts": -2.33,
+      "d_title": -0.35,
+      "d_releg": 0.54,
+      "reason": "lost 0-1 away at Sunderland"
+    },
+    {
+      "team": "Coventry",
+      "d_xPts": -2.32,
       "d_title": 0.0,
-      "d_releg": 10.38,
-      "reason": "lost 0-1 away at Arsenal"
+      "d_releg": 13.15,
+      "reason": "lost 1-3 away at Everton"
     }
   ],
   "model_note": null

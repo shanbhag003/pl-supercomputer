@@ -1,4 +1,4 @@
-PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 9  ·  TEAM NEWS UPDATE
+PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 10
 ==========================================================
 
 Arsenal are favourites for the title, with a 70.8% chance.
@@ -12,7 +12,7 @@ TOP OF THE TABLE
 1  Arsenal                   82    70.8%    98.5%
 2  Manchester City           72    14.9%    84.2%
 3  Brighton                  69     9.1%    76.2%
-4  Liverpool                 66     3.2%    58.8%
+4  Liverpool                 66     3.3%    58.8%
 5  Bournemouth               62     1.1%    32.4%
 6  Chelsea                   56     0.3%    13.9%
 
@@ -24,16 +24,16 @@ MOST LIKELY TO GO DOWN
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
-  Manchester City: 5.8 expected points down, title chance -26.8 points
+  Nottingham Forest: 3.5 expected points up, relegation risk -5.3 points
+      beat Manchester City 3-1 at home
+  Manchester City: 3.4 expected points down, title chance -12.2 points
       lost 1-3 away at Nottingham Forest
-  Everton: 4.9 expected points up, relegation risk -7.4 points
-      beat Coventry 3-1 at home
-  Brighton: 4.5 expected points up, title chance +5.4 points
-      beat Brentford 2-0 at home
-  Crystal Palace: 4.4 expected points down, relegation risk +21.2 points
-      lost 1-3 at home to Liverpool
-  Hull: 2.7 expected points down, relegation risk +10.4 points
-      lost 0-1 away at Arsenal
+  Sunderland: 2.5 expected points up, relegation risk -13.7 points
+      beat Chelsea 1-0 at home
+  Chelsea: 2.3 expected points down, title chance -0.3 points, relegation risk +0.5 points
+      lost 0-1 away at Sunderland
+  Coventry: 2.3 expected points down, relegation risk +13.2 points
+      lost 1-3 away at Everton
 
   Numbers move for three reasons: results, how well teams
   actually played underneath those results, and any change
