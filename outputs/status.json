@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-10T14:00:43",
+  "updated": "2026-11-10T16:52:45",
   "gameweek": 10,
   "matches_played": 100,
   "drift": 0.04,
@@ -51,7 +51,7 @@
   "biggest_moves": [
     {
       "team": "Nottingham Forest",
-      "d_xPts": 3.54,
+      "d_xPts": 3.53,
       "d_title": 0.03,
       "d_releg": -5.28,
       "reason": "beat Manchester City 3-1 at home"
@@ -67,7 +67,7 @@
       "team": "Sunderland",
       "d_xPts": 2.51,
       "d_title": 0.0,
-      "d_releg": -13.64,
+      "d_releg": -13.65,
       "reason": "beat Chelsea 1-0 at home"
     },
     {
@@ -81,7 +81,7 @@
       "team": "Coventry",
       "d_xPts": -2.32,
       "d_title": 0.0,
-      "d_releg": 13.19,
+      "d_releg": 13.2,
       "reason": "lost 1-3 away at Everton"
     }
   ],
