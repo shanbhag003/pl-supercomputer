@@ -18,7 +18,7 @@ TOP OF THE TABLE
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Ipswich                 60.1%
+   Ipswich                 60.0%
    Coventry                56.7%
    Crystal Palace          55.0%
 
@@ -30,7 +30,7 @@ WHAT CHANGED SINCE LAST GAMEWEEK
       lost 1-3 away at Nottingham Forest
   Sunderland: 2.5 expected points up, relegation risk -13.7 points
       beat Chelsea 1-0 at home
-  Chelsea: 2.3 expected points down, title chance -0.3 points, relegation risk +0.5 points
+  Chelsea: 2.3 expected points down, title chance -0.4 points, relegation risk +0.5 points
       lost 0-1 away at Sunderland
   Coventry: 2.3 expected points down, relegation risk +13.3 points
       lost 1-3 away at Everton
