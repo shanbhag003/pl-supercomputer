@@ -24,7 +24,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 11,408,Phillips,Manchester City,MID,Fulham,True,2026-11-21 12:30:00+00:00,5,0,u,0,0,0,0,0,0,,,0
 11,409,Mukasa,Manchester City,MID,Fulham,True,2026-11-21 12:30:00+00:00,4.5,0.1,u,0,0,0,0,0,0,,,0
 11,410,Monga,Manchester City,MID,Fulham,True,2026-11-21 12:30:00+00:00,4.9,0,u,0,0,0,0,0,0,0,0,0
-11,411,Haaland,Manchester City,FWD,Fulham,True,2026-11-21 12:30:00+00:00,15.8,78.9,a,1,1,0.7301,0.1856,0.3556,1.087,0.002387,6.566,6.2
+11,411,Haaland,Manchester City,FWD,Fulham,True,2026-11-21 12:30:00+00:00,15.8,78.8,a,1,1,0.7301,0.1856,0.3556,1.087,0.002387,6.566,6.2
 11,481,Anderson,Manchester City,MID,Fulham,True,2026-11-21 12:30:00+00:00,6.2,3.6,a,1,0.8739,0.09285,0.233,0.3108,0.2429,0.9476,4.388,2
 11,587,Rulli,Manchester City,GKP,Fulham,True,2026-11-21 12:30:00+00:00,4.9,0,a,1,0,0,0,0,0,0,0,0
 11,616,Bouaddi,Manchester City,MID,Fulham,True,2026-11-21 12:30:00+00:00,5.5,0.2,a,1,0.1261,0.02236,0.0284,0.04486,0.02656,0.0339,0.796,0.8
@@ -410,7 +410,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 11,444,Jaouen,Newcastle United,GKP,Arsenal,True,2026-11-21 17:30:00+00:00,4.4,0,i,0,0,0,0,0,0,0,0,0
 11,445,Thiaw,Newcastle United,DEF,Arsenal,True,2026-11-21 17:30:00+00:00,4.9,1.4,a,1,0.6716,0.04842,0.01449,0.1228,0.1196,0.488,2.399,1
 11,446,Schär,Newcastle United,DEF,Arsenal,True,2026-11-21 17:30:00+00:00,4.9,0.2,a,1,0.3284,0.01384,0.01135,0.06005,0.04617,0.3634,0.9632,2.5
-11,447,Botman,Newcastle United,DEF,Arsenal,True,2026-11-21 17:30:00+00:00,5,0.7,a,1,0.4595,0.01742,0.0184,0.08403,0.0748,0.5196,1.604,0.8
+11,447,Botman,Newcastle United,DEF,Arsenal,True,2026-11-21 17:30:00+00:00,5,0.7,a,1,0.4595,0.01742,0.0184,0.08402,0.0748,0.5196,1.604,0.8
 11,448,Burn,Newcastle United,DEF,Arsenal,True,2026-11-21 17:30:00+00:00,4.8,0.7,a,1,0.5405,0.01941,0.01306,0.09885,0.07511,0.4089,1.84,3
 11,449,Hall,Newcastle United,DEF,Arsenal,True,2026-11-21 17:30:00+00:00,5.2,18.2,a,1,1,0.03272,0.08125,0.1829,0.1869,0.6783,3.279,3.8
 11,450,Livramento,Newcastle United,DEF,Arsenal,True,2026-11-21 17:30:00+00:00,4.8,0,a,1,0,0.0005437,0.001103,0,0,0,0.05301,0
@@ -495,7 +495,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 11,138,Kostoulas,Brighton,FWD,Hull,False,2026-11-22 14:00:00+00:00,5.8,9.8,a,1,0.8939,0.3152,0.121,0.3369,0.4903,0.005245,3.924,4.5
 11,139,Ferguson,Brighton,FWD,Hull,False,2026-11-22 14:00:00+00:00,4.9,0,i,0,0,0,0,0,0,,,0
 11,328,Struijk,Brighton,DEF,Hull,False,2026-11-22 14:00:00+00:00,4.9,0.1,i,1,0.08919,0.0129,0.007856,0.03362,0.03131,0.06519,0.6213,0
-11,504,Vuskovic,Brighton,DEF,Hull,False,2026-11-22 14:00:00+00:00,5.3,9.3,a,1,1,0.1361,0.03354,0.3769,0.3709,,,7.5
+11,504,Vuskovic,Brighton,DEF,Hull,False,2026-11-22 14:00:00+00:00,5.3,9.4,a,1,1,0.1361,0.03354,0.3769,0.3709,,,7.5
 11,594,David,Brighton,FWD,Hull,False,2026-11-22 14:00:00+00:00,5.9,0.2,a,1,0,0.00427,0.001234,0,0.004554,0,0.02533,0
 11,600,Osman,Brighton,MID,Hull,False,2026-11-22 14:00:00+00:00,4.9,0,a,1,0,0.001692,0.001488,0,0,0,0.08793,0
 11,605,Yalcouyé,Brighton,MID,Hull,False,2026-11-22 14:00:00+00:00,4.4,2.7,a,1,0.1381,0.06286,0.06104,0.05204,0.06551,,,1
@@ -561,12 +561,12 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 11,361,Lucky,Liverpool,DEF,Manchester United,True,2026-11-22 16:30:00+00:00,3.9,0.1,a,1,0,0,0,0,0,,,0
 11,362,Jacquet,Liverpool,DEF,Manchester United,True,2026-11-22 16:30:00+00:00,5.1,4.7,a,1,1,0.04599,0.05256,0.2874,0.2417,0.8937,4.137,4.2
 11,363,Leoni,Liverpool,DEF,Manchester United,True,2026-11-22 16:30:00+00:00,3.9,0,i,0,0,0,0,0,0,,,0
-11,364,Tsimikas,Liverpool,DEF,Manchester United,True,2026-11-22 16:30:00+00:00,4.9,0.1,a,1,0,0.005465,0.005146,0,0,,,0.5
+11,364,Tsimikas,Liverpool,DEF,Manchester United,True,2026-11-22 16:30:00+00:00,4.9,0.1,a,1,0,0.005466,0.005146,0,0,,,0.5
 11,365,Ramsay,Liverpool,DEF,Manchester United,True,2026-11-22 16:30:00+00:00,4,0.1,u,0,0,0,0,0,0,,,0
 11,366,Wirtz,Liverpool,MID,Manchester United,True,2026-11-22 16:30:00+00:00,7.2,5.6,a,1,1,0.2626,0.25,0.2874,0.4722,0.0783,4.901,6.5
 11,367,Gakpo,Liverpool,MID,Manchester United,True,2026-11-22 16:30:00+00:00,7.1,7,a,1,0.6928,0.1962,0.1966,0.1991,0.352,0.1107,3.693,2
 11,368,Szoboszlai,Liverpool,MID,Manchester United,True,2026-11-22 16:30:00+00:00,6.7,13.4,a,1,0.4394,0.08843,0.1761,0.1263,0.1899,0.2128,2.593,2.2
-11,369,Ngumoha,Liverpool,MID,Manchester United,True,2026-11-22 16:30:00+00:00,5.7,0.5,a,1,0,0.04105,0.05446,0,0.03245,0,1.249,1
+11,369,Ngumoha,Liverpool,MID,Manchester United,True,2026-11-22 16:30:00+00:00,5.7,0.5,a,1,0,0.04105,0.05446,0,0.03246,0,1.249,1
 11,370,Chiesa,Liverpool,MID,Manchester United,True,2026-11-22 16:30:00+00:00,5.3,0,a,1,0,0.0007957,0.0007855,0,0,0,0.1124,0
 11,371,Gravenberch,Liverpool,MID,Manchester United,True,2026-11-22 16:30:00+00:00,5.8,0.8,d,0.75,0.1921,0.01504,0.02472,0.05519,0.02724,0.06893,0.8552,0.6
 11,372,Mac Allister,Liverpool,MID,Manchester United,True,2026-11-22 16:30:00+00:00,5.4,1.3,a,1,0.925,0.1617,0.1318,0.2658,0.2858,0.3292,3.43,3.5
@@ -629,7 +629,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 11,92,Ji-soo,Brentford,DEF,Everton,True,2026-11-23 20:00:00+00:00,4.4,0,a,1,0,0,0,0,0,,,0
 11,93,Schuster,Brentford,DEF,Everton,True,2026-11-23 20:00:00+00:00,4.5,0.4,a,1,0.2273,0.0142,0.05347,0.0702,0.08849,0.2885,1.367,0
 11,94,Schade,Brentford,MID,Everton,True,2026-11-23 20:00:00+00:00,6.1,12.9,a,1,0.7678,0.2413,0.1025,0.2372,0.3565,0.03175,3.569,1.5
-11,95,O.Dango,Brentford,MID,Everton,True,2026-11-23 20:00:00+00:00,6.2,0.4,a,1,0.3284,0.1447,0.1283,0.1014,0.214,0.0561,2.808,4.5
+11,95,O.Dango,Brentford,MID,Everton,True,2026-11-23 20:00:00+00:00,6.2,0.4,a,1,0.3284,0.1447,0.1283,0.1014,0.214,0.0561,2.809,4.5
 11,96,Damsgaard,Brentford,MID,Everton,True,2026-11-23 20:00:00+00:00,5.3,0.3,a,1,0.1523,0.03111,0.08271,0.04703,0.0546,0.06337,1.403,0.8
 11,97,Jensen,Brentford,MID,Everton,True,2026-11-23 20:00:00+00:00,5.4,0.1,a,1,0.3284,0.02904,0.1037,0.1014,0.07166,0.08772,1.818,1.8
 11,98,Janelt,Brentford,MID,Everton,True,2026-11-23 20:00:00+00:00,5,1.6,a,1,0.85,0.06901,0.1312,0.2626,0.1724,0.7879,3.492,1.5
@@ -642,7 +642,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 11,107,Furo,Brentford,FWD,Everton,True,2026-11-23 20:00:00+00:00,4.4,0.6,i,0,0,0,0,0,0,,,0
 11,108,Wilson,Brentford,FWD,Everton,True,2026-11-23 20:00:00+00:00,5.3,0.3,a,1,0,0.0534,0.01519,0,0.059,0,0.9218,0.8
 11,565,M.Sangaré,Brentford,MID,Everton,True,2026-11-23 20:00:00+00:00,5.4,5.8,a,1,0.4034,0.05892,0.09095,0.1246,0.09675,0.4576,2.498,2.2
-11,620,Diouf,Brentford,DEF,Everton,True,2026-11-23 20:00:00+00:00,4.4,0.1,a,1,0.1061,0.008263,0.03658,0.03276,0.03641,0.03136,1.132,0.8
+11,620,Diouf,Brentford,DEF,Everton,True,2026-11-23 20:00:00+00:00,4.4,0.1,a,1,0.1061,0.008264,0.03658,0.03276,0.03641,0.03136,1.132,0.8
 11,657,Nunes,Brentford,MID,Everton,True,2026-11-23 20:00:00+00:00,4.5,0,a,1,0,0,0,0,0,,,0
 11,660,Fredrick,Brentford,DEF,Everton,True,2026-11-23 20:00:00+00:00,4,0,a,1,0,0,0,0,0,,,0
 11,661,Balcombe,Brentford,GKP,Everton,True,2026-11-23 20:00:00+00:00,4,0.1,a,1,0,0,0,0,0,0,0,0
@@ -654,7 +654,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 11,229,Tarkowski,Everton,DEF,Brentford,False,2026-11-23 20:00:00+00:00,6.2,19.3,a,1,1,0.05124,0.0557,0.1956,0.1947,1.067,3.668,2.5
 11,230,Branthwaite,Everton,DEF,Brentford,False,2026-11-23 20:00:00+00:00,5.5,2.2,a,1,0.85,0.0441,0.02422,0.1663,0.1496,0.8016,2.966,3.2
 11,231,Keane,Everton,DEF,Brentford,False,2026-11-23 20:00:00+00:00,4.7,0.6,a,1,0.1061,0.01045,0.002127,0.02075,0.01337,0.09528,0.7919,0.5
-11,232,O'Brien,Everton,DEF,Brentford,False,2026-11-23 20:00:00+00:00,4.8,0.3,a,1,0.3284,0.01514,0.01197,0.06425,0.04596,0.1373,1.478,2.5
+11,232,O'Brien,Everton,DEF,Brentford,False,2026-11-23 20:00:00+00:00,4.8,0.3,a,1,0.3284,0.01514,0.01197,0.06425,0.04595,0.1373,1.478,2.5
 11,233,Mykolenko,Everton,DEF,Brentford,False,2026-11-23 20:00:00+00:00,4.6,2.5,a,1,0.8939,0.01209,0.03814,0.1749,0.1323,0.4585,2.528,3.8
 11,234,Patterson,Everton,DEF,Brentford,False,2026-11-23 20:00:00+00:00,4.5,0,u,0,0,0,0,0,0,0,0,0
 11,235,Aznou,Everton,DEF,Brentford,False,2026-11-23 20:00:00+00:00,4,0.1,u,0,0,0,0,0,0,,,0
@@ -886,7 +886,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 12,313,Clarke,Ipswich,MID,Aston Villa,True,2026-11-28 17:30:00+00:00,5.2,0.1,a,1,0.1642,0.05214,0.08182,0.02115,0.06551,0.0353,1.717,2.8
 12,314,Ogbene,Ipswich,MID,Aston Villa,True,2026-11-28 17:30:00+00:00,4.9,0,u,0,0,0,0,0,0,0,0,0
 12,315,Fatawu,Ipswich,MID,Aston Villa,True,2026-11-28 17:30:00+00:00,5.4,0.1,a,1,0.5557,0.07602,0.1486,0.07158,0.1662,0.05974,2.498,2.2
-12,316,Emersonn,Ipswich,FWD,Aston Villa,True,2026-11-28 17:30:00+00:00,5.4,2.8,a,1,0.6379,0.2527,0.1678,0.08217,0.3996,0.004491,3.556,1.5
+12,316,Emersonn,Ipswich,FWD,Aston Villa,True,2026-11-28 17:30:00+00:00,5.4,2.8,a,1,0.6379,0.2527,0.1678,0.08217,0.3997,0.004491,3.556,1.5
 12,317,Hirst,Ipswich,FWD,Aston Villa,True,2026-11-28 17:30:00+00:00,5,0.1,u,0,0,0,0,0,0,0,0,0
 12,318,Philogene,Ipswich,MID,Aston Villa,True,2026-11-28 17:30:00+00:00,5.4,0.1,a,1,0.4345,0.08,0.04387,0.05597,0.1152,0.07784,2.026,1.2
 12,319,Szmodics,Ipswich,MID,Aston Villa,True,2026-11-28 17:30:00+00:00,5,0,u,0,0,0,0,0,0,0,0,0
@@ -907,7 +907,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 12,29,M.Bizot,Aston Villa,GKP,Ipswich,False,2026-11-28 17:30:00+00:00,4.5,0.1,a,1,0,0,0,0,0,0,0,0
 12,30,Digne,Aston Villa,DEF,Ipswich,False,2026-11-28 17:30:00+00:00,4.5,0,u,0,0,0,0,0,0,0,0,0
 12,32,Cash,Aston Villa,DEF,Ipswich,False,2026-11-28 17:30:00+00:00,4.3,3.6,a,1,0.6237,0.0316,0.08735,0.1332,0.1629,0.1558,1.762,3
-12,33,Mings,Aston Villa,DEF,Ipswich,False,2026-11-28 17:30:00+00:00,4.5,0.4,a,1,0.4595,0.04822,0.03583,0.09811,0.1261,0.2333,1.759,1.8
+12,33,Mings,Aston Villa,DEF,Ipswich,False,2026-11-28 17:30:00+00:00,4.5,0.4,a,1,0.4595,0.04823,0.03583,0.09811,0.1261,0.2333,1.759,1.8
 12,34,Pau,Aston Villa,DEF,Ipswich,False,2026-11-28 17:30:00+00:00,4.4,0.3,a,1,0.5405,0.08548,0.01632,0.1154,0.1537,0.1786,2.329,1.8
 12,35,Bogarde,Aston Villa,MID,Ipswich,False,2026-11-28 17:30:00+00:00,4.9,0.1,a,1,0,0,0,0,0,0,0,0
 12,36,Maatsen,Aston Villa,DEF,Ipswich,False,2026-11-28 17:30:00+00:00,4.4,0.4,a,1,0.6786,0.06553,0.1227,0.1449,0.2303,0.1327,2.705,1
@@ -997,7 +997,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 12,378,McConnell,Liverpool,MID,Everton,False,2026-11-29 12:00:00+00:00,4.4,0.2,a,1,0,0,0,0,0,,,0
 12,379,Isak,Liverpool,FWD,Everton,False,2026-11-29 12:00:00+00:00,9.3,25.1,a,1,0.8939,0.3697,0.07757,0.2511,0.5552,0.003934,3.969,7
 12,380,Ekitiké,Liverpool,FWD,Everton,False,2026-11-29 12:00:00+00:00,7.4,0.1,i,0,0,0,0,0,0,0,0,0
-12,381,Koumas,Liverpool,MID,Everton,False,2026-11-29 12:00:00+00:00,5,0.1,a,1,0.1061,0.02792,0.01925,0.02979,0.004345,0.02851,1.291,1
+12,381,Koumas,Liverpool,MID,Everton,False,2026-11-29 12:00:00+00:00,5,0.1,a,1,0.1061,0.02792,0.01925,0.02979,0.004346,0.02851,1.291,1
 12,382,Danns,Liverpool,FWD,Everton,False,2026-11-29 12:00:00+00:00,4.5,0.2,a,1,0,0,0,0,0,,,0
 12,383,Elliott,Liverpool,MID,Everton,False,2026-11-29 12:00:00+00:00,5.4,0,u,0,0,0,0,0,0,,,0
 12,579,Araujo,Liverpool,DEF,Everton,False,2026-11-29 12:00:00+00:00,5.5,4.4,a,1,0.8739,0.04228,0.03629,0.2454,0.2,0.8405,3.583,5.5
@@ -1109,14 +1109,14 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 12,61,Truffert,Bournemouth,DEF,Fulham,False,2026-11-29 14:05:00+00:00,5.4,3.3,a,1,1,0.04037,0.139,0.2713,0.2881,0.4881,3.934,6
 12,62,Diakité,Bournemouth,DEF,Fulham,False,2026-11-29 14:05:00+00:00,4.9,0.1,a,1,0,0.0008741,0.001409,0,0,0,0.6609,1
 12,63,Milosavljević,Bournemouth,DEF,Fulham,False,2026-11-29 14:05:00+00:00,4.9,0,i,1,0,0,0,0,0,0,0,0
-12,64,Smith,Bournemouth,DEF,Fulham,False,2026-11-29 14:05:00+00:00,4.5,0.2,a,1,1,0.03032,0.04129,0.2713,0.2086,0.08746,2.949,4.8
+12,64,Smith,Bournemouth,DEF,Fulham,False,2026-11-29 14:05:00+00:00,4.5,0.2,a,1,1,0.03033,0.04129,0.2713,0.2086,0.08746,2.949,4.8
 12,65,J.Araujo,Bournemouth,DEF,Fulham,False,2026-11-29 14:05:00+00:00,4.4,0,i,0,0,0,0,0,0,,,0
 12,66,Soler,Bournemouth,DEF,Fulham,False,2026-11-29 14:05:00+00:00,4,0.2,a,1,0,0.0004854,0.00055,0,0,,,0
 12,67,Rayan,Bournemouth,MID,Fulham,False,2026-11-29 14:05:00+00:00,6.3,2.4,a,1,1,0.2417,0.1405,0.2713,0.3952,0.1577,4.454,4.5
 12,68,Tavernier,Bournemouth,MID,Fulham,False,2026-11-29 14:05:00+00:00,6.7,31.4,a,1,1,0.2258,0.2256,0.2713,0.4159,0.2132,4.313,6.5
 12,69,Scott,Bournemouth,MID,Fulham,False,2026-11-29 14:05:00+00:00,5.9,2.1,a,1,0.2273,0.02201,0.02709,0.06165,0.04697,0.1862,0.9407,0
 12,70,Kluivert,Bournemouth,MID,Fulham,False,2026-11-29 14:05:00+00:00,5.9,1,a,1,0.6786,0.1115,0.1264,0.1841,0.2117,0.05031,2.803,4
-12,71,Cook,Bournemouth,MID,Fulham,False,2026-11-29 14:05:00+00:00,5,0.1,a,1,0.2761,0.0129,0.04516,0.0749,0.008341,0.2027,1.561,2.5
+12,71,Cook,Bournemouth,MID,Fulham,False,2026-11-29 14:05:00+00:00,5,0.1,a,1,0.2761,0.0129,0.04516,0.0749,0.008342,0.2027,1.561,2.5
 12,72,Gannon-Doak,Bournemouth,MID,Fulham,False,2026-11-29 14:05:00+00:00,4.8,0,a,1,0,0.02032,0.02002,0,0.002953,,,0.5
 12,73,Adams,Bournemouth,MID,Fulham,False,2026-11-29 14:05:00+00:00,5,0.3,a,1,1,0.03756,0.07401,0.2713,0.1122,0.7655,3.124,3.2
 12,74,Brooks,Bournemouth,MID,Fulham,False,2026-11-29 14:05:00+00:00,4.9,0,a,1,0,0.02649,0.02155,0,0.02557,0,0.481,0
@@ -1177,7 +1177,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 12,42,Guessand,Crystal Palace,MID,Hull,True,2026-11-29 14:05:00+00:00,5.3,0,a,1,0,0,0,0,0,0,0,0
 12,153,Disasi,Crystal Palace,DEF,Hull,True,2026-11-29 14:05:00+00:00,4.4,0.1,a,1,0.6036,0.04806,0.01558,0.193,0.1644,0.5009,2.837,2.2
 12,198,Henderson,Crystal Palace,GKP,Hull,True,2026-11-29 14:05:00+00:00,4.9,1,a,1,0.4536,0,0.00105,0.1451,0.2387,0,1.927,1.2
-12,199,Benitez,Crystal Palace,GKP,Hull,True,2026-11-29 14:05:00+00:00,4.5,0.1,a,1,0.5464,0,0.004016,0.1747,0.1132,0,1.836,0.5
+12,199,Benitez,Crystal Palace,GKP,Hull,True,2026-11-29 14:05:00+00:00,4.5,0.1,a,1,0.5464,0,0.004017,0.1747,0.1132,0,1.836,0.5
 12,202,Richards,Crystal Palace,DEF,Hull,True,2026-11-29 14:05:00+00:00,4.9,0.5,a,1,1,0.04839,0.02374,0.3198,0.2429,1.004,4.467,2.2
 12,203,Canvot,Crystal Palace,DEF,Hull,True,2026-11-29 14:05:00+00:00,4.8,0.2,a,1,0.7129,0.04021,0.02116,0.228,0.1818,0.6581,3.086,0.2
 12,204,Mitchell,Crystal Palace,DEF,Hull,True,2026-11-29 14:05:00+00:00,4.5,4.6,a,1,1,0.06951,0.1,0.3198,0.3181,0.3809,4.358,1.2
@@ -1185,7 +1185,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 12,206,Chadi Riad,Crystal Palace,DEF,Hull,True,2026-11-29 14:05:00+00:00,4.3,0,i,0,0,0,0,0,0,0,0,0
 12,207,Mingueza,Crystal Palace,DEF,Hull,True,2026-11-29 14:05:00+00:00,4.3,0,a,1,0.2121,0.02201,0.02428,0.06784,0.07096,0.08581,1.01,0.2
 12,208,Sarr,Crystal Palace,MID,Hull,True,2026-11-29 14:05:00+00:00,6.2,0.5,i,1,0,0.0059,0.001741,0,0,0,0.23,0
-12,210,Wharton,Crystal Palace,MID,Hull,True,2026-11-29 14:05:00+00:00,5.3,0.6,a,1,1,0.03952,0.2399,0.3198,0.1918,0.5213,3.861,2.5
+12,210,Wharton,Crystal Palace,MID,Hull,True,2026-11-29 14:05:00+00:00,5.3,0.6,a,1,1,0.03953,0.2399,0.3198,0.1918,0.5213,3.861,2.5
 12,211,Yeremy,Crystal Palace,MID,Hull,True,2026-11-29 14:05:00+00:00,5.5,0.3,a,1,0.7466,0.1246,0.3025,0.2388,0.3056,0.07945,3.343,1.2
 12,212,Hughes,Crystal Palace,MID,Hull,True,2026-11-29 14:05:00+00:00,4.3,5.6,a,1,0,0.003519,0.00608,0,0,0,0.4784,0.5
 12,213,Lerma,Crystal Palace,MID,Hull,True,2026-11-29 14:05:00+00:00,4.8,0.1,a,1,0.3182,0.076,0.05061,0.1018,0.1026,0.2221,1.656,1.2
@@ -1226,7 +1226,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 12,456,J.Ramsey,Newcastle United,MID,Brighton,False,2026-11-29 14:05:00+00:00,4.8,0.1,a,1,0,0.005191,0.006981,0,0,0,0.4384,-0.2
 12,457,J.Murphy,Newcastle United,MID,Brighton,False,2026-11-29 14:05:00+00:00,5.9,0.1,a,1,0.4513,0.06255,0.1207,0.05583,0.1284,0.03346,2.054,4.2
 12,458,Joelinton,Newcastle United,MID,Brighton,False,2026-11-29 14:05:00+00:00,5.4,0,i,0,0,0,0,0,0,0,0,0
-12,459,L.Miley,Newcastle United,MID,Brighton,False,2026-11-29 14:05:00+00:00,5.5,0.1,a,1,0.3534,0.02016,0.04269,0.04372,0.04115,0.2158,1.555,0.8
+12,459,L.Miley,Newcastle United,MID,Brighton,False,2026-11-29 14:05:00+00:00,5.5,0.1,a,1,0.3534,0.02016,0.04269,0.04371,0.04115,0.2158,1.555,0.8
 12,460,Willock,Newcastle United,MID,Brighton,False,2026-11-29 14:05:00+00:00,5,0.5,a,1,0.4807,0.08215,0.09571,0.05946,0.1367,0.04306,2.418,1.8
 12,461,Touré,Newcastle United,MID,Brighton,False,2026-11-29 14:05:00+00:00,5.7,0.1,a,1,0,0.01332,0.01329,0,0,0,0.6813,0.5
 12,462,Steur,Newcastle United,MID,Brighton,False,2026-11-29 14:05:00+00:00,4.7,0.1,a,1,0.3763,0.05074,0.02972,0.04655,0.06968,0.06743,1.671,1.2
@@ -1272,7 +1272,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 12,138,Kostoulas,Brighton,FWD,Newcastle United,True,2026-11-29 14:05:00+00:00,5.8,9.8,a,1,0.8939,0.4079,0.1566,0.3059,0.6275,0.005245,4.539,4.5
 12,139,Ferguson,Brighton,FWD,Newcastle United,True,2026-11-29 14:05:00+00:00,4.9,0,i,0,0,0,0,0,0,,,0
 12,328,Struijk,Brighton,DEF,Newcastle United,True,2026-11-29 14:05:00+00:00,4.9,0.1,i,1,0.08919,0.01669,0.01017,0.03053,0.03488,0.06519,0.6354,0
-12,504,Vuskovic,Brighton,DEF,Newcastle United,True,2026-11-29 14:05:00+00:00,5.3,9.3,a,1,1,0.1762,0.0434,0.3423,0.3971,,,7.5
+12,504,Vuskovic,Brighton,DEF,Newcastle United,True,2026-11-29 14:05:00+00:00,5.3,9.4,a,1,1,0.1762,0.0434,0.3423,0.3971,,,7.5
 12,594,David,Brighton,FWD,Newcastle United,True,2026-11-29 14:05:00+00:00,5.9,0.2,a,1,0,0.005526,0.001597,0,0.006388,0,0.03328,0
 12,600,Osman,Brighton,MID,Newcastle United,True,2026-11-29 14:05:00+00:00,4.9,0,a,1,0,0.00219,0.001925,0,0,0,0.09173,0
 12,605,Yalcouyé,Brighton,MID,Newcastle United,True,2026-11-29 14:05:00+00:00,4.4,2.7,a,1,0.1381,0.08136,0.079,0.04726,0.09694,,,1
@@ -1335,7 +1335,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 12,408,Phillips,Manchester City,MID,Arsenal,False,2026-11-29 16:30:00+00:00,5,0,u,0,0,0,0,0,0,,,0
 12,409,Mukasa,Manchester City,MID,Arsenal,False,2026-11-29 16:30:00+00:00,4.5,0.1,u,0,0,0,0,0,0,,,0
 12,410,Monga,Manchester City,MID,Arsenal,False,2026-11-29 16:30:00+00:00,4.9,0,u,0,0,0,0,0,0,0,0,0
-12,411,Haaland,Manchester City,FWD,Arsenal,False,2026-11-29 16:30:00+00:00,15.8,78.9,a,1,1,0.3898,0.09909,0.1788,0.5896,0.002387,4.449,6.2
+12,411,Haaland,Manchester City,FWD,Arsenal,False,2026-11-29 16:30:00+00:00,15.8,78.8,a,1,1,0.3898,0.09909,0.1788,0.5896,0.002387,4.449,6.2
 12,481,Anderson,Manchester City,MID,Arsenal,False,2026-11-29 16:30:00+00:00,6.2,3.6,a,1,0.8739,0.04958,0.1244,0.1563,0.143,0.9476,3.592,2
 12,587,Rulli,Manchester City,GKP,Arsenal,False,2026-11-29 16:30:00+00:00,4.9,0,a,1,0,0,0,0,0,0,0,0
 12,616,Bouaddi,Manchester City,MID,Arsenal,False,2026-11-29 16:30:00+00:00,5.5,0.2,a,1,0.1261,0.01194,0.01516,0.02256,0.008161,0.0339,0.6635,0.8
@@ -1402,7 +1402,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 13,317,Hirst,Ipswich,FWD,Coventry,False,2026-12-01 20:00:00+00:00,5,0.1,u,0,0,0,0,0,0,0,0,0
 13,318,Philogene,Ipswich,MID,Coventry,False,2026-12-01 20:00:00+00:00,5.4,0.1,a,1,0.4345,0.06546,0.0359,0.08094,0.09272,0.07784,1.932,1.2
 13,319,Szmodics,Ipswich,MID,Coventry,False,2026-12-01 20:00:00+00:00,5,0,u,0,0,0,0,0,0,0,0,0
-13,320,Akpom,Ipswich,FWD,Coventry,False,2026-12-01 20:00:00+00:00,5,0.8,a,1,0,0.02113,0.005783,0,0.007805,0,0.9716,1
+13,320,Akpom,Ipswich,FWD,Coventry,False,2026-12-01 20:00:00+00:00,5,0.8,a,1,0,0.02113,0.005784,0,0.007805,0,0.9716,1
 13,321,Walle Egeli,Ipswich,FWD,Coventry,False,2026-12-01 20:00:00+00:00,4.5,2.6,a,1,0,0.002857,0.001139,0,0.00143,0,0.1223,0
 13,322,Al-Hamadi,Ipswich,FWD,Coventry,False,2026-12-01 20:00:00+00:00,5,0,u,0,0,0,0,0,0,0,0,0
 13,323,McAteer,Ipswich,MID,Coventry,False,2026-12-01 20:00:00+00:00,4.3,0.9,a,1,0,0.0008908,0.0008619,0,0,0,0.07011,0
@@ -1427,7 +1427,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 13,536,Reinildo,Sunderland,DEF,Liverpool,False,2026-12-02 19:30:00+00:00,4.4,0.2,a,1,0.9108,0.01118,0.0221,0.125,0.09017,0.2274,1.957,3.2
 13,537,Seelt,Sunderland,DEF,Liverpool,False,2026-12-02 19:30:00+00:00,4.5,0,u,0,0,0,0,0,0,0,0,0
 13,538,Hjelde,Sunderland,DEF,Liverpool,False,2026-12-02 19:30:00+00:00,4,0,u,0,0,0,0,0,0,,,0
-13,539,O'Nien,Sunderland,DEF,Liverpool,False,2026-12-02 19:30:00+00:00,3.9,2.4,a,1,0.5405,0.02977,0.02435,0.07418,0.08139,0.2496,1.438,4.8
+13,539,O'Nien,Sunderland,DEF,Liverpool,False,2026-12-02 19:30:00+00:00,3.9,2.4,a,1,0.5405,0.02977,0.02435,0.07418,0.08138,0.2496,1.438,4.8
 13,540,Masuaku,Sunderland,DEF,Liverpool,False,2026-12-02 19:30:00+00:00,4,0.1,u,0,0,0,0,0,0,,,0
 13,541,Meunier,Sunderland,DEF,Liverpool,False,2026-12-02 19:30:00+00:00,4.4,0.2,a,1,0.4394,0.03225,0.02776,0.0603,0.07536,0.07899,1.276,1.5
 13,542,E.Le Fée,Sunderland,MID,Liverpool,False,2026-12-02 19:30:00+00:00,5.7,2.8,a,1,1,0.1321,0.2144,0.1372,0.2994,0.3754,4.116,6.5
@@ -1472,7 +1472,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 13,408,Phillips,Manchester City,MID,Leeds,True,2026-12-02 19:30:00+00:00,5,0,u,0,0,0,0,0,0,,,0
 13,409,Mukasa,Manchester City,MID,Leeds,True,2026-12-02 19:30:00+00:00,4.5,0.1,u,0,0,0,0,0,0,,,0
 13,410,Monga,Manchester City,MID,Leeds,True,2026-12-02 19:30:00+00:00,4.9,0,u,0,0,0,0,0,0,0,0,0
-13,411,Haaland,Manchester City,FWD,Leeds,True,2026-12-02 19:30:00+00:00,15.8,78.9,a,1,1,0.6684,0.1699,0.3315,0.9966,0.002387,6.182,6.2
+13,411,Haaland,Manchester City,FWD,Leeds,True,2026-12-02 19:30:00+00:00,15.8,78.8,a,1,1,0.6684,0.1699,0.3315,0.9966,0.002387,6.182,6.2
 13,481,Anderson,Manchester City,MID,Leeds,True,2026-12-02 19:30:00+00:00,6.2,3.6,a,1,0.8739,0.08501,0.2133,0.2897,0.2246,0.9476,4.251,2
 13,587,Rulli,Manchester City,GKP,Leeds,True,2026-12-02 19:30:00+00:00,4.9,0,a,1,0,0,0,0,0,0,0,0
 13,616,Bouaddi,Manchester City,MID,Leeds,True,2026-12-02 19:30:00+00:00,5.5,0.2,a,1,0.1261,0.02047,0.026,0.04182,0.02319,0.0339,0.773,0.8
@@ -1525,7 +1525,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 13,332,Justin,Leeds,DEF,Manchester City,False,2026-12-02 19:30:00+00:00,4.5,2.4,a,1,1,0.06345,0.1185,0.1442,0.2209,0.5051,3.229,4.8
 13,333,Bornauw,Leeds,DEF,Manchester City,False,2026-12-02 19:30:00+00:00,4.5,0,u,0,0,0,0,0,0,0,0,0
 13,334,Muharemović,Leeds,DEF,Manchester City,False,2026-12-02 19:30:00+00:00,5.1,6.4,a,1,1,0.05726,0.109,0.1442,0.208,1.201,3.827,6.8
-13,335,Stach,Leeds,MID,Manchester City,False,2026-12-02 19:30:00+00:00,6,1.6,d,1,0.4595,0.06064,0.09694,0.06623,0.1197,0.3339,2.361,0.5
+13,335,Stach,Leeds,MID,Manchester City,False,2026-12-02 19:30:00+00:00,6,1.6,d,1,0.4595,0.06064,0.09694,0.06623,0.1196,0.3339,2.361,0.5
 13,336,Okafor,Leeds,MID,Manchester City,False,2026-12-02 19:30:00+00:00,5.7,0.3,a,1,0.4595,0.06494,0.0468,0.06623,0.09944,0.02744,1.727,2
 13,337,Aaronson,Leeds,MID,Manchester City,False,2026-12-02 19:30:00+00:00,5.2,0.4,a,1,0.15,0.02121,0.0291,0.02162,0.01865,0.03217,1.078,1
 13,338,Ampadu,Leeds,MID,Manchester City,False,2026-12-02 19:30:00+00:00,5.3,0.7,a,1,1,0.03382,0.04668,0.1442,0.0987,0.9205,2.912,2.2
@@ -1613,7 +1613,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 13,159,Caicedo,Chelsea,MID,Crystal Palace,True,2026-12-02 19:30:00+00:00,5.3,1,a,1,0.7727,0.04699,0.09465,0.2275,0.126,0.5286,2.734,2.8
 13,161,Lavia,Chelsea,MID,Crystal Palace,True,2026-12-02 19:30:00+00:00,5,0.2,a,1,0.4655,0.1162,0.1066,0.137,0.1924,0.1684,2.625,2.8
 13,163,D.Essugo,Chelsea,MID,Crystal Palace,True,2026-12-02 19:30:00+00:00,4.5,0.1,u,0,0,0,0,0,0,,,0
-13,164,Quenda,Chelsea,MID,Crystal Palace,True,2026-12-02 19:30:00+00:00,5.2,0,a,1,0.15,0.03366,0.03267,0.04416,0.03009,0.04032,1.287,1.5
+13,164,Quenda,Chelsea,MID,Crystal Palace,True,2026-12-02 19:30:00+00:00,5.2,0,a,1,0.15,0.03367,0.03267,0.04416,0.03009,0.04032,1.287,1.5
 13,165,João Pedro,Chelsea,FWD,Crystal Palace,True,2026-12-02 19:30:00+00:00,7.6,31.7,i,0,0,0,0,0,0,0,0,0
 13,168,Marc Guiu,Chelsea,FWD,Crystal Palace,True,2026-12-02 19:30:00+00:00,5,0.1,u,0,0,0,0,0,0,0,0,0
 13,169,Mheuka,Chelsea,FWD,Crystal Palace,True,2026-12-02 19:30:00+00:00,4.5,0.4,a,1,0,0,0,0,0,,,0
@@ -1734,7 +1734,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 13,226,Pickford,Everton,GKP,Aston Villa,False,2026-12-02 20:15:00+00:00,5.5,8.5,a,1,1,0,0.00742,0.1788,0.2157,0,3.011,3.2
 13,227,Travers,Everton,GKP,Aston Villa,False,2026-12-02 20:15:00+00:00,5,0,a,1,0,0,0,0,0,0,0,0
 13,228,King,Everton,GKP,Aston Villa,False,2026-12-02 20:15:00+00:00,4.5,0,a,1,0,0,0,0,0,0,0,0
-13,229,Tarkowski,Everton,DEF,Aston Villa,False,2026-12-02 20:15:00+00:00,6.2,19.3,a,1,1,0.05912,0.06427,0.1788,0.1986,1.067,3.634,2.5
+13,229,Tarkowski,Everton,DEF,Aston Villa,False,2026-12-02 20:15:00+00:00,6.2,19.3,a,1,1,0.05912,0.06427,0.1788,0.1987,1.067,3.634,2.5
 13,230,Branthwaite,Everton,DEF,Aston Villa,False,2026-12-02 20:15:00+00:00,5.5,2.2,a,1,0.85,0.05089,0.02794,0.152,0.1505,0.8016,2.925,3.2
 13,231,Keane,Everton,DEF,Aston Villa,False,2026-12-02 20:15:00+00:00,4.7,0.6,a,1,0.1061,0.01205,0.002454,0.01897,0.01414,0.09528,0.7907,0.5
 13,232,O'Brien,Everton,DEF,Aston Villa,False,2026-12-02 20:15:00+00:00,4.8,0.3,a,1,0.3284,0.01747,0.01382,0.05872,0.04629,0.1373,1.459,2.5
@@ -1757,8 +1757,8 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 13,57,Petrović,Bournemouth,GKP,Brighton,True,2026-12-02 20:15:00+00:00,4.5,3.2,a,1,1,0,0.001731,0.2448,0.008119,0,2.621,5.2
 13,58,Forster,Bournemouth,GKP,Brighton,True,2026-12-02 20:15:00+00:00,4,3.4,a,1,0,0,0,0,0,0,0,0
 13,59,Dennis,Bournemouth,GKP,Brighton,True,2026-12-02 20:15:00+00:00,4,0.1,u,0,0,0,0,0,0,0,0,0
-13,60,Hill,Bournemouth,DEF,Brighton,True,2026-12-02 20:15:00+00:00,5.6,3,a,1,1,0.02903,0.08422,0.2448,0.2221,1.127,4.212,7
-13,61,Truffert,Bournemouth,DEF,Brighton,True,2026-12-02 20:15:00+00:00,5.4,3.3,a,1,1,0.04537,0.1563,0.2448,0.2896,0.4881,3.864,6
+13,60,Hill,Bournemouth,DEF,Brighton,True,2026-12-02 20:15:00+00:00,5.6,3,a,1,1,0.02903,0.08423,0.2448,0.2221,1.127,4.212,7
+13,61,Truffert,Bournemouth,DEF,Brighton,True,2026-12-02 20:15:00+00:00,5.4,3.3,a,1,1,0.04538,0.1563,0.2448,0.2896,0.4881,3.864,6
 13,62,Diakité,Bournemouth,DEF,Brighton,True,2026-12-02 20:15:00+00:00,4.9,0.1,a,1,0,0.0009825,0.001584,0,0,0,0.6603,1
 13,63,Milosavljević,Bournemouth,DEF,Brighton,True,2026-12-02 20:15:00+00:00,4.9,0,i,1,0,0,0,0,0,0,0,0
 13,64,Smith,Bournemouth,DEF,Brighton,True,2026-12-02 20:15:00+00:00,4.5,0.2,a,1,1,0.03409,0.04642,0.2448,0.2003,0.08746,2.828,4.8
@@ -1770,12 +1770,12 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 13,70,Kluivert,Bournemouth,MID,Brighton,True,2026-12-02 20:15:00+00:00,5.9,1,a,1,0.6786,0.1254,0.1421,0.1661,0.2367,0.05031,2.927,4
 13,71,Cook,Bournemouth,MID,Brighton,True,2026-12-02 20:15:00+00:00,5,0.1,a,1,0.2761,0.0145,0.05076,0.0676,0.0132,0.2027,1.583,2.5
 13,72,Gannon-Doak,Bournemouth,MID,Brighton,True,2026-12-02 20:15:00+00:00,4.8,0,a,1,0,0.02285,0.0225,0,0.007234,,,0.5
-13,73,Adams,Bournemouth,MID,Brighton,True,2026-12-02 20:15:00+00:00,5,0.3,a,1,1,0.04222,0.08319,0.2448,0.1232,0.7655,3.16,3.2
+13,73,Adams,Bournemouth,MID,Brighton,True,2026-12-02 20:15:00+00:00,5,0.3,a,1,1,0.04222,0.0832,0.2448,0.1232,0.7655,3.16,3.2
 13,74,Brooks,Bournemouth,MID,Brighton,True,2026-12-02 20:15:00+00:00,4.9,0,a,1,0,0.02977,0.02422,0,0.03088,0,0.5107,0
 13,75,Christie,Bournemouth,MID,Brighton,True,2026-12-02 20:15:00+00:00,5,0,a,1,0.7119,0.09269,0.1277,0.1743,0.1823,0.3761,2.88,3.5
 13,76,Tóth.A,Bournemouth,MID,Brighton,True,2026-12-02 20:15:00+00:00,4.9,0,i,0,0,0,0,0,0,,,0
 13,77,Adli,Bournemouth,MID,Brighton,True,2026-12-02 20:15:00+00:00,4.8,0,a,1,0,0.01141,0.005472,0,0,0,0.7401,2.8
-13,78,Kroupi.Jr,Bournemouth,MID,Brighton,True,2026-12-02 20:15:00+00:00,7.3,0.7,a,1,0,0.03605,0.01743,0,0.02466,0,0.7977,1.5
+13,78,Kroupi.Jr,Bournemouth,MID,Brighton,True,2026-12-02 20:15:00+00:00,7.3,0.7,a,1,0,0.03605,0.01743,0,0.02466,0,0.7978,1.5
 13,79,Evanilson,Bournemouth,FWD,Brighton,True,2026-12-02 20:15:00+00:00,6.5,23.8,a,1,1,0.3209,0.1439,0.2448,0.5077,0.002514,4.226,9
 13,80,Enes Ünal,Bournemouth,FWD,Brighton,True,2026-12-02 20:15:00+00:00,5.5,0,u,0,0,0,0,0,0,,,0
 13,81,Rodríguez,Bournemouth,FWD,Brighton,True,2026-12-02 20:15:00+00:00,6,0.2,a,1,0,0.02762,0.01025,0,0.02235,0,0.8613,0.8
@@ -1811,7 +1811,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 13,138,Kostoulas,Brighton,FWD,Bournemouth,False,2026-12-02 20:15:00+00:00,5.8,9.8,a,1,0.8939,0.2747,0.1055,0.1663,0.4269,0.005245,3.652,4.5
 13,139,Ferguson,Brighton,FWD,Bournemouth,False,2026-12-02 20:15:00+00:00,4.9,0,i,0,0,0,0,0,0,,,0
 13,328,Struijk,Brighton,DEF,Bournemouth,False,2026-12-02 20:15:00+00:00,4.9,0.1,i,1,0.08919,0.01124,0.006846,0.0166,0.01884,0.06519,0.4753,0
-13,504,Vuskovic,Brighton,DEF,Bournemouth,False,2026-12-02 20:15:00+00:00,5.3,9.3,a,1,1,0.1186,0.02923,0.1861,0.2372,,,7.5
+13,504,Vuskovic,Brighton,DEF,Bournemouth,False,2026-12-02 20:15:00+00:00,5.3,9.4,a,1,1,0.1186,0.02923,0.1861,0.2372,,,7.5
 13,594,David,Brighton,FWD,Bournemouth,False,2026-12-02 20:15:00+00:00,5.9,0.2,a,1,0,0.003721,0.001075,0,0.003753,0,0.02186,0
 13,600,Osman,Brighton,MID,Bournemouth,False,2026-12-02 20:15:00+00:00,4.9,0,a,1,0,0.001475,0.001296,0,0,0,0.08626,0
 13,605,Yalcouyé,Brighton,MID,Bournemouth,False,2026-12-02 20:15:00+00:00,4.4,2.7,a,1,0.1381,0.05478,0.0532,0.02569,0.05267,,,1
@@ -1830,7 +1830,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 13,89,Henry,Brentford,DEF,Arsenal,True,2026-12-02 20:15:00+00:00,4.4,0.1,i,0,0,0,0,0,0,0,0,0
 13,90,Hickey,Brentford,DEF,Arsenal,True,2026-12-02 20:15:00+00:00,4.5,0.1,a,1,0.225,0.01612,0.01727,0.04783,0.03501,0.0693,1.276,0.8
 13,92,Ji-soo,Brentford,DEF,Arsenal,True,2026-12-02 20:15:00+00:00,4.4,0,a,1,0,0,0,0,0,,,0
-13,93,Schuster,Brentford,DEF,Arsenal,True,2026-12-02 20:15:00+00:00,4.5,0.4,a,1,0.2273,0.009571,0.03604,0.04831,0.0585,0.2885,1.123,0
+13,93,Schuster,Brentford,DEF,Arsenal,True,2026-12-02 20:15:00+00:00,4.5,0.4,a,1,0.2273,0.009572,0.03604,0.04831,0.0585,0.2885,1.123,0
 13,94,Schade,Brentford,MID,Arsenal,True,2026-12-02 20:15:00+00:00,6.1,12.9,a,1,0.7678,0.1627,0.06906,0.1632,0.2462,0.03175,2.891,1.5
 13,95,O.Dango,Brentford,MID,Arsenal,True,2026-12-02 20:15:00+00:00,6.2,0.4,a,1,0.3284,0.09755,0.08649,0.06981,0.1371,0.0561,2.339,4.5
 13,96,Damsgaard,Brentford,MID,Arsenal,True,2026-12-02 20:15:00+00:00,5.3,0.3,a,1,0.1523,0.02097,0.05575,0.03237,0.0298,0.06337,1.232,0.8
@@ -2069,7 +2069,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 14,152,Palestra,Chelsea,DEF,Liverpool,True,2026-12-05 12:30:00+00:00,5.3,0.5,a,1,0.3905,0.0156,0.02024,0.07716,0.06167,0.1264,1.613,2.2
 14,154,Palmer,Chelsea,MID,Liverpool,True,2026-12-05 12:30:00+00:00,9.8,28.3,a,1,1,0.3063,0.1889,0.1976,0.5,0.1309,4.738,2.8
 14,156,Neto,Chelsea,MID,Liverpool,True,2026-12-05 12:30:00+00:00,6.6,5,a,1,1,0.1651,0.2112,0.1976,0.3366,0.1139,3.619,5.5
-14,157,Estêvão,Chelsea,MID,Liverpool,True,2026-12-05 12:30:00+00:00,6.3,0.8,a,1,0.1784,0.0728,0.06818,0.03525,0.09187,0.02557,1.773,1.2
+14,157,Estêvão,Chelsea,MID,Liverpool,True,2026-12-05 12:30:00+00:00,6.3,0.8,a,1,0.1784,0.0728,0.06818,0.03524,0.09187,0.02557,1.773,1.2
 14,158,Gittens,Chelsea,MID,Liverpool,True,2026-12-05 12:30:00+00:00,5.8,0,i,0,0,0,0,0,0,0,0,0
 14,159,Caicedo,Chelsea,MID,Liverpool,True,2026-12-05 12:30:00+00:00,5.3,1,a,1,0.7727,0.03104,0.06253,0.1527,0.09354,0.5286,2.451,2.8
 14,161,Lavia,Chelsea,MID,Liverpool,True,2026-12-05 12:30:00+00:00,5,0.2,a,1,0.4655,0.07678,0.07044,0.09198,0.1281,0.1684,2.21,2.8
@@ -2107,7 +2107,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 14,50,Burrowes,Aston Villa,MID,Crystal Palace,True,2026-12-05 15:00:00+00:00,4.4,0.5,a,1,0,0,0,0,0,,,0
 14,51,George Hemmings,Aston Villa,MID,Crystal Palace,True,2026-12-05 15:00:00+00:00,4.4,0.7,a,1,0.06307,0.03327,0.04318,0.01691,0.04389,,,0.2
 14,52,Alysson,Aston Villa,MID,Crystal Palace,True,2026-12-05 15:00:00+00:00,4.9,0.2,a,1,0.3905,0.1239,0.1202,0.1047,0.1947,,,4.8
-14,53,Manzambi,Aston Villa,MID,Crystal Palace,True,2026-12-05 15:00:00+00:00,6.2,8.6,d,1,0.8619,0.3129,0.2489,0.2311,0.5262,0.103,4.821,3.9
+14,53,Manzambi,Aston Villa,MID,Crystal Palace,True,2026-12-05 15:00:00+00:00,6.2,8.6,d,1,0.8619,0.3129,0.2489,0.231,0.5262,0.103,4.821,3.9
 14,54,Gomes,Aston Villa,MID,Crystal Palace,True,2026-12-05 15:00:00+00:00,5.5,0.1,a,1,0.4714,0.0459,0.08695,0.1264,0.09212,0.3787,2.295,2.2
 14,55,Watkins,Aston Villa,FWD,Crystal Palace,True,2026-12-05 15:00:00+00:00,7.8,2.2,u,0,0,0,0,0,0,0,0,0
 14,56,Abraham,Aston Villa,FWD,Crystal Palace,True,2026-12-05 15:00:00+00:00,5.5,0.2,a,1,0,0.02854,0.00681,0,0.03523,0,0.3971,0
@@ -2229,10 +2229,10 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 14,617,Cho,Hull,MID,Bournemouth,False,2026-12-05 15:00:00+00:00,5,0,a,1,0,0.04839,0.04722,0,0.0422,0,1.194,0.8
 14,632,Ansah,Hull,FWD,Bournemouth,False,2026-12-05 15:00:00+00:00,4.9,0,i,0,0,0,0,0,0,0,0,0
 14,637,Vaz,Hull,FWD,Bournemouth,False,2026-12-05 15:00:00+00:00,5,0.1,a,1,0,0.009661,0.004456,0,0,0,0.5984,0.5
-14,638,Norton-Cuffy,Hull,DEF,Bournemouth,False,2026-12-05 15:00:00+00:00,3.9,0.4,a,1,0.1261,0.0118,0.01029,0.01787,0.01151,0.05102,0.6931,1
+14,638,Norton-Cuffy,Hull,DEF,Bournemouth,False,2026-12-05 15:00:00+00:00,3.9,0.4,a,1,0.1261,0.0118,0.01029,0.01787,0.01151,0.05102,0.693,1
 14,642,Thomas,Hull,MID,Bournemouth,False,2026-12-05 15:00:00+00:00,5.5,0,a,1,0.3214,0.01756,0.05576,0.04554,0.05214,0.05759,1.191,0.5
 14,645,Mouzakitis,Hull,MID,Bournemouth,False,2026-12-05 15:00:00+00:00,5,0,a,1,0,0.002724,0.002745,0,0,0,0.234,0.2
-14,260,Wilson,Leeds,MID,Ipswich,True,2026-12-05 15:00:00+00:00,6.1,1.1,a,1,0.3284,0.08911,0.1287,0.122,0.1562,0.03245,2.192,1.5
+14,260,Wilson,Leeds,MID,Ipswich,True,2026-12-05 15:00:00+00:00,6.1,1.1,a,1,0.3284,0.08911,0.1287,0.1219,0.1562,0.03245,2.192,1.5
 14,326,Perri,Leeds,GKP,Ipswich,True,2026-12-05 15:00:00+00:00,4.5,0.3,u,0,0,0,0,0,0,0,0,0
 14,327,Bijol,Leeds,DEF,Ipswich,True,2026-12-05 15:00:00+00:00,5,0.5,a,1,0.15,0.009687,0.01937,0.05571,0.05053,0.1608,0.9706,2
 14,329,Rodon,Leeds,DEF,Ipswich,True,2026-12-05 15:00:00+00:00,4.2,0.4,a,1,0,0.0001835,0.0001366,0,0,0,0.213,0.2
@@ -2353,7 +2353,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 14,185,Sakamoto,Coventry,MID,Manchester United,False,2026-12-05 15:00:00+00:00,4.8,0.1,a,1,0.6667,0.05715,0.04757,0.08349,0.1111,0.1024,1.986,3
 14,186,Mason-Clark,Coventry,MID,Manchester United,False,2026-12-05 15:00:00+00:00,5.3,0.1,a,1,0.1691,0.02334,0.02705,0.02118,0.02477,0.03637,1.059,0.5
 14,187,Eccles,Coventry,MID,Manchester United,False,2026-12-05 15:00:00+00:00,4.8,0,i,0,0,0,0,0,0,0,0,0
-14,188,Torp,Coventry,MID,Manchester United,False,2026-12-05 15:00:00+00:00,5.3,0.1,a,1,0.3905,0.03084,0.07676,0.04891,0.07884,0.2402,1.536,2
+14,188,Torp,Coventry,MID,Manchester United,False,2026-12-05 15:00:00+00:00,5.3,0.1,a,1,0.3905,0.03083,0.07676,0.04891,0.07884,0.2402,1.536,2
 14,189,Shepherd,Coventry,MID,Manchester United,False,2026-12-05 15:00:00+00:00,4.4,0.2,a,1,0,0,0,0,0,0,0,0
 14,190,Tchaouna,Coventry,MID,Manchester United,False,2026-12-05 15:00:00+00:00,5.3,0.1,a,1,0,0.007145,0.008497,0,0,0,0.4256,0.2
 14,191,Borges Rodrigues,Coventry,MID,Manchester United,False,2026-12-05 15:00:00+00:00,4.5,0.1,u,0,0,0,0,0,0,0,0,0
@@ -2386,7 +2386,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 14,478,Netz,Nottingham Forest,DEF,Brighton,True,2026-12-05 17:30:00+00:00,4.4,0,a,1,0,0.002586,0.004305,0,0,0,0.2307,0.2
 14,479,Bindon,Nottingham Forest,DEF,Brighton,True,2026-12-05 17:30:00+00:00,4,0.1,u,0,0,0,0,0,0,0,0,0
 14,480,Gibbs-White,Nottingham Forest,MID,Brighton,True,2026-12-05 17:30:00+00:00,7.8,9.3,a,1,0.8739,0.2593,0.2199,0.2058,0.4515,0.06147,4.422,2.2
-14,482,Hudson-Odoi,Nottingham Forest,MID,Brighton,True,2026-12-05 17:30:00+00:00,5.7,0.1,a,1,0,0.01125,0.01383,0,0.000612,0,0.4806,0.5
+14,482,Hudson-Odoi,Nottingham Forest,MID,Brighton,True,2026-12-05 17:30:00+00:00,5.7,0.1,a,1,0,0.01125,0.01383,0,0.0006121,0,0.4806,0.5
 14,483,Ndoye,Nottingham Forest,MID,Brighton,True,2026-12-05 17:30:00+00:00,5.5,0.5,a,1,0.6356,0.1558,0.1599,0.1497,0.2692,0.04555,3.072,1.8
 14,484,Hutchinson,Nottingham Forest,MID,Brighton,True,2026-12-05 17:30:00+00:00,5.4,0.1,u,0,0,0,0,0,0,0,0,0
 14,485,Bakwa,Nottingham Forest,MID,Brighton,True,2026-12-05 17:30:00+00:00,5.5,0,u,0,0,0,0,0,0,0,0,0
@@ -2428,7 +2428,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 14,138,Kostoulas,Brighton,FWD,Nottingham Forest,False,2026-12-05 17:30:00+00:00,5.8,9.8,a,1,0.8939,0.2823,0.1084,0.2079,0.4389,0.005245,3.703,4.5
 14,139,Ferguson,Brighton,FWD,Nottingham Forest,False,2026-12-05 17:30:00+00:00,4.9,0,i,0,0,0,0,0,0,,,0
 14,328,Struijk,Brighton,DEF,Nottingham Forest,False,2026-12-05 17:30:00+00:00,4.9,0.1,i,1,0.08919,0.01155,0.007035,0.02074,0.02174,0.06519,0.5143,0
-14,504,Vuskovic,Brighton,DEF,Nottingham Forest,False,2026-12-05 17:30:00+00:00,5.3,9.3,a,1,1,0.1219,0.03003,0.2326,0.2686,,,7.5
+14,504,Vuskovic,Brighton,DEF,Nottingham Forest,False,2026-12-05 17:30:00+00:00,5.3,9.4,a,1,1,0.1219,0.03003,0.2326,0.2686,,,7.5
 14,594,David,Brighton,FWD,Nottingham Forest,False,2026-12-05 17:30:00+00:00,5.9,0.2,a,1,0,0.003824,0.001105,0,0.003903,0,0.02251,0
 14,600,Osman,Brighton,MID,Nottingham Forest,False,2026-12-05 17:30:00+00:00,4.9,0,a,1,0,0.001515,0.001332,0,0,0,0.08658,0
 14,605,Yalcouyé,Brighton,MID,Nottingham Forest,False,2026-12-05 17:30:00+00:00,4.4,2.7,a,1,0.1381,0.0563,0.05467,0.03211,0.05503,,,1
@@ -2462,7 +2462,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 14,408,Phillips,Manchester City,MID,Brentford,False,2026-12-05 20:00:00+00:00,5,0,u,0,0,0,0,0,0,,,0
 14,409,Mukasa,Manchester City,MID,Brentford,False,2026-12-05 20:00:00+00:00,4.5,0.1,u,0,0,0,0,0,0,,,0
 14,410,Monga,Manchester City,MID,Brentford,False,2026-12-05 20:00:00+00:00,4.9,0,u,0,0,0,0,0,0,0,0,0
-14,411,Haaland,Manchester City,FWD,Brentford,False,2026-12-05 20:00:00+00:00,15.8,78.9,a,1,1,0.5907,0.1501,0.2238,0.8818,0.002387,5.697,6.2
+14,411,Haaland,Manchester City,FWD,Brentford,False,2026-12-05 20:00:00+00:00,15.8,78.8,a,1,1,0.5907,0.1501,0.2238,0.8818,0.002387,5.697,6.2
 14,481,Anderson,Manchester City,MID,Brentford,False,2026-12-05 20:00:00+00:00,6.2,3.6,a,1,0.8739,0.07512,0.1885,0.1956,0.2036,0.9476,4.012,2
 14,587,Rulli,Manchester City,GKP,Brentford,False,2026-12-05 20:00:00+00:00,4.9,0,a,1,0,0,0,0,0,0,0,0
 14,616,Bouaddi,Manchester City,MID,Brentford,False,2026-12-05 20:00:00+00:00,5.5,0.2,a,1,0.1261,0.01809,0.02298,0.02823,0.01926,0.0339,0.7345,0.8
@@ -2772,7 +2772,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 15,323,McAteer,Ipswich,MID,Newcastle United,True,2026-12-12 15:00:00+00:00,4.3,0.9,a,1,0,0.001042,0.001008,0,0,0,0.0713,0
 15,324,Mehmeti,Ipswich,MID,Newcastle United,True,2026-12-12 15:00:00+00:00,4.7,0,a,1,0,0,0,0,0,0,0,0
 15,554,Van Oevelen,Ipswich,GKP,Newcastle United,True,2026-12-12 15:00:00+00:00,4.5,0,u,0,0,0,0,0,0,0,0,0
-15,562,Maeda,Ipswich,MID,Newcastle United,True,2026-12-12 15:00:00+00:00,5.3,0.2,a,1,0.5074,0.09282,0.03415,0.0918,0.1221,0.06061,2.348,2.8
+15,562,Maeda,Ipswich,MID,Newcastle United,True,2026-12-12 15:00:00+00:00,5.3,0.2,a,1,0.5074,0.09282,0.03415,0.09179,0.1221,0.06061,2.348,2.8
 15,564,Scherpen,Ipswich,GKP,Newcastle United,True,2026-12-12 15:00:00+00:00,4.4,0.5,a,1,0.1381,0,0.0008751,0.02498,0.04647,0,0.3585,0
 15,571,Florentino,Ipswich,MID,Newcastle United,True,2026-12-12 15:00:00+00:00,4.8,0.1,a,1,0.7727,0.05929,0.04759,0.1398,0.1132,0.6766,3.078,4
 15,591,Enciso,Ipswich,MID,Newcastle United,True,2026-12-12 15:00:00+00:00,5.5,1.1,a,1,1,0.2143,0.2587,0.1809,0.4202,,,5.2
@@ -2855,7 +2855,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 15,327,Bijol,Leeds,DEF,Liverpool,False,2026-12-12 15:00:00+00:00,5,0.5,a,1,0.15,0.004708,0.009414,0.02696,0.02144,0.1608,0.7079,2
 15,329,Rodon,Leeds,DEF,Liverpool,False,2026-12-12 15:00:00+00:00,4.2,0.4,a,1,0,8.917e-05,6.637e-05,0,0,0,0.2114,0.2
 15,330,Bogle,Leeds,DEF,Liverpool,False,2026-12-12 15:00:00+00:00,4.8,11.2,a,1,1,0.06904,0.0759,0.1797,0.2173,0.1269,2.822,3.8
-15,331,Gudmundsson,Leeds,DEF,Liverpool,False,2026-12-12 15:00:00+00:00,4.5,0.1,d,1,0.7879,0.01608,0.06741,0.1416,0.1334,0.1188,2.269,1.9
+15,331,Gudmundsson,Leeds,DEF,Liverpool,False,2026-12-12 15:00:00+00:00,4.5,0.1,d,1,0.7879,0.01607,0.06741,0.1416,0.1334,0.1188,2.269,1.9
 15,332,Justin,Leeds,DEF,Liverpool,False,2026-12-12 15:00:00+00:00,4.5,2.4,a,1,1,0.06143,0.1147,0.1797,0.2373,0.5051,3.469,4.8
 15,333,Bornauw,Leeds,DEF,Liverpool,False,2026-12-12 15:00:00+00:00,4.5,0,u,0,0,0,0,0,0,0,0,0
 15,334,Muharemović,Leeds,DEF,Liverpool,False,2026-12-12 15:00:00+00:00,5.1,6.4,a,1,1,0.05543,0.1055,0.1797,0.2249,1.201,4.072,6.8
@@ -2942,7 +2942,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 15,408,Phillips,Manchester City,MID,Chelsea,True,2026-12-12 17:30:00+00:00,5,0,u,0,0,0,0,0,0,,,0
 15,409,Mukasa,Manchester City,MID,Chelsea,True,2026-12-12 17:30:00+00:00,4.5,0.1,u,0,0,0,0,0,0,,,0
 15,410,Monga,Manchester City,MID,Chelsea,True,2026-12-12 17:30:00+00:00,4.9,0,u,0,0,0,0,0,0,0,0,0
-15,411,Haaland,Manchester City,FWD,Chelsea,True,2026-12-12 17:30:00+00:00,15.8,78.9,a,1,1,0.7836,0.1992,0.2827,1.163,0.002387,6.897,6.2
+15,411,Haaland,Manchester City,FWD,Chelsea,True,2026-12-12 17:30:00+00:00,15.8,78.8,a,1,1,0.7836,0.1992,0.2827,1.163,0.002387,6.897,6.2
 15,481,Anderson,Manchester City,MID,Chelsea,True,2026-12-12 17:30:00+00:00,6.2,3.6,a,1,0.8739,0.09966,0.2501,0.247,0.2614,0.9476,4.428,2
 15,587,Rulli,Manchester City,GKP,Chelsea,True,2026-12-12 17:30:00+00:00,4.9,0,a,1,0,0,0,0,0,0,0,0
 15,616,Bouaddi,Manchester City,MID,Chelsea,True,2026-12-12 17:30:00+00:00,5.5,0.2,a,1,0.1261,0.024,0.03048,0.03566,0.02986,0.0339,0.8046,0.8
@@ -2976,14 +2976,14 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 15,25,Gyökeres,Arsenal,FWD,Bournemouth,True,2026-12-13 14:00:00+00:00,7,3,a,1,0.15,0.1158,0.06183,0.0558,0.1602,0.0007041,1.884,2
 15,26,Havertz,Arsenal,FWD,Bournemouth,True,2026-12-13 14:00:00+00:00,7.4,6,a,1,0.85,0.3147,0.1056,0.3162,0.4831,0.004127,3.838,3.5
 15,27,G.Jesus,Arsenal,FWD,Bournemouth,True,2026-12-13 14:00:00+00:00,5.9,0.1,u,0,0,0,0,0,0,0,0,0
-15,31,Konsa,Arsenal,DEF,Bournemouth,True,2026-12-13 14:00:00+00:00,4.8,24.6,a,1,1,0.06329,0.02737,0.372,0.2913,0.4506,4.413,10.2
+15,31,Konsa,Arsenal,DEF,Bournemouth,True,2026-12-13 14:00:00+00:00,4.8,24.6,a,1,1,0.06329,0.02737,0.372,0.2912,0.4506,4.413,10.2
 15,452,Bruno G.,Arsenal,MID,Bournemouth,True,2026-12-13 14:00:00+00:00,6.7,2.2,a,1,0.5167,0.1135,0.09372,0.1922,0.1768,0.161,2.832,2.5
 15,557,Tzolis,Arsenal,MID,Bournemouth,True,2026-12-13 14:00:00+00:00,6.1,3.9,a,1,0.6178,0.0484,0.1157,0.2298,0.1316,0.07379,2.197,1.5
 15,57,Petrović,Bournemouth,GKP,Arsenal,False,2026-12-13 14:00:00+00:00,4.5,3.2,a,1,1,0,0.001018,0.1731,0,0,2.218,5.2
 15,58,Forster,Bournemouth,GKP,Arsenal,False,2026-12-13 14:00:00+00:00,4,3.4,a,1,0,0,0,0,0,0,0,0
 15,59,Dennis,Bournemouth,GKP,Arsenal,False,2026-12-13 14:00:00+00:00,4,0.1,u,0,0,0,0,0,0,0,0,0
 15,60,Hill,Bournemouth,DEF,Arsenal,False,2026-12-13 14:00:00+00:00,5.6,3,a,1,1,0.01707,0.04953,0.1731,0.143,1.127,3.504,7
-15,61,Truffert,Bournemouth,DEF,Arsenal,False,2026-12-13 14:00:00+00:00,5.4,3.3,a,1,1,0.02668,0.0919,0.1731,0.1827,0.4881,3.001,6
+15,61,Truffert,Bournemouth,DEF,Arsenal,False,2026-12-13 14:00:00+00:00,5.4,3.3,a,1,1,0.02668,0.09191,0.1731,0.1827,0.4881,3.001,6
 15,62,Diakité,Bournemouth,DEF,Arsenal,False,2026-12-13 14:00:00+00:00,4.9,0.1,a,1,0,0.0005777,0.0009313,0,0,0,0.6499,1
 15,63,Milosavljević,Bournemouth,DEF,Arsenal,False,2026-12-13 14:00:00+00:00,4.9,0,i,1,0,0,0,0,0,0,0,0
 15,64,Smith,Bournemouth,DEF,Arsenal,False,2026-12-13 14:00:00+00:00,4.5,0.2,a,1,1,0.02004,0.02729,0.1731,0.1302,0.08746,2.177,4.8
@@ -3036,7 +3036,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 15,138,Kostoulas,Brighton,FWD,Everton,True,2026-12-13 14:00:00+00:00,5.8,9.8,a,1,0.8939,0.3647,0.14,0.3076,0.5632,0.005245,4.252,4.5
 15,139,Ferguson,Brighton,FWD,Everton,True,2026-12-13 14:00:00+00:00,4.9,0,i,0,0,0,0,0,0,,,0
 15,328,Struijk,Brighton,DEF,Everton,True,2026-12-13 14:00:00+00:00,4.9,0.1,i,1,0.08919,0.01492,0.009088,0.03069,0.03246,0.06519,0.6202,0
-15,504,Vuskovic,Brighton,DEF,Everton,True,2026-12-13 14:00:00+00:00,5.3,9.3,a,1,1,0.1575,0.0388,0.3441,0.3764,,,7.5
+15,504,Vuskovic,Brighton,DEF,Everton,True,2026-12-13 14:00:00+00:00,5.3,9.4,a,1,1,0.1575,0.0388,0.3441,0.3764,,,7.5
 15,594,David,Brighton,FWD,Everton,True,2026-12-13 14:00:00+00:00,5.9,0.2,a,1,0,0.004939,0.001428,0,0.005532,0,0.02957,0
 15,600,Osman,Brighton,MID,Everton,True,2026-12-13 14:00:00+00:00,4.9,0,a,1,0,0.001958,0.001721,0,0,0,0.08995,0
 15,605,Yalcouyé,Brighton,MID,Everton,True,2026-12-13 14:00:00+00:00,4.4,2.7,a,1,0.1381,0.07273,0.07062,0.04751,0.08233,,,1
@@ -3064,7 +3064,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 15,243,Alcaraz,Everton,MID,Brighton,False,2026-12-13 14:00:00+00:00,4.8,0.1,a,1,0,0.002036,0.001901,0,0,0,0.4841,0.5
 15,244,Armstrong,Everton,MID,Brighton,False,2026-12-13 14:00:00+00:00,5,0.3,a,1,1,0.06599,0.08768,0.1544,0.1574,0.3919,3.018,2.5
 15,245,Dibling,Everton,MID,Brighton,False,2026-12-13 14:00:00+00:00,5.3,0,a,1,0.2121,0.02322,0.03294,0.03275,0.03366,0.08804,1.139,0.8
-15,246,Röhl,Everton,MID,Brighton,False,2026-12-13 14:00:00+00:00,4.9,0,a,1,0.7297,0.03601,0.05691,0.1127,0.09656,0.1165,2.073,2.2
+15,246,Röhl,Everton,MID,Brighton,False,2026-12-13 14:00:00+00:00,4.9,0,a,1,0.7297,0.03601,0.05692,0.1127,0.09656,0.1165,2.073,2.2
 15,247,Hackney,Everton,MID,Brighton,False,2026-12-13 14:00:00+00:00,5.3,0.1,a,1,0,0.008594,0.01016,0,0,0,0.9473,0.8
 15,248,Beto,Everton,FWD,Brighton,False,2026-12-13 14:00:00+00:00,5.4,0.4,u,0,0,0,0,0,0,0,0,0
 15,249,Barry,Everton,FWD,Brighton,False,2026-12-13 14:00:00+00:00,5.7,10.7,a,1,1,0.4127,0.04955,0.1544,0.6073,0.003129,4.41,7.2
@@ -3292,7 +3292,7 @@ gw,element,web,club,pos,opp,home,kickoff,price,own,status,avail,p60,eg,ea,pcs,eb
 15,286,Belloumi,Hull,MID,Tottenham,True,2026-12-14 20:00:00+00:00,5.3,9.6,d,1,0.6068,0.1092,0.07076,0.1742,0.1771,0.3079,2.723,2.1
 15,287,Millar,Hull,MID,Tottenham,True,2026-12-14 20:00:00+00:00,5,0,u,0,0,0,0,0,0,0,0,0
 15,288,Dowell,Hull,MID,Tottenham,True,2026-12-14 20:00:00+00:00,4.3,0.2,a,1,0,0,0,0,0,0,0,0
-15,289,Crooks,Hull,MID,Tottenham,True,2026-12-14 20:00:00+00:00,4.4,0.5,a,1,0.3072,0.01681,0.02777,0.08818,0.02936,0.04718,0.7655,0.5
+15,289,Crooks,Hull,MID,Tottenham,True,2026-12-14 20:00:00+00:00,4.4,0.5,a,1,0.3072,0.01681,0.02777,0.08818,0.02936,0.04718,0.7654,0.5
 15,290,Slater,Hull,MID,Tottenham,True,2026-12-14 20:00:00+00:00,4.5,4.3,a,1,1,0.04511,0.1157,0.287,0.1408,0.0827,2.957,1.8
 15,291,Matazo,Hull,MID,Tottenham,True,2026-12-14 20:00:00+00:00,4.5,0,i,0,0,0,0,0,0,0,0,0
 15,292,Ömür,Hull,MID,Tottenham,True,2026-12-14 20:00:00+00:00,4.8,0,a,1,0,0,0,0,0,0,0,0
