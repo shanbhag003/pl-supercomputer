@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18T14:52:19",
+  "updated": "2026-11-19T14:58:09",
   "gameweek": 10,
   "matches_played": 100,
   "drift": 0.04,
@@ -19,7 +19,7 @@
     "Chelsea": -0.281,
     "Manchester United": -0.253,
     "Manchester City": -0.246,
-    "Leeds": -0.198,
+    "Leeds": -0.197,
     "Brentford": -0.178,
     "Arsenal": -0.157,
     "Crystal Palace": -0.14,
@@ -28,7 +28,7 @@
     "Aston Villa": -0.12,
     "Brighton": -0.098,
     "Liverpool": -0.097,
-    "Sunderland": -0.004,
+    "Sunderland": -0.035,
     "Coventry": 0.0,
     "Hull": 0.0,
     "Ipswich": 0.0,
@@ -51,37 +51,37 @@
   "biggest_moves": [
     {
       "team": "Nottingham Forest",
-      "d_xPts": 3.54,
+      "d_xPts": 3.56,
       "d_title": 0.03,
-      "d_releg": -5.35,
+      "d_releg": -5.36,
       "reason": "beat Manchester City 3-1 at home"
     },
     {
       "team": "Manchester City",
       "d_xPts": -3.41,
-      "d_title": -12.19,
-      "d_releg": 0.01,
+      "d_title": -12.21,
+      "d_releg": 0.0,
       "reason": "lost 1-3 away at Nottingham Forest"
     },
     {
       "team": "Sunderland",
-      "d_xPts": 2.54,
+      "d_xPts": 2.39,
       "d_title": 0.0,
-      "d_releg": -13.62,
+      "d_releg": -13.18,
       "reason": "beat Chelsea 1-0 at home"
     },
     {
       "team": "Chelsea",
       "d_xPts": -2.32,
       "d_title": -0.34,
-      "d_releg": 0.5,
+      "d_releg": 0.49,
       "reason": "lost 0-1 away at Sunderland"
     },
     {
       "team": "Coventry",
-      "d_xPts": -2.32,
+      "d_xPts": -2.31,
       "d_title": 0.0,
-      "d_releg": 13.35,
+      "d_releg": 13.33,
       "reason": "lost 1-3 away at Everton"
     }
   ],
