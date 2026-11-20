@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20T17:24:02",
+  "updated": "2026-11-20T22:26:59",
   "gameweek": 10,
   "matches_played": 100,
   "drift": 0.04,
@@ -17,7 +17,7 @@
   "squad_delta": {
     "Newcastle United": -0.354,
     "Chelsea": -0.281,
-    "Manchester United": -0.253,
+    "Manchester United": -0.254,
     "Manchester City": -0.246,
     "Leeds": -0.197,
     "Brentford": -0.19,
@@ -67,7 +67,7 @@
       "team": "Sunderland",
       "d_xPts": 2.4,
       "d_title": 0.0,
-      "d_releg": -13.2,
+      "d_releg": -13.19,
       "reason": "beat Chelsea 1-0 at home"
     },
     {
