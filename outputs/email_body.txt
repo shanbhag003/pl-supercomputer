@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 10  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Arsenal are favourites for the title, with a 70.3% chance.
+Arsenal are favourites for the title, with a 70.2% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,12 +9,12 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Arsenal                   81    70.3%    98.4%
+1  Arsenal                   81    70.2%    98.4%
 2  Manchester City           72    15.1%    84.3%
-3  Brighton                  70     9.4%    76.7%
-4  Liverpool                 66     3.3%    58.5%
+3  Brighton                  70     9.4%    76.8%
+4  Liverpool                 66     3.3%    58.4%
 5  Bournemouth               62     1.2%    32.5%
-6  Chelsea                   56     0.3%    13.8%
+6  Chelsea                   56     0.3%    13.9%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
@@ -30,10 +30,10 @@ WHAT CHANGED SINCE LAST GAMEWEEK
       lost 1-3 away at Nottingham Forest
   Sunderland: 2.4 expected points up, relegation risk -13.2 points
       beat Chelsea 1-0 at home
-  Brighton: 2.3 expected points up, title chance +3.4 points
-      beat Brentford 2-0 at home
   Chelsea: 2.3 expected points down, title chance -0.3 points, relegation risk +0.5 points
       lost 0-1 away at Sunderland
+  Brighton: 2.3 expected points up, title chance +3.4 points
+      beat Brentford 2-0 at home
 
   Numbers move for three reasons: results, how well teams
   actually played underneath those results, and any change

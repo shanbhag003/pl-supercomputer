@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20T22:26:59",
+  "updated": "2026-11-21T13:57:06",
   "gameweek": 10,
   "matches_played": 100,
   "drift": 0.04,
@@ -18,7 +18,7 @@
     "Newcastle United": -0.354,
     "Chelsea": -0.281,
     "Manchester United": -0.254,
-    "Manchester City": -0.246,
+    "Manchester City": -0.244,
     "Leeds": -0.197,
     "Brentford": -0.19,
     "Arsenal": -0.168,
@@ -53,7 +53,7 @@
       "team": "Nottingham Forest",
       "d_xPts": 3.54,
       "d_title": 0.03,
-      "d_releg": -5.3,
+      "d_releg": -5.31,
       "reason": "beat Manchester City 3-1 at home"
     },
     {
@@ -67,22 +67,22 @@
       "team": "Sunderland",
       "d_xPts": 2.4,
       "d_title": 0.0,
-      "d_releg": -13.19,
+      "d_releg": -13.22,
       "reason": "beat Chelsea 1-0 at home"
-    },
-    {
-      "team": "Brighton",
-      "d_xPts": 2.31,
-      "d_title": 3.37,
-      "d_releg": 0.0,
-      "reason": "beat Brentford 2-0 at home"
     },
     {
       "team": "Chelsea",
       "d_xPts": -2.31,
       "d_title": -0.33,
-      "d_releg": 0.47,
+      "d_releg": 0.46,
       "reason": "lost 0-1 away at Sunderland"
+    },
+    {
+      "team": "Brighton",
+      "d_xPts": 2.31,
+      "d_title": 3.44,
+      "d_releg": 0.0,
+      "reason": "beat Brentford 2-0 at home"
     }
   ],
   "model_note": null
