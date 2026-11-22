@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-21T13:57:06",
+  "updated": "2026-11-22T13:50:41",
   "gameweek": 10,
   "matches_played": 100,
   "drift": 0.04,
@@ -16,12 +16,12 @@
   ],
   "squad_delta": {
     "Newcastle United": -0.354,
-    "Chelsea": -0.281,
+    "Chelsea": -0.283,
     "Manchester United": -0.254,
     "Manchester City": -0.244,
     "Leeds": -0.197,
     "Brentford": -0.19,
-    "Arsenal": -0.168,
+    "Arsenal": -0.17,
     "Crystal Palace": -0.14,
     "Bournemouth": -0.133,
     "Aston Villa": -0.121,
@@ -53,34 +53,34 @@
       "team": "Nottingham Forest",
       "d_xPts": 3.54,
       "d_title": 0.03,
-      "d_releg": -5.31,
+      "d_releg": -5.29,
       "reason": "beat Manchester City 3-1 at home"
     },
     {
       "team": "Manchester City",
       "d_xPts": -3.39,
-      "d_title": -12.05,
+      "d_title": -11.98,
       "d_releg": 0.01,
       "reason": "lost 1-3 away at Nottingham Forest"
     },
     {
       "team": "Sunderland",
-      "d_xPts": 2.4,
+      "d_xPts": 2.41,
       "d_title": 0.0,
-      "d_releg": -13.22,
+      "d_releg": -13.21,
       "reason": "beat Chelsea 1-0 at home"
     },
     {
       "team": "Chelsea",
-      "d_xPts": -2.31,
+      "d_xPts": -2.32,
       "d_title": -0.33,
-      "d_releg": 0.46,
+      "d_releg": 0.47,
       "reason": "lost 0-1 away at Sunderland"
     },
     {
       "team": "Brighton",
-      "d_xPts": 2.31,
-      "d_title": 3.44,
+      "d_xPts": 2.3,
+      "d_title": 3.45,
       "d_releg": 0.0,
       "reason": "beat Brentford 2-0 at home"
     }
