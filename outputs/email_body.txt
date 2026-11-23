@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 10  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Arsenal are favourites for the title, with a 70.2% chance.
+Arsenal are favourites for the title, with a 68.5% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,31 +9,31 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Arsenal                   81    70.2%    98.4%
-2  Manchester City           72    15.2%    84.3%
-3  Brighton                  70     9.4%    76.8%
-4  Liverpool                 66     3.3%    58.5%
-5  Bournemouth               62     1.1%    32.5%
-6  Chelsea                   56     0.4%    13.8%
+1  Arsenal                   80    68.5%    97.9%
+2  Manchester City           70    12.5%    76.5%
+3  Liverpool                 69     9.7%    73.2%
+4  Brighton                  66     5.6%    59.2%
+5  Bournemouth               63     2.5%    42.6%
+6  Leeds                     58     0.6%    18.2%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Ipswich                 60.3%
-   Coventry                56.8%
-   Crystal Palace          54.4%
+   Ipswich                 72.1%
+   Crystal Palace          65.9%
+   Coventry                43.0%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
-  Nottingham Forest: 3.5 expected points up, relegation risk -5.3 points
-      beat Manchester City 3-1 at home
-  Manchester City: 3.4 expected points down, title chance -12.0 points
-      lost 1-3 away at Nottingham Forest
-  Sunderland: 2.4 expected points up, relegation risk -13.2 points
-      beat Chelsea 1-0 at home
-  Chelsea: 2.3 expected points down, title chance -0.3 points, relegation risk +0.5 points
-      lost 0-1 away at Sunderland
-  Brighton: 2.3 expected points up, title chance +3.5 points
-      beat Brentford 2-0 at home
+  Chelsea: 5.8 expected points down, title chance -0.6 points, relegation risk +2.3 points
+      lost 1-4 at home to Leeds
+  Manchester City: 5.7 expected points down, title chance -14.7 points
+      drew 1-1 at home to Fulham
+  Hull: 5.5 expected points up, relegation risk -24.2 points
+      beat Brighton 2-0 at home
+  Leeds: 5.4 expected points up, title chance +0.5 points, relegation risk -1.4 points
+      beat Chelsea 4-1 away
+  Liverpool: 4.9 expected points up, title chance +7.9 points
+      beat Manchester United 4-0 at home
 
   Numbers move for three reasons: results, how well teams
   actually played underneath those results, and any change
@@ -41,11 +41,11 @@ WHAT CHANGED SINCE LAST GAMEWEEK
 
 HOW ACCURATE HAS THIS BEEN?
 ----------------------------------------------------------
-  Matches predicted so far: 100
+  Matches predicted so far: 109
   Results called correctly: 46%
   Sharpness score: 0.207 (lower is better)
-  Bookmakers on the same matches: 0.206
-  So we are 0.6% behind the betting market.
+  Bookmakers on the same matches: 0.209
+  So we are 0.8% ahead of the betting market.
 
   Nothing here is graded with hindsight.
 
