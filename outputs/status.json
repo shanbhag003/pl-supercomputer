@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-24T16:46:35",
+  "updated": "2026-11-24T20:00:57",
   "gameweek": 11,
   "matches_played": 110,
   "drift": 0.04,
@@ -17,7 +17,7 @@
   "squad_delta": {
     "Newcastle United": -0.354,
     "Chelsea": -0.283,
-    "Manchester United": -0.254,
+    "Manchester United": -0.256,
     "Manchester City": -0.245,
     "Leeds": -0.197,
     "Brentford": -0.191,
@@ -53,12 +53,12 @@
       "team": "Hull",
       "d_xPts": 5.48,
       "d_title": 0.0,
-      "d_releg": -22.98,
+      "d_releg": -22.97,
       "reason": "beat Brighton 2-0 at home"
     },
     {
       "team": "Brentford",
-      "d_xPts": 3.82,
+      "d_xPts": 3.81,
       "d_title": 0.97,
       "d_releg": -0.82,
       "reason": "beat Everton 4-0 at home"
@@ -67,12 +67,12 @@
       "team": "Everton",
       "d_xPts": -3.71,
       "d_title": -0.03,
-      "d_releg": 4.94,
+      "d_releg": 4.95,
       "reason": "lost 0-4 away at Brentford"
     },
     {
       "team": "Leeds",
-      "d_xPts": 3.66,
+      "d_xPts": 3.67,
       "d_title": 0.48,
       "d_releg": -0.64,
       "reason": "beat Chelsea 4-1 away"
@@ -80,7 +80,7 @@
     {
       "team": "Brighton",
       "d_xPts": -3.52,
-      "d_title": -3.56,
+      "d_title": -3.55,
       "d_releg": 0.01,
       "reason": "lost 0-2 away at Hull"
     }
