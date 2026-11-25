@@ -1,7 +1,7 @@
 PREMIER LEAGUE PREDICTIONS — AFTER GAMEWEEK 11  ·  TEAM NEWS UPDATE
 ==========================================================
 
-Arsenal are favourites for the title, with a 68.3% chance.
+Arsenal are favourites for the title, with a 68.4% chance.
 
 We simulated the rest of the season 20,000 times. These are the
 percentages of those runs in which each thing happened.
@@ -9,24 +9,24 @@ percentages of those runs in which each thing happened.
 TOP OF THE TABLE
 ----------------------------------------------------------
    TEAM                  POINTS    TITLE    TOP 4
-1  Arsenal                   80    68.3%    97.8%
-2  Manchester City           70    12.2%    74.8%
-3  Liverpool                 69     9.5%    72.5%
-4  Brighton                  66     5.5%    57.9%
+1  Arsenal                   80    68.4%    97.8%
+2  Manchester City           70    12.2%    74.9%
+3  Liverpool                 69     9.4%    72.0%
+4  Brighton                  66     5.5%    58.1%
 5  Bournemouth               63     2.4%    40.9%
 6  Brentford                 59     1.2%    21.8%
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
    Ipswich                 72.2%
-   Crystal Palace          65.6%
+   Crystal Palace          65.7%
    Coventry                43.8%
 
 WHAT CHANGED SINCE LAST GAMEWEEK
 ----------------------------------------------------------
   Hull: 5.5 expected points up, relegation risk -23.0 points
       beat Brighton 2-0 at home
-  Brentford: 3.8 expected points up, title chance +1.0 points, relegation risk -0.8 points
+  Brentford: 3.8 expected points up, title chance +0.9 points, relegation risk -0.8 points
       beat Everton 4-0 at home
   Everton: 3.7 expected points down, relegation risk +4.9 points
       lost 0-4 away at Brentford
