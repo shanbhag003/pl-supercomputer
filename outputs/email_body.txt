@@ -18,7 +18,7 @@ TOP OF THE TABLE
 
 MOST LIKELY TO GO DOWN
 ----------------------------------------------------------
-   Ipswich                 72.1%
+   Ipswich                 72.2%
    Crystal Palace          65.6%
    Coventry                43.8%
 
@@ -28,11 +28,11 @@ WHAT CHANGED SINCE LAST GAMEWEEK
       beat Brighton 2-0 at home
   Brentford: 3.8 expected points up, title chance +1.0 points, relegation risk -0.8 points
       beat Everton 4-0 at home
-  Everton: 3.7 expected points down, relegation risk +5.0 points
+  Everton: 3.7 expected points down, relegation risk +4.9 points
       lost 0-4 away at Brentford
   Leeds: 3.7 expected points up, title chance +0.5 points, relegation risk -0.6 points
       beat Chelsea 4-1 away
-  Brighton: 3.5 expected points down, title chance -3.5 points
+  Brighton: 3.5 expected points down, title chance -3.6 points
       lost 0-2 away at Hull
 
   Numbers move for three reasons: results, how well teams
