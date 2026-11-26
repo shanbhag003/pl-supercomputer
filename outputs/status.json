@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25T16:32:58",
+  "updated": "2026-11-26T16:06:15",
   "gameweek": 11,
   "matches_played": 110,
   "drift": 0.04,
@@ -16,23 +16,23 @@
   ],
   "squad_delta": {
     "Newcastle United": -0.354,
-    "Chelsea": -0.283,
+    "Chelsea": -0.282,
     "Manchester United": -0.256,
     "Manchester City": -0.245,
     "Leeds": -0.197,
     "Brentford": -0.191,
     "Arsenal": -0.173,
-    "Crystal Palace": -0.14,
+    "Crystal Palace": -0.141,
     "Bournemouth": -0.133,
     "Aston Villa": -0.118,
     "Everton": -0.118,
-    "Liverpool": -0.113,
+    "Liverpool": -0.114,
     "Brighton": -0.08,
     "Sunderland": -0.036,
     "Coventry": 0.0,
     "Hull": 0.0,
     "Ipswich": 0.0,
-    "Nottingham Forest": 0.007,
+    "Nottingham Forest": 0.01,
     "Fulham": 0.051,
     "Tottenham": 0.129
   },
@@ -53,7 +53,7 @@
       "team": "Hull",
       "d_xPts": 5.47,
       "d_title": 0.0,
-      "d_releg": -22.98,
+      "d_releg": -23.01,
       "reason": "beat Brighton 2-0 at home"
     },
     {
@@ -67,19 +67,19 @@
       "team": "Everton",
       "d_xPts": -3.7,
       "d_title": -0.03,
-      "d_releg": 4.91,
+      "d_releg": 4.88,
       "reason": "lost 0-4 away at Brentford"
     },
     {
       "team": "Leeds",
       "d_xPts": 3.67,
-      "d_title": 0.48,
-      "d_releg": -0.64,
+      "d_title": 0.46,
+      "d_releg": -0.63,
       "reason": "beat Chelsea 4-1 away"
     },
     {
       "team": "Brighton",
-      "d_xPts": -3.51,
+      "d_xPts": -3.52,
       "d_title": -3.58,
       "d_releg": 0.01,
       "reason": "lost 0-2 away at Hull"
