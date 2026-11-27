@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-27T15:53:58",
+  "updated": "2026-11-27T18:32:16",
   "gameweek": 11,
   "matches_played": 110,
   "drift": 0.04,
@@ -23,7 +23,7 @@
     "Brentford": -0.191,
     "Arsenal": -0.171,
     "Crystal Palace": -0.141,
-    "Bournemouth": -0.133,
+    "Bournemouth": -0.134,
     "Aston Villa": -0.118,
     "Everton": -0.118,
     "Liverpool": -0.101,
@@ -53,7 +53,7 @@
       "team": "Hull",
       "d_xPts": 5.47,
       "d_title": 0.0,
-      "d_releg": -23.08,
+      "d_releg": -23.09,
       "reason": "beat Brighton 2-0 at home"
     },
     {

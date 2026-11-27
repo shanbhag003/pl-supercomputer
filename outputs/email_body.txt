@@ -11,7 +11,7 @@ TOP OF THE TABLE
    TEAM                  POINTS    TITLE    TOP 4
 1  Arsenal                   80    68.3%    97.8%
 2  Manchester City           70    12.2%    74.9%
-3  Liverpool                 69     9.6%    72.4%
+3  Liverpool                 69     9.6%    72.5%
 4  Brighton                  66     5.5%    58.0%
 5  Bournemouth               63     2.4%    40.9%
 6  Brentford                 59     1.2%    21.7%
